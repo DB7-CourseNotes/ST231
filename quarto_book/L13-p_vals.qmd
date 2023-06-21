@@ -1,0 +1,182 @@
+---
+title: "Tests of Significance"
+author: "Devan Becker"
+date: "June 21, 2023"
+execute:
+  echo: true
+---
+
+
+
+## Overview of Tests of Significance
+
+### Philosophy
+
+1. We start with a "null" hypothesis, $H_0$, which states that nothing "interesting" is going on.
+    - The mean is exactly what we guessed, $H_0: \mu = \mu_0$
+    - The effect of the drug is the same in both groups.
+    - Something something "same as" something something.
+2. We have an alternative hypothesis - things are different.
+    - $H_A: \mu > \mu_0$ (or $<$, or $\ne$)
+3. We do our study and get our mean (for now, assume $\sigma$ known)
+4. We check if our observed mean is "too unlikely" under the null.
+    - If the null hypothesis is true, is our observed mean preposterous?
+    - This is where the dreaded p-value comes in.
+5. We make a decision - reject or don't reject $H_0$ - based on our p-value.
+
+To summarize: We make a "guess" about the population. We collect data, and we determine whether or not our data is compatible with our guess. If it isn't, then it's the *guess* that must be wrong; not the data^[Unless it's a bad sample/study design].
+
+The assumptions are the same as the assumptions for CIs:
+
+- Normal population (or large sample size)
+- $\sigma$ known
+    - We will get away from this assumption later; for now it's nice to ease into the concepts.
+- Simple Random Sample (Independent Observations)
+
+
+## p-value by Example: Trailmaking Test for Fatigue
+
+The following image shows the output of a "trailmaking" app. Subjects are shown the numbers on a touch screen and are tasked with drawing a line^["trail"] starting at 1, then 2, and so on without touching the other numbers. The time is recorded.
+
+![](figs/Trails.jpg)
+
+In my research, this app was given to aerial forest fire fighters. Flying a plane is a very challenging task to begin with, made much more challenging when there's an active fire! The hypothesis is that pilots are measurably fatigued after a fire. However, this hypothesis must be converted into a mathematical construct that we can do something with!
+
+
+Pilots perform the test many times before a long flight and once after. In samples from the aerial firefighters who were non-fatigued, it was found that completion time follows a normal distribution with mean 15 seconds and standard deviation 1.2 seconds^[These numbers actually come from the data of pre-flight trails, but we're going to treat them as the population for now.]. We hypothesize that it took longer than that after the flight.
+\begin{align*}
+H_0: \mu &= 15\\
+H_A: \mu &> 15
+\end{align*}
+The hypotheses above are created entirely based on the research question. We can (must) write the hypothesis before collecting data. $\bar x$ does *NOT* appear in hypotheses. Instead, the "15"s and the ">" come from the hypotheses that fatigued pilots take *longer* than the population. 
+
+### Results
+
+We caclulated a mean of 15.9 seconds from 16 pilots. Is this slower than 15 seconds? Obviously, these numbers are different, but is this a big difference? To tell whether two numbers are "far apart", we need some sense of scale. In statistics, scale is given to us in the form of **variance**.
+
+The population standard deviation is given as 1.2 seconds. How many standard deviations away from the hypothesized value is our *sample* mean? Well, since it's a **SAMPLE MEAN**, the standard deviation is $1.2/\sqrt{16} = 0.3$ (again, this is also called the **standard error**). Our sample mean of 15.9 is 3 standard deviations^[15.9 is 3 steps of 0.3 above 15; (15.9 - 15)/0.3 = 3] *above* the hypothesized means.
+
+
+The **p-value** for this is the probability of observing a value at least as far from the hypothesized mean, assuming that the hypothesized mean is the true mean^[This is the definition. The description must always include the part about "assuming that the hypothesized value is the true value"].
+
+Our p-value is P(Z > 3) = 1 - P(Z < 3) = 0.0013^[We can only use a standard normal distrubution because the mean of the sampling distribution is assumed to be $\mu_0$, our hypothesized mean. If this weren't the case, then we would not get a standard normal distribution and thus we wouldn't be able to use this method. This is why the "assuming the null is true" bit is important.]. Is our sample mean "unlikely" assuming that the null hypothesis is true?
+
+The definition of "unlikely" will generally need to be given in the question. Usually, a **significance level** of $\alpha = 0.05$^[The symbol $\alpha$ refers to the significance level, but also comes up in a $(1-\alpha)$\%CI. Perhaps this is foreshadowing.] is used^[Please read the APA's statement on p-values, found on OWL. At least one short answer question will be based on this.].
+
+Since our p-value is 0.0013 < 0.05, our observed mean is "too unlikely." So our hypothesis must be wrong!^[Again: if our guess is incompatible with our data, then it's our guess that's wrong, not the data.] We conclude that the average time to complete the trail has increased, i.e. $\mu > 15$^[Notice how this conclusion brings back the context of the question.]. In this case, we say our result is **statistically significant**.
+
+### Summary
+
+From the question, we got our hypotheses:\vspace{-7mm}
+
+\begin{align*}
+H_0: &\mu = 15\\
+H_A: &\mu > 15
+\end{align*}
+
+We caclulated our **test statistic**^[Labelled $z_{obs}$.]:
+
+$$ z_{obs} = \frac{\bar x - \mu_0}{\sigma/\sqrt{n}}  = \frac{15.9 - 15}{1.2/\sqrt{16}} = 0.9/0.3 = 3$$
+
+We looked up P(Z > $z_{obs}$)^[We used $>$ rather than $<$ because $>$ appears in our alternate hypothesis.] on our z-table, which gave us the p-value of 0.0013.
+
+Since this is a small probability (our p-value is less than our significance value of $\alpha = 0.05$), we reject the null hypothesis in favour of the alternative. 
+
+This is the general approach to hypothesis testing: hypotheisize, calculate, find a normal value, then conclude.
+
+## Two Sided p-values
+
+If your hypotheses are: \vspace{-4mm}
+
+\begin{align*}
+H_0: &\mu = 15\\
+H_A: &\mu \ne 15
+\end{align*}
+
+then you're going to need to change things. In particular, you need to *double* the p-value for a one-sided test^[If you do this and find a p-value that is larger than 1, you used the wrong tails!]. This is where the phrase "at least as extreme" comes in - we would reject anything this far away on either side.
+
+The following shiny app demonstrates this. In particular, note what happens when you have a two sided alternative hypothesis and you double the wrong tails^[In the app, it's denoted "Use absolute value". This is because you can find $P(Z > |z_{obs}|)$ so that you always get the upper tail].
+
+```{r echo=TRUE, eval=FALSE}
+shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+    subdir = "Tools/pvalues")
+```
+
+
+### Two Sided Example
+
+Given $\sigma = 2$, $n = 25$, and $\bar x = 6.6$, test the hypothesis that the true population mean is not equal to 6 at the 10\% level^[That is, at the $\alpha=0.1$ significance level.].\vspace{-4mm}
+
+\begin{align*}
+H_0: \mu = 6\\
+H_A: \mu \ne 6
+\end{align*}
+
+test stat: $z_{obs} = \frac{6.6 - 6}{2/\sqrt{5}} = \frac{0.6}{0.4} = 1.5$
+
+Find on z-table (or using R): P(Z > 1.5) = P(Z < -1.5) = `pnorm(-1.5)` = 0.0668
+
+p-value = 2*0.0668 = 0.1336
+
+Conclude: p > $\alpha$, therefore do not reject. The p-value is not significant.
+
+### Critical Values
+
+For a two-sided test at the 5% level, what is the largest test statistic that would not be rejected?
+
+Since it's a two-sided test at 5%, we would reject anything in the 2.5% area in either tail.  Using the Z-table (or qnorm(0.05/2)), this would come from a test-statistic of 1.96. So if our test stat is 1.97, it would have a p-value below 0.05, and if it's 1.95 it would have a p-value above 0.05.
+
+In hypothesis testing, the critical value denotes the point at which z statistics^[$z_{obs}$] are significant. If your z statistic is larger than 1.96, it will be statistically significant at the 5% level (for a two-sided test). This way, we can test significance without even calculating the p-value. Our conclusion will simply be that $p<0.05$, but this is often sufficient - it's not important if the p-value is 0.044 versus 0.045.^[If we had taken a different sample, we would have gotten a different p-value - p-values have a sampling distribution as well!!!]
+
+### Hard Exam-Style Question
+
+- A study reported that their two-sided p-value for $H_0:\mu = 0$ was significant at the 5% level, but not the 1% level. 
+- They reported a mean of 10 and a sample size of 36
+
+What values could their standard deviation be?
+
+Solution:
+
+- At the 5% level, $z^* = 1.96$, so:
+    - $1.96 = \frac{x - \mu_0}{\sigma/\sqrt{n}} = \frac{10 - 0}{\sigma/6}$
+    - Rearranging, $\sigma= \frac{6*10}{1.96} = 30.61$
+    - Sanity check: `pnorm(10, 0, 30.61/sqrt(36))` = 0.975, as expected.
+- At the 1% level, $z^*$ = `-qnorm(0.01/2)` = 2.576
+    - $\sigma= \frac{6*10}{2.576} = 23.292$
+    - Sanity check: `pnorm(10, 0, 23.292/sqrt(36))` = 0.995, as expected.
+
+Conclusion: The standard deviation is between 23.3 and 30.6.
+
+In this example, notice that a *smaller* standard deviation means a *smaller* significance level!
+
+### CI vs. p-value
+
+Recall the following two facts:
+
+- CI: $\mu$ is in the interval $\bar x \pm z^*\sigma/\sqrt{n}$
+- Test statistic: $z_{obs} = \frac{\bar x - \mu_0}{\sigma/\sqrt{n}}$
+
+As homework, rearrange the test statistic equation for $\mu_0$. 
+
+
+A new definition of confidence intervals: A $(1-\alpha)$\% CI contains every $\mu_0$ that would **NOT** be rejected by a test at the $\alpha$\% significance level.
+
+This is why we don't say that we "accept" the null hypothesis. There are an infinite number of hypothesis values in the CI - we can't "accept" them all!^[Also, our tests only work in reference to the alternate hypothesis. We can only reject/not reject in reference to $H_A$.]
+
+## Self-Study Questions
+
+1. Explain the logic behind hypothesis testing in your own words. Make particular reference to the "at least as extreme as" part of the definition of a p-value.
+2. Explain why p-values are sample statistics.^[This implies that p-values have sampling distributions!]
+3. What happens if a sample or study design is biased? In particular, suppose that the sample will systematically result in higher values that the population, and we're testing $H_A:\mu > \mu_0$. What happens to the p-value?^[While you're at it, what happens to the CI?]
+4. For CIs, I was adamant that we cannot speak of the probability that the population mean is inside the interval. We have now learned about the duality of CI and Hypothesis Testing, but we *can* speak of probability for test statistics^["p-value" is literally short for "Probability Value".]. What gives?^[Hint: what are we calculating probabilities for?]
+5. Suppose we are testing $H_A:\mu > 10$ and we get a sample statistic $\bar x = 10$. What would the p-value for this be? 
+6. For a one-sided hypothesis test, what does it mean for our p-value to be larger than 0.5? Does this mean we did something wrong?^[Hint: refer to the previous question.]
+
+
+
+
+
+
+
+
+

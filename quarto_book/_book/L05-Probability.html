@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Devan Becker">
+<meta name="dcterms.date" content="2023-05-24">
+
+<title>Course Notes for ST231 - 5&nbsp; Probability Background</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./L07-Normal_Distributions.html" rel="next">
+<link href="./L04-Regression.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L05-Probability.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Course Notes for ST231</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Pre-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Post-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14-tCI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals (without the Silliness)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#defining-probability-with-dice" id="toc-defining-probability-with-dice" class="nav-link active" data-scroll-target="#defining-probability-with-dice"><span class="header-section-number">5.1</span> Defining Probability with Dice</a></li>
+  <li><a href="#calculating-probability-with-dice" id="toc-calculating-probability-with-dice" class="nav-link" data-scroll-target="#calculating-probability-with-dice"><span class="header-section-number">5.2</span> Calculating Probability with Dice</a>
+  <ul class="collapse">
+  <li><a href="#or" id="toc-or" class="nav-link" data-scroll-target="#or">“Or”</a></li>
+  <li><a href="#the-addition-rule-for-or" id="toc-the-addition-rule-for-or" class="nav-link" data-scroll-target="#the-addition-rule-for-or">The Addition Rule for “or”</a></li>
+  <li><a href="#and-part-1" id="toc-and-part-1" class="nav-link" data-scroll-target="#and-part-1">“and”: Part 1</a></li>
+  <li><a href="#given-conditional-probabilities" id="toc-given-conditional-probabilities" class="nav-link" data-scroll-target="#given-conditional-probabilities">“given”: Conditional Probabilities</a></li>
+  <li><a href="#and-part-2-the-multiplication-rule" id="toc-and-part-2-the-multiplication-rule" class="nav-link" data-scroll-target="#and-part-2-the-multiplication-rule">“and” Part 2: The Multiplication Rule</a></li>
+  <li><a href="#special-cases-independent-or-disjoint" id="toc-special-cases-independent-or-disjoint" class="nav-link" data-scroll-target="#special-cases-independent-or-disjoint">Special Cases: Independent or Disjoint</a></li>
+  <li><a href="#disjoint-a.k.a.-mutually-exclusive" id="toc-disjoint-a.k.a.-mutually-exclusive" class="nav-link" data-scroll-target="#disjoint-a.k.a.-mutually-exclusive">Disjoint, a.k.a. Mutually Exclusive</a></li>
+  <li><a href="#the-addition-rule-for-disjoint-events" id="toc-the-addition-rule-for-disjoint-events" class="nav-link" data-scroll-target="#the-addition-rule-for-disjoint-events">The Addition Rule for Disjoint Events</a></li>
+  <li><a href="#independent" id="toc-independent" class="nav-link" data-scroll-target="#independent">Independent</a></li>
+  <li><a href="#the-multiplication-rule-for-independent-events" id="toc-the-multiplication-rule-for-independent-events" class="nav-link" data-scroll-target="#the-multiplication-rule-for-independent-events">The Multiplication Rule for Independent Events</a></li>
+  <li><a href="#disjoint-means-dependent" id="toc-disjoint-means-dependent" class="nav-link" data-scroll-target="#disjoint-means-dependent">Disjoint means <em>Dependent</em></a></li>
+  </ul></li>
+  <li><a href="#word-problems" id="toc-word-problems" class="nav-link" data-scroll-target="#word-problems"><span class="header-section-number">5.3</span> Word Problems</a></li>
+  <li><a href="#two-way-tables" id="toc-two-way-tables" class="nav-link" data-scroll-target="#two-way-tables"><span class="header-section-number">5.4</span> Two-Way Tables</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">5.5</span> Self-Study Questions</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/edit/main/L05-Probability.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Devan Becker </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2023-05-24</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Please pay attention to the margin notes.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> They often contain important information.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>These notes are based on Chapter 9 in Baldi &amp; Moore (4th edition). Chapter 2 of <a href="https://www.openintro.org/book/biostat">OpenIntro Biostatics</a> is also a great (free) resource.</p>
+<section id="defining-probability-with-dice" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="defining-probability-with-dice"><span class="header-section-number">5.1</span> Defining Probability with Dice</h2>
+<p>I find that the easiest way is to build this up by examples. Let’s start with rolling a dice.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Let’s say you rolled the dice, and you got a 3. This is called a <strong>simple event</strong>. The collection of all <strong>simple events</strong> is called the <strong>Sample Space</strong>, which in this case is <span class="math inline">\(\mathcal S\)</span>={1,2,3,4,5,6}.</p>
+<p>Now, suppose that you’re about to roll a dice. You might be curious about whether it’s a 1, 2, 3, 4, 5, or a 6, but you might only care about the <strong>event</strong> that the outcome is even. Since there are multiple simple events that make up this event, it is called a <strong>compound event</strong>.</p>
+<p>There’s no way for you to know what’s going to happen, but you know all of the possibilities and you know how likely they all are.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> This is called a <strong>Probability Model</strong>: The sample space along with the probability of all of the events.</p>
+<p>I said “the probability of all events”, but this is more complicated than it may seem and requires some explanation. For something like rolling a dice, you only need to know the probability of each simple event. Compound events, like the probability that the outcome is even, can be determined from these simple events.</p>
+<p>Suppose you’re playing a game where, if the outcome of the dice is less than a certain cutoff value you get to roll again (e.g., your character has a special ability that allows re-rolling of dice, but the re-roll condition depends on the situation). You know the probability of all of the simple events, but you need to know the cutoff value to actually compute any probabilities. Without the cutoff value, you cannot define the probability model.</p>
+<p>For a dice, the probability model is simply: Each number has a probability of 1 in 6. But what does this mean? There are two perspectives on what a “probability” is: The Frequentist approach and the Bayesian approach. In this class we’re only going to learn the Frequentist definition of probability, but if you’re interested in learning more I’m happy to talk.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p><strong>Probability</strong> (Frequentist Definition): The long run frequency of observing an event. In other words, it’s the number of times an event is observed divided by the number of trials after doing a near-infinite number of trials.</p>
+<p>For the dice, if we rolled the dice 60 times, we would expect 10 of those rolls to be a 1, 10 of them to be a 2, etc. Due to randomness, we won’t get exactly that, but this is what we would expect. If we rolled 600 dice, we would expect 100 to be 1, etc. As we roll more dice, we get closer to the proportion of 1/6. The plot below this demonstrates this - it is the number of times that a dice was 1 divided by the number of trials, with the number of trials being increased. Notice how it takes a while for the “empirical” probability to reach the theoretical probably; as the number of trials approaches infinity, the proportion of rolls that showed a 1 will approach 1/6.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L05-Probability_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="calculating-probability-with-dice" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="calculating-probability-with-dice"><span class="header-section-number">5.2</span> Calculating Probability with Dice</h2>
+<p>First, let’s introduce some notation. I will use P(x) to mean “The probability of x”. In some cases, the context will be clear, such as:</p>
+<ul>
+<li>“The probability of rolling a 1” = P(1)</li>
+<li>“The probability of rolling an even number” = P(even)</li>
+<li>“The probability of <em>not</em> rolling a 1” = 1 - P(1)<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
+</ul>
+<p>For this section, we’ll assume that P(1)=P(2)=P(3)=P(4)=P(5)=P(6)=1/6.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<section id="or" class="level3">
+<h3 class="anchored" data-anchor-id="or">“Or”</h3>
+<p>What’s the probability that we roll an even number? The even numbers are 2, 4, and 6, so what we’re really asking is “What’s the probability that we roll a 2, 4, <strong>or</strong> a 6?” In this case, the probability is P(2 or 4 or 6) = P(2)+P(4)+P(6) = 1/6 + 1/6 + 1/6 = 3/6 = 0.5.</p>
+<p>We also could have figured out this probability by noting that half of the values are even, so a probability of 0.5 makes sense. It’s a good thing when our intuition matches our answer, as we’ll see next.</p>
+<p>Let’s consider the probability that the dice is even^ (which we will denote P(even)) <strong>or</strong> it’s strictly larger than 3 (denoted P(&gt;3)). This means the dice is either 2, 4, or 6, or it’s 4, 5, 6. Since there are 4 different numbers (2, 4, 5, and 6) that would match the criteria, the probability is 4/6. Let’s use our “or” rules to verify this!</p>
+<p>The probability that the dice is even is 1/2. The probabilty that the dice is larger than 3 is also 1/2. So, obviously, P(even or &gt;3) = P(even) + P(&gt;3) = 1/2 + 1/2 = 1.</p>
+<p>Wait.</p>
+<p>That can’t be right.</p>
+<p>I think you may be able to see what went wrong. The P(even) = P(2) + P(4) + P(6), and P(&gt;3) = P(4) + P(5) + P(6). When we did P(even) + P(&gt;3), we added P(4) and P(6) twice! To get the right answer, we need to fix this. Since we added them twice, we must subtract them once. This brings us to…</p>
+</section>
+<section id="the-addition-rule-for-or" class="level3">
+<h3 class="anchored" data-anchor-id="the-addition-rule-for-or">The Addition Rule for “or”</h3>
+<p>For any two events A and B,<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> the <strong>Addition Rule</strong> states:</p>
+<p><span class="math display">\[\begin{align}P(A\; or\; B) = P(A) + P(B) - P(A\; and\; B).\end{align}\]</span></p>
+<p>First, note that the probability of both events is P(Even <strong>and</strong> &gt;3) = P(4) + P(6), since 4 and 6 are both even and larger than 3.</p>
+<p><span class="math display">\[\begin{align*}
+P(Even\; or\; &gt;3) &amp; = P(Even) + P(&gt;3) - P(Even\; and\; &gt;3)\\
+&amp; = [P(2) + P(4) + P(6)] + [P(4) + P(5) + P(6)] - [P(4) + P(6)]\\
+&amp; =  P(2) + P(4) + P(5) + P(6)\\
+&amp; = 1/6 + 1/6 + 1/6 + 1/6\\
+&amp; = 4/6
+\end{align*}\]</span> </p>
+</section>
+<section id="and-part-1" class="level3">
+<h3 class="anchored" data-anchor-id="and-part-1">“and”: Part 1</h3>
+<p>The word “and” came up in the addition rule, and so I should give a good definition of “and”. When we talk about events A and B, P(A and B) refers to the probability that they both happen together. It’s most helpful to see this as a Venn diagram:</p>
+<p><img src="figs/Venn1.png" class="img-fluid"></p>
+<p>P(A) is the area of the circle labelled A, P(B) is the area of the circle labelled B, and P(A and B) is the area of the overlap between these two circles. P(A or B) is the total shaded area, including the yellow-green, green, and dark green.</p>
+<p>You can see the Addition Rule at work here. If you add the area of A (which includes P(A and B)) to the area of B (which also includes P(A and B)), you’ve added P(A and B) twice!</p>
+<p>There are two formulas for P(A and B). The first one is found by rearranging the formula for P(A or B):</p>
+<p><span class="math display">\[\begin{align*}
+\small P(A\; or\; B) &amp;\small = P(A) + P(B) - P(A \;and\; B)\\
+\small P(A\; and\; B) &amp;\small = P(A) + P(B) - P(A \;or\; B)
+\end{align*}\]</span></p>
+<p>When in doubt, just remember P(A_B) = P(A) + P(B) - P(A_B), then put “or” in one blank and “and” in the other.</p>
+<p>This formula won’t always get you to the solution, though. There will be many times where neither “and” nor “or” will be obvious, and we’ll need to do some more work to get them. We have special formulas for “and”, so we’ll usually try to figure out the “and” and then use it to figure out the “or”<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
+</section>
+<section id="given-conditional-probabilities" class="level3">
+<h3 class="anchored" data-anchor-id="given-conditional-probabilities">“given”: Conditional Probabilities</h3>
+<p>A <em>condition</em> is something that must happen before you can proceed. A <strong>conditional probability</strong> is a probability that requires something else to happen, and usually involves a more complicated setup.</p>
+<p>Let’s look at another scenario. Let’s say I told you that the number on the dice was larger than 3. What’s the probability that the number on the dice is a 4? Intuiutively, it’s 1/3, since there are 3 possible numbers. Our notation fails us here, P(4) denotes the probability that the dice is a 4, which we already determined was 1/6. We can’t use P(4) for two things, so we need to add some notation.</p>
+<p>In this case, the solution is to use a vertical bar, “|”, which is pronounced “given”. We write “P(dice is 4 | dice is greater than 3) = 1/3”,<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> which is read as “The probability that the dice is 4, <strong>given that</strong> the dice is larger than 3.”</p>
+<p>A very important thing happened here: when we used a conditional probability (“given that”), we <strong>restricted the sample space</strong>. When we “condition” on an event, it means that we’re only looking at cases where that event happened. “The probability that the dice is 4, given that the dice is larger than 3” is another way of saying that we’re only considering events where the dice roll is greater than 3; we don’t care about 1, 2, or 3.</p>
+<p>We defined “probability” as the total number of events divided by the total number of trials. For conditional probabilities, this means that we’re only looking at <em>some of</em> the trials.</p>
+<p><span class="math display">\[\begin{align*}
+\small P(dice\; is\; 4\; |\; dice\; is &gt;3) = \frac{\#\; ways\;dice\;can\;be\;4\;}{\#\;ways\;dice\;can\;be\;&gt;3}=\frac{1}{3}
+\end{align*}\]</span></p>
+<p><strong>This formula is incorrect</strong>: “The number of ways that a dice can be 4” depends on the condition. For instance, the number of ways that a dice can be 2 is 0 since we’re told it’s larger than 3. We are actually looking at the number of ways that the dice can be both 4 <strong>and</strong> greater than 3. Let’s incorporate this information:</p>
+<p><span class="math display">\[\begin{align*}
+\small P(dice\; is\; 4\; |\; dice\; is &gt;3) = \frac{\#\; ways\;dice\;can\;be\;4\;\;and\;&gt;3}{\#\;ways\;dice\;can\;be\;&gt;3}=\frac{1}{3}
+\end{align*}\]</span></p>
+<p>For any two events A and B, <strong>conditional probabilities</strong> are defined as follows:<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<p><span class="math display">\[\begin{align*}
+\small P(A | B) = \frac{P(A\;and\; B)}{P(B)}
+\end{align*}\]</span></p>
+<p>The equation above is a <em>definition</em>. It’s not the result of something else, it’s the way we define conditional probability. Rearranging it, though, gives us an important result.</p>
+</section>
+<section id="and-part-2-the-multiplication-rule" class="level3">
+<h3 class="anchored" data-anchor-id="and-part-2-the-multiplication-rule">“and” Part 2: The Multiplication Rule</h3>
+<p>For any two events A and B, the <strong>Multiplication Rule</strong> states:</p>
+<p><span class="math display">\[\begin{align*}
+\small P(A\; and\; B) = P(A|B)P(B)
+\end{align*}\]</span></p>
+<p>Note that P(B|A) = P(A and B)/P(A), so the multiplication rule can be extended:</p>
+<p><span class="math display">\[\begin{align*}
+\small P(A\; and\; B) &amp;\small = P(A|B)P(B)\\
+\small P(A\; and\; B) &amp;\small = P(B|A)P(A)
+\end{align*}\]</span></p>
+<p>In other words, you can write it either way as long as the event that comes after the “|” also appears on it’s own.</p>
+<p>Let’s use this to answer the following question: What’s the probability that a dice is larger than 3 <strong>and</strong> even? By intuition, this should be 2/6 since there are two cases where both are true, but let’s verify with math!</p>
+<p>First, recall that P(&gt;3) and P(even) are both 1/2.</p>
+<p>P(&gt;3 | even) means that we’re look at the number of dice rolls that are larger than 3, but we’re only considering even dice rolls. We have 3 total dice rolls that are even, and 2 of those are larger than 3, so this probability is 2/3. Using the multiplication rule, P(&gt;3 and even) = P(&gt;3 | even)*P(even) = (2/3)*(1/2) = 2/6, which is what we got before!</p>
+<p>The other way works out the same. Given that the roll is larger than 3, there are 2 even rolls, which means that P(even | &gt;3) = 2/3. P(&gt;3 and even) = P(even | &gt;3)*P(even) = (2/3)*(1/2) = 2/6, which is what we got before!</p>
+</section>
+<section id="special-cases-independent-or-disjoint" class="level3">
+<h3 class="anchored" data-anchor-id="special-cases-independent-or-disjoint">Special Cases: Independent or Disjoint</h3>
+</section>
+<section id="disjoint-a.k.a.-mutually-exclusive" class="level3">
+<h3 class="anchored" data-anchor-id="disjoint-a.k.a.-mutually-exclusive">Disjoint, a.k.a. Mutually Exclusive</h3>
+<p><strong>Disjoint</strong> events, also called <strong>mutually exclusive</strong> events, are events that <em>cannot</em> occur together. For example, the event that you roll a 4 and it’s also a 3. This simply does not work, so the probability is 0.</p>
+<p>More formally, A and B are <strong>disjoint</strong> if P(A and B) = 0.</p>
+</section>
+<section id="the-addition-rule-for-disjoint-events" class="level3">
+<h3 class="anchored" data-anchor-id="the-addition-rule-for-disjoint-events">The Addition Rule for Disjoint Events</h3>
+<p>If A and B are disjoint, then P(A or B) = P(A) + P(B).<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p>This is actually why we were able to say P(even) = P(2 or 4 or 6) = P(2) + P(4) + P(6) = 3/6: the events “2”, “4”, and “6” are disjoint.</p>
+</section>
+<section id="independent" class="level3">
+<h3 class="anchored" data-anchor-id="independent">Independent</h3>
+<p>Two events are <strong>independent</strong> if the knowledge of one event tells you nothing about the other.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> For instance, if I flip two different coins and tell you that the first one was Heads, you still only have a 50/50 chance of guessing the second one.</p>
+<p>Notice the phrasing in the previous sentence: “If I tell you that the first one is heads…” That is, I’m <em>restricting the sample space</em>. Independence is all about conditional probabilities!</p>
+<p>Formally, A and B are independent if P(A | B) = P(A).</p>
+<p>This adds further insight into conditional probabilities: P(A|B) is how likely A is, given that you know B happened. Knowledge of B changes your guess of the likelihood of A. If it doesn’t change your guess, then they are independent.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
+<p>The following app demonstrates this concept:</p>
+<p>Another lesson to take from the app above: Independence doesn’t look special. You can’t just tell that things are independent by looking at them.</p>
+</section>
+<section id="the-multiplication-rule-for-independent-events" class="level3">
+<h3 class="anchored" data-anchor-id="the-multiplication-rule-for-independent-events">The Multiplication Rule for Independent Events</h3>
+<p>Any time I see a conditional probability, I immediately write down the formula. For dependence, we are saying:</p>
+<p>P(A|B) = P(A and B)/P(B)</p>
+<p>which is the same as</p>
+<p>P(A and B) = P(A|B)P(B)<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
+<p>If two events are <strong>independent</strong>, then P(A|B)=P(A), therefore:</p>
+<p>P(A and B) <span class="math inline">\(\stackrel{indep}{=}\)</span> P(A)*P(B)<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
+<p>Get this tattood backwards on your forehead so you see it every time you look at yourself in the mirror: <strong>P(A and B) is ONLY equal to P(A)*P(B) when A and B are independent!!!</strong> Some textbooks start with this rule then move to the general rule, but far too many students start using P(A and B) = P(A)P(B) as if it’s always true. My entire thesis is based on whether you can say two things are independent, so it’s kind of a sore spot for me. DO NOT MIX THIS UP.</p>
+<p>For example, are the events “even” and “&gt;3” independent? If you know that the dice roll is &gt;3, then there’s a 2/3 chance that it’s even. That is, P(even|&gt;3) = 2/3 <span class="math inline">\(\ne\)</span> 1/2 = P(even), so it’s not independent.</p>
+<p>Alternatively, we can calcuate P(even and &gt;3) = 2/3, but P(even)*P(&gt;3) = (1/2)*(1/2) = 1/4. Since 2/3 <span class="math inline">\(\ne\)</span> 1/4, these events are not independent.</p>
+</section>
+<section id="disjoint-means-dependent" class="level3">
+<h3 class="anchored" data-anchor-id="disjoint-means-dependent">Disjoint means <em>Dependent</em></h3>
+<p><strong>Independence</strong> can be defined as “if you know that one event happened, you have no knowledge of the other event.” <strong>Disjoint</strong> can be defined as “if you know one event happened, you know for sure that the other one <em>did not</em> happen.” If two events are disjoint, they must be <strong>dependent</strong>. In fact, knowledge of one event means that you for sure know about the other - the exact opposite of independence!</p>
+<p>… except when one event is impossible. For instance, P(even and 7) = 0 since there are no dice rolls that are both even and 7, but this is also equal to P(even)*P(7) = 0 since there are no dice rolls that are 7.</p>
+</section>
+</section>
+<section id="word-problems" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="word-problems"><span class="header-section-number">5.3</span> Word Problems</h2>
+<p>Question 10.6 from the textbook:<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></p>
+<p>The National Survey on Drug Use and Health reports that 18.1% of all adults in the United States had a mental illness in 2014. Among adults with a substance use disorder, 39.1% had a mental illness. By comparison, only 16.2% of adults without a substance use disorder had a mental illness. The report also states that 3.3% of American adults had both a mental illness and a substance use disorder. Use the notation MI and SUD for mental illness and substance abuse disorder, respectively.</p>
+<ol type="a">
+<li>Express the four percents cited here as probabilities for a randomly selected American adult. Use proper probability notation.</li>
+<li>Obtain the probability P(SUD|MI). Write a sentence reporting this probability in context.</li>
+</ol>
+<p>Solutions:</p>
+<ol type="a">
+<li>There are a couple of probabilities:
+<ul>
+<li>“18.1% of all adults in the United States had a mental illness”: P(MI) = 18.1</li>
+<li>“Among adults with a substance use disorder, 39.1% had a mental illness.” The part that says “among adults with SUD” means that we’re only looking at people with SUD; we’re <em>restricting the sample space</em>. This is a condition, so our answer must be P(_ | SUD) = __. The blanks can be filled in as P(MI|SUD) = 0.391.</li>
+<li>“16.2% of adults without a substance use disorder had a mental illness.” The part that says “adults without a SUD” is also <em>restricting the sample space</em>, so our probability statement will be P(__ | no SUD) = __. The blanks are filled in as P(MI | no SUD) = 0.162.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a></li>
+<li>“3.3% of American adults had both a MI and a SUD”. This clearly states <strong>and</strong>, so we are looking at P(MI and SUD) = 0.033</li>
+</ul></li>
+</ol>
+<p>Part b. is going to take a few steps. Let’s write down all the formulas that might help. Firstly. there’s no “or”, so that probably won’t do it.</p>
+<ul>
+<li><em>Want</em>: P(SUD|MI)
+<ul>
+<li>P(SUD|MI) = P(SUD and MI)/P(MI), so we need P(SUD and MI) and P(MI).</li>
+</ul></li>
+<li><em>Have</em>:
+<ul>
+<li>P(MI) = 0.181</li>
+<li>P(MI | SUD) = 0.391</li>
+<li>P(MI | no SUD) = 0.162</li>
+<li>P(MI and SUD) = 0.033</li>
+</ul></li>
+</ul>
+<p>Both P(SUD and MI) and P(MI) are given in the question, so our answer is simply:</p>
+<blockquote class="blockquote">
+<p>P(SUD | MI) = P(SUD and MI)/P(MI) = 0.033/0.181 = 0.1823</p>
+</blockquote>
+<p>Therefore 18.23% of people with mental illness have substance abuse disorder.</p>
+<p>Compare this value to P(MI | SUD) = 0.391. In general, there is no easy relationship between P(A | B) and P(B | A). If you know what P(A | B) is, you can’t really guess at what P(B | A) is; you need a lot more information!</p>
+</section>
+<section id="two-way-tables" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="two-way-tables"><span class="header-section-number">5.4</span> Two-Way Tables</h2>
+<p>I rigorously collected the following data<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> on programming language usage for different disciplines using the most appropriate sampling methods.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Stats</th>
+<th>Math</th>
+<th>Comp Sci</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R</td>
+<td>90</td>
+<td>30</td>
+<td>40</td>
+<td>160</td>
+</tr>
+<tr class="even">
+<td>Python</td>
+<td>10</td>
+<td>60</td>
+<td>100</td>
+<td>170</td>
+</tr>
+<tr class="odd">
+<td>MatLab</td>
+<td>15</td>
+<td>60</td>
+<td>15</td>
+<td>90</td>
+</tr>
+<tr class="even">
+<td>Julia</td>
+<td>10</td>
+<td>10</td>
+<td>1</td>
+<td>21</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td>125</td>
+<td>160</td>
+<td>156</td>
+<td>431</td>
+</tr>
+</tbody>
+</table>
+<p>From this table, we can calculate <strong>marginal</strong> and <strong>conditional</strong> probabilities.</p>
+<p><strong>Marginal</strong> probabilities are calculated from the margins, which means that we ignore one of the variables. For example, P(Math) = 160/431 and P(Julia) = 21/431. Both of these proportions are based on the margins - they don’t take the other variable into account.</p>
+<p><strong>Conditional</strong> probabilities are the same idea as we saw earlier. Again, we are <em>restricting our sample space</em> by conditioning on another variable. For example, P(R | Stats) = 90/125, whereas P(Stats | R) = 90/160. The conditioning event determines which row/column we use. When we condition on Stats, we <em>only</em> look at the column labelled stats - we do not consider any of the other numbers. This is why P(R | Stats) has a numerator of 125, rather than 431.</p>
+<p>You should be familiar with the following calculations:</p>
+<ol type="1">
+<li>P(Stats) = 125/431</li>
+<li>P(Stats | Julia) = 10/21</li>
+<li>P(Matlab | Comp Sci) = ???<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a></li>
+<li>P(Stats <strong>and</strong> Julia) = 10/431</li>
+<li>P(Matlab <strong>and</strong> Stats) = 15/431</li>
+<li>P(Stats <strong>or</strong> Julia) = P(Stats) + P(Julia) - P(Stats <strong>and</strong> Julia) = 136/431</li>
+<li>P(Matlab <strong>or</strong> Stats) = 200</li>
+<li>P(Stats <strong>or</strong> R) = ???</li>
+<li>P(Stats <strong>or</strong> Math) = ??</li>
+</ol>
+<p>Two-way tables can also be created in R using the <code>table()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="co"># It's a very useful dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(mtcars<span class="sc">$</span>am, mtcars<span class="sc">$</span>cyl) <span class="co"># cbind BINDs Columns together</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1] [,2]
+ [1,]    1    6
+ [2,]    1    6
+ [3,]    1    4
+ [4,]    0    6
+ [5,]    0    8
+ [6,]    0    6
+ [7,]    0    8
+ [8,]    0    4
+ [9,]    0    4
+[10,]    0    6
+[11,]    0    6
+[12,]    0    8
+[13,]    0    8
+[14,]    0    8
+[15,]    0    8
+[16,]    0    8
+[17,]    0    8
+[18,]    1    4
+[19,]    1    4
+[20,]    1    4
+[21,]    0    4
+[22,]    0    8
+[23,]    0    8
+[24,]    0    8
+[25,]    0    8
+[26,]    1    4
+[27,]    1    4
+[28,]    1    4
+[29,]    1    8
+[30,]    1    6
+[31,]    1    8
+[32,]    1    4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mtcars<span class="sc">$</span>am, mtcars<span class="sc">$</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+     4  6  8
+  0  3  4 12
+  1  8  3  2</code></pre>
+</div>
+</div>
+<p>The table above is telling us that there were 3 cars that were automatic (0) <strong>and</strong> had 4 cylinders.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: TRUE == 1, so the sum of a logical vector is the number of TRUEs</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The "&amp;" operator only returns true if BOTH conditions are true, i.e.</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="do">## if mtcars$cyl == 4 AND mtcars$am == 0</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mtcars<span class="sc">$</span>cyl <span class="sc">==</span> <span class="dv">4</span> <span class="sc">&amp;</span> mtcars<span class="sc">$</span>am <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+</section>
+<section id="self-study-questions" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">5.5</span> Self-Study Questions</h2>
+<ol type="1">
+<li>Explain why P(A) + P(not A) must be 1.</li>
+<li>If P(A) = 0.2, P(B) = 0.35,
+<ol type="a">
+<li>and P(A or B) = 0.75, find P(A and B).</li>
+<li>and P(A and B) = 0.15, find P(A or B).</li>
+<li>explain why P(A and B) can only be as large as 0.2.</li>
+<li>explain why P(A or B) must be at least 0.35.</li>
+</ol></li>
+<li>For a 6-sided dice, show that the events “even” and “odd” are <em>not</em> independent.</li>
+<li>For a 6-sided dice, show that the events “even” and “&gt;4” <em>are</em> independent.</li>
+<li>Consider flipping one coin and rolling one dice.
+<ol type="a">
+<li>List out all possible events (e.g., H1 for heads and 1, T4 for tails and a 4 on the dice).</li>
+<li>Based on your sample space, argue that P(T1) = 1/12.</li>
+<li>Are the events “coin is tails” and “dice is 1” independent? Give an intuitive and a mathematical reason.</li>
+</ol></li>
+<li>Consider a loaded dice, where the probability of 1, 2, 3, 4, and 5 are all 1/8.
+<ol type="a">
+<li>Explain why P(6) must be 3/8.</li>
+<li>What is P(even)?</li>
+<li>Are the events “even” and “&lt;3” independent?</li>
+</ol></li>
+</ol>
+<p>Solutions to Two-Way Table exercises: <strong>3.</strong> 15/156; <strong>8.</strong> 195/431; <strong>9.</strong> 185/431</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>These things!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Or silliness.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The singular form “die” is dieing out; the dictionary lists “dice” as singular noun, and the singular “dice” is clearer for new English speakers.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Assuming there’s nothing unusual about your dice.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Most of my work uses the Bayesian definition.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>This is called a <strong>complement</strong>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>The sum of all probabilities must be 1.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>For example, A = “Even”, B = “&gt;3”.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>This lecture has some of the weirdest sentences.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>P(4 | &gt;3) just looks too confusing, so I added some words.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>To remember this, I like to imagine the vertical bar falling on the the B and pushing it into the denominator.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Not an important point: This is a rule, not a result. The General Addition Rule is a result of this rule, not the other way around.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>The opposite of <strong>independence</strong> is <strong>dependence</strong>.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Just like in correlations, dependence does <em>not</em> imply causation!<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>This equation is <em>always</em> true.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>The “<span class="math inline">\(indep\)</span>” over the equals sign is there to specify that this is only true if events are independent.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>Baldi, B. and DS. Moore. 2018. <em>The Practice of Statistics in the Life Sciences.</em> 4th Edition, W.H. Freeman and Company.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>This is a great place to mention: There’s absolutely no reason why P(A|B) + P(A| not B) should add to 1.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>Source: I made it up.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p>Answer is at the end.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L04-Regression.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./L07-Normal_Distributions.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

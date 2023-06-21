@@ -1,0 +1,47 @@
+project:
+  type: book
+
+
+date-format: iso
+institute: "Wilfrid Laurier University"
+number-depth: 2
+author: "Dr. Devan Becker"
+
+book:
+  title: "Course Notes for ST231"
+  author: "Dr. Devan Becker"
+  date: "6/20/2023"
+  repo-url: https://github.com/DB7-CourseNotes/ST231_S23
+  repo-actions: [edit]
+  chapters:
+    - index.qmd
+    - part: Pre-Midterm
+      chapters:
+        - L01-Intro_PicturingGraphs.qmd
+        - L02-Describing_Distributions_Numbers.qmd
+        - L03-Scatterplots_Correlation.qmd
+        - L04-Regression.qmd
+        - L05-Probability.qmd
+        - L07-Normal_Distributions.qmd
+        - L09-Binomial_Probabilities.qmd
+        - L10-Sampling_Distributions.qmd
+    - part: Post-Midterm
+      chapters:
+        - L12-Intro_to_Inference-CI-pvals.qmd
+        - L13-p_vals.qmd
+        - L14-tCI.qmd
+
+execute: 
+  warning: false
+
+format:
+  html:
+    theme:
+      light: pulse
+      dark: cyborg
+    execute:
+        echo: false
+        warning: false
+
+
+

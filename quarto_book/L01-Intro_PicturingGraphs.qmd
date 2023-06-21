@@ -1,0 +1,747 @@
+---
+title: "Picturing Distributions with Graphs"
+institute: "Jam: *Penguins* by Lyle Lovett"
+date: "May 8, 2023"
+---
+
+
+## Introduction
+
+### Defining "Statistics"
+
+My definition: Statistics is the study of **variance** (or uncertainty).
+
+\pspace
+
+- The big question: is 1 **statistically different** from 100?\pause
+    - 1 vs. 100 apples? Yes.
+    - 1 vs. 100 atoms in an apple? No.
+
+:::notes
+Many definitions of statistics are based on data. This completely misses theoretical statistics, and makes it seem like it's all about dealing with data. I think a better definition of statistics is that it's the study of variance, whether that means studying the theoretical properties of variance or trying to explain variance in a data set. 
+
+I like to ask the question is one statistically different from 100. It may seem like they are obviously different things, but consider the context. If you're comparing numbers of apples, then yes, one apple is very different from having 100 apples. However, if we're looking at numbers of of atoms per apple than one and 100 are both imperceptible numbers of atoms and thus we might say they're practically the same. The difference in these two examples is the scale, and variance is a great way to measure the scale of things. In my opinion, the main thing we learned in this course is how to tell whether to numbers are different, given the scale of those two numbers.
+
+In my lecture notes, I use bold font for anything that you will be expected to be able to explain or define. You won't necessarily be able to find it the first time you see it, but by the midterm/final it is something I expect you to know. A good way to study in this course is to keep a glossary of all of the words I've put in bold, with a definition that you update as we learn more about that concept. And, of course, write a description as if you're teaching someone else!
+:::
+
+### Why study variance?
+
+- Give context to different numbers.
+    - The size of the difference depends on the context.\lspace
+- We need to know *how* and *why* we were wrong.
+    - *How*: What is the magnitude of the difference?
+    - *Why*: Are we missing relationships? Bad sampling? Fundamental randomness?
+
+\pspace
+
+Variance is information!
+
+:::notes
+Variance comes from many sources. We might just be doing something wrong and missing out on important feature of our data, we might be collecting the data in a biased or incorrect way, or there might be some fundamental part of the problem that we will never be able to measure perfectly, and so the variance that we calculated may already be the smallest possible variance for this problem. 
+
+I like to see that variances information. Think about an example, we're trying to figure out the heights of undergraduate students. We can calculate an average height, but it is entirely possible that nobody in our data set is exactly the average height. We would want to quantify how much variation there is around that average height. If our sample includes a basketball team, then, this is variation due to some thing that we could have measured. In other words, the variation in our data can be explained by including another perspective. Once we have that perspective and we were included in our analysis are variance should be smaller, and that we have extracted more information. As we gain more information about our data, the variance in our estimate goes down - this is why I say that variance is information!
+:::
+
+### Descriptive Versus Inferential Statistics
+
+- **Descriptive statistics** are used to explore the data.
+    - Graphs/figures
+    - Numbers\lspace
+- **Inferential statistics** relate our data to the **population**.
+    - Must have a good **sample** first!
+    - Our sample has a mean. The population has a mean. How different do we expect them to be?
+        - **how different**
+
+::: notes
+In this course, we will learn about two classes of statistics. Descriptive statistics are the ones that we used to describe the sample that we obtained. This can include things like the mean/median/mode, the variance or the interquartile range, as well as bar charts, histograms box, plots, etc.
+
+Inferential statistics are numbers that we calculate that we think have a relationship to the population. For instance, if we calculate the mean of our data, and we trust that our sample is good, then we expect this sample mean to be somewhat close to the population mean. Any time in this course I talk about the difference between two things. I will always mean it with reference to the variance. In this, since we have a sample mean, as well as some measure of its variance, and this variance tells us how similar we expect the sample mean to be to the population mean. If we have a small sample variance, it means that we have a lot of information about the population mean. Variance is information!
+
+In this course, we're going to start by talking about descriptive statistics and work our way to inferential statistics.
+::: 
+
+## Descriptive Statistics: Plots and Graphs
+
+### The Palmer Penguins Data
+
+The following data are from the `palmerpenguins` package. All code shown in the Notes files.
+
+:::: {.columns}
+::: {.column width="60%"}
+```{r}
+library(palmerpenguins) # Load in the `penguins` data.
+library(dplyr)
+
+## Display nicely in the slides/notes
+## Usually, you would just use head(penguins)
+penguins[, c("species", "sex", "bill_length_mm", "body_mass_g")] %>%
+    head() %>%
+    knitr::kable()
+```
+
+
+:::
+::: {.column width="39%"}
+- Species can be Adelie, Gentoo, or Chinstrap
+- Sex is male/female
+- Bill Length is measured in millimetres
+- Body Mass is measured in grams
+- Not shown: Island (one of three), bill depth (mm), flipper length (mm), year. 
+:::
+::::
+
+
+:::notes
+
+Let me introduce you to a dataset that I'm going to be returning to throughout the semester. This is called the Palmer penguins data, end it contains information on penguins from several islands in Antarctica. In the slides, I use some fancier code to only show some of the data, but I'll display the full data set with simpler code below:
+
+```{r}
+#| echo: true
+library(palmerpenguins)
+head(as.data.frame(penguins))
+```
+
+These data are really nice for this purpose because we can look at what factors contribute to body mass, species or biological sex. It's not shown in the slides, but we can see here that we also have measurements on flipper length and bill width.
+:::
+
+### Types of Variables
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+penguins[, c("species", "sex", "body_mass_g")] %>%
+    head() %>%
+    knitr::kable()
+```
+
+:::
+::: {.column width="50%"}
+- Species is **categorical**
+    - Mutually exclusive categories.\lspace
+- Sex is **binary**
+    - One or the other
+    - Special case of categorical with 2 cats\lspace
+- Body mass is **quantitative**
+    - It's a number (quantity)
+:::
+::::
+
+:::notes
+The type of variable is extremely important for choosing the right summary of the data. 
+
+Categorical variables consist of two or more mutually exclusive categories, that is, each observation has a label and nothing has more than one label. Categorical variables may be ordered (such as "low", "medium", and "high") or unordered (such as names or student numbers; putting names in alphabetical order is not usually meaningful for summarising the data or doing the analysis).
+
+Binary variables are a special case of categorical variables, which only have two categories. 
+
+The distinction between categorical and quantitative isn't always this obvious, but can be very helpful for choosing the right kind of plot or numerical summary.
+:::
+
+### Grey Areas
+
+::: {.callout-warning}
+### Student Numbers
+
+A student number looks like a quantitative variable, but it's actually just a name (category)!
+:::
+
+\pspace
+
+::: {.callout-warning}
+### Number of Children
+
+If there are only counts of 0, 1, and 2, you might want to consider the counts as categories. 
+:::
+
+:::notes
+There are a couple gray areas when talking about variable types. The distinction between categorical and quantitative isn't always perfectly clear. For example, student numbers are names, but they are completely made up of numbers. However, you wouldn't treat these numbers as if one student number comes after another in the same way that you wouldn't put students in an order based on their names. You technically can do this if you do it alphabetically or order the student numbers in order, but this isn't a meaningful ordering. It's not like one student number is larger than another student number, and taking the meaning of student numbers wouldn't make any sense.
+
+Another gray area is a counting variable that has low counts. For example, if you only have zero one or two children as possible values, tt might make more sense to look at all of the people with zero children, look at all the people with one child, and then look at all the people with two children, rather than making a plot that treats the number of children as if it can be any value between zero and infinity.
+:::
+
+### Individuals (Subjects)
+
+**Individual:** the unit of study.
+
+In the Palmer Penguins data set, a penguin is an individual.
+
+\pspace
+
+::: {.callout-warning}
+### CO$_2$ Measurements
+
+Monthly measurements of CO$_2$ - the months are the individuals?
+:::
+
+::: {.callout-warning}
+### Paired Observations
+
+- Spousal pairs - the pairs are the individuals?
+- Before/after (e.g., weight loss) - people are individuals.
+:::
+
+:::notes
+All of the variables we just talked about our measured on individuals. That is to say an individual is what you are measuring when collecting data. This can take the form of a single penguin, in which case it's obvious that this body mass belongs to this penguin; we have measured this body mass on this. 
+
+There are some gray areas to this as well, though. For example, if we're measuring carbon dioxide every month, then we're actually measuring carbon dioxide as the variable and months as the individuals, and we can measure other things on those individuals if needed. 
+
+We will also encounter pared observations in this course, which our measurements on two things at once. For example, we might be looking at spousal pairs, perhaps measuring the number of children per pair. The variable we are measuring is the number of children, and so we must have one observation of the number of children per individual, which means that the individuals must be the pairs of people. I slightly more obvious example is something like a weight loss study were observing a change in weight for a certain person, even though we have two observations, the individual is still the person who were measuring.
+:::
+
+### Example: What are the Individuals? What are Variables?
+
+```{r}
+#| echo: true
+mtcars[1:6, 1:5]
+```
+
+:::notes
+- Individuals: Each car (not brand)
+- Variables: `wt`, `mpg`, `cyl`, `am`, etc.
+    - `wt`: Quantitative; the weight of the car.
+    - `am`: Binary (categorical); whether the car is automatic or manual.
+    - `cyl`: It's the number of cylinders, so it can be considered a number. However, there are only three possible values: 4, 6, or 8. We *could* consider these numbers, but it is likely more useful to think of 4 cylinder cars in one category, 6 cylinder in another category, and 8 cylinder in the last category. This way, when we do analysis, we are just comparing categories rather than see what happens when we add cylinders ("adding cylinders" makes it sound like we might add 1 cylinder to a 4 cylinder car, or liek we might make predictions about what would happen with a 2 cylinder car).
+:::
+
+## Graphs
+
+### Words are Hard
+
+Graph, chart, plot are *usually* synonyms. 
+
+- *Graph theory* refers to graphs with edges and notes.
+- *Plotting* refers to making a visual representation of information.
+    - Applies to more than just data.
+- *Charts* are plots that are meant to compare things.
+
+\pspace
+
+Takeaway message: A bar chart and a bar plot are the same thing. 
+
+:::notes
+In this class, we'll use them all interchangably. 
+:::
+
+### Pie Charts
+
+- The wedges must sum to 1.
+- Mainly good for *emphasizing* one wedge
+    - *Emphasizing* can mean *misrepresenting*!
+
+\pspace
+
+[https://www.darkhorseanalytics.com/blog/salvaging-the-pie](https://www.darkhorseanalytics.com/blog/salvaging-the-pie)
+
+:::notes
+In this course, I will not be providing you the code required to make a pie chart. However, you should understand what a pie chart is, what data it works for, and how they relate to bar charts.
+:::
+
+### Bar Charts: Categories
+
+:::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| eval: false
+#| echo: true
+library(ggplot2)
+theme_set(theme_bw())
+
+ggplot(mtcars) +
+    aes(x = factor(am)) +
+    geom_bar() +
+    labs(x = "Transmission Type",
+        y = "Count")
+```
+
+`ggplot` calculates the $y$ values for you!
+
+:::
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| fig-height: 5
+library(ggplot2)
+theme_set(theme_bw())
+
+ggplot(mtcars) +
+    aes(x = factor(am)) +
+    geom_bar() +
+    labs(x = "Transmission Type",
+        y = "Count")
+```
+:::
+::::
+
+Compare this to the output of `table(mtcars$am)`.
+
+:::notes
+Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 22 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it's easy to compare these two categories.
+
+The code required to create this bar chart as shown on the left. The data set is built into our so we don't need to load anything to put this data. We do need to load in the `ggplot` library, though. In my lecture notes, you'll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here's a quick breakdown of the functions I used:
+
+- The ggplot function tells R what data we will be using.
+- The `aes()` function sets up the plot "aesthetics", such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points etc.
+- `geom_bar()` actually makes the bar plot using the data set that `ggplot()` set up and the aesthetics, that `aes()` set up.
+- The `labs()` function simply adds labels to the plot to make it look nicer.
+
+
+**Exercises**
+
+The following exercises are based on the exercises in Chapter 1 of Baldi \& Moore, 4th ed.
+
+1. Children’s food choices. Does the presence of popular cartoon characters on food packages influence children’s food choices? A study asked 40 young children (ages four to six) to taste two small pieces of Graham Crackers coming from a package with and a package without a popular cartoon character, and to indicate whether the two foods tasted the same or one tasted better. Unknown to the children, the crackers were the same both times. Here are the findings:
+
+| Taste Preference | Number of Children | Percent |
+|---|---|---|
+| Tastes better without character | 3 | |
+| Taste the same | 15 | |
+| Tastes better with character | 22 | |
+
+a. Identify the individuals and the variable or variables in the study.
+b. Present these data in a well-labeled bar graph.
+c. Would it also be correct to present these data in a single pie chart? Explain your reasoning.
+d. What do the data suggest about the influence of cartoon characters on Graham Cracker preference in young children
+
+2. The study in Exercise 1 also asked the 40 children to taste small pieces of gummy fruit snacks and baby carrots presented in packages with and in packages without a popular cartoon character. For each food type, the children indicated which of the two options they would prefer to eat for a snack. (Note that this is a different question from the one asked in Exercise 1) The number and percent of children choosing the version with a cartoon on the package are displayed in the following table:
+
+| Food Item | Number of children choosing the cartooon version | Percent choosing the cartoon |
+|---|---|---|
+| Graham Crackers | 35 | |
+| Gummy and fruit snacks | 34 | |
+| Baby carrots | 29 | |
+
+a. Identify the individuals and the variable or variables in the study.
+b. Make a well-labeled bar graph of the data.
+c. Would it be correct to present these data in a single pie chart? Explain your reasoning.
+d. What can you conclude from these findings?
+:::
+
+### Quantitative Variables
+
+- Discrete (whole numbers)
+    - Ex. Number of students in a classroom.\lspace
+- Continuous (could be measured with more precision)
+    - Ex. height\pause
+
+\pspace
+
+::: {.callout-warning}
+### Grey Area
+
+What type of variable is "dose level", defined as either no dose, half dose, or full dose? They aren't whole numbers, but we can't measure them with greater precision!
+:::
+
+:::notes
+Quantitative variables are split into discrete and continuous variables. Discrete variables are generally represented by whole numbers, for example, the number of students in a given classroom. 
+
+In contrast, continuous numbers could be anything! I like to think of them as numbers that could've been measured with more precision if we had better tools. For example, peoples Heights could be measured to infinite precision if we had perfect tools, whereas we don't need better tools to measure the number of children and family more precisely.
+
+Of course, as with all things, there is a gray area here. Many studies will choose to give their subjects either no dose, a half dose or a full dose. These are obviously numbers and it is very likely that the response for a 0.75 dose is somewhere in between the half dose and the full dose. However, we chose these numbers and thus there are only three possible numbers. No amount of measuring is going to give us something other than a half dose (any deviation in administration of the dose can hopefully be ignored for the purpose of the study). In the definitions we've used it is neither a whole number, nor cannot be measured with higher precision. For the purposes of visualization, we might actually want to use a bar chart as if this were a categorical variable. If the dose had more categories and we expected the response to have a smooth trend across different dose levels, then we might use visualizations meant for discrete data. If the dose could have been any number between zero and one then we might use visualization meant for continuous data.
+
+
+:::
+
+### Quantitative Variables
+
+Here are the lengths of sharks:
+
+```
+ 9.4 12.1 12.2 12.3 12.4 12.6 13.2 13.2 13.2 13.2 13.5
+13.6 13.6 13.8 14.3 14.6 14.7 14.9 15.2 15.3 15.7 15.7
+15.8 15.8 16.1 16.2 16.2 16.4 16.4 16.6 16.7 16.8 16.8
+17.6 17.8 17.8 18.2 18.3 18.6 18.7 18.7 19.1 19.7 22.8
+```
+
+\pspace
+
+- We could have measured more precisely!\lspace
+- Can't just draw a bar chart with all sharks that were 9.4, all that were 12.1, ...\lspace
+
+:::notes
+How many we display this collection of shark lengths? It is clear that there are many different values that we could've gotten for the length and so we might not want to use something like a bar chart.
+:::
+
+### Quantitative Variables as a Bar Chart
+
+```{r}
+library(ggplot2)
+theme_set(theme_bw())
+sharks <-  c(9.4, 12.1, 12.2, 12.3, 12.4, 12.6, 13.2, 13.2, 13.2, 13.2, 13.5,
+13.6, 13.6, 13.8, 14.3, 14.6, 14.7, 14.9, 15.2, 15.3, 15.7, 15.7,
+15.8, 15.8, 16.1, 16.2, 16.2, 16.4, 16.4, 16.6, 16.7, 16.8, 16.8,
+17.6, 17.8, 17.8, 18.2, 18.3, 18.6, 18.7, 18.7, 19.1, 19.7, 22.8)
+
+ggplot() + aes(x = sharks) + geom_bar()
+```
+
+:::notes
+This plot demonstrates why bar chart isn't appropriate for these data. We can see that each data point essentially gets its own bar, and so the heights are no longer meaningful. The exception is that these data are rounded, and so some lengths end up in the same bar. Knowing that some of our data are rounded to the same value is not necessarily meaningful for any analyses that we might want to do. Instead, we would like a chart that shows us where most of the data are, and whether or not they are clear patterns in these data.
+:::
+
+### Histograms: Put observations into bins
+
+:::: {.columns}
+::: {.column width="50%"}
+
+The steps in building a histogram:
+
+\pspace
+
+1. Choose the bins.
+    - e.g. (0,10], (10,20], (20, 30], etc.\lspace
+2. Count the number of obs. in each bin.\lspace
+3. Draw a bar chart as if the bins are categories.
+    - Bars should touch since there's nothing in between.
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 3.8
+#| fig-width: 5
+## Note: I've added fanciness to make the slide look good.
+ggplot() + 
+    aes(x = sharks) +
+    geom_histogram(binwidth=2, 
+        center = 0, # Only need to specify the center of one bin
+        colour = "black", fill = "lightgrey") +
+    labs(x = "Shark Length", y = "Count")
+```
+
+Bins are (0,1], (1,2], (2,3]...
+
+Notice how the y-axis is still "Counts" (like a bar chart).
+:::
+::::
+
+:::notes
+Most of the time we will probably want to use a histogram to display quantitative, continuous data. A histogram is very much like putting continuous numbers into discrete bins, and then showing it as a bar chart. In this example, I chose bins from 1 to 3, then 3 to 5, then 5 to 7, and so on. For the bar on this histogram centred at a shark length of 12 we can see that there were five observations between 11 and 13. Note that the definitions of bins has a round bracket on the left side and the square bracket on the right side, this is to say that the left end point *is not* included but the right end point *is* included. This is just to account for cases where X may fall directly on the border between two bins, and we have to choose which bin. The actual bin we choose is arbitrary kind of like driving in the left or the right. You will not be tested on whether you can remember which endpoint is inclusive.
+
+From the plot on the right, we can see that most of the sharks are around 16 feet in length with sun going down to 10 feet and some as long as around 22 feet. The plot has a nice bell shape.
+
+A simple version of the plot can be made as follows, where `ggplot` chooses the bins automatically. Note that this is rarely desireable, and you should almost always choose the bins yourself. 
+```{r}
+ggplot() + 
+    aes(x = sharks) +
+    geom_histogram()
+```
+
+
+Below is an app to visualize the difference that the binwidth can make!
+```{r}
+#| eval: false
+shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+    subdir = "Apps/DensHist")
+```
+:::
+
+### Histograms: Bin Width Matters!
+
+\centering
+These histograms are showing the same data!
+\raggedright
+
+:::: {.columns}
+::: {.column width="48%"}
+
+```{r}
+#| fig-height: 4
+ggplot() + 
+    aes(x = sharks) +
+    geom_histogram(binwidth=2, 
+        center = 0, # Only need to specify the center of one bin
+        colour = "black", fill = "lightgrey") +
+    labs(x = "Shark Length", y = "Count")
+```
+
+:::
+::: {.column width="48%"}
+```{r}
+#| fig-height: 4
+ggplot() + 
+    aes(x = sharks) +
+    geom_histogram(binwidth=1.5, 
+        center = 0.75, # Only need to specify the center of one bin
+        colour = "black", fill = "lightgrey") +
+    labs(x = "Shark Length", y = "Count")
+```
+:::
+::::
+
+:::notes
+In the previous graph, it looked like the distribution of sharks followed a nice bell curve. However, if we use bins that are 1.5 units wide we get a plot that looks fairly different. It still looks like most sharks are around 16 feet and some go down to 10 and some go as high is 22 or 23, But we see a large bar that covers 12 to 13.5. This no longer has a nice bell shaped to it, but still looks relatively the same. 
+
+With histograms the bins that you choose are extremely important. Most software have default values that are generally reasonable, But it's always always always worth investigating other bins.
+:::
+
+### Describing Distributions
+
+When you're asked to comment on a histogram, always mention the following:
+
+- **Shape**: **Unimodal**/**bimodal** and **skewness**
+    - Skewness: put a glob of peanut butter on toast, "skew" it to one side.\lspace
+- **Center**: midpoint (**mean**/**median**)
+    - **Mode** depends on the bin!
+    - Skewness shows up in the relation between mean and median: "Mean less (than median) means left (skew)."\lspace
+- **Spread**: the **range**/**variance**/**IQR**\lspace
+    - More on IQR later!\lspace
+- **Outliers**: points that don't fit the shape
+    - More on outliers when we cover IQR!
+
+:::notes
+There are many shapes that a histogram can show. A distribution can be skewed (or "heavy-tailed"), which means that it looks like a bell curve but one side has a longer/thicker tail. We also want to know about several measures of the center of the distribution, as well as how spread out it is. Outliers are also something interesting to note; outliers are something that are *not* part of the shape (so you wouldn't consider them when evaluating the skewness of a distribution).
+
+Try drawing out each of these shapes/patterns!
+
+:::
+
+### Example: What is the Shape?
+
+```{r}
+#| echo: false
+#| eval: true
+
+ggplot(penguins) + 
+    aes(x = flipper_length_mm) +
+    geom_histogram(colour = 1, fill = "lightgrey") +
+    labs(x = "Flipper Length (mm)",
+        y = "Count")
+```
+
+:::notes
+This represents a **bimodal** distribution because it has two peaks (the word "mode" can refer to the category with the most observations, but it can also refer to the top of a peak). This would be described as a bimodal distribution with centres around 190 and 215, ranges around 195 to 205 and 205 to 235, with both peaks being symmetric and without any outliers.
+:::
+
+### Example: What is the Shape?
+
+```{r}
+#| echo: false
+#| eval: true
+
+ggplot(penguins) + 
+    aes(x = ordered(as.numeric(factor(species)), levels = c(2,1,3))) +
+    geom_bar(width = 1, colour = 1, fill = "lightgrey") +
+    labs(x = "Species Label",
+        y = "Count")
+```
+
+:::notes
+This is the classic sort of gotcha question that I like to use. This is actually a bar chart that I modified so that the bars have no space in-between - the x-labels are categories, not ranges! It may look somewhat symmatric and unimodal without any outliers, but the x-labels are actually out of order. These numbers are actually just numerical encodings of species names - 1 refers to Adelie penguins, 2 refers to Chinstrap, and 3 refers to Gentoo. These numbers were applied alphabetically because there isn't really a logical way to order these species: they're unordered categories!
+
+So, basically, it does not make sense to talk about shape in a bar graph where the labels could have been put in any order!
+:::
+
+### Purely Pedagogical: Stem-and-Leaf plots.
+
+Consider the data 
+```
+12, 43, 12, 32, 53, 66, 78, 25, 36, 12, 26,
+34, 98, 39, 44, 23, 15, 67, 1,  4,  54, 21
+```
+
+:::: {.columns}
+::: {.column width="30%"}
+:::
+::: {.column width="20%"}
+**Stem-and-Leaf**
+```
+0  | 14
+10 | 2225
+20 | 1356
+30 | 2469
+40 | 34
+50 | 34
+60 | 67
+70 | 8
+80 |
+90 | 8
+```
+
+:::
+::: {.column width="50%"}
+**Sideways Histogram**
+
+```{r}
+#| fig-height: 4.6
+mydata <- c(12, 43, 12, 32, 53, 66, 78, 25, 36, 12, 26,
+    34, 98, 39, 44, 23, 15, 67, 1,  4,  54, 21)
+
+ggplot() + theme_minimal() +
+    aes(x = mydata) +
+    geom_histogram(binwidth = 10, center = 5,
+        fill = "lightgrey", colour = "black") +
+    scale_x_continuous(breaks = (0:10)*10, trans = "reverse", expand = c(0,0)) +
+    coord_flip() + 
+    labs(x = "Value", y = NULL)
+```
+:::
+::::
+
+:::notes
+This visualization technique is shown purely for pedagogical reasons. A stem and leaf plot is like a histogram where the bins are all powers of 10. It isisplayed using the stem, which is the first digit and the leaf which is the second digit. For example, the number 78 has a 7 in the tens place (and were using the tens place as the stem) and an 8 in the ones place (and we using the ones place as the leaf). In the stem and leaf plot, 78 goes on the stem labelled 70 and it gets a leaf of eight. Going the other way, we can see a stem labelled 90 and a leaf labelled eight which corresponds to the number 98. For the stem labelled zero we have the numbers one and four, for the stem label 10 we have the numbers 12, 12, 12, and 15, and so on.
+
+Essentially, this is just a histogram. We're instead of drawing a bar that corresponds to the number of observations in that bin, we are just listing the observations in that bin. Compare the stem and leaf plot to the sideways histogram on the right: in the first bin from 0 to 10 (not including 10) there are two numbers, one and four, and the length of the bin is two. For the stem label 20, we have the numbers 21, 23, 25 and 26, and this is displayed as a bar with link for in the histogram.
+
+The main reason for showing this visualization technique is that it can be very useful for tests and quizzes, because it allows you to create a histogram without software. It also allows easy computation of the median since all of the leaves are in order. These are not used in practice, because in practice, you will have software to create histograms *and* find the median!
+
+Note that the shape of the distribution can be seen from the stem and leaf plot. It is a unimodal distribution that is right skewed and likely does not have an outlier (there is one point that appears to be separate from the others, but this is likely due to bin choice).
+:::
+
+### Summary
+
+- **Individuals** are what we make measurements on
+    - Can be pairs, dates, or people\lspace
+- **Variables** are what we measure
+    - Can be derived from other measurements\lspace
+- You will not be asked to do anything with pie charts in this course.\lspace
+- **Bar charts** show counts of categories. 
+    - Can optionally sum to 1 (like a pie chart).\lspace
+- **Histograms** are like bar charts for binned data.
+    - **Bins matter**.
+    - Must interpret **shape**.
+
+## Participation Questions
+
+### Participation Question 1
+
+Which of the following visualizations would be *least* appropriate for **discrete** data?
+
+\pspace
+
+1. Bar Chart\lspace
+2. Histogram\lspace
+3. Pie Chart\lspace
+4. Stem-and-Leaf plot
+
+### Participation Question 2
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{0.5cm}
+What shape is the distribution on the right?
+
+\pspace
+
+1. Symmetric\lspace
+2. Left Skewed\lspace
+3. Right Skewed
+
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| eval: true
+#| fig-height: 4
+
+simdata <- rnorm(1000)^1.25
+ggplot() +
+    aes(x = simdata) +
+    geom_histogram(fill = "lightgrey", colour = 1)
+```
+:::
+::::
+
+### Q3
+
+Age was collected as the number of days since birth. What kind of variable is this?
+
+\pspace
+
+1. Ordered categorical\lspace
+2. Unorded categorical\lspace
+3. Discrete\lspace
+4. Continuous
+
+### Q4
+
+Age was collected as 0-17, 18-25, 25-34, or 35+. What kind of variable is this?
+
+\pspace
+
+1. Ordered categorical\lspace
+2. Unorded categorical\lspace
+3. Discrete\lspace
+4. Continuous
+
+### Q5
+
+Age was collected as age in years, then rounded to the nearest 10. What kind of variable is the rounded value of age?
+
+\pspace
+
+1. Ordered categorical\lspace
+2. Unorded categorical\lspace
+3. Discrete\lspace
+4. Continuous
+
+### Q6
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+
+Approximately what proportion of the data is larger than 0? Note that there are 40 data points.
+
+\pspace
+
+1. 50\%
+2. 25\%
+3. 75\%
+4. 100\%
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 4
+#| fig-width: 5
+set.seed(2112)
+myd <- rnorm(40)
+ggplot() + aes(x = myd) + geom_histogram(center = 0.5, binwidth = 1, fill = "lightgrey", colour = 1)
+```
+
+:::
+::::
+
+:::notes
+
+
+**Exercises**
+
+1. **Prescriptions of opioid pain relievers.** Opioid pain relievers are prescribed at a higher rate in the United States than in any other nation, even though abuse of these medications can result in addiction and fatal overdoses. The CDC examined opioid pain reliever prescriptions in each state to find out how variable prescription rates are across the nation. Here are the 2012 state prescription rates, in number of prescriptions per 100 people, listed in increasing order: 
+
+`opiods <- c(52.0, 57.0, 59.5, 61.6, 62.9, 65.1, 66.5, 67.4, 67.9, 69.6, 70.8, 71.2, 71.7, 72.4, 72.7, 72.8, 73.8, 74.3, 74.3, 74.7, 76.1, 77.3, 77.5, 79.4, 82.0, 82.4, 85.1, 85.6, 85.8, 88.2, 89.2, 89.6, 90.7, 90.8, 93.8, 94.1, 94.8, 96.6, 100.1, 101.8, 107.0, 109.1, 115.8, 118.0, 120.3, 127.8, 128.4, 137.6, 142.8, 142.9)`
+
+a. Make a histogram of the state opioid pain reliever prescription rates using classes of width 10 starting at 50.0 prescriptions per 100 people. e.g. (50, 60]. Do this by hand first, then using R.
+b. Would you say that the distribution is single-peaked or multiple-peaked? Is it roughly symmetric or skewed?
+
+
+The Statistical Abstract of the United States, prepared by the Census Bureau, provides the number of single-organ transplants for the year 2010, by organ. The following two exercises are based on this table:
+
+| Disease | Count |
+|---|---|
+| Heart | 2,333 |
+| Lung | 1,770 |
+| Liver | 6,291 |
+| Kidney | 16,898 |
+| Pancreas | 350 |
+| Intestine | 151 |
+
+2. (1.14 in BM) The data on single-organ transplants can be displayed in
+
+a. a pie chart but not a bar graph.
+b. a bar graph but not a pie chart.
+c. either a pie chart or a bar graph.
+
+3. (1.15 in BM) Kidney transplants represented what percent of single-
+organ transplants in 2010?
+a. Nearly 61%.
+b. One-sixth (nearly 17%).
+c. This percent cannot be calculated from the information
+provided in the table.
+
+See also: [OpenIntro Textbook](https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Book%3A_OpenIntro_Statistics_(Diez_et_al)./01%3A_Introduction_to_Data/1.E%3A_Introduction_to_Data_(Exercises)) problems relating to visualizations that we have learned, especially 1.30, 1.36, 1.37, 1.39, 1.40, 1.47.
+:::

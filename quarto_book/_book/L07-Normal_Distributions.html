@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+
+<title>Course Notes for ST231 - 6&nbsp; The Normal Distributions</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./L09-Binomial_Probabilities.html" rel="next">
+<link href="./L05-Probability.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L07-Normal_Distributions.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Course Notes for ST231</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Pre-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Post-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14-tCI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals (without the Silliness)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#some-facts-about-distributions" id="toc-some-facts-about-distributions" class="nav-link" data-scroll-target="#some-facts-about-distributions">Some Facts about Distributions</a></li>
+  </ul></li>
+  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="header-section-number">6.2</span> The Normal Distribution</a></li>
+  <li><a href="#calculating-normal-probabilities---part-1" id="toc-calculating-normal-probabilities---part-1" class="nav-link" data-scroll-target="#calculating-normal-probabilities---part-1"><span class="header-section-number">6.3</span> Calculating Normal Probabilities - Part 1</a>
+  <ul class="collapse">
+  <li><a href="#trickier-calculations" id="toc-trickier-calculations" class="nav-link" data-scroll-target="#trickier-calculations">Trickier calculations</a></li>
+  </ul></li>
+  <li><a href="#the-standard-normal-distribution" id="toc-the-standard-normal-distribution" class="nav-link" data-scroll-target="#the-standard-normal-distribution"><span class="header-section-number">6.4</span> The Standard Normal Distribution</a>
+  <ul class="collapse">
+  <li><a href="#standardizing-a-normal-distribution" id="toc-standardizing-a-normal-distribution" class="nav-link" data-scroll-target="#standardizing-a-normal-distribution">Standardizing a Normal Distribution</a></li>
+  </ul></li>
+  <li><a href="#calculating-normal-probabilities---part-2" id="toc-calculating-normal-probabilities---part-2" class="nav-link" data-scroll-target="#calculating-normal-probabilities---part-2"><span class="header-section-number">6.5</span> Calculating Normal Probabilities - Part 2</a>
+  <ul class="collapse">
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#ex1-px-x" id="toc-ex1-px-x" class="nav-link" data-scroll-target="#ex1-px-x">Ex1: P(X &lt; x)</a></li>
+  <li><a href="#px-x" id="toc-px-x" class="nav-link" data-scroll-target="#px-x">P(X &gt; x)</a></li>
+  <li><a href="#pa-x-b" id="toc-pa-x-b" class="nav-link" data-scroll-target="#pa-x-b">P(a &lt; X &lt; b)</a></li>
+  <li><a href="#going-backwards" id="toc-going-backwards" class="nav-link" data-scroll-target="#going-backwards">Going Backwards</a></li>
+  </ul></li>
+  <li><a href="#problems-verifying-the-empirical-rule" id="toc-problems-verifying-the-empirical-rule" class="nav-link" data-scroll-target="#problems-verifying-the-empirical-rule"><span class="header-section-number">6.6</span> Problems: Verifying the Empirical Rule</a></li>
+  <li><a href="#problems-z-scores" id="toc-problems-z-scores" class="nav-link" data-scroll-target="#problems-z-scores"><span class="header-section-number">6.7</span> Problems: Z-scores</a></li>
+  <li><a href="#problems-standardizing" id="toc-problems-standardizing" class="nav-link" data-scroll-target="#problems-standardizing"><span class="header-section-number">6.8</span> Problems: Standardizing</a></li>
+  <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">6.9</span> Participation</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.10</span> Summary</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">6.11</span> Self-Study Questions</a></li>
+  <li><a href="#more-questions" id="toc-more-questions" class="nav-link" data-scroll-target="#more-questions"><span class="header-section-number">6.12</span> More Questions</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/edit/main/L07-Normal_Distributions.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Jam: by
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
+<p>In this lecture we are looking at continuous distributions. Continuous distributions have an odd quirk. If a variable has a continuous distribution, then <span class="math inline">\(P(X = x) = 0\)</span>. That is, the probability of any specific value is infinitely small.</p>
+<p>Think of it this way: suppose that human heights go from <a href="https://en.wikipedia.org/wiki/List_of_the_verified_shortest_people">54 cm</a> to <a href="https://en.wikipedia.org/wiki/Robert_Wadlow">272 cm</a>. For now, suppose all of these heights are equally likely. If we record heights to the nearest centimeter, there are 219 possible heights, so the probability that you are one of those heights is 1/219. If we round to the nearest mm, there are 21,900 different heights. As we get a more and more accurate measuring instrument, the probability of any given height goes to 0. It’s not that these heights are impossible, it’s that you’re probably not going to ever guess my exact height when we measure it with infinite accuracy.</p>
+<p>So what do we do? How could we possibly calculate probabilities? Well, we measure ranges! You can’t guess my height exactly, but we can talk about the probability that my height is between 170 and 180 cm, or even the probability that my height would be 170, assuming we round to the nearest centimeter.</p>
+<section id="some-facts-about-distributions" class="level3">
+<h3 class="anchored" data-anchor-id="some-facts-about-distributions">Some Facts about Distributions</h3>
+<p>Before we begin, the following properties are true of <em>any</em> distribution, regardless of whether they are discrete or continuous.</p>
+<ol type="1">
+<li>All probabilities must be between 0 and 1.</li>
+<li>All probabilities together must make 1.
+<ul>
+<li>For discrete, adding them all should get you to 1.</li>
+<li>For continuous, the area under the density curve must be 1.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul></li>
+<li>If two events are disjoint, you must be able to add their probabilities.
+<ul>
+<li>It’s weird, but we have to define this as a rule first before we can calculate probabilities.</li>
+</ul></li>
+</ol>
+<p>The first point should be obvious, and you won’t ever need to check whether the third point is true.</p>
+<p>The second point is the important one: The total probability for all events must be 1. For continuous distributions like the normal distribution, that means that the area under the curve is 1.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+</section>
+</section>
+<section id="the-normal-distribution" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="the-normal-distribution"><span class="header-section-number">6.2</span> The Normal Distribution</h2>
+<p>The normal distribution is a way to define the probability of something using a function, but the function is complicated.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Instead, we’ll jump right into how to use it and let software deal with the function.</p>
+<p>In the introduction, I used the example of people’s heights. I made the assumption that all heights were equally likely, but this is just a bonkers thing to say. Instead, some heights are more likely than other heights. Of course, this doesn’t mean that, say, 170 cm is very unlikely, but 175 is likely, then 176 is unlikely, then 177 is <em>very</em> unlikely, then 178 is suddenly really likely again; most people have heights close to the average and heights further from the average are less likely. This is exactly what the normal distribution is for! Here’s what the normal distribution looks like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">162.3</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sig <span class="ot">&lt;-</span> <span class="fl">7.11</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>xseq <span class="ot">&lt;-</span> <span class="fu">seq</span>(mu<span class="dv">-3</span><span class="sc">*</span>sig, mu <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>sig, <span class="at">length.out =</span> <span class="dv">300</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>yseq <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(<span class="at">x =</span> xseq, <span class="at">mean =</span> mu, <span class="at">sd =</span> sig) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xseq, yseq, <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Heights of Canadian Women"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Height (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Prob. Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L07-Normal_Distributions_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The plot above has the highest point occurs at exactly 162.3, which is the best number I could find for the actual average height of Canadian women. This is denoted <span class="math inline">\(\mu\)</span>. The width of the curve is a little trickier - how did I choose to make it go from 145 to 180? I could easily have stretched it out or squeezed it inwards in both directions. The width is defined by the standard deviation, which is denoted <span class="math inline">\(\sigma\)</span>. Because of the way the normal distribution is defined, there’s nothing else we can change about it - knowing <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> are enough to draw the entire curve.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Requires the "shiny" library</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/normShape"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we have a variable <span class="math inline">\(X\)</span> that follows a normal distribution, we use the notation <span class="math inline">\(X \sim N(\mu, \sigma)\)</span>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some textbooks use the notation <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, i.e.&nbsp;they use <span class="math inline">\(\sigma^2\)</span> rather than <span class="math inline">\(\sigma\)</span>. It’s like driving on the left or the right side of the road - both are fine, but we have to choose one and stick with it.</p>
+</div>
+</div>
+<p>The idea that “most things are close to the center, and fewer things further away” can be very powerful. This applies to:</p>
+<ul>
+<li>Human heights</li>
+<li>Income for a given job position</li>
+<li>Change in stock price from day to day
+<ul>
+<li>On average the change is 0, but it does change. Small changes are much more likely than large ones, but large ones do happen.</li>
+<li>Obviously, extreme events happen sometimes, and major changes can happen.</li>
+</ul></li>
+<li>IQ scores</li>
+<li>Birth weight</li>
+<li>How much the prediction of a model differs from the truth</li>
+</ul>
+</section>
+<section id="calculating-normal-probabilities---part-1" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="calculating-normal-probabilities---part-1"><span class="header-section-number">6.3</span> Calculating Normal Probabilities - Part 1</h2>
+<p>The height and width of the normal distribution are determined by the <strong>mean</strong> (<span class="math inline">\(\mu\)</span>) and <strong>standard deviation</strong> (<span class="math inline">\(\sigma\)</span>), and <em>only</em> the mean and standard deviation. The mean just moves the curve left and right, the standard deviation squeezes or stretches it.</p>
+<p>To highlight this, we introduce something called the <strong>Empirical Rule</strong>, a.k.a. the 68-95-99.5 Rule. No matter what the mean of the distribution is, 68% of the probability is within 1 standard deviation of the mean. To say this another way, let’s extend our notation slightly. If <span class="math inline">\(X\sim N(\mu,\sigma)\)</span>, we can say that:</p>
+<p><span class="math display">\[\begin{align*}
+P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
+\end{align*}\]</span></p>
+<p>To phrase this in another way, if we were to draw random numbers from the normal distribution, 68% of them would be between 1sd below the mean and 1sd above the mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="sc">-</span><span class="dv">4</span>) <span class="co"># Ensure the same random numbers every time</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generate 10000 random N(0,1) values</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>) </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## You won't need to know how to write this code:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> x <span class="sc">&lt;</span> <span class="dv">1</span>) <span class="co"># x is larger than -1 AND less than 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6766</code></pre>
+</div>
+</div>
+<p>So out of 10,000 random numbers from a N(0,1) distribution, 6,766 (67.66%) of them were above -1 but below 1. If we change the mean and sd, we still get the same results:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean is 4, sd is 30, so mean - 1sd = 4 - 30</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Change the mean and sd for yourself to see what happens!</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x2 <span class="sc">&gt;</span> (mu <span class="sc">-</span> sigma) <span class="sc">&amp;</span> x2 <span class="sc">&lt;</span> (mu <span class="sc">+</span> sigma)) <span class="co"># Not exactly 68%, but approximate!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6845</code></pre>
+</div>
+</div>
+<p>As you can guess from the name “68-95-99.7 Rule”, 68% being within one sd is only part of the story. The 95 refers to 95% being within 2sd of the mean, and the 99.7 refers to 99.7% being within 3sd of the mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">&amp;</span> x <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="co"># within 2sd of the mean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9523</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">3</span> <span class="sc">&amp;</span> x <span class="sc">&lt;</span> <span class="dv">3</span>) <span class="co"># within 3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9970</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Try this with x2 as well!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Some variant of the following image appears in countless textbooks:</p>
+<p><img src="figs/emprirical.png" class="img-fluid"></p>
+<p>As a small side note, the image above uses the word “data”. By this, it means that if this is the <strong>population</strong>, then 68% of all the data that it were possible to collect would be within one standard deviation of the mean. As we saw in the simulated data above, this number is almost never going to be perfect.</p>
+<section id="trickier-calculations" class="level3">
+<h3 class="anchored" data-anchor-id="trickier-calculations">Trickier calculations</h3>
+<p>If 68% of the data is between <span class="math inline">\(\mu - \sigma\)</span> and <span class="math inline">\(\mu + \sigma\)</span>, then there’s still 32% of the distribution outside this range. The normal distribution is <strong>symmetric</strong>, so this 32% gets split exactly in half and 16% of the distribution is below <span class="math inline">\(\mu - \sigma\)</span>, and 16% is above <span class="math inline">\(\mu + \sigma\)</span>.</p>
+<p>Based on this calculation, we can say that 84% of any normal distribution is below <span class="math inline">\(\mu + \sigma\)</span>, and 84% is above <span class="math inline">\(\mu - \sigma\)</span>. Before we move on, draw out some normal distributions to convince yourself that 97.5% of any normal distribution is less than <span class="math inline">\(\mu + 2\sigma\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>You should try the following calculations yourself, all of which can be done with basic arithmetic and the 68-95-99.7 Rule:</p>
+<ol type="1">
+<li>Below <span class="math inline">\(\mu+2\sigma\)</span> and above <span class="math inline">\(\mu-\sigma\)</span>.</li>
+<li>Below <span class="math inline">\(\mu+2\sigma\)</span> and above <span class="math inline">\(\mu+\sigma\)</span>.</li>
+<li>Above <span class="math inline">\(\mu + 2\sigma\)</span> and below <span class="math inline">\(\mu + 3\sigma\)</span></li>
+<li>Above <span class="math inline">\(\mu - 3\sigma\)</span> and below 0.</li>
+</ol>
+</section>
+</section>
+<section id="the-standard-normal-distribution" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="the-standard-normal-distribution"><span class="header-section-number">6.4</span> The Standard Normal Distribution</h2>
+<p>We use a special letter (Z, pronounced “zed” because we’re Canadian) to denote a standard normal distribution. In particular, <span class="math inline">\(Z\sim N(0, 1)\)</span> is a normal distribution with mean 0 and standard deviation 1. Many many many many textbooks have a table in the back of them that gives probabilities for the standard normal distribution, and they call them <span class="math inline">\(Z\)</span> tables.</p>
+<p>All normal distributions have the exact same shape. In order to change the mean and sd, we can simply re-write the numbers on the axes. If we want to shift the whole curve to the left by 2 units, we can re-label the numbers on the x axis. If we change the sd, the plot might get “taller” or “shorter”, but if we zoom in on the plot we can make it look exactly the same!<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<section id="standardizing-a-normal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="standardizing-a-normal-distribution">Standardizing a Normal Distribution</h3>
+<p>Because they all look the same, we might as well work with just one of them! Suppose <span class="math inline">\(X\sim N(\mu,\sigma)\)</span>. If we shift the whole curve to the left, then the mean shifts as well and the mean is 0. In other words, <span class="math inline">\(X-\mu \sim N(0,\sigma)\)</span>. Now that the mean is at 0, <span class="math inline">\(\mu + 1\sigma\)</span> is simply <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(\mu-3\sigma\)</span> is <span class="math inline">\(-3\sigma\)</span>, and so on. If we divide all of the numbers by <span class="math inline">\(\sigma\)</span>, then <span class="math inline">\(\sigma\)</span> is simply 1, <span class="math inline">\(-3\sigma\)</span> is simply -3, and so on. To formalize this, if <span class="math inline">\(x\sim N(\mu,\sigma)\)</span>, then</p>
+<p><span class="math display">\[\begin{align*}
+\frac{X-\mu}{\sigma} = Z \sim N(0, 1)
+\end{align*}\]</span></p>
+<p>This is called <strong>standardizing</strong> a normal distribution. The resultant value is called the <strong>z-score</strong>.</p>
+<p>For example, suppose a woman is 155.19 cm tall. If the true mean height of Canadian women is 162.3 and the standard deviation is 7.11, then this particular woman is exactly one standard deviation <em>below</em> the mean. This is the <strong>z-score</strong>, a.k.a. the standardized value; this woman’s z-score is -1.</p>
+<p>Now consider a woman who is 161.22 cm tall. Her z-score would be -0.152,<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> meaning that she is 0.152 standard deviations below the mean.</p>
+<p>Let’s return to the 155.19 cm tall woman. If you take a woman at random from the population, what is the probability that the randomly chosen woman be be shorter than 155.19 cm? Based on the 68-95-99.7 rule, 68% of women are within one standard deviation of the mean, which is a range from 155.19 to 169.41. Since 68% of the women are betwen these two numbers, 16% of them are shorter than 155.19 (it is also true that 16% are taller than 169.41, but this was not required for the question).</p>
+<p>Now, what’s the probability that a randomly chosen woman is, say, shorter than 160 cm? This doesn’t fit nicely in the empirical rule, so we need another way to calculate probabilities. However, it’s worth stopping and trying to make a guess! The empirical rule tells us that 16% of women are below 155.19 cm, and we also know that 50% of women are shorter than the average of 162.3 cm (since the normal distribution is symmetric), so we expect that the answer is somewhere between 16% and 50%, probably closer to 50% since 160 cm is closer to 162.3 cm than it is to 155.19 cm.</p>
+</section>
+</section>
+<section id="calculating-normal-probabilities---part-2" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="calculating-normal-probabilities---part-2"><span class="header-section-number">6.5</span> Calculating Normal Probabilities - Part 2</h2>
+<p>In general, we use the <strong>cumulative distribution function</strong> (CDF, or cdf) to calculate probabilities. As with the cumulative probability tables we saw in the probability lectures, the cumulative probability calculates the area to the <em>left</em> of a particular point.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Questions about the normal distribution generally come in three flavours:</p>
+<ol type="1">
+<li>Find <span class="math inline">\(P(X \le a)\)</span></li>
+<li>Find <span class="math inline">\(P(X \ge b)\)</span></li>
+<li>Find <span class="math inline">\(P(c \le X\le d)\)</span></li>
+</ol>
+<p>The <strong>cdf</strong> is defined as <span class="math inline">\(P(X\le x)\)</span>, which allows us to answer questions like 1. For the standard normal distribution, a table of Z probabilities can be found at the back of the textbook. I’ve added a file that demonstrates how to use the Z-table in the Lecture Materials. This is something that is crucial to know for closed-book tests since you will need to caclulate probabilities somehow, but we can’t let you have a computer to run R! Before moving on, read “<strong>Intro to Ztable.pdf</strong>”.</p>
+<p>In that file, there are some practice problems. Below, you’ll find a selection of solutions using R. For your own practice, try and calculate them with the Z-table (with some good drawings) and verify your answer with R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 1. Find the probability of a z-value less than 1.11.</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8665005</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 2. Find the probability of a z-value greater than 1.11</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">1.11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1334995</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 3. Find the probability of a z-value greater than -2.01 but less than 1.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">2.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8191292</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 4. Verify the empirical rule: 68-95-99.7</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6826895</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9544997</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9973002</code></pre>
+</div>
+</div>
+<p>For questions like <span class="math inline">\(P(X\ge x)\)</span>, we can simply use the fact that <span class="math inline">\(P(X \ge x) = 1 - P(X&lt;x)\)</span>. Since this is a continuous distribution and <span class="math inline">\(P(X = x)=0\)</span>, we also know that <span class="math inline">\(P(X\le x) = P(X&lt;x)\)</span> and we can just use the cdf. The last one is a little bit trickier.</p>
+<p>To calculate the probability that a randomly chosen value will be within a given range, there are a few steps. Let’s use the same example as the textbook: If <span class="math inline">\(X\sim N(-2, 1)\)</span> find <span class="math inline">\(P(-2.5\le X\le -1)\)</span>. If we want to use the cdf, we need to re-write this in terms of <span class="math inline">\(P(X\le x)\)</span>.</p>
+<p>Here’s how we do it. If we only find <span class="math inline">\(P(X\le-1)\)</span>, then we have taken too much of the distribution. Everything to the left of -2.5 was something that should not have been included. So why don’t we just remove it? By this logic, we find <span class="math inline">\(P(-2.5\le X \le -1) = P(X\le -1) - P(X \le -2.5)\)</span>. This is shown graphically below:</p>
+<p><img src="figs/addgraphs.png" class="img-fluid"></p>
+<p>Returning to the heights example, the probability of a randomly chosen woman being less than 160 cm can be calculated as: <span class="math display">\[
+\frac{x - \mu}{\sigma} = \frac{160 - 162.3}{7.11} = -0.323488045
+\]</span> We can now look up -0.323 on the normal table. Try that out, and verify that you get the same value here:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.323488045</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3731628</code></pre>
+</div>
+</div>
+<p>Note that R will do the standardization for you if you ask it politely.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">160</span>, <span class="at">mean =</span> <span class="fl">162.3</span>, <span class="at">sd =</span> <span class="fl">7.11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3731628</code></pre>
+</div>
+</div>
+<p>I have created a shiny app that lets you explore these calculations<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. Feel free to use this to answer the questions in this lecture, and then double check the answers with the z-table.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages("shiny") # Run this if you get an error about "package not found"</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+</section>
+<section id="ex1-px-x" class="level3">
+<h3 class="anchored" data-anchor-id="ex1-px-x">Ex1: P(X &lt; x)</h3>
+<ol type="1">
+<li>If X has a mean of 4 and a sd of 2, what’s the probability of a value less than 0?
+<ul>
+<li><strong>Solution 1</strong>: Standardize and Z-table. I’ll split this up into steps:
+<ol type="1">
+<li>Standardize: <span class="math inline">\((x-\mu)/\sigma = (0 - 4)/2 = -2\)</span>.</li>
+<li>Find -2 on the Z table: -2=-2.00, so this will be in the row labelled -2.0 and the column labelled 0.00,<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> which is 0.0228.</li>
+<li>Conclude: 2.28% of the N(4,2) distribution is below 0.</li>
+</ol></li>
+<li><strong>Solution 2</strong>: Empircal rule.
+<ul>
+<li>Before calculating a normal probability, try and estimate how many standard deviations away from the mean the value is. In this case, 0 is 2 standard deviations from 4. The 68-95-99.7 rule states that 95% of the distribution is outside the range from <span class="math inline">\(\mu - 2\sigma\)</span> to <span class="math inline">\(\mu + 2\sigma\)</span>, so 5% is outside of this range. This means that 2.5% is on either side, which means that 2.5% is below 0.</li>
+</ul></li>
+</ul></li>
+</ol>
+<p>A short version of Solution 2: By the 68-95-99.7 Rule, 95% is between 0 and 8. Therefore, 2.5% must be less than 0.</p>
+<p>As you can see, the 68-95-99.7 rule is <em>approximate</em>. However, I highly recommend doing many practice problems with it. On a multiple choice question, if you can figure out the answer with the Empirical Rule than you might be able to guess the correct answer much quicker. You won’t get the exact answer, but if there’s only one answer that’s close to your guess, then that’s probably it.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<p><strong>Solution 3</strong>: R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Standardize:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>((<span class="dv">0</span> <span class="sc">-</span> <span class="dv">4</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02275013</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Same answer, without standardizing:</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02275013</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>If <span class="math inline">\(X\sim N(1234, 56)\)</span>, what’s the probability of a number smaller than 1432.</li>
+</ol>
+<p><em>Before we begin:</em> What do we expect the number to be? The mean is 1234, which is smaller than 1432. Is it a little smaller, or is it a lot smaller? Compared to the standard deviation, it’s a lot smaller. By the empirical rule, the vast majority of the distribution is below <span class="math inline">\(\mu + 3\sigma\)</span>, which is approximately 1400.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> We should expect an answer close to 1, since the area under the normal distribution is 1.</p>
+<p><strong>Solution 1</strong>: <span class="math inline">\((x-\mu)/\sigma = (1432-1234)/56 = 3.54\)</span>, which is not on the Z table. When this happens (and we don’t have access to technology), we simply say the answer is 1.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p><strong>Solution 2</strong>: The value we’re interested in isn’t 1, 2, or 3 standard deviations from the mean, so the Empirical Rule doesn’t apply. However, we can guess that our probability will be close to 1 since it’s larger than 3 standard deviations away.</p>
+<p><strong>Solution 3</strong>: R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1432</span>, <span class="at">mean =</span> <span class="dv">1234</span>, <span class="at">sd =</span> <span class="dv">56</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9997967</code></pre>
+</div>
+</div>
+<p>Ideally, you would only ever use intuition from the Empirical rule, or use R. The Z-table is super convenient for written, in-person exams. It’s also nice for situations where you don’t have a computer with R available.</p>
+</section>
+<section id="px-x" class="level3">
+<h3 class="anchored" data-anchor-id="px-x">P(X &gt; x)</h3>
+<ol start="3" type="1">
+<li>If X has a mean of 4 and a sd of 2, what’s the probability of a value greater than 0?</li>
+</ol>
+<p><em>Before we start</em>: Use the empirical rule! 0 is 2sd below the mean, so the answer should be close to 97.5%</p>
+<p><strong>With the Z table</strong>: <span class="math inline">\((x-\mu)/\sigma = -2\)</span>, and we’ve already found this on the table as 0.0228. Since we’re looking at the <strong>right tail</strong>, our answer is 1 - 0.0228 = 0.9772.</p>
+<p><strong>With R</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9772499</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Suppose <span class="math inline">\(X\sim N(23, 23)\)</span>. What’s the probability of a value larger than 23?</li>
+</ol>
+<p><em>Before we start</em>: The normal distribution is perfectly symmetric, which we have learned means that the mean is equal to the median. The median marks the point where 50% of the distribution is smaller. So before doing any work, we know that the answer must be 50%</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">23</span>, <span class="dv">23</span>, <span class="dv">23</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5</code></pre>
+</div>
+</div>
+</section>
+<section id="pa-x-b" class="level3">
+<h3 class="anchored" data-anchor-id="pa-x-b">P(a &lt; X &lt; b)</h3>
+<ol start="5" type="1">
+<li>If <span class="math inline">\(X\sim N(0, 1)\)</span>, what’s the probability of a value between -1.52 and -0.5?</li>
+</ol>
+<p><strong>Solution 1</strong>: We have a standard normal value, so we can look these values up directly. P(Z &lt; -1.52) = 0.0643<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> and P(Z &lt; -0.5) = 0.3085.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> We want the area between these two values. P(Z &lt; -0.5) contains everything from negative infinity to -0.5, but we only want values from -1.52 to -0.5. To fix this, we remove everything from negative infinity to -1.52. Our answer is 0.3085 - 0.0643 = 0.2442.</p>
+<p><strong>Solution 2</strong>: R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.52</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2442821</code></pre>
+</div>
+</div>
+<p>I have made a shiny app for you to visualize this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li><span class="math inline">\(X \sim N(2,3)\)</span>, find <span class="math inline">\(P(-1 &lt; X &lt; 5)\)</span></li>
+</ol>
+<p><em>Before we begin:</em> This is the empirical rule for 1sd. The answer is 68%.</p>
+<p><em>With a Z table</em>: We calculate the z-score individually, then subtract the probabilities in a way that makes sense.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> <span class="math inline">\(P(X &lt; -1) = P((X-\mu)/\sigma &lt; (-1 - \mu)/\sigma) = P(Z &lt; (-1 - 2)/3) = P(Z &lt; -1) = 0.1587\)</span>. Similarly, <span class="math inline">\(P(X &lt; 5) = P(Z &lt; 1) = 0.8413\)</span>. The answer is 0.8413 - 0.1587 = 0.6826, which is very close to what we got with the Empirical Rule.</p>
+<p><em>With R</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6826895</code></pre>
+</div>
+</div>
+</section>
+<section id="going-backwards" class="level3">
+<h3 class="anchored" data-anchor-id="going-backwards">Going Backwards</h3>
+<p>What’s the first quartile of an N(2,3) distribution? It’s the point at which 25% of the distribution is smaller. In other words, P(X &lt; Q1) = 0.25. How do we find Q1?</p>
+<p>We can look up 0.25 as a probability. That is, as a value in the <em>body</em> of the Z table. This will give us the corresponding z-score.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a> Unfortunately, 0.25 isn’t in the table. The closest values are 0.2514 (which is a Z score of -0.67) and 0.2483 (Z score of -0.68). On a test situation, -0.67 and -0.68 would both be valid answers, as would -0.675.</p>
+<p>In R, the “<code>q</code>” family of functions are the reverse lookup functions. That is, You tell them the probability, and they return the z-score.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.6744898</code></pre>
+</div>
+</div>
+<p>However, we’re not done yet! We found the quartile for a <em>standard normal</em> distribution. We have to go backwards in the standardization formula. In essence, we have found Z and we need to find X.</p>
+<p><span class="math display">\[\begin{align*}
+\frac{x - \mu}{\sigma} = z \Leftrightarrow x = z\sigma + \mu
+\end{align*}\]</span></p>
+<p>To finish this question, we say that the first quartile of a N(2, 3) distribution is -0.67*3 + 2 = -0.01.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></p>
+<p>In R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.02346925</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="problems-verifying-the-empirical-rule" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="problems-verifying-the-empirical-rule"><span class="header-section-number">6.6</span> Problems: Verifying the Empirical Rule</h2>
+<hr>
+<p>68-95-99.7</p>
+</section>
+<section id="problems-z-scores" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="problems-z-scores"><span class="header-section-number">6.7</span> Problems: Z-scores</h2>
+<hr>
+<ul>
+<li><span class="math inline">\(P(z \le 2.25)\)</span></li>
+<li><span class="math inline">\(P(z \le -2.25)\)</span></li>
+<li><span class="math inline">\(P(z \ge 2.25)\)</span></li>
+<li><span class="math inline">\(P(z \ge -2.25)\)</span></li>
+</ul>
+<hr>
+<ul>
+<li><span class="math inline">\(P(-2 \le z \le 2)\)</span>
+<ul>
+<li>$P(Z ; and; Z )</li>
+</ul></li>
+<li><span class="math inline">\(P(2 \le z \le -2)\)</span></li>
+<li><span class="math inline">\(P(0 \le z \le 2)\)</span></li>
+<li><span class="math inline">\(P(-2 \le z \le 0)\)</span></li>
+<li><span class="math inline">\(P(Z \ge 2\; or\; Z \le -2.5)\)</span></li>
+</ul>
+<hr>
+<ul>
+<li><span class="math inline">\(P(Z \le z) = 0.5\)</span></li>
+<li><span class="math inline">\(P(Z \ge z) = 0.4238\)</span></li>
+</ul>
+<p>What is <span class="math inline">\(z\)</span>?</p>
+</section>
+<section id="problems-standardizing" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="problems-standardizing"><span class="header-section-number">6.8</span> Problems: Standardizing</h2>
+<hr>
+<p>The birthweights of cute widdle babies born at full-term is <span class="math inline">\(N(3350, 440)\)</span>.</p>
+<ul>
+<li>Low birthweight babies are those with a weight less than 2500. Probability of this?</li>
+<li>High birthweight is above 4200. Probability?</li>
+<li>Probability of either low or high?</li>
+</ul>
+<hr>
+<p>A paper claimed that their control group was normal with a mean of 7 headaches per month, and the treatment group had a mean of 3.</p>
+<p>The paper later claims that there’s only a 10% chance of seeing fewer than 3 headaches in the control group.</p>
+<p>The paper never provided the sd. What is it?</p>
+</section>
+<section id="participation" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="participation"><span class="header-section-number">6.9</span> Participation</h2>
+<hr>
+<ol type="1">
+<li><span class="math inline">\(P(Z &lt; 1.5)\)</span></li>
+<li><span class="math inline">\(P(Z &gt; -1.5)\)</span></li>
+<li><span class="math inline">\(P(Z &lt; 1.2 or Z &gt; 1.3)\)</span></li>
+<li><span class="math inline">\(X\sim N(0,2)\)</span>, find <span class="math inline">\(P(X &lt; 2)\)</span></li>
+<li><span class="math inline">\(X\sim N(\mu, 5)\)</span> and <span class="math inline">\(P(X \le 2) = 0.25\)</span>, find <span class="math inline">\(\mu\)</span></li>
+<li><span class="math inline">\(X \sim N(2, 4)\)</span>. Find the IQR.</li>
+</ol>
+</section>
+<section id="summary" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.10</span> Summary</h2>
+<ul>
+<li>Most values are close to the mean, with fewer values as you get further away.</li>
+<li>The mean and sd are sufficient to draw the whole curve.</li>
+<li>Probabilities are areas. The area of a single point is 0.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a></li>
+<li>68% is within one sd of the mean, 95% within 2 sd, and 99.7% within 3 sd
+<ul>
+<li><span class="math inline">\(P(\mu - 1\sigma \le X \le \mu + 1\sigma) \approx 0.68\)</span>.</li>
+<li><span class="math inline">\(P(\mu - 2\sigma \le X \le \mu + 2\sigma) \approx 0.95\)</span>.</li>
+<li><span class="math inline">\(P(\mu - 3\sigma \le X \le \mu + 3\sigma) \approx 0.997\)</span>.</li>
+</ul></li>
+<li>For standard normal, the values on the x axis are <strong>z-score</strong>.</li>
+<li>The cdf, P(X &lt;= x), is used to calculate areas.
+<ul>
+<li>The table can be found in the back of the textbook for standard normal. To standardize, use the formula <span class="math inline">\((x-\mu)/\sigma\)</span>.</li>
+<li><code>pnorm(x, mean = 0, sd = 1)</code> gives the standard normal cdf. If mean and sd are not specified, <code>pnorm()</code> assumes you want standard normal.</li>
+</ul></li>
+<li><span class="math inline">\(P(a \le X \le b) = P(X \le b) - P(X \le a)\)</span>
+<ul>
+<li>Empirical rule: <code>pnorm(1) - pnorm(-1)</code>; <code>pnorm(2) - pnorm(-2)</code>; …</li>
+</ul></li>
+<li>You need a lot of practice with these kinds of problems. <em>Do not check the answers prematurely.</em></li>
+<li>*<code>norm</code> functions:
+<ul>
+<li><code>rnorm(n, mean, sd)</code> generates random numbers</li>
+<li><code>dnorm(x, mean, sd)</code> gives the height of the curve at the point x. This is not a probability.</li>
+<li><code>pnorm(q, mean, sd)</code> = <span class="math inline">\(P(X \le q)\)</span>.</li>
+<li><code>qnorm(p, mean, sd)</code> finds <span class="math inline">\(q\)</span> such that <span class="math inline">\(P(X \le q) = p\)</span>.
+<ul>
+<li>It is the backwards version (inverse function) of <code>pnorm()</code>.</li>
+<li><code>pnorm(qnorm(0.5))</code> returns 0.5, <code>qnorm(pnorm(2))</code> returns 2.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="self-study-questions" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">6.11</span> Self-Study Questions</h2>
+<ol type="1">
+<li>For each of the probability statements, draw the normal distribution and add shading for the probability. For example, P(Z &gt; 1) should be a normal distribution with everything under the curve and larger than 1 shaded in. This is a very good way to help internalize the fact that all probabilities are areas.</li>
+<li>In P(Z &lt; 1.32) = 0.9066, what do 1.32 and 0.9066 represent? Where are they on the Z table. If I were to give you one and not the other, could you find the missing number?</li>
+<li>Write down all of the probability statements on a separate piece of paper. Solve them without looking at these notes. More practice, more better.</li>
+<li>Picture two normal distributions: one looks taller, and one looks wider. Which one has the larger standard deviation?</li>
+<li>Explain why the standard deviation does <em>not</em> affect the shape of the normal distribution. Now, explain why it <em>does</em> affect the shape.<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a></li>
+</ol>
+</section>
+<section id="more-questions" class="level2" data-number="6.12">
+<h2 data-number="6.12" class="anchored" data-anchor-id="more-questions"><span class="header-section-number">6.12</span> More Questions</h2>
+<p>If you have not calculated at least 50 or 60 different normal probabilities by the midterm, you have probably not done enough practice.</p>
+<p>For each of these questions, start by trying to use the empirical rule, then use the Z table, then confirm your answer with R. Answers with R are shown below, but you should only check these once you’re confident with your own answer.<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a></p>
+<ol type="1">
+<li><span class="math inline">\(X \sim N(0,2)\)</span>, what percent of the distribution is above 1?</li>
+<li><span class="math inline">\(X \sim N(0,2)\)</span>, what percent of the distribution is above 2?</li>
+<li><span class="math inline">\(X \sim N(0,2)\)</span>, what percent of the distribution is above 3?</li>
+<li><span class="math inline">\(X \sim N(-2, 500)\)</span>, find the 75% quantile (aka Q3).</li>
+<li><span class="math inline">\(X \sim N(3.14, 15.9)\)</span>, what proporion of values are between 2.71 and 8.28?</li>
+<li>Suppose 25% of a normal distribution is below 0, and the mean of this distribution is 1. What’s the standard deviation?<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a></li>
+<li><a href="https://www.whattoexpect.com/first-year/health-and-safety/newborn-weight-average-gains-loss/">What to Expect</a> claims that the average baby weighs about 7.5 lbs, with a “normal”<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a> range of 5.8 to 10 lbs. If the “normal” range is defined as the middle 95%, what is the standard deviation of birth weights?</li>
+<li>You’re asked to estimate the number of M&amp;M’s in family-sized bags. You’re pretty sure that they are normally distributed and you think the mean is 600. How do you go about guessing the sd? One way is to say that you think it’s “unlikely” that there are more than 650 M&amp;Ms in any given bag.<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a>
+<ol type="a">
+<li>If “unlikely” = 10%, that is, only 10% of the bags have more than 650 M&amp;M’s, what is the sd?</li>
+<li>If “unlikely” = 5%, what is the sd?</li>
+</ol></li>
+<li>In the population of Canadian women, what’s the probability that a randomly selected woman is <em>further than</em> 1.7 standard deviations from the mean?</li>
+<li>There’s a peculiar model that applies to certain kinds of data. If you have <span class="math inline">\(\mu = \sigma\)</span>, then the normal distribution has certain nice properties.<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a> Suppose <span class="math inline">\(X\sim N(\theta, \theta)\)</span>, where <span class="math inline">\(\theta\)</span> is just a stand-in for the mean and variance. If <span class="math inline">\(P(X &lt; 8) = 0.2\)</span>, what is <span class="math inline">\(\theta\)</span>?<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a></li>
+</ol>
+<p>I’m going to say it again before you check the answers: <strong>Pre-emptively checking the answer destroys any chance of learning and creates a false sense of knowledge.</strong> You should spend time struggling to convince yourself that you did it right. On an exam, you won’t have the answers so you’ll feel that struggle. Practice the exam struggle now, then you’ll be more confident in your answer on exams.</p>
+<p>Have you ever had that feeling that you knew the material because you could do all of the practice problems, but when you get the exam you forgot everything? <em>That’s because you checked the answers before struggling.</em> You taught yourself to anticipate the answers of those particular questions, rather than teaching yourself the material. The struggling is where you learn. It’s the same as exercise: no pain no gain.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Questions 1, 2, and 3</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3085375 0.1586553 0.0668072</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Q4</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.75</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">500</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 335.2449</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.75</span>)<span class="sc">*</span><span class="dv">500</span> <span class="sc">-</span> <span class="dv">2</span> <span class="co"># Alternative, using standard normal</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 335.2449</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Q5.</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">8.28</span>, <span class="fl">3.14</span>, <span class="fl">15.9</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">3.14</span>, <span class="fl">3.14</span>, <span class="fl">15.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1267548</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Alternative version, with standard normal</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> (<span class="fl">3.14</span> <span class="sc">-</span> <span class="fl">3.14</span>)<span class="sc">/</span><span class="fl">15.9</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> (<span class="fl">8.28</span> <span class="sc">-</span> <span class="fl">3.14</span>)<span class="sc">/</span><span class="fl">15.9</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(b) <span class="sc">-</span> <span class="fu">pnorm</span>(a) <span class="co"># P(a &lt; z &lt; b) = P(Z &lt; b) - P(Z &lt; a)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1267548</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Q6: x = z*sigma + mu =&gt; sigma = (x-mu)/z</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span> <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">qnorm</span>(<span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.482602</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Verify that 0 is the first quartile</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> (<span class="dv">0</span> <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">qnorm</span>(<span class="fl">0.25</span>)) <span class="co"># Good!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Q7: empirical rule: 5.8 = mu - 2*sigma, so sigma = (7.5 - 5.8)/2</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>(<span class="fl">7.5</span> <span class="sc">-</span> <span class="fl">5.8</span>)<span class="sc">/</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.85</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="do">## However, if 10 = mu + 2*Sigma,</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">10</span> <span class="sc">-</span> <span class="fl">7.5</span>)<span class="sc">/</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The normal distribution doesn't work because this is a *skewed distribution*</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Q8.a) sigma = (x - mu)/z</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>(<span class="dv">650</span> <span class="sc">-</span> <span class="dv">600</span>)<span class="sc">/</span><span class="fu">qnorm</span>(<span class="fl">0.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.01521</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Verify:</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">650</span>, <span class="dv">600</span>, <span class="fl">39.01521</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Q8b:</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">650</span> <span class="sc">-</span> <span class="dv">600</span>)<span class="sc">/</span><span class="fu">qnorm</span>(<span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30.39784</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Q9: The "Canadian Women" part is irrelevant.</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The area WITHIN the range is:</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.7</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9108691</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="do">## So the area outside this range is:</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">pnorm</span>(<span class="fl">1.7</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08913093</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Why is the "Canadian Women" part irrelevant?</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The lower bound will be mu - 1.7*sd = 150.213. When we</span></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a><span class="do">## standardize this, we get z = (x-mu)/sd = 1.7, so we'd use</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1.7 in the standard normal distribution</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Q10</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a><span class="do">## P(X &lt; 8) = 0.2, so let z = qnorm(0.2)</span></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="do">## z = (x - mu)/sigma = (8 - theta)/theta</span></span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a><span class="do">## and therefore theta = 8/(z + 1)</span></span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span><span class="sc">/</span>(<span class="fu">qnorm</span>(<span class="fl">0.2</span>) <span class="sc">+</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 50.51182</code></pre>
+</div>
+</div>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This is done with integrals, but we won’t actually do this in this course.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For continuous distributions, “probability” and “area under the curve” are synonyms.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><span class="math inline">\((2\pi\sigma^2)^{-1/2}\exp\left(\frac{(x-\mu)^2}{-2\sigma^2}\right)\)</span><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I generally keep a running tally of the number of normal distributions I draw on the board. Last time I did this, I was almost at 100. The moral: you should be drawing a lot of normal distributions!!!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This is also the reason why the empirical rule works! If you change the labels on the plot, <span class="math inline">\(\mu+\sigma\)</span> stays in the same place so you can calculate the same probability.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>The negative is important!<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Recall that <span class="math inline">\(P(X=x) = 0\)</span> in continuous distributions, so we look at ranges.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>If you’re curious, yes I’ve made a lot of Shiny apps. You can find them all here: <a href="https://github.com/DBecker7/DB7_TeachingApps">https://github.com/DBecker7/DB7_TeachingApps</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>The rows are the digits before and after the decimal, the column is the second digit after the decimal.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>You need to trust your ability to use the Empirical Rule, though.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Quick maths - we’re just trying to get an okay guess, not the exact answer right now.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>If the z-score were -3.54, we’d say the probability is 0.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Row labelled -1.5, column labelled 0.02.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Verify this!<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>P(X &lt; 5) - P(X &lt; -1)<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>Recall: the body of the Z table are probabilities, the margins are z-scores.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>-0.68*3 + 2 and -0.675*3 + 2 would also be acceptable.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>P(X=x) = 0<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>Hint: Use the app with “Sticky Axes” checked and unchecked.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p>Pre-emptively checking the answer destroys any chance of learning and creates a false sense of knowledge.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p>Hint: Find the z-score for Q1, then fill out the standardization formula with the values you have.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn22"><p>Normal as in “usual”, not as in the normal distribution.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn23"><p>This is actually a very useful way to think about distributions, especially in Bayesian statistics.<a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn24"><p>Sorry, the details are far beyond the scope of this course.<a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn25"><p>This is one of the hardest questions you will encounter.<a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L05-Probability.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./L09-Binomial_Probabilities.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

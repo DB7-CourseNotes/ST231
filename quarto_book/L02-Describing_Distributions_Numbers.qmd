@@ -1,0 +1,545 @@
+---
+title: "Describing Distributions with Numbers"
+date: "2023-05-10"
+---
+
+### Quantitative Variables
+
+### Parameters Versus Statistics
+
+- Numerical summaries are called parameters when they describe an entire population, and statistics when they describe a sample\lspace
+- Since we typically will not collect data on the entire population, we use (sample) statistics to make statements (with some uncertainty) about what the (population) parameter is.\lspace
+- Categorical variables are summarized by the count or proportion (percent) of the data in each category.\lspace
+- Quantitative variables are summarized by the centre and spread of the data
+
+
+### Parameters Versus Statistics: """Truth"""
+
+We assume there's some "true" population mean.
+
+- This will change if, say, a new baby is born.\lspace
+
+\pspace
+
+We cannot know the population parameter!
+
+:::notes
+If we were able to measure the height of every Canadian at this very instant, we would get one value. We can't do this though, so we collect a sample instead. We try to collect the sample in such a way that we get value close to the population parameter.
+
+In this course, we make a big distinction between population parameter and sample statistic. A sample statistic is something that we calculate from a sample, where is the population? Parameter is the value that we would get if we had the whole population.
+
+Most of this course is centred around using the sample statistic to get an idea of what the population parameter might be.
+:::
+
+### Measures of Centre
+
+### The Centre
+
+The "centre" is a strange concept.
+
+- Where are "most" of the data?\lspace
+- If we took an individual at random, what's the "best guess" of their height?\lspace
+
+\pspace
+
+We want to **summarize** the data using a few words/numbers.
+
+:::notes
+I prefer the second description here - if I were to make a prediction, I want my predicted value to be close to the actual value. For example, I might want to design something that fits the average person's height. I must make a prediction about the height of the people that will use it. My prediction is chosen to minimize how far off I would be, which means that I want to be near the "centre".
+
+:::
+
+### Centre 1: The Median
+
+The **median** ($M$) is the midpoint of a distribution: half the observations are smaller and the other half are larger than it. To find the median:
+\pspace
+
+1. Arrange all observations in order of size, from smallest to largest.
+2. If the number of observations ($n$) is odd, the median $M$ is the centre observation in the ordered list. Find the location of the median by counting $(n + 1)/2$ observations up from the smallest observation.
+3. If n is even, the median $M$ halfway between the two centre observations in the ordered list. The location of the median is again $(n + 1)/2$, counting from the smallest observation in the list. 
+
+:::notes
+Basically, the median is the middle value. With odd $n$, the middle value is one of the observations, but when $n$ is even we have to go in between two values.
+:::
+
+### Example 1: Odd $n$
+
+The distribution of needle lengths is how species of pine trees are characterized. The following data are the lengths (in cm) of a sample of 15 needles taken at random from different parts of several Aleppo pine trees (Southern California). What is the median length?
+
+```
+7.20 7.60  8.50  8.50  8.70  9.00  9.00 9.30
+9.40 9.40 10.20 10.90 11.30 12.10 12.80
+```
+
+### Example 2: Even $n$
+
+We also have the lengths (in cm) of 18 needles from trees of the noticeably different Torrey pine species. What is the median length for these 18 pine needles? The ordered data are:
+
+```
+21.20 21.60 21.70 23.10 23.70 24.20 24.20 25.50 26.60
+26.80 28.90 29.00 29.70 29.70 30.20 32.50 33.70 33.70
+```
+
+
+### Example 3: Robustness
+
+```
+Set 1: 1 2 3 4 5 6
+Set 2: 1 1 1 6 6 6
+Set 3: -2000 -1000 3 4 5000 60000000
+```
+
+All three have the same median!
+
+\pspace
+
+Do the "centres" make sense? Do they provide a good summary?
+
+:::notes
+These three data sets demonstrate that the median only depends on the middle two numbers when $n$ is odd. For the first two data sets, the median does seem to describe centre of the data well. The last data set is a little bit different from the others and the median might not be enough information.
+:::
+
+### The Mean
+
+The mean is defined as:
+
+$$
+\bar x = \frac{1}{n}(x_1 + x_2 + ... + x_n)= \frac{1}{n}\sum_{i=1}^nx_i
+$$
+
+For example, the mean of (1, 2, 3, 4) is 
+$$
+\frac{1}{4}(1 + 2 + 3 + 4) = \frac{10}{4} = 2.5
+$$
+(this also happens to be the median!)
+
+:::notes
+This formula for the mean may look a little bit scary, but all it means is that we add up all of the values that we have and divide by the number of values. 
+
+Create a couple examples yourself and find the mean! If you create a list of values, you can use R to check your work as follows:
+
+```{r}
+my_values <- c(1, 2, 2, 3, 4, 5, 6.3212, 3)
+mean(my_values)
+```
+
+- The name "`my_values`" could have been anything that is just letters, numbers, and underscores (no spaces, can't start with a number). It's just the name of an object in R.
+    - An object is just a thing. You can put two things together, do a function of a thing, etc. 
+- `my_values` is a *vector*. That is, it's a collection of values.
+    - We create it using the `c()` function, which means "concatenate", or "put together".
+- The mean function takes a vector and calculates the mean for you.
+
+To run this code, go to \url{wlu.syzygy.ca} and create a new R notebook. Insert an "R cell", and copy/paste the code above into that cell. Either hit the "play" button, or Alt+Enter (Option+Enter on a Mac). 
+:::
+
+### The mean is *not* robust
+
+Consider the following sets of data:
+
+```
+Set 1: 1, 2, 3, 4, 5, 6
+Set 2: 1, 2, 3, 4, 5, 60
+```
+
+\pspace
+
+- Both have the same median.\lspace
+- Mean of 3.5 and 12.5, respectively.
+
+\pspace
+
+Which do you think is the correct measure of the centre?
+
+:::notes
+Unlike the median, which only depends on the middle value, the mean uses information from all of the values. This means that if there's an outlier or a misrecorded point, the mean will reflect this. Sometimes this is what we want and sometimes it is not. 
+
+A common example of when the mean is not what we want is income. The lowest possible income is zero, but there is no maximum income, so incomes tend to be right skewed. The right skew affects the mean a lot more than that affects the median, and so, in this case the median is a better measure of the most common levels of income.
+:::
+
+### Mean and Median vs. Skew: Mean less means left
+
+```{r}
+#| eval: false
+#| echo: true
+shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+    subdir = "Apps/MeanLessMeansLeft")
+```
+
+:::notes
+The app above will be used in class, so do not worry if you're unable to run it. It demonstrates that when they mean is less than the median it means it's left skewed. The reason for this is that the outliers to the left affect the mean more than they affect the median.
+:::
+
+## Measures of Spread
+
+### Which has more variance?
+
+```
+Set 1: 1 1 1 5 5 5
+Set 2: 1 2 3 3 4 5
+Set 3: 1 3 3 3 3 5
+```
+
+\pspace
+
+- All have the same **range** (max - min).
+
+:::notes
+These three data sets all have the same mean and median, but just looking at them shows that they are differnt collections of numbers. The first said, only has two unique values put those values are relatively far away from each other compared to the other sets. The second set is a more even spread from one to five. The third set has for value is equal to the mean and two values that may be outliers.
+
+To me, the first set looks like it's the most variable because all of the values are very far away from either the mean or the median. The second set has a smaller variance, because there are values closer to the mean. And the last set I expect to have the lowest variance, because most values are actually equal to the mean.
+
+The formula for the variance, which will introduce next, matches this intuition. However, many students have different intuitions about which has the most variance and those are valid as well but are harder to quantify.
+:::
+
+### Measure of Spread: The Variance
+
+Consider set 1, which has a mean of 3:
+
+    1 1 1 5 5 5
+
+- The distances to the mean are all -2 or 2
+    - If we found the mean, we'd get 0! We need to make sure they're all positive.\lspace
+- Alternative 1: Absolute value. 
+    The average *absolute* distance to the mean is 2.\lspace
+- Alternative 2: Squared value.
+    - The **average squared distance to the mean** is 4
+        - Important: This is not the actual variance calculation!
+
+The **variance** is the average *squared* distance to the mean!
+
+(We use squared because math - more on this later).
+
+:::notes
+We are basically looking at the average deviation from the mean. We want that deviation to be positive and there are several ways to do this. We have settled on squaring the numbers for the same reason we drive on the right side of the road: it's just convention. There are benefits to using the absolute distance from the mean, but there are many mathematical advantages to squaring the values first.
+:::
+
+### Variance Formula
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1.5cm}
+
+$$
+s^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)^2
+$$
+
+\pspace
+
+We use $n-1$ because of math reasons.
+:::
+::: {.column width="50%"}
+
+
+The easiest way to calculate this is to put it in a table:
+
+| $i$ | $x_i$ | $x_i - \bar x$ | $(x_i - \bar x)^2$ |
+|---|---|---|---|
+| 1 | 1 | -2 | 4 |
+| 2 | 1 | -2 | 4 |
+| 3 | 1 | -2 | 4 |
+| 4 | 5 |  2 | 4 |
+| 5 | 5 |  2 | 4 |
+| 6 | 5 |  2 | 4 |
+| $\sum$ | 18 | 0 | 24 |
+
+The mean is 3, and the variance is 24/5 = 4.8.
+
+:::
+::::
+
+:::notes
+In the table above, as before, the subscript $i$ is just used to denote different observations. For example $x_1$ is the first observation, $x_2$ is the second observation in our data, and so on (this ordering is arbitrary). 
+
+In order to calculate the variance, we must first know the mean, and so it's convenient to put this at the bottom of the table. We then squared the deviations from the mean and divided by $n-1$. There are very good technical reasons why we divide by (n-1) that we won't get into here. Come to my office and chat if you'd like to know more, or just ask ChatGPT!
+
+::: {.callout-note}
+### $n-1$ in the denominator
+
+As a quick explanation for $n-1$, consider the variance of a single observation. It doesn't vary! There's not enough information to see how much variance there is. There isn't enough *information* in our data. The $n-1$ in the denominator enforces this - we can't calculate the variance of one observation.
+:::
+
+Note that the variance can be calculated in R as follows:
+
+```{r}
+#| echo: true
+my_values <- c(1, 2, 2, 3, 4, 5, 6.3212, 3)
+var(my_values)
+```
+
+:::
+
+
+### The Variance and the Standard Deviation
+
+$$
+s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n(x - \bar x)^2}
+$$
+
+The **standard deviation** (or **sd**) is just the square root of the variance.
+
+- This makes it have the same units as the original data.
+
+:::notes
+In addition, if we have two data sets and the variance of one is larger than the other, then the standard deviation is also larger. They're the same thing, just in different units! 
+
+I will often refer to one when I mean the other. When I'm comparing standard deviations, I may call them variances because the same patterns will be there.
+
+Here's the R code:
+
+```{r}
+#| echo: true
+sd(my_values)
+sd(my_values)^2 # the sd is the square root of the variance
+```
+:::
+
+### Exercise: Variation of the three sets
+
+:::: {.columns}
+::: {.column width="50%"}
+```
+Set 1: 1 1 1 5 5 5
+Set 2: 1 2 3 3 4 5
+Set 3: 1 3 3 3 3 5
+```
+
+\pspace
+
+1. Draw out bar plots.\lspace
+2. Set up the table and find the variance.\lspace
+3. Compare the standard deviations; make a conclusion.
+:::
+::: {.column width="50%"}
+| $i$ | $x_i$ | $x_i - \bar x$ | $(x_i - \bar x)^2$ |
+|---|---|---|---|
+| 1 |  |  |  |
+| 2 |  |  |  |
+| 3 |  |  |  |
+| 4 |  |  |  |
+| 5 |  |  |  |
+| 6 |  |  |  |
+| $\sum$ | | |  |
+:::
+::::
+
+:::notes
+Fill out the table above yourself!
+:::
+
+### Measure of Spread 2: The IQR
+
+The IQR is very closely related to the median. But first, we will learn what quartiles are.
+
+Consider the data:
+
+    1 2 3 4 5 6 7 8
+
+The median of these data is 5; 50\% of the data are to the left of this point. 
+
+- "Quartile": Split the data into four.
+    - Q1: 25\% of the data are to the left.
+    - Q2: 50\% of the data are to the left (the median).
+    - Q3: 75\% of the data are to the left.
+
+### Finding Quartiles
+
+    1 2 3 4 5 6 7 8
+
+1. Find the median
+    - It's 4.5. Cool.
+2. Q1 is just half of 50\% - we're finding a median again!
+    - Q1 is the median of everything to the left of the median. 
+    - In this case, 1 2 3 4 are the numbers to the left of the median, and so Q1 is 2.5.
+3. By a similar argument, Q3 is 6.5.
+
+
+:::notes
+Q0 is where 0\% of the data are to the left. In other words, it's the minimum value in the data! Similarly, Q4 is the maximum value in the data.
+
+::: {.callout-warning}
+The algorithm we just used for computing the quartiles is not the only one! In R, there are *NINE* different ways to calculate the quartiles. You should stick to doing this by hand if you want to get the WeBWork answers right.
+:::
+
+:::
+
+
+### The five number summary
+
+Let's use the folowing example:
+
+    1, 3, 3, 4, 5, 5, 5, 6, 7, 7, 8, 8, 9, 10, 10, 11, 12
+
+The quartiles give an excellent way to summarise data:
+
+| Q0 (min) | Q1 | Q2 (median) | Q3 | Q4 (max) |
+|---|---|---|---|---|
+| 1 | 4.5 | 7 | 8.5 | 12 |
+
+:::notes
+The five number summary just shows all five of the quartiles. Note that there are five quartiles, because zero is also one of them.
+
+For practice, make sure you can calculate the median, and then the median of all the values to the left of it!
+:::
+
+
+### Visualizing the five number summary: the boxplot
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+The plot on the right shows the body masses for the Palmer Penguins.
+
+\pspace
+
+- The lowest point is Q0
+- The left of the box is Q1
+- The thick line in the box is Q2 (the median)
+- The right of the box is Q3
+- The highest point is Q4
+
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 1.5
+library(ggplot2)
+library(palmerpenguins)
+theme_set(theme_bw())
+
+ggplot(penguins) + 
+    aes(y = body_mass_g) +
+    geom_boxplot() +
+    labs(y = "Body Mass (g)") +
+    coord_flip()
+```
+
+```{r}
+ggplot(penguins) + 
+    aes(x = body_mass_g) +
+    geom_histogram(colour = 1, fill = "lightgrey") +
+    labs(x = "Body Mass (g)")
+```
+:::
+::::
+
+:::notes
+The boxplot and the histogram both demonstrate the right skew of the data, but the boxplot is much more compact!
+
+Take a moment to compare the two plots and make sure you can explain the skewness. Remember that 25\% of the data are in each interval shown in the box plot!
+:::
+
+
+### Measure 2: The Inter-Quartile Range (IQR)
+
+The IQR is defined as: Q3 - Q1.
+
+\pspace
+
+- Same units as the original data\lspace
+- Robust to outliers (unlike the sd)!
+
+:::notes
+This is the second measure of spread that we will learn. The IQR is commonly used when we have highly skewed data or data with outliers. The sd measures the average squared deviation from the mean, whereas the IQR measures the middle 50\% of the data. 
+
+Notice how this is not centered on the median. Consider the following data:
+
+```{r}
+my_values <- c(1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 5, 6, 7, 8, 10)
+length(my_values)
+hist(my_values)
+```
+
+The median of these should be at position $(n+1)/2 = (20 + 1)/2 = 10.5$ (I used the `length()` function in R to count the number of observations for me). This value is halfway between 3 and 3, meaning it's 3. Q1 is the median of the first 10 data points, which is at position 5.5, giving us a value of 2. Q3 is 5.5 positions from the end, which is 4.5. Thus the IQR is $4.5 - 2 = 2.5$.
+
+First, does this make sense to you? Does 2.5 sound like a reasonable width for the middle 50\%?
+
+Now consider that the distribution is clearly skewed to the right. This affects the variance a lot, but the IQR would have been the same no matter what the first 4 or last 4 values were. 
+:::
+
+### IQR for Outliers
+
+In this class, we use a rule of thumb for calculating outliers. Anything that is...
+
+- Below the median minus 1.5*IQR, or
+- above the median plus 1.5*IQR
+
+is considered an outlier.
+
+:::notes
+This rule of thumb is not based on any mathematical derivations, it just seems to work in most situations.
+
+The idea is that the IQR gives a measure of spread, and the median gives the measure of the centre, so anything too far from the centre is an outlier. We use the spread to figure out how far away from the centre we are willing to accept. This will show up several times in this course. We've seen it in this example for the IQR and median because this is simple and easy to interpret. 
+
+Most of the rest of this course will be spent looking at something similar for the mean. We will still use this idea of the centre plus or minus some measure of the spread, but will incorporate information about the sample and assumptions about the population that allow us to make much stronger conclusions beyond simply checking if something is an outlier.
+:::
+
+
+
+### Summary
+
+- The "centre" is trying to measure the most common value.  
+    - Often, this is our best **prediction**.\lspace
+- The "spread" is trying to measure the scale, or variation.
+    - Gives context to the centre.\lspace
+- The mean and variance
+    - Interpretations and formulas are important.\lspace
+- The median and IQR
+    - Calculations, interpretations, five-number-summary, outliers, and boxplots are all important.
+
+:::notes
+We saw the same thing a couple of times throughout this lesson. We saw measures of centre that try to describe the middle of a distribution and centres of spread that tell us how spread out the data are. The mean and the sd are intrinsically linked, and the median and IQR are intrinsically linked.
+
+We also saw the rule-of-thumb to use IQR for finding outliers by using the median plus-an-minus some number times the spread. You better believe that this idea will show up again later in this course!
+
+Boxplots are a visual representation of the five number summary. These can be very small while still showing the shape of our data. However, these only work for unimodal data - there isn't a good way to show a bimodal distribution on a boxplot. Also, it is very easy to plot two boxplots for two different data sets in order to compare the distributions.
+
+For assignments and exams, be ready to calculate any of these values and compare the mean/median and sd/IQR. Also be ready to compare the five number summary to a boxplot. 
+
+**Exercises**
+
+1. **Spider Silk.** Spider silk is the strongest known material, natural or man-made, on a weight basis. A study examined the mechanical properties of spider silk using 21 female golden orb weavers, Nephila clavipes. Here are data on silk yield stress, which represents the amount of force per unit area needed to reach permanent deformation of the silk strand. The data are expressed in megapascals (MPa):
+
+```
+164.00 173.00 176.10 236.10 251.30 270.50 270.50
+272.40 282.20 288.80 290.70 300.60 327.20 329.00
+332.10 351.70 358.20 362.00 448.90 478.70 740.20
+```
+
+a. Describe the shape, centre, and spread of the data using a histogram (code below).
+b. Find the mean and median yield stress. Compare these two values. Referring to the histogram produced by the code below, what general fact does your comparison illustrate?
+c. Re-run the code using different values of `breaks`. What do you see? (Note that this example uses base R rather than `ggplot2` because it has simpler code - `ggplot2` has more flexibility, but that flexibility isn't necessary here.)
+d. Use the `boxplot()` function to create a boxplot (you do not need the `breaks=10` part of the code). Compare this to the histogram. Also comment on any points that stand out (when there are outliers, R shows $Q2\pm 1.5IQR$ rather than Q0 and Q4).
+e. Use the $Q2\pm 1.5IQR$ formula by hand to find the outliers, and verify your calculations with the R plot.
+
+```{r}
+silk_stress <- c(164.00, 173.00, 176.10, 236.10, 251.30, 270.50, 270.50,
+    272.40, 282.20, 288.80, 290.70, 300.60, 327.20, 329.00,
+    332.10, 351.70, 358.20, 362.00, 448.90, 478.70, 740.20)
+hist(silk_stress, breaks = 10)
+```
+
+
+2. **Deep-sea sediments.** Phytopigments are markers of the amount of organic matter that settles in sediments on the ocean floor. Phytopigment concentrations in deep-sea sediments collected worldwide showed a very strong right-skew. Of two summary statistics, 0.015 and 0.009 gram per square meter of bottom surface, which one is the mean and which one is the median? Explain your reasoning.
+
+3. **Glucose levels.** People with diabetes must monitor and control their blood glucose level. The goal is to maintain a “fasting plasma glucose” between approximately 90 and 130 milligrams per deciliter (mg/dl). The data tables below give the fasting plasma glucose levels for two groups of diabetics five months after they received either group instruction or individual instruction on glucose control.
+
+I provide the data as vectors in R, but you don't need R for this question (it's good practice to do it both ways).
+```{r}
+group <- c(78.00, 95.00, 96.00, 103.00, 112.00, 134.00, 141.00, 145.00, 147.00,
+    148.00, 153.00, 158.00, 172.00, 172.00, 200.00, 255.00, 271.00, 359.00)
+
+individual <- c(128.00, 128.00, 158.00, 159.00, 160.00, 163.00, 164.00, 188.00, 195.00,
+    198.00, 220.00, 221.00, 223.00, 226.00, 227.00, 283.00)
+```
+
+a. Calculate the five-number summary for each of the two data sets.
+b. Make side-by-side boxplots comparing the two groups. What can you say from this graph about the differences between the two diabetes control instruction methods? (*Hint, you can create side-by-side boxplot using the code `boxplot(variable_1, variable_2)`*.)
+c. Obtain the mean and standard deviation for each sample. Does this information give any clue about the shape of the two distributions?
+d. Add to the historgrams a symbol representing the mean of each group and error bars representing one standard deviation above and below the mean. (You can do this by hand.) Compare this graphical summary with the boxplot display you also created.
+e. Use the 1.5 × IQR rule to identify any suspected outliers. Then look at the raw data to determine if unusually high or low values in either data set actually are outliers.
+
+
+:::
+

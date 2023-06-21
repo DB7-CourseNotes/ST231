@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="dcterms.date" content="2023-05-15">
+
+<title>Course Notes for ST231 - 3&nbsp; Scatterplots and Correlation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./L04-Regression.html" rel="next">
+<link href="./L02-Describing_Distributions_Numbers.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L03-Scatterplots_Correlation.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Course Notes for ST231</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Pre-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Post-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14-tCI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals (without the Silliness)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#relationships" id="toc-relationships" class="nav-link active" data-scroll-target="#relationships"><span class="header-section-number">3.1</span> Relationships</a>
+  <ul class="collapse">
+  <li><a href="#explanatory-and-response-variables" id="toc-explanatory-and-response-variables" class="nav-link" data-scroll-target="#explanatory-and-response-variables">Explanatory and Response Variables</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  </ul></li>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots"><span class="header-section-number">3.2</span> Scatterplots</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#what-to-look-for" id="toc-what-to-look-for" class="nav-link" data-scroll-target="#what-to-look-for">What to look for</a></li>
+  <li><a href="#penguins" id="toc-penguins" class="nav-link" data-scroll-target="#penguins">Penguins!</a></li>
+  <li><a href="#adding-a-categorical-variable" id="toc-adding-a-categorical-variable" class="nav-link" data-scroll-target="#adding-a-categorical-variable">Adding a Categorical Variable</a></li>
+  <li><a href="#the-importance-of-plotting-anscombes-quartet" id="toc-the-importance-of-plotting-anscombes-quartet" class="nav-link" data-scroll-target="#the-importance-of-plotting-anscombes-quartet">The Importance of Plotting: Anscombe’s Quartet</a></li>
+  <li><a href="#anscombes-quartet" id="toc-anscombes-quartet" class="nav-link" data-scroll-target="#anscombes-quartet">Anscombe’s Quartet</a></li>
+  <li><a href="#summarizing-plots" id="toc-summarizing-plots" class="nav-link" data-scroll-target="#summarizing-plots">Summarizing Plots</a></li>
+  </ul></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">3.3</span> Correlation</a>
+  <ul class="collapse">
+  <li><a href="#measuring-strength-of-linearity" id="toc-measuring-strength-of-linearity" class="nav-link" data-scroll-target="#measuring-strength-of-linearity">Measuring Strength of Linearity</a></li>
+  <li><a href="#the-correlation-coefficient-r" id="toc-the-correlation-coefficient-r" class="nav-link" data-scroll-target="#the-correlation-coefficient-r">The correlation coefficient <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#the-range-of-r" id="toc-the-range-of-r" class="nav-link" data-scroll-target="#the-range-of-r">The range of <span class="math inline">\(r\)</span></a></li>
+  <li><a href="#interpreting-correlation" id="toc-interpreting-correlation" class="nav-link" data-scroll-target="#interpreting-correlation">Interpreting correlation</a></li>
+  <li><a href="#comments-on-the-correlation" id="toc-comments-on-the-correlation" class="nav-link" data-scroll-target="#comments-on-the-correlation">Comments on the correlation</a></li>
+  <li><a href="#r-measures-linear-correlation" id="toc-r-measures-linear-correlation" class="nav-link" data-scroll-target="#r-measures-linear-correlation"><span class="math inline">\(r\)</span> measures <em>linear</em> correlation</a></li>
+  <li><a href="#again-always-plot-your-data" id="toc-again-always-plot-your-data" class="nav-link" data-scroll-target="#again-always-plot-your-data">Again, always plot your data!!!</a></li>
+  <li><a href="#example-penguins" id="toc-example-penguins" class="nav-link" data-scroll-target="#example-penguins">Example: Penguins</a></li>
+  <li><a href="#correlation-summary" id="toc-correlation-summary" class="nav-link" data-scroll-target="#correlation-summary">Correlation Summary</a></li>
+  </ul></li>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">3.4</span> Participation Questions</a>
+  <ul class="collapse">
+  <li><a href="#q01" id="toc-q01" class="nav-link" data-scroll-target="#q01">Q01</a></li>
+  <li><a href="#q02" id="toc-q02" class="nav-link" data-scroll-target="#q02">Q02</a></li>
+  <li><a href="#q03" id="toc-q03" class="nav-link" data-scroll-target="#q03">Q03</a></li>
+  <li><a href="#q04" id="toc-q04" class="nav-link" data-scroll-target="#q04">Q04</a></li>
+  <li><a href="#extra-context-fitting-a-line" id="toc-extra-context-fitting-a-line" class="nav-link" data-scroll-target="#extra-context-fitting-a-line">Extra context: Fitting a Line</a></li>
+  <li><a href="#q05" id="toc-q05" class="nav-link" data-scroll-target="#q05">Q05</a></li>
+  <li><a href="#q06" id="toc-q06" class="nav-link" data-scroll-target="#q06">Q06</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/edit/main/L03-Scatterplots_Correlation.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Jam: <em>Response</em> by Barcelona
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2023-05-15</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="relationships" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="relationships"><span class="header-section-number">3.1</span> Relationships</h2>
+<section id="explanatory-and-response-variables" class="level3">
+<h3 class="anchored" data-anchor-id="explanatory-and-response-variables">Explanatory and Response Variables</h3>
+<ul>
+<li><strong>Response:</strong> Responds to the explanatory variable.
+<ul>
+<li>Also called <strong>dependent</strong> variable.</li>
+</ul></li>
+<li><strong>Explanatory:</strong> Explains the response variable.
+<ul>
+<li>Also called <strong>independent</strong> variable.</li>
+</ul></li>
+</ul>
+<p>Knowledge about explanatory tells us about the response.</p>
+<ul>
+<li>We are <em>not</em> assuming the explanatory causes the response. We will <em>not</em> be covering causality in this course.</li>
+<li>We are discovering tendencies, <em>not</em> rules.</li>
+</ul>
+<div class="notes">
+<p>I just want to make this very clear: we are not looking for a causation. Instead, we’re just looking at whether or not to variables are related, and we think that measurements of one will be enough to tell us about measurements of the other. For example, if we think one variable is easy to measure and another is harder to measure, then we might want to set the easy to measure variable as the explanatory variable and see if it “explains” the harder to measure variable. This has nothing to do with the easy to measure variable causing the hard to measure one.</p>
+</div>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<ul>
+<li>Blood alcohol content affects reflex time. – Some individuals may be more or less affected.</li>
+<li>Smoking cigarettes is associated with increased risk of lung cancer, and mortality. – Some heavy smokers may live to age 90</li>
+<li>As height increases, weight tends to increase.
+<ul>
+<li>Height does cause weight, but there are other explanations.</li>
+</ul></li>
+</ul>
+<div class="notes">
+<p>In these examples, we carefully use words like “affects”, “associated with”, and “tends to”. For all of these examples we would expect a relationship of some sort, but the causality is not necessarily obvious.</p>
+<p>We obviously expect the blood alcohol contact to affect reflex time. We expect this to be a causal relationship.</p>
+<p>In the mid-1900s, it was hypothesized by cigarette companies that, rather than cigarettes causing cancer, people who were at increased risk of lung cancer with the sorts of people who also tended to smoke. Finding a relationship was not enough to convince people that it was cigarettes causing lung cancer. Even though we know that there’s a relationship between cigarettes and lung cancer, the techniques we learn in this course are not enough to conclude causality.</p>
+<p>Height and weight are an example of how are the knowledge of one variable tells us about the other, without there being any causal relationship. We expect that taller people will have more mass, but there are also other reasons why somebody might have more mass that or not captured by their height.</p>
+</div>
+</section>
+</section>
+<section id="scatterplots" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="scatterplots"><span class="header-section-number">3.2</span> Scatterplots</h2>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img src="figs/manatee1.png" class="img-fluid"></p>
+</div><div class="column" style="width:50%;">
+<p><img src="figs/manatee2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="notes">
+<p>In the data frame above, we have an observation of the number of power boats registered in each year, as well as the number of manatees that died in a collision with a powerboat in that year. The table shown above is only a small part of the data.</p>
+<p>The rest of the data are shown in the plot. To create this plot, we put the number of powerboats registered on the X axis, and the number of manatee deaths on the Y axis. The annotation on the plot demonstrates how the points were added. One of the columns in the data is labelled 1977 and in that year they were to 755,000 powerboats registered and they were 54 manatee deaths that year. Because these two numbers are measured on the same individual (with the individual being the year in this example), we know that those two numbers go together. If we had a collection of peoples heights and a separate collection of peoples weights, but no knowledge of which individual each was collected on, then we would not be able to make a scatterplot. In order to make a scatterplot, we have to know which observation on the X axis is associated with which observation on the Y axis.</p>
+</div>
+</section>
+<section id="what-to-look-for" class="level3">
+<h3 class="anchored" data-anchor-id="what-to-look-for">What to look for</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>Overall pattern</strong>
+<ul>
+<li>Linear, curved, etc.</li>
+<li><strong>Direction</strong> (increasing/<strong>positive</strong>, decreasing/<strong>negative</strong>)</li>
+<li>Constant variability</li>
+</ul></li>
+<li><strong>Deviations</strong> from the pattern
+<ul>
+<li>E.g., linear only in a small range</li>
+</ul></li>
+<li><strong>Outliers</strong>
+<ul>
+<li>As before, discuss outliers separately from the pattern.</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img src="figs/manatee2.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="notes">
+<p>In general for this course were looking for a linear pattern. There are other models out there that fit nonlinear patterns, but we do not cover them in this course. There’s one way for things to be linear, and there are an infinite number of ways for things to be nonlinear. However, there are many common ways to account for non-linearity while still using a linear model.</p>
+<p>Regardless of whether something is linear or has some sort of curve, we are very interested in how strong of a pattern there is. For a linear model this means we want the points to be very close to the line, whereas for non-linear models we want the pattern to be very clear. We generally want patterns to pass the “facial impact test”, were the pattern is so obvious that it might as well be slapping you in the face (this is not an official test).</p>
+<p>As with describing the shape of histograms, we treat outliers as something that are not part of the shape. We can have a clear linear pattern that happens to have an outlier.</p>
+<p>The plot of manatees versus powerboats above would be described as a strong linear pattern, perhaps with some extra variation at larger X values.</p>
+</div>
+</section>
+<section id="penguins" class="level3">
+<h3 class="anchored" data-anchor-id="penguins">Penguins!</h3>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p>What pattern is this?</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The plot above shows a clear linear pattern. There is still some variation above and below the lines, but the pattern is still clear. It kinda looks like there may be two clusters; there’s a space between the two groups in the center of the X axis.</p>
+</div>
+</section>
+<section id="adding-a-categorical-variable" class="level3">
+<h3 class="anchored" data-anchor-id="adding-a-categorical-variable">Adding a Categorical Variable</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Each point has an <span class="math inline">\(x\)</span> coordinate, <span class="math inline">\(y\)</span> coordinate, and some other information.</p>
+<p>We can encode that information with a colour!</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>From this plot, we can see that the three species in these data all have a similar relationship, but still it might be worth separating out the groups and seeing what happens!</p>
+</div>
+</section>
+<section id="the-importance-of-plotting-anscombes-quartet" class="level3">
+<h3 class="anchored" data-anchor-id="the-importance-of-plotting-anscombes-quartet">The Importance of Plotting: Anscombe’s Quartet</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x1</td>
+<td style="text-align: right;">9.000000</td>
+<td style="text-align: right;">3.316625</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x2</td>
+<td style="text-align: right;">9.000000</td>
+<td style="text-align: right;">3.316625</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">x3</td>
+<td style="text-align: right;">9.000000</td>
+<td style="text-align: right;">3.316625</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">x4</td>
+<td style="text-align: right;">9.000000</td>
+<td style="text-align: right;">3.316625</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">y1</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">2.031568</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">y2</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">2.031657</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">y3</td>
+<td style="text-align: right;">7.500000</td>
+<td style="text-align: right;">2.030424</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">y4</td>
+<td style="text-align: right;">7.500909</td>
+<td style="text-align: right;">2.030578</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="notes">
+<p>In this lecture were introducing plots before we talk about numerical summaries of two variables for a very good reason. The date is it displayed above is a well-known dataset called Anscombes quartet. Up to the first two decimal places, all of the variables in the data have the same mean and standard deviation. If this were all of the information you had, you might expect the plots to look similar.</p>
+</div>
+</section>
+<section id="anscombes-quartet" class="level3">
+<h3 class="anchored" data-anchor-id="anscombes-quartet">Anscombe’s Quartet</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1 <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y1 <span class="sc">~</span> x1, <span class="at">data =</span> anscombe))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y2 <span class="sc">~</span> x2, <span class="at">data =</span> anscombe)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y2 <span class="sc">~</span> x2, <span class="at">data =</span> anscombe))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y3 <span class="sc">~</span> x3, <span class="at">data =</span> anscombe)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y3 <span class="sc">~</span> x3, <span class="at">data =</span> anscombe))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y4 <span class="sc">~</span> x4, <span class="at">data =</span> anscombe)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y4 <span class="sc">~</span> x4, <span class="at">data =</span> anscombe))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="864"></p>
+</div>
+</div>
+<div class="notes">
+<p>Clearly, there’s a very different pattern in each plot.</p>
+<ul>
+<li>The first plot looks relatively linear with a little bit of random variation. For this data set a linear model does seem appropriate.</li>
+<li>The plot at the top right she was a very clear pattern that is not linear, so we may be able to fit a model that accounts for this non-linearity.</li>
+<li>The plot at the bottom left is almost a perfect line, but with an outlier. This outlier makes it so that the line that I have added to the plot doesn’t actually go through the perfect pattern that we can see if that outlier weren’t there.</li>
+<li>The bottom right plot is a mess. If it weren’t for the outlier, the X values would all be identical! In this case, a scatterplot would not be appropriate. If I saw this while analysing my data, I would have assumed that X was supposed to be either constant (e.g., all X values should have been 8) or categorical. In both cases, a scatterplot would not be appropriate.</li>
+</ul>
+<p>Despite all of these wildly different shapes, all of these data sets have the same summary statistics.</p>
+</div>
+</section>
+<section id="summarizing-plots" class="level3">
+<h3 class="anchored" data-anchor-id="summarizing-plots">Summarizing Plots</h3>
+<ul>
+<li>Each data point has an <span class="math inline">\(x\)</span> and a <span class="math inline">\(y\)</span>. We plot <span class="math inline">\(y\)</span> against <span class="math inline">\(x\)</span>.
+<ul>
+<li><span class="math inline">\(y\)</span> is the response, <span class="math inline">\(x\)</span> is the explanatory variable.</li>
+</ul></li>
+<li>We’re looking to see if it’s linear. Linear models are something we know how to deal with!
+<ul>
+<li>Deviations from linearity are noteworthy.</li>
+<li>Outliers are noteworthy.</li>
+</ul></li>
+<li>We can incorporate more information in a scatterplot, especially <strong>categorical variables</strong>.</li>
+</ul>
+</section>
+</section>
+<section id="correlation" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="correlation"><span class="header-section-number">3.3</span> Correlation</h2>
+<section id="measuring-strength-of-linearity" class="level3">
+<h3 class="anchored" data-anchor-id="measuring-strength-of-linearity">Measuring Strength of Linearity</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>From plots, we can sorta see that one looks more linear than another.</p>
+<p>It would be splendid if we could have a way to quantify this…</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>From this point on, we’re focusing on linear relationships. The plots above both demonstrate the same linear relationship, but with different “strength”s. Let’s measure that!</p>
+</div>
+</section>
+<section id="the-correlation-coefficient-r" class="level3">
+<h3 class="anchored" data-anchor-id="the-correlation-coefficient-r">The correlation coefficient <span class="math inline">\(r\)</span></h3>
+<p>Recall the formula for the variance: <span class="math display">\[
+s_x^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)(x_i - \bar x)
+\]</span></p>
+<p>The <strong>correlation coefficient</strong> is defined as: <span class="math display">\[
+r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+\]</span> where <span class="math inline">\(s_x\)</span> is the s.d. of <span class="math inline">\(x\)</span> and <span class="math inline">\(s_y\)</span> is the s.d. of <span class="math inline">\(y\)</span>.</p>
+<p>It’s like a variance for two variables at once!</p>
+<div class="notes">
+<p>This explanation might not stick for those of you who aren’t a fan of formulas, but I think this demonstrates an important aspect of the correlation coefficient. The formula for the standard deviation includes <span class="math inline">\((x_i - \bar x)(x_i - \bar x)\)</span>. If we replaced one of those with <span class="math inline">\(y\)</span>, we’d get <span class="math inline">\((x_i - \bar x)(y_i - \bar y)\)</span>, which is one step closer to the correlation coefficient. In other words, the correlation is a measure of how two (quantitative) variables vary together!</p>
+<p>Let’s try another approach. <span class="math inline">\(x\)</span> has variance. <span class="math inline">\(y\)</span> has variance. They also have variance <em>with each other</em>. This is measured by the correlation!</p>
+<p>If neither of these explanations make sense, don’t worry! We’ll see plenty of correlations and get an intuition for how correlations are different with different data.</p>
+</div>
+</section>
+<section id="the-range-of-r" class="level3">
+<h3 class="anchored" data-anchor-id="the-range-of-r">The range of <span class="math inline">\(r\)</span></h3>
+<p><span class="math display">\[
+r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are positive</li>
+<li><span class="math inline">\(s_x &gt; \sum_{i=1}^n(x_i - \bar x)\)</span>, similar for <span class="math inline">\(s_y\)</span>
+<ul>
+<li>This can’t be larger than 1</li>
+</ul></li>
+<li><span class="math inline">\(x_i - \bar x\)</span> <em>can</em> be negative (same with <span class="math inline">\((y_i-\bar y)\)</span>).</li>
+</ul>
+<p>The correlation coefficient can be anything from -1 to 1, with 0 representing no correlation and -1 and 1 representing perfect correlation.</p>
+<div class="notes">
+<p>The fact that the correlation can be negative is important. A correlation coefficient of -1 looks like a perfect downward slope.</p>
+</div>
+</section>
+<section id="interpreting-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-correlation">Interpreting correlation</h3>
+<ul>
+<li>1 and -1 are <strong>perfect</strong> correlation.</li>
+<li>0.8 is a strong correlation (depending on context)
+<ul>
+<li>Physics: 0.8 is very very weak.</li>
+<li>Social science: 0.8 is very very strong.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/ScatterCorr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="notes">
+<p>The app above shows data that start uncorrelated, then are slowly transformed into perfect correlation. If you hav R installed on your computer it should run just fine (you may need to run <code>install.packages("shiny")</code> for the shiny package, and possibly <code>install.packages("ggplot2")</code> if you haven’t already).</p>
+<p>For more examples (and more info on the correlation coefficient in general), see the <a href="https://www.openintro.org/book/biostat/">OpenIntro Textbook</a> and let me know what you think of that textbook!</p>
+</div>
+</section>
+<section id="comments-on-the-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="comments-on-the-correlation">Comments on the correlation</h3>
+<p><span class="math display">\[
+r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+\]</span></p>
+<ul>
+<li>The order of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> can be switched
+<ul>
+<li>2 times 3 is the same as 3 times 2.</li>
+</ul></li>
+<li>Since we’re subtracting the mean and dividing by the s.d., the units don’t matter!
+<ul>
+<li>Switching from kg to lbs has no effect on the correlation.</li>
+</ul></li>
+<li><span class="math inline">\(r&gt;0\)</span> means the line goes up. <span class="math inline">\(r &lt; 0\)</span> means the line goes down.</li>
+<li>Quantitative only</li>
+<li>Linear only</li>
+<li><em>Not</em> robust to outliers.</li>
+</ul>
+<div class="notes">
+<p>Let’s explore some of these points with code!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1 <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It looks relatively linear. Take a moment to think of how correlated these two variables are, and assign it a value between 0 and 1. This is how you would guess the correlation coefficient</p>
+<p>On exams, you will be expected to differentiate between “not correlated” (about 0), “slightly correlated” (0.2 to 0.4), “very correlated” (0.6 to 0.8), and “near perfect correlation (almost exactly 1)”, or the negatives of these values; you won’t need to guess whether the correlation is 0.55 or 0.6.</p>
+<p>In R, we calculate the <span class="math inline">\(r\)</span> with the <code>cor()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>y1, anscombe<span class="sc">$</span>x1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8164205</code></pre>
+</div>
+</div>
+<p>Does this number make sense to you? It seems fairly high to me, but with small amounts of data it’s not that surprising. Think of it this way: if you removed a quarter of the data at random, would you still be able to see the pattern? If so, then it’s probably “very correlated”!</p>
+<p>The first point states that the order doesn’t matter:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>y1, anscombe<span class="sc">$</span>x1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8164205</code></pre>
+</div>
+</div>
+<p>The units don’t matter:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>y1<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> <span class="dv">1</span>, anscombe<span class="sc">$</span>x1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8164205</code></pre>
+</div>
+</div>
+<p>However, it <em>does</em> matter if we do a <em>non-linear</em> transformation, such as squaring the values. The correlation is a measure of <strong>linear</strong> association, so making things non-linear will affect it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>x1, anscombe<span class="sc">$</span>y1<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7992029</code></pre>
+</div>
+</div>
+<p>For these data, squaring didn’t have much of an effect (as we can see in the plot), but we still saw a change in <span class="math inline">\(r\)</span>! Notice that a unit change had absolutely no effect on <span class="math inline">\(r\)</span>. In general, we either expect things to be exactly the same or they can be completely different; very few things are “almost equal” in the general case (they may be almost equal with one set of data, but that means nothing for completely different sets of data).</p>
+</div>
+</section>
+<section id="r-measures-linear-correlation" class="level3">
+<h3 class="anchored" data-anchor-id="r-measures-linear-correlation"><span class="math inline">\(r\)</span> measures <em>linear</em> correlation</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Enzymatic activity is known to be affected by temperature. A study examined the activity rate (in micromoles per second, μmol/s) of the digestive enzyme acid phosphatase in vitro at varying temperatures (measured in kelvins, K). The findings are displayed in the following table.</p>
+<ol type="a">
+<li>Describe the relationship</li>
+<li>Explain why it doesn’t make sense to describe this as “positively associated” or “negatively associated”.</li>
+<li>Is this a strong or a weak relationship? Explain.</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<p><img src="figs/non-linear.png" class="img-fluid"></p>
+</div>
+</div>
+<div class="notes">
+<p>Solutions:</p>
+<ol type="a">
+<li>The relationship increases with an upward curve from temperatures of 300K to 340K, when it turns downward sharply and decreases to 355K.</li>
+<li>The association is different for different X values. This is <em>not</em> a linear relationship, which means we have to do extra work to make sure that we cover all the non-linearities.</li>
+<li>This is a very strong relationship. The pattern clearly passes the facial impact test that we discussed before. It is far from a linear relationship, but it’s clearly noticable.</li>
+</ol>
+</div>
+</section>
+<section id="again-always-plot-your-data" class="level3">
+<h3 class="anchored" data-anchor-id="again-always-plot-your-data">Again, always plot your data!!!</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>All of the plots in the Anscombe quartet <em>have the same correlation coefficient</em>.</p>
+<p><span class="math inline">\(r\)</span> is a measure of linear association - if it’s not linear, <span class="math inline">\(r\)</span> can’t be interpreted!!!</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>It’s important to note that <span class="math inline">\(r\)</span> can always be calculated for numeric data. If we had student numbers as well as a categorical variable that used 0 to represent black, 1 to represent asian, etc., then we could technically calculate the correlation coefficient. This would be utterly meaningless!!!!!</p>
+</div>
+</section>
+<section id="example-penguins" class="level3">
+<h3 class="anchored" data-anchor-id="example-penguins">Example: Penguins</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+<div class="notes">
+<p>This is an example of something called <strong>Simpson’s Paradox</strong>: If we don’t account for the sub-groups, we get the opposite affect! As we can see in the plot, if we have all the groups together than it looks like a negative correlation, but once we separate groups each individual group has a positive correlation.</p>
+<p>(Note that I hid the code for this plot - the code I used to ensure the colours matched and I got the right layout is pretty advanced, and I also used some tricks along the way.)</p>
+</div>
+</section>
+<section id="correlation-summary" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-summary">Correlation Summary</h3>
+<ul>
+<li><span class="math inline">\(r\)</span> is a measure of <strong>linear</strong> association
+<ul>
+<li>I’ve said it plenty, I’ll say it again: <span class="math inline">\(r\)</span> does not apply to non-linear patterns!</li>
+<li>Always plot your data before calculating <span class="math inline">\(r\)</span>.</li>
+</ul></li>
+<li><span class="math inline">\(r\)</span> is like a measure of how two variables vary together.
+<ul>
+<li>Formula is similar to the variance formula!</li>
+</ul></li>
+<li><span class="math inline">\(r\)</span> is a number between -1 and 1, with 0 meaning no correlation and 1 or -1 meaning perfect correlation.
+<ul>
+<li>A negative <span class="math inline">\(r\)</span> means a negative relationship (i.e.&nbsp;a line that goes down).</li>
+</ul></li>
+<li>Everything on the “Comments” slide is fair game for test questions.</li>
+</ul>
+</section>
+</section>
+<section id="participation-questions" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">3.4</span> Participation Questions</h2>
+<section id="q01" class="level3">
+<h3 class="anchored" data-anchor-id="q01">Q01</h3>
+<p>The correlation coefficient measures the strength of the correlation.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
+</section>
+<section id="q02" class="level3">
+<h3 class="anchored" data-anchor-id="q02">Q02</h3>
+<p>If <span class="math inline">\(r &lt; 0\)</span>, there is a negative linear correlation.</p>
+<ol type="1">
+<li>True</li>
+<li>False</li>
+</ol>
+</section>
+<section id="q03" class="level3">
+<h3 class="anchored" data-anchor-id="q03">Q03</h3>
+<p>Which of the following represents the <em>strongest</em> correlation?</p>
+<ol type="1">
+<li>0.4</li>
+<li>0.7</li>
+<li>-0.8</li>
+<li>0</li>
+</ol>
+</section>
+<section id="q04" class="level3">
+<h3 class="anchored" data-anchor-id="q04">Q04</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>What is the best description of the plot on the right?</p>
+<ol type="1">
+<li>No correlation, has an outlier.</li>
+<li>Strong correlation, has an outlier</li>
+<li>Slight negative correlation</li>
+<li>Shapeless</li>
+</ol>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="extra-context-fitting-a-line" class="level3">
+<h3 class="anchored" data-anchor-id="extra-context-fitting-a-line">Extra context: Fitting a Line</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>A line would try and fit the outlier, which misleads us into thinking there might be a correlation!</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="q05" class="level3">
+<h3 class="anchored" data-anchor-id="q05">Q05</h3>
+<p>Which statement is <em>true</em>.</p>
+<ol type="1">
+<li>The explanatory variable causes the response.</li>
+<li>The response must be something measured <em>after</em> the explanatory variable.</li>
+<li>We use the explanatory variable to explain the response, without assuming causality.</li>
+<li>The correlation between the explanatory and response variable will be positive if the explanatory causes the response, negative if the response causes the explanatory.</li>
+</ol>
+</section>
+<section id="q06" class="level3">
+<h3 class="anchored" data-anchor-id="q06">Q06</h3>
+<p>We can add colour to a plot using what type of variable?</p>
+<ol type="1">
+<li>Categorical</li>
+<li>Quantitative</li>
+</ol>
+<div class="notes">
+<p><strong>Exercises:</strong></p>
+<ol type="1">
+<li>The following code will draw a plot and calculate the correlation coefficient. Currently, it’s doing this for the column <code>mpg</code> (response) versus the column <code>wt</code> (“weight”, explanatory) in the <code>mtcars</code> data which is built in to R.
+<ol type="a">
+<li>Re-run the code, but replace <code>wt</code> with <code>disp</code> (engine displacement), <code>hp</code> (horsepower), <code>drat</code> (rear axle ratio, although I couldn’t explain this further), and <code>qsec</code> (quarter mile time, in seconds). Comment on the apparent pattern and the magnitude of the correlation.</li>
+<li>Change <code>wt</code> to<code>cyl</code>, the number of cylinders. What do you notice about the plot, and how does this affect your interpretation of the correlation between <code>mpg</code> and <code>cyl</code>? Explain why <code>cyl</code> might be better incorporated as a categorical variable, even though it is indeed numeric.</li>
+<li>Repeat part (b) for <code>am</code>, which is “0” for automatic transmission and “1” for manual transmission.</li>
+</ol></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.8676594</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>The following figure comes from the article “Shared neural representations and temporal segmentation of political content predict ideological similarity” by De Brujin et al., published in 2023 (<a href="https://www.science.org/doi/10.1126/sciadv.abq5920">link to aricle here</a>). The star on the plot indicates that they have found a statistically significant relationship (more on this next week). Is this a strong correlation?</li>
+</ol>
+<p><img src="figs/scatterbad.png" class="img-fluid"></p>
+<ol start="3" type="1">
+<li>The following figure comes from the article “Effect on Blood Pressure of Daily Lemon Ingestion and Walking” by Kato et al., published in 2013 (<a href="https://www.hindawi.com/journals/jnme/2014/912684/">link to article here</a>). Comment on the shape of this relationship. Recall how we described a “strong” shape as a shape that remains even if some of the data points were removed.</li>
+</ol>
+<p><img src="figs/lemon.png" class="img-fluid"></p>
+<p><strong>Exercises from OpenIntro Biotatistics textbook</strong></p>
+<p>Questions 1.35, 1.36, 1.37.</p>
+<p>For further R practice and case studies, see the <a href="https://www.openintro.org/book/statlabs/?labblock=biostat_intro_to_data">labs page for the OpenIntro textbook</a>.</p>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L02-Describing_Distributions_Numbers.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./L04-Regression.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

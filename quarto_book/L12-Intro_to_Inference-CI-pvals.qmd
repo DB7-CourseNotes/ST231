@@ -1,0 +1,192 @@
+---
+title: "Welcome to Inference!"
+author: "Dr. Devan Becker"
+date: "2023-06-21"
+execute:
+  echo: true
+---
+
+
+Please pay attention to the margin notes.^[These things!] They often contain important information.^[Or silliness.] 
+
+
+
+
+## Inference Basics
+
+### Probability vs. Inference
+
+In probability, we have distributions and calculate how likely given values are. In inference, we have a value that came from a distribution and try to determine things about that distribution.
+
+
+Recall: Sampling Distributions
+
+- If the population is $N(\mu,\sigma)$, the sampling distribution of the sample mean is $\bar X\sim N(\mu,\sigma/\sqrt{n})$.
+- Assuming an SRS, 95\% of sample means should be within 2$\sigma/\sqrt{n}$ of the population mean.^[This is using the empirical rule - the actual value is closer to 1.96.]
+
+
+### Flippin' it: Confidence intervals
+
+Instead of asking "What's the probability that a sample mean is further than 2$\sigma$ away?", we can ask "If your sample mean is further than 2$\sigma$, is it reasonable to say that it comes from that particular population?" 
+
+Notice the subtle shift - we're now talking about something that we can do with *just a sample*. The Sampling Distributions section always assumed that the population mean was known and told us about potential sample means. We're now shifting our perspective: given a sample mean, what are the potential population values? 
+
+The basic idea in this lecture is as follows: the sample should be similar to the population but a little bit off. What are the potential values of the population mean that are compatible with what we observed? 
+
+
+## Confidence Intervals
+
+### Background
+
+Given data, we want to make an **inference** about the population. Since $P(\bar X = \mu) = 0$, we can't just calculate the probability that we have the correct population mean. It's always going to be 0!
+
+However, we can make guesses based on ranges! With confidence intervals, we create a range around our estimate that (hopefully) contains the true population mean. It won't contain the true mean every time, but if we do things right, we can quantify our **confidence** that it does.
+
+All CI's that we learn in this class have the form:
+$$
+\text{Estimate} \pm \text{Margin of Error}
+$$
+
+
+### The Margin of Error (MoE)
+
+If the population is normal with mean $\mu$ and sd $\sigma$, then the **Margin of Error** is 
+
+$$
+MoE = (z^*)*(\sigma/\sqrt{n}) = \text{Critical Value}*\text{Standard Error}
+$$
+
+- $z^*$ is a **critical value**. This is where we get our "confidence" from. This value is *always positive*.
+- $\sigma/\sqrt{n}$ is the standard deviation of the sampling distribution, which is also called the **Standard Error**.
+
+
+### Critical Values
+
+If $z^* = \infty$, it means that the confidence interval is infinitely wide. That is, we're 100\% confident that the true population mean is in the interval!
+
+If $z^* = 0$, it means the CI is just the **point estimate**. In other words, we're 0\% confident.
+
+Usually, we choose a confidence level in between 0 and 100. Values of 90\%, 95\%, or 97.5\% are common. This values strike a nice balance between being useful and being less than infinity.
+
+
+### Calculating critical values: 0.95\% 
+
+If $X\sim N(\mu, \sigma)$, then the sampling distribution is $\bar X\sim N(\mu,\sigma/\sqrt{n})$.
+
+WTo make a confidence interval, we want a range of values $(L, U)$ such that $P(L < \bar X < U) = 0.95$.
+
+The normal distribution is symmetric. If we want 95\% in the middle, then we need 0.025 below L and 0.025 above U. This is equivalent to values such that $P(\bar X < L) = 0.025$ and $P(\bar X < U) = 0.975$.
+
+We can find $P(Z < -z^*) = 0.025$, then use the formula $x = z\sigma+\mu$. However, since we're using $\bar X$ instead (which has a standard deviation of $\sigma/\sqrt{n}$ instead of $\sigma$), this is $\bar x = z^*\sigma/\sqrt{n} + \mu$.
+
+We can do the same with $P(Z < z^*) = 0.975$ and find $\bar x = z^*\sigma/\sqrt n + \mu$.
+
+### What is $z^*$?
+
+For $P(\bar X < L) = 0.025$, $-z^* = -1.96$ (almost -2).
+
+For $P(\bar X < U) = 0.975$, $z^* = 1.96$ (almost 2).\newline
+
+In other words, it's symmetric! The two ends of the interval are:
+$$
+\bar x = \pm z^*\sigma/\sqrt{n} + \mu
+$$
+
+
+However, we don't know the population mean. Instead, we have $\bar x$.
+
+A CI is defined as:
+$$
+\mu \text{ is in the range } \bar x \pm z^*\sigma/\sqrt{n}
+$$
+
+
+### Some notation: $\alpha$
+
+A $(1-\alpha)\%$CI is is defined as 
+$$
+\bar x \pm z^*\sigma/\sqrt{n}
+$$
+
+where $P(Z < z^*) = \alpha/2$.\newline
+
+- For a 95\%CI, $\alpha = 0.05$ and $\alpha/2= 0.025$. 
+    - $z^*$ is found by finding the value such that $P(Z <z^*) = 0.025$. 
+    - `qnorm(0.025)` = `r round(qnorm(0.025), 4)`, so $z^* = 1.96$. 
+- For a 89\%CI, $\alpha = 0.11$ and $\alpha/2 = 0.055$. 
+    - `qnorm(0.055)` = `r round(qnorm(0.055), 5)`, so $z^* = 1.6$.
+
+
+
+### Interpretation
+
+- There is no randomness in a 95\% CI. The mean is fixed, the sd is fixed, the population mean is fixed.
+- It is **NOT** true that "95\% of the time, the population mean falls in the CI". 
+    - This is a classic gotcha.
+- By the way the CI is constructed, it will contain the population mean 95\% of the time. We have no idea whether any particular one does, but 95\% of them do.
+    - On any given day, there's a 10\% chance of rain. However, it either rained yesterday or it didn't. There's **not** a 10\% chance that it rained yesterday - it's either 0\% or 100\%.
+
+### Summary
+
+If $X\sim N(\mu,\sigma)$, then a $(1-alpha)\%$CI is 
+$$
+\bar x \pm z^*\sigma/\sqrt{n}
+$$
+where $P(Z < z^*) = \alpha/2$ can be found with qnorm (or a z-table).
+
+- A 95\% is based on finding the middle 95\% of the sampling distribution, but centering it around $\bar x$.
+- 95\% of the intervals constructed this way will contain the true population mean.
+    - A given interval has either a 0\% chance or a 100\% chance
+- A point of sillyness: This assumes that $\sigma$ is *known*. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+# Preface {.unnumbered}
+
+These course notes structured to coincide with Baldi and Moore's The basic Practice of Statistics in the Life Sciences, 4th edition. 
+
+
+## Helpful Information
+
+- Text: Bald \& Moore: The practice of statistics in the life sciences.
+    - *Recommended*, not required.
+    - Copy available in the library. Old versions work fine.\lspace
+- Alternate (free) text (trialing):
+    - [OpenIntro Statistics for Life Sciences](https://www.openintro.org/book/biostat/)
+
+:::notes
+The textbook for this course is recommended but not required. We will not be using questions directly from the textbook so it's fine if you have an old version. Instead, you can just use it as a reference for extra information about any of the course topics.
+
+I've also included an alternate textbook. If you use this, please share your experience with me so that I know whether I could switch to this free textbook!.
+:::
+
+## Learning Outcomes
+
+- Critically appraise **published articles** in health sciences research.\lspace
+- Use **industry standard tools** to apply **basic statistical concepts** to **real-world problems**.\lspace
+- Understand the use and application of **statistical techniques** such as descriptive and inferential statistics.
+
+## Accessing Materials
+
+- Lectures posted on MyLS\lspace
+- RStudio
+    - Free, open-source interface to the R programming language.\lspace
+- Syzygy Jupyter (JuPyteR) Notebooks
+    - Free, **web-based** service for WLU students
+    - No need to install R on your own computer\lspace
+
+:::notes
+You can use either RStudio or syzygy for this course, RStudio has many fantastic bells and whistles that help you produce results and reports, whereas syzygy has an online interface and makes it easy to use without installing R on your own computer.
+
+For lectures, I will be using VSCode, which is the main program that I use because it works well with python and R, as well as other languages that I need. I will switch to RStudio for many demonstrations just to show you how it works because this is the program that most people who do statistics will use. I will occasionally demonstrate some concepts using Jupyter notebooks because this is another common way that people do statistics and data science. You will not be tested on the features of Rtudio, VSCode or Jupyter notebooks, but mastery of RStudio will be extremely helpful for all future data analysis tasks beyond this course.
+:::
+
+

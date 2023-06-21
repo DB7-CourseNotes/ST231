@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Devan Becker">
+<meta name="dcterms.date" content="2020-06-29">
+
+<title>Course Notes for ST231 - 7&nbsp; Binomial Probabilities</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./L10-Sampling_Distributions.html" rel="next">
+<link href="./L07-Normal_Distributions.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L09-Binomial_Probabilities.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Course Notes for ST231</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Pre-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Post-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14-tCI.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals (without the Silliness)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> Introduction</a>
+  <ul class="collapse">
+  <li><a href="#with-coins" id="toc-with-coins" class="nav-link" data-scroll-target="#with-coins">With Coins</a></li>
+  <li><a href="#with-dice" id="toc-with-dice" class="nav-link" data-scroll-target="#with-dice">With Dice</a></li>
+  </ul></li>
+  <li><a href="#binomial-probabilities" id="toc-binomial-probabilities" class="nav-link" data-scroll-target="#binomial-probabilities"><span class="header-section-number">7.2</span> Binomial Probabilities</a>
+  <ul class="collapse">
+  <li><a href="#confusing-but-useful-notation" id="toc-confusing-but-useful-notation" class="nav-link" data-scroll-target="#confusing-but-useful-notation">Confusing (but Useful) Notation</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r">In R</a></li>
+  </ul></li>
+  <li><a href="#cumulative-binomial-probabilities" id="toc-cumulative-binomial-probabilities" class="nav-link" data-scroll-target="#cumulative-binomial-probabilities"><span class="header-section-number">7.3</span> Cumulative Binomial Probabilities</a>
+  <ul class="collapse">
+  <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">Examples</a></li>
+  </ul></li>
+  <li><a href="#properties-of-the-binomial-distribution" id="toc-properties-of-the-binomial-distribution" class="nav-link" data-scroll-target="#properties-of-the-binomial-distribution"><span class="header-section-number">7.4</span> Properties of the Binomial Distribution</a>
+  <ul class="collapse">
+  <li><a href="#binomial-assumptions" id="toc-binomial-assumptions" class="nav-link" data-scroll-target="#binomial-assumptions">Binomial Assumptions</a></li>
+  <li><a href="#side-note-probability-of-success-is-the-same" id="toc-side-note-probability-of-success-is-the-same" class="nav-link" data-scroll-target="#side-note-probability-of-success-is-the-same">Side note: “probability of success is the same”</a></li>
+  <li><a href="#binomial-mean-and-variance" id="toc-binomial-mean-and-variance" class="nav-link" data-scroll-target="#binomial-mean-and-variance">Binomial Mean and Variance</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7.5</span> Conclusion</a></li>
+  <li><a href="#self-test-questions" id="toc-self-test-questions" class="nav-link" data-scroll-target="#self-test-questions"><span class="header-section-number">7.6</span> Self-Test Questions</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/edit/main/L09-Binomial_Probabilities.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2020-06-29</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Please pay attention to the margin notes.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> They often contain important information.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
+<p>Probability models are ways of laying out all possible events as well as the probability of each event. For things like coins and dice, everything has the same probability and things work out nicely. In Two-Way tables, we have all the probabilities laid out in front of us. The Binomomial distribution is our first foray into a formulaic approach to probabilities.</p>
+<section id="with-coins" class="level3">
+<h3 class="anchored" data-anchor-id="with-coins">With Coins</h3>
+<p>If we flip two coins, the outcomes are {HH, HT, TH, TT} and each of these are equally likely. Instead of looking at each event, what is the probability that there are 0 heads? 1 head? 2 heads?</p>
+<p>For 0 and 2 heads, there is only 1 possibility, so it must be 1/4 for each. For 1 head, there are 2 possibilities, each with probability 1/4, so the answer is 2*1/4.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>Let’s flip three coins. The outcomes are {HHH, HHT, HTH, THH, HTT, THT, TTH, TTT}, so each outcome has a probability of 1/8. Another way to come to this number is to look at the probability of heads: For HHH, the probability is 0.5*0.5*0.5 since there’s a 50% chance of heads and each coin flip is <strong>independent</strong>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<table class="table">
+<thead>
+<tr class="header">
+<th># Heads</th>
+<th>Outcomes</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>TTT</td>
+<td>1/8</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>TTH, THT, HTT</td>
+<td>1/8+1/8+1/8 = 3/8</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>HHT, HTH, THH</td>
+<td>3/8</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>HHH</td>
+<td>1/8</td>
+</tr>
+</tbody>
+</table>
+<p>Alright, let’s do 4 coins. How many ways are there to get, say, 2 heads out of four flips? You can bet that a smart mathemetician has figured out a way to do this without writing them all out again! This is called <em>combinatorics</em>, and includes a lot of things that are not relevant right now. We’ll focus on the <strong>choose</strong> function. For three coins, “3 choose 1” means “out of 3 options, choose 1 of them”. Sometimes this is shortened to “3C1”. As we saw in the table above, there’s 1 way to choose nothing (no heads), 3 ways to choose 1 thing, 3 ways to choose 2 things, and 1 way to choose 3 things.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> In R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">0</span>) <span class="co"># 3C0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">1</span>) <span class="co"># 3C1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">2</span>) <span class="co"># 3C2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">3</span>) <span class="co"># 3C3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">k =</span> <span class="dv">2</span>) <span class="co"># 4C2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6</code></pre>
+</div>
+</div>
+<p>So for 4 coins, there is 4C2 = 6 ways to get two heads.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> What’s the probability of each of these 6 outcomes? Since there’s a 0.5 chance of heads and a 0.5 chance of tails, there’s a 0.5*0.5*0.5*0.5 = 0.5<span class="math inline">\(^4\)</span> = 0.0625 chance. That means that there’s a 6*0.0625 = 0.375 chance of getting two heads out of four flips.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p>Just to be complete, let’s do this again for 5 coins. We’re already at the point where we <em>need</em> the choose function because there are too many outcomes to write out by hand. Let’s calculate some probabilities with R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of 4 heads out of 5 flips:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">4</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.15625</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of 3 heads out of 5 flips:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3125</code></pre>
+</div>
+</div>
+<p>For completeness, let’s make sure these all add up to 1:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## I really hope this adds to 1</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">0</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">2</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">4</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">5</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</section>
+<section id="with-dice" class="level3">
+<h3 class="anchored" data-anchor-id="with-dice">With Dice</h3>
+<p>If I roll two dice, what’s the probability that exactly 1 of them is a 3? One way this can happen is if the first dice is a 3 and the second one is <em>not</em> a 3. This probability is P(first dice is 3)*P(second dice is not 3). We know that P(first dice is 3) is easily seen to be 1/6. On the other hand, P(second dice is not 3) can be calculated as 1 - P(second dice is 3)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> = 1 - 1/6 = 5/6. So the probability is (1/6)*(1 - 1/6).</p>
+<p>We can also have exactly one 3 if the first dice is not 3 but the second dice is 3. This has the same probability as the other way around: (1 - 1/6)*(1/6).</p>
+<p>Notice how this is the second of two options. Again, we get to use the choose function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of exactly one 3 in two dice rolls</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">2</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)<span class="sc">*</span>(<span class="dv">1-1</span><span class="sc">/</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2777778</code></pre>
+</div>
+</div>
+<p>If we roll 18 dice, what’s the probability that exactly four of them are 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)<span class="math inline">\(^4\)</span>*(1 - 1/6)<span class="math inline">\(^{14}\)</span> = 0.000060098. That’s pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C5*(1/6)<sup>4*(1-1/6)</sup>14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 18 rolls!</p>
+</section>
+</section>
+<section id="binomial-probabilities" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="binomial-probabilities"><span class="header-section-number">7.2</span> Binomial Probabilities</h2>
+<p>In general, if we have <span class="math inline">\(n\)</span> trials and the probability of the event of interest, a.k.a. <strong>success</strong>, is <span class="math inline">\(p\)</span>, then</p>
+<p><span class="math display">\[\begin{align*}
+P(x\text{ successes in }n\text{ trials}) = nCx*p^x*(1-p)^{n-x}
+\end{align*}\]</span></p>
+<p>For the dice example, “x successes in n trials” can be interpreted as “four 6s in 18 trials”, where <span class="math inline">\(x=4\)</span>, <span class="math inline">\(n=18\)</span>, and the “14 rolls that are not four” comes from <span class="math inline">\(n-x=14\)</span>.</p>
+<section id="confusing-but-useful-notation" class="level3">
+<h3 class="anchored" data-anchor-id="confusing-but-useful-notation">Confusing (but Useful) Notation</h3>
+<p>In the statement above, we used <span class="math inline">\(x\)</span> to refer to the number of heads. I like this. Let’s keep doing this.</p>
+<p>For Binomial probabilities, we use the notation:</p>
+<p><span class="math display">\[\begin{align*}
+X \sim B(n,p)
+\end{align*}\]</span></p>
+<p>which is read as “the random variable X is distributed as Binomial with n trials and probability of success p”.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> The “<span class="math inline">\(\sim\)</span>” just means “is distributed as”, which tells us where the probabilities are distributed. This is why <span class="math inline">\(nCx*p^x*(1-p)^{n-x}\)</span> is called the <strong>probability distribution function</strong>, or pdf.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<p>A <strong>random variable</strong> is just a variable that has a probability distribution,<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> such as the number of heads out of 5 flips. Before flipping these coins we have no idea how many heads there will be, but we know the probability of each number. We always use upper case letters for random variables. Once we actually have a value (say, 1 heads), we use lower case. We often use the notation <span class="math inline">\(P(X = x)\)</span> to refer to “the probability that the <strong>random variable</strong> <span class="math inline">\(X\)</span> will have the specific value of <span class="math inline">\(x\)</span>”. In other words, <span class="math inline">\(X\)</span> is the unknown that could be anything, <span class="math inline">\(x\)</span> is the specific probability that we’re interested in.</p>
+<p>I just want to talk about “distributions” a little bit more. A <strong>distribution</strong> tells you where the probabilities are. For coins, 50% of the probability is in Heads, 50% is in in tails. When we talk about “is the dice a 3?”, one-sixth of the probability is distributed to the 3 and five-sixths are distributed elsewhere.</p>
+<p>To summarise, saying that <span class="math inline">\(X \sim B(n,p)\)</span>, or that <span class="math inline">\(X\)</span> is distributed as a Binomial random variable with <span class="math inline">\(n\)</span> trials and probability of success <span class="math inline">\(p\)</span>, is the exact same as saying that <span class="math inline">\(P(x\text{ successes in }n\text{ trials})\)</span> can be found using the equation <span class="math inline">\(nCx*p^x*(1-p)^{n-x}\)</span>. This is what it means to have a <strong>probability distribution function.</strong></p>
+<p>To see all of these probabilities at once, we can plot this as a graph. To reduce coding, let’s look at <span class="math inline">\(X\sim B(3, 0.4)\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co"># X values</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">0</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">0</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">3</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">1</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">2</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">1</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">3</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">0</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(x,y) # This will plot them, but it looks kinda bad</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Since X can only be 0, 1, 2, or 3, let's us a bar plot!</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(y, <span class="at">names =</span> x,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"pdf of B(3, 0.4)"</span>, <span class="at">xlab =</span> <span class="st">"x"</span>,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"3Cx * p^x * (1-p)^(3-x)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice how 1 is the most likely value, with 2 being much less likely. This makes sense - if the probability of heads is less than 0.5, we expect that more of the coin flips will be tails! If the probability of “heads” were 0.5, then we would expect 1 and 2 to be equally likely.</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<ol type="1">
+<li>Suppose I have a coin that is weighted so that Heads comes up 80% of the time. What is the probability that I get 8 heads in 10 flips?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">8</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">8</span> <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-0.8</span>)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3019899</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>What’s the probability that I get anything other than 10 flips?
+<ul>
+<li>Try it yourself!</li>
+</ul></li>
+<li>What’s the probability that I get <em>more than</em> 8 heads in 10 flips?
+<ul>
+<li>Since the events “9 heads” and “10 heads” are <strong>disjoint</strong>, we can calculate these individually and add them together.</li>
+</ul></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">9</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">9</span> <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-0.8</span>)<span class="sc">^</span><span class="dv">1</span> <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">10</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">10</span> <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-0.8</span>)<span class="sc">^</span><span class="dv">9</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2684355</code></pre>
+</div>
+</div>
+</section>
+<section id="in-r" class="level3">
+<h3 class="anchored" data-anchor-id="in-r">In R</h3>
+<p>Typing out the whole formula is getting boring. Surely R, a <em>statistical</em> programming language, has a way to do it for me, right? Of course!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">8</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">8</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3019899</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">8</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3019899</code></pre>
+</div>
+</div>
+<p>The <code>dbinom()</code> function has exactly the arguments that you would expect. Lower case x is the specific value, size is the number of coin flips, prob is the probability of success. The <code>d</code> stands for “density”, which for our purposes is the same as “distribution”.</p>
+<p>As a special note, R will take a vector for <code>x</code>. We can find multiple probabilities at once:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3019899 0.2684355 0.1073742</code></pre>
+</div>
+</div>
+<p>This allows us to easily plot the pdf:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span> <span class="co"># a vector of the numbers from 0 to 10</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="do">## note: x is the name of the object AND the argument,</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## hence why I wrote "x = x"</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="at">x =</span> x, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.8</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="at">height =</span> y, <span class="at">names =</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="cumulative-binomial-probabilities" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="cumulative-binomial-probabilities"><span class="header-section-number">7.3</span> Cumulative Binomial Probabilities</h2>
+<p>A <strong>cumulative probability</strong> is the probability of observing <em>up to</em> <span class="math inline">\(x\)</span> successes in <span class="math inline">\(n\)</span> trials. In other words, this is <span class="math inline">\(P(X \le x)\)</span>: the probability that the <strong>random variable</strong> <span class="math inline">\(X\)</span> is smaller than or equal to some specific number <span class="math inline">\(x\)</span>. This is referred to as the <strong>Cumulative Distribution Function</strong>, or cdf. Unlike what we saw in the normal distribution, it really matters whether it’s <span class="math inline">\(P(X\le x)\)</span> or <span class="math inline">\(P(X&lt; x)\)</span>!</p>
+<p>What’s the probability that we get <em>at most</em> 4 heads in 10 flips? That’s the same as the probability of 0 heads plus the probability of 1 heads plus the probability of 2 heads plus…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: R evaluates the arguments *in order*</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="do">## It expects the arguments in the order of "x, size, prob",</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="do">## so it assumes the first argument is x, the second is size,</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="do">## and the third is prob.</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="dv">10</span>, <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbinom</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbinom</span>(<span class="dv">4</span>, <span class="dv">10</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3769531</code></pre>
+</div>
+</div>
+<p>What about the probability of <em>at most</em> 40 heads in 100 flips? Do I have to type all that out?</p>
+<p>Nope! We can use the <code>pbinom()</code> function. First, let’s verify it with what we’ve already calculated:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3769531</code></pre>
+</div>
+</div>
+<p>Now, let’s find the probability of at most 40 heads in 100 flips:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">40</span>, <span class="dv">100</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.02844397</code></pre>
+</div>
+</div>
+<p>It’s surprisingly small! Let’s look at the pdf to see why:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">70</span> <span class="co"># The pdf is REALLY small outside this range</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="do">## I'm going to colour the bars where x &lt;= 40</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Start with a bunch of white bars by REPeating the colour</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="do">## white for as many x values as we have</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>mycols <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">"white"</span>, <span class="fu">length</span>(x))</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Next, we change the colour where x &lt;= 40</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>mycols[x <span class="sc">&lt;=</span> <span class="dv">40</span>] <span class="ot">&lt;-</span> <span class="st">"red"</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the distribution function</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(x, <span class="dv">100</span>, <span class="fl">0.5</span>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="at">height =</span> y, <span class="at">names =</span> x, <span class="at">col =</span> mycols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="examples-1" class="level3">
+<h3 class="anchored" data-anchor-id="examples-1">Examples</h3>
+<p>What’s the probability of <em>at least</em> 40 heads in 100 flips? Be careful here: it matters whether I ask “at least” or “more than”. The cdf always calculates “less than or equal to”<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, and the <strong>complement</strong> of this is “strictly greater than.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> If I’m looking for”strictly greater than”, I need to be careful what I use!</p>
+<p>In this case, P(X <span class="math inline">\(\ge\)</span> 40) = P(X &gt; 39) = 1 - P(X <span class="math inline">\(\le\)</span> 39) = <code>1 - pbinom(39, 100, 0.5)</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">39</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9823999</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="properties-of-the-binomial-distribution" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="properties-of-the-binomial-distribution"><span class="header-section-number">7.4</span> Properties of the Binomial Distribution</h2>
+<p>I define “math” as the process of making up rules just to see what happens. The Binomial distribution isn’t just some abstract entity that we discovered - it’s a set of rules we created that seem to logically fit some situations.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> So first: what are the rules?</p>
+<section id="binomial-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-assumptions">Binomial Assumptions</h3>
+<p>I’m going to motivate these assumptions first. If you’re the type that just wants to memorize, you can skip to the end of this section.</p>
+<p>We’ve been talking about flipping coins and rolling dice, which helped motivate this distribution. We wouldn’t be teaching you this distribution if it only applied to dice and coins, so when can we apply it?</p>
+<p>Consider flipping a “sticky” coin twice. It starts with a 50/50 chance of being heads, but the next flip has a 75% chance of being the same as the first.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> So if the first flip was heads, there’s a 75% chance that the second flip will be heads. If the first flip was tails, there’s a 75% chance that the second flip will be tails.</p>
+<p>Let’s first just calculate the probability of each outcome. The probability that the first flip is heads <strong>and</strong> the second flip is tails can be found using the <strong>Multiplication Rule</strong>, which states that P(A and B) = P(A)P(B|A). So P(HH) = P(first is H)P(second is H <strong>given that</strong> the first was H) = 0.5*0.75 = 0.375. Similarly, P(HT) = 0.125, P(TT) = 0.375, and P(TH) = 0.125.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
+<p>Let’s compare these probabilities with the ones we calculated earlier. The probability of 0 heads with the fair coin was 1/4, and this value was calculated with the binomial distribution. With the sticky coin, the probability of 0 heads is 0.375, which does <em>not</em> come from the binomial distribution.</p>
+<p>Formally, the Binomial distribution <strong>assumes</strong> that each trial is independent and the probability of success is the same in each trial. While I didn’t touch on this, the only random thing should be the number of successes, <em>not</em> the number of trials. Finally, recall that, with the dice, I converted things to “3” or “not 3”; the Binomial distribution only works when each individual trial can only be one thing or another. More succinctly, the <strong>assumptions for the Binomial Distribution</strong> are:</p>
+<ol type="1">
+<li>There are n trials, and this number is known ahead of time.</li>
+<li>Each trial is either a “success” or a “failure”.</li>
+<li>Each trial is <strong>independent</strong> of the other trials.</li>
+<li>The probability of success is the same for all trials.</li>
+</ol>
+</section>
+<section id="side-note-probability-of-success-is-the-same" class="level3">
+<h3 class="anchored" data-anchor-id="side-note-probability-of-success-is-the-same">Side note: “probability of success is the same”</h3>
+<p>As an example, consider studying, say, the proportion of questions that a student got right on a multiple choice test. Each student has a different probability of getting each question correct. However, if we want to say something about the proportion of questions that a <em>random</em> student gets right on a test. In this sense, the fourth assumption is not violated.</p>
+<p>As an alternative, consider a test where the students go one-by-one<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a> and can see the previous student’s solutions. In this case, the probability of success changes as you have more trials. This is where the problem lies - the students are still coming in a random order, but the probability of success changes.</p>
+<p>As another alternative, suppose some students are cheating. They’re more likely to get the right answers together, so they’re answers are <strong>dependent</strong> on each other; knowing one cheater’s answer gives you a better guess at another cheater’s answer.</p>
+<p>In summary, a different probability of success is only an issue if the researcher would be able to know this ahead of time. If the probability of success is different but we have a simple random sample with independent trials, there is no issue with this assumption.</p>
+</section>
+<section id="binomial-mean-and-variance" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-mean-and-variance">Binomial Mean and Variance</h3>
+<p>Now that we know the assumptions, we can see what comes out of these assumptions. First, we can find the average value. It makes perfect sense that the average number of heads in 10 flips should be 5. There’s a 50/50 chance of heads, so you’d expect half of the flips to be heads! Formally, <span class="math inline">\(\mu = np\)</span>.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> That is, the theoretical average is just the number of trials times the probability of success.</p>
+<p>What about the variance? It’s not as obvious. I’m going to try and give my own intuitive argument, but most teachers and textbooks simply skip this and have you memorize the answer. If this is your style, you can skip to the end of this section.</p>
+<p>In the past, I have defined “variance” as something like “the average amount that you would be wrong if you always guessed the mean value.” Consider flipping one coin. If this coin is rigged and always comes up heads, the mean number of heads is 1 and you would always be right when you guess the mean. Intuitively, the variance here is 0. The same happens if the coin is rigged to always come up tails - the mean number of heads is 0, and the number of heads never varies so the variance is 0.</p>
+<p>What happens between 0 and 1? If the coin was heads 80% of the time, then your guess would be right 80% of the time. The actual value of the coin varies, but not too much. If the coin was heads 20% of the time, you’d still be right 80% of the time by guessing 0 heads each time. You’d be wrong <em>most often</em> if the coin had a 50% chance of being heads.</p>
+<p>So we’ve established this: At <span class="math inline">\(p=0\)</span> and <span class="math inline">\(p=1\)</span>, the variance is 0. The maximum value is at 0.5, and the variance should be the same if you’re 0.2 above 0.5 or 0.2 below (it’s symmetric around 0.5). The following plot, then, seems reasonable:</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="288"></p>
+</div>
+</div>
+<p>There’s a lot of math behind this, but the variance for Bin(1,p)<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> turns out to be p(1-p). You can see that it would be symmetric around 0.5 and would be 0 whenever p=0 or p=1.</p>
+<p><strong>In general, the variance of a B(n,p) distribution is <span class="math inline">\(\sigma^2\)</span> = np(1-p).</strong></p>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7.5</span> Conclusion</h2>
+<p>If you have a known number of repeated trials that are independent and are either a “success” or “falure”, then the Binomial distribution is your friend. Once these assumptions are met, you can calculate the probability of any number of successes using the pdf, you know what the mean number of successes in <span class="math inline">\(n\)</span> trials will be, and you know the variance!<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a></p>
+<p>As a rule, if you see the phrase “Not enough information for a valid answer” as an option in a multiple choice question, double check that the assumptions are all met. If the observations are not independent, you need to know all of the <strong>conditional probabilities</strong> in order to calculate the answer, which you probably don’t have, so you’re missing information. If the probability of success changes from trial to trial, you need to know how it changes.</p>
+</section>
+<section id="self-test-questions" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="self-test-questions"><span class="header-section-number">7.6</span> Self-Test Questions</h2>
+<ol type="1">
+<li>What happens when you put <code>x = 0.5</code> into <code>dbinom(x, 10, 0.5)</code>? Interpret this in terms of flipping coins.</li>
+<li>I debated whether to include a section on “shape”, but decided to let you figure it out for yourself. I’ve already given you the code to plot the pdf. For each of the values of n (size) and p (prob), plot the pdf and describe the shape. Note that x should (almost) always be <code>x &lt;- 0:n</code>.
+<ol type="a">
+<li>Bin(50, 0.5)</li>
+<li>Bin(50, 0.8)</li>
+<li>Bin(50, 0.2)</li>
+<li>Bin(50, 0.02)</li>
+<li>Bin(4, 0.25)</li>
+</ol></li>
+<li>For each of the assumptions, give an example of a situation that violates <em>only one</em> of them, not the others.</li>
+</ol>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>These things!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Or silliness.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Since these events are <strong>disjoint</strong>, we can simply add them.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>For coin flips, this is obvious. It won’t always be!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>And 0 ways to choose 4 things.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Verify this by writing out all of the possibilities.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Don’t be afraid to re-read this paragraph several times, there’s a lot of math here.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>The dice is either 3 or it’s not 3, these probabilities must add to 1.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Notice how we’re using upper case for the <strong>random variable</strong>, and lower case for the actual values. This is important for future stats classes, but just something you’ll see me do for now.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>I usually use lower case so you don’t confuse it with the PDF file extension.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>There’s a much more correct, much more technical definition, but it’s outside the scope of this course.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>P(X <span class="math inline">\(\le\)</span> x)<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>P(X <span class="math inline">\(\le\)</span> x) = 1 - P(X &gt; x)<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>The philosophy of math is <em>extremely</em> interesting. Most philosophers seem believe that we <em>do</em> discover math, rather than create it. I also believe this, but probability distributions are in a grey area for this part of philosophy. When all this is over we should grab a drink and discuss this.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>If an engineer could make this coin for me I’d be infinitely grateful.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>Always make sure the numbers that I give you add to 1 - I will try and trick you with this!<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>in a random order<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>Why <span class="math inline">\(\mu\)</span> and not <span class="math inline">\(\bar x\)</span>? Because this is a <em>theoretical</em> result. You can think of this as being the “true” population.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>When n=1, this is also called the <em>Bernoulli</em> distribution, but this is not important right now.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p><strong>Statistics</strong> is the study of variance.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L07-Normal_Distributions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./L10-Sampling_Distributions.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

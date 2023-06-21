@@ -1,0 +1,650 @@
+---
+title: "Scatterplots and Correlation"
+institute: "Jam: *Response* by Barcelona"
+date: May 15, 2023
+---
+
+
+## Relationships
+
+### Explanatory and Response Variables
+
+- **Response:** Responds to the explanatory variable.
+    - Also called **dependent** variable.\lspace
+- **Explanatory:** Explains the response variable.
+    - Also called **independent** variable.
+
+Knowledge about explanatory tells us about the response. 
+
+\pspace\pause
+
+- We are *not* assuming the explanatory causes the response. We will *not* be covering causality in this course.\lspace
+- We are discovering tendencies, *not* rules.
+
+:::notes
+I just want to make this very clear: we are not looking for a causation. Instead, we're just looking at whether or not to variables are related, and we think that measurements of one will be enough to tell us about measurements of the other. For example, if we think one variable is easy to measure and another is harder to measure, then we might want to set the easy to measure variable as the explanatory variable and see if it "explains" the harder to measure variable. This has nothing to do with the easy to measure variable causing the hard to measure one.
+:::
+
+### Examples
+
+- Blood alcohol content affects reflex time.
+    – Some individuals may be more or less affected.\lspace
+- Smoking cigarettes is associated with increased risk of lung cancer, and mortality.
+    – Some heavy smokers may live to age 90\lspace
+- As height increases, weight tends to increase.
+    - Height does cause weight, but there are other explanations.
+
+:::notes
+In these examples, we carefully use words like "affects", "associated with", and "tends to". For all of these examples we would expect a relationship of some sort, but the causality is not necessarily obvious. 
+
+We obviously expect the blood alcohol contact to affect reflex time. We expect this to be a causal relationship.
+
+In the mid-1900s, it was hypothesized by cigarette companies that, rather than cigarettes causing cancer, people who were at increased risk of lung cancer with the sorts of people who also tended to smoke. Finding a relationship was not enough to convince people that it was cigarettes causing lung cancer. Even though we know that there's a relationship between cigarettes and lung cancer, the techniques we learn in this course are not enough to conclude causality.
+
+Height and weight are an example of how are the knowledge of one variable tells us about the other, without there being any causal relationship. We expect that taller people will have more mass, but there are also other reasons why somebody might have more mass that or not captured by their height.
+:::
+
+## Scatterplots
+
+### Example
+
+:::: {.columns}
+::: {.column width="30%"}
+![](figs/manatee1.png)
+
+:::
+::: {.column width="50%"}
+![](figs/manatee2.png)
+
+:::
+::::
+
+:::notes
+In the data frame above, we have an observation of the number of power boats registered in each year, as well as the number of manatees that died in a collision with a powerboat in that year. The table shown above is only a small part of the data.
+
+The rest of the data are shown in the plot. To create this plot, we put the number of powerboats registered on the X axis, and the number of manatee deaths on the Y axis. The annotation on the plot demonstrates how the points were added. One of the columns in the data is labelled 1977 and in that year they were to 755,000 powerboats registered and they were 54 manatee deaths that year. Because these two numbers are measured on the same individual (with the individual being the year in this example), we know that those two numbers go together. If we had a collection of peoples heights and a separate collection of peoples weights, but no knowledge of which individual each was collected on, then we would not be able to make a scatterplot. In order to make a scatterplot, we have to know which observation on the X axis is associated with which observation on the Y axis.
+:::
+
+### What to look for
+
+:::: {.columns}
+::: {.column width="50%"}
+\pspace
+
+- **Overall pattern**
+    - Linear, curved, etc.
+    - **Direction** (increasing/**positive**, decreasing/**negative**)
+    - Constant variability\lspace
+- **Deviations** from the pattern
+    - E.g., linear only in a small range\lspace
+- **Outliers**
+    - As before, discuss outliers separately from the pattern.
+
+:::
+::: {.column width="50%"}
+![](figs/manatee2.png)
+:::
+::::
+
+:::notes
+In general for this course were looking for a linear pattern. There are other models out there that fit nonlinear patterns, but we do not cover them in this course. There's one way for things to be linear, and there are an infinite number of ways for things to be nonlinear. However, there are many common ways to account for non-linearity while still using a linear model.
+
+Regardless of whether something is linear or has some sort of curve, we are very interested in how strong of a pattern there is. For a linear model this means we want the points to be very close to the line, whereas for non-linear models we want the pattern to be very clear. We generally want patterns to pass the "facial impact test", were the pattern is so obvious that it might as well be slapping you in the face (this is not an official test).
+
+As with describing the shape of histograms, we treat outliers as something that are not part of the shape. We can have a clear linear pattern that happens to have an outlier.
+
+The plot of manatees versus powerboats above would be described as a strong linear pattern, perhaps with some extra variation at larger X values.
+:::
+
+### Penguins!
+
+:::: {.columns}
+::: {.column width="30%"}
+\vspace{1cm}
+
+What pattern is this?
+
+:::
+::: {.column width="50%"}
+```{r}
+library(palmerpenguins)
+library(ggplot2)
+theme_set(theme_bw())
+
+ggplot(penguins) + 
+    aes(x = flipper_length_mm, y = body_mass_g) +
+    geom_point() + 
+    geom_smooth(formula = y~x, method = "lm", se = FALSE) +
+    labs(x = "Flipper Length (mm)",
+        y = "Body Mass (g)")
+```
+
+:::
+::::
+
+:::notes
+The plot above shows a clear linear pattern. There is still some variation above and below the lines, but the pattern is still clear. It kinda looks like there may be two clusters; there's a space between the two groups in the center of the X axis.
+:::
+
+
+### Adding a Categorical Variable
+
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+Each point has an $x$ coordinate, $y$ coordinate, and some other information.
+
+\pspace
+
+We can encode that information with a colour!
+
+:::
+::: {.column width="50%"}
+```{r}
+library(palmerpenguins)
+library(ggplot2)
+theme_set(theme_bw())
+
+ggplot(penguins) + 
+    aes(x = flipper_length_mm, y = body_mass_g,
+        colour = species) +
+    geom_point() +
+    labs(x = "Flipper Length (mm)",
+        y = "Body Mass (g)")
+```
+:::
+::::
+
+:::notes
+From this plot, we can see that the three species in these data all have a similar relationship, but still it might be worth separating out the groups and seeing what happens!
+:::
+
+### The Importance of Plotting: Anscombe's Quartet
+
+```{r}
+data.frame(
+    variable = names(anscombe),
+    mean = apply(anscombe, 2, mean),
+    sd = apply(anscombe, 2, sd)
+) |> knitr::kable(row.names = FALSE)
+```
+
+:::notes
+In this lecture were introducing plots before we talk about numerical summaries of two variables for a very good reason. The date is it displayed above is a well-known dataset called Anscombes quartet. Up to the first two decimal places, all of the variables in the data have the same mean and standard deviation. If this were all of the information you had, you might expect the plots to look similar.
+:::
+
+### Anscombe's Quartet
+
+```{r}
+#| fig-height: 4
+#| fig-width: 9
+#| echo: true
+par(mfrow = c(2,2), mar = c(3,3,2,1))
+plot(y1 ~ x1, data = anscombe)
+abline(lm(y1 ~ x1, data = anscombe))
+
+plot(y2 ~ x2, data = anscombe)
+abline(lm(y2 ~ x2, data = anscombe))
+
+plot(y3 ~ x3, data = anscombe)
+abline(lm(y3 ~ x3, data = anscombe))
+
+plot(y4 ~ x4, data = anscombe)
+abline(lm(y4 ~ x4, data = anscombe))
+```
+
+:::notes
+Clearly, there's a very different pattern in each plot. 
+
+- The first plot looks relatively linear with a little bit of random variation. For this data set a linear model does seem appropriate. 
+- The plot at the top right she was a very clear pattern that is not linear, so we may be able to fit a model that accounts for this non-linearity.
+- The plot at the bottom left is almost a perfect line, but with an outlier. This outlier makes it so that the line that I have added to the plot doesn't actually go through the perfect pattern that we can see if that outlier weren't there.
+- The bottom right plot is a mess. If it weren't for the outlier, the X values would all be identical! In this case, a scatterplot would not be appropriate. If I saw this while analysing my data, I would have assumed that X was supposed to be either constant (e.g., all X values should have been 8) or categorical. In both cases, a scatterplot would not be appropriate.
+
+Despite all of these wildly different shapes, all of these data sets have the same summary statistics.
+:::
+
+### Summarizing Plots
+
+- Each data point has an $x$ and a $y$. We plot $y$ against $x$.
+    - $y$ is the response, $x$ is the explanatory variable.\lspace
+- We're looking to see if it's linear. Linear models are something we know how to deal with!
+    - Deviations from linearity are noteworthy.
+    - Outliers are noteworthy.\lspace
+- We can incorporate more information in a scatterplot, especially **categorical variables**.
+
+## Correlation
+
+### Measuring Strength of Linearity
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+From plots, we can sorta see that one looks more linear than another.
+
+\pspace
+
+It would be splendid if we could have a way to quantify this...
+
+:::
+::: {.column width="50%"}
+
+```{r}
+library(ggplot2)
+theme_set(theme_bw())
+library(patchwork)
+x <- runif(100, 0, 10)
+y1 <- 2 + 3*x + rnorm(100, 0, 4)
+y2 <- 2 + 3*x + rnorm(100, 0, 1)
+
+g1 <- ggplot() + aes(x = x, y = y1) + geom_point() +
+    labs(title = "Strong correlation")
+g2 <- ggplot() + aes(x = x, y = y2) + geom_point() +
+    labs(title = "Stronger correlation")
+g1 / g2
+```
+:::
+::::
+
+:::notes
+From this point on, we're focusing on linear relationships. The plots above both demonstrate the same linear relationship, but with different "strength"s. Let's measure that!
+:::
+
+### The correlation coefficient $r$
+
+Recall the formula for the variance:
+$$
+s_x^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)(x_i - \bar x) 
+$$
+
+The **correlation coefficient** is defined as:
+$$
+r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+$$
+where $s_x$ is the s.d. of $x$ and $s_y$ is the s.d. of $y$.
+
+\pspace
+
+It's like a variance for two variables at once!
+
+:::notes
+This explanation might not stick for those of you who aren't a fan of formulas, but I think this demonstrates an important aspect of the correlation coefficient. The formula for the standard deviation includes $(x_i - \bar x)(x_i - \bar x)$. If we replaced one of those with $y$, we'd get $(x_i - \bar x)(y_i - \bar y)$, which is one step closer to the correlation coefficient. In other words, the correlation is a measure of how two (quantitative) variables vary together!
+
+Let's try another approach. $x$ has variance. $y$ has variance. They also have variance *with each other*. This is measured by the correlation!
+
+If neither of these explanations make sense, don't worry! We'll see plenty of correlations and get an intuition for how correlations are different with different data.
+:::
+
+### The range of $r$
+$$
+r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+$$
+
+- $s_x$ and $s_y$ are positive\lspace
+- $s_x > \sum_{i=1}^n(x_i - \bar x)$, similar for $s_y$
+    - This can't be larger than 1\lspace
+- $x_i - \bar x$ *can* be negative (same with $(y_i-\bar y)$).
+
+\pspace
+
+The correlation coefficient can be anything from -1 to 1, with 0 representing no correlation and -1 and 1 representing perfect correlation.
+
+:::notes
+The fact that the correlation can be negative is important. A correlation coefficient of -1 looks like a perfect downward slope. 
+:::
+
+### Interpreting correlation
+
+- 1 and -1 are **perfect** correlation.\lspace
+- 0.8 is a strong correlation (depending on context)
+    - Physics: 0.8 is very very weak.
+    - Social science: 0.8 is very very strong.
+
+\pspace
+
+```{r}
+#| echo: true
+#| eval: false
+shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+    subdir = "Apps/ScatterCorr")
+```
+
+
+:::notes
+The app above shows data that start uncorrelated, then are slowly transformed into perfect correlation. If you hav R installed on your computer it should run just fine (you may need to run `install.packages("shiny")` for the shiny package, and possibly `install.packages("ggplot2")` if you haven't already).
+
+For more examples (and more info on the correlation coefficient in general), see the [OpenIntro Textbook](https://www.openintro.org/book/biostat/) and let me know what you think of that textbook!
+:::
+
+### Comments on the correlation
+$$
+r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+$$
+
+- The order of $x$ and $y$ can be switched 
+    - 2 times 3 is the same as 3 times 2.\lspace
+- Since we're subtracting the mean and dividing by the s.d., the units don't matter!
+    - Switching from kg to lbs has no effect on the correlation.\lspace
+- $r>0$ means the line goes up. $r < 0$ means the line goes down.\lspace
+- Quantitative only
+- Linear only
+- *Not* robust to outliers. 
+
+:::notes
+Let's explore some of these points with code!
+
+```{r}
+#| echo: true
+plot(y1 ~ x1, data = anscombe)
+```
+
+It looks relatively linear. Take a moment to think of how correlated these two variables are, and assign it a value between 0 and 1. This is how you would guess the correlation coefficient
+
+On exams, you will be expected to differentiate between "not correlated" (about 0), "slightly correlated" (0.2 to 0.4), "very correlated" (0.6 to 0.8), and "near perfect correlation (almost exactly 1)", or the negatives of these values; you won't need to guess whether the correlation is 0.55 or 0.6.
+
+In R, we calculate the $r$ with the `cor()` function.
+```{r}
+#| echo: true
+cor(anscombe$y1, anscombe$x1)
+```
+
+Does this number make sense to you? It seems fairly high to me, but with small amounts of data it's not that surprising. Think of it this way: if you removed a quarter of the data at random, would you still be able to see the pattern? If so, then it's probably "very correlated"!
+
+The first point states that the order doesn't matter:
+
+```{r}
+#| echo: true
+cor(anscombe$y1, anscombe$x1)
+```
+
+The units don't matter:
+
+```{r}
+#| echo: true
+cor(anscombe$y1*5 + 1, anscombe$x1)
+```
+
+However, it *does* matter if we do a *non-linear* transformation, such as squaring the values. The correlation is a measure of **linear** association, so making things non-linear will affect it.
+
+```{r}
+#| echo: true
+plot(y1^2 ~ x1, data = anscombe)
+cor(anscombe$x1, anscombe$y1^2)
+```
+
+For these data, squaring didn't have much of an effect (as we can see in the plot), but we still saw a change in $r$! Notice that a unit change had absolutely no effect on $r$. In general, we either expect things to be exactly the same or they can be completely different; very few things are "almost equal" in the general case (they may be almost equal with one set of data, but that means nothing for completely different sets of data). 
+:::
+
+### $r$ measures *linear* correlation
+
+:::: {.columns}
+::: {.column width="50%"}
+
+Enzymatic activity is known to be affected by temperature. A study examined the activity rate (in micromoles per second, μmol/s) of the digestive enzyme acid phosphatase in vitro at varying temperatures (measured in kelvins, K). The findings are displayed in the following table.
+
+\pspace
+
+a. Describe the relationship
+b. Explain why it doesn't make sense to describe this as "positively associated" or "negatively associated".
+c. Is this a strong or a weak relationship? Explain.
+
+
+:::
+::: {.column width="50%"}
+![](figs/non-linear.png)
+:::
+::::
+
+:::notes
+Solutions:
+
+a. The relationship increases with an upward curve from temperatures of 300K to 340K, when it turns downward sharply and decreases to 355K.
+b. The association is different for different X values. This is *not* a linear relationship, which means we have to do extra work to make sure that we cover all the non-linearities.
+c. This is a very strong relationship. The pattern clearly passes the facial impact test that we discussed before. It is far from a linear relationship, but it's clearly noticable. 
+:::
+
+### Again, always plot your data!!!
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+All of the plots in the Anscombe quartet *have the same correlation coefficient*.
+
+\pspace
+
+$r$ is a measure of linear association - if it's not linear, $r$ can't be interpreted!!!
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+#| fig-height: 6
+#| fig-width: 6
+par(mfrow = c(2,2), mar = c(3,3,2,1))
+par(mfrow = c(2,2))
+plot(y1 ~ x1, data = anscombe)
+abline(lm(y1 ~ x1, data = anscombe))
+
+plot(y2 ~ x2, data = anscombe)
+abline(lm(y2 ~ x2, data = anscombe))
+
+plot(y3 ~ x3, data = anscombe)
+abline(lm(y3 ~ x3, data = anscombe))
+
+plot(y4 ~ x4, data = anscombe)
+abline(lm(y4 ~ x4, data = anscombe))
+```
+:::
+::::
+
+:::notes
+It's important to note that $r$ can always be calculated for numeric data. If we had student numbers as well as a categorical variable that used 0 to represent black, 1 to represent asian, etc., then we could technically calculate the correlation coefficient. This would be utterly meaningless!!!!!
+:::
+
+### Example: Penguins
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+library(palmerpenguins)
+library(ggplot2)
+theme_set(theme_bw())
+library(patchwork)
+
+gall <- ggplot(penguins) + 
+    aes(x = bill_depth_mm, y = body_mass_g) +
+    geom_point(mapping = aes(colour = species)) +
+    scale_colour_manual(values = c("darkorchid", "forestgreen", "orange3")) +
+    geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+    labs(x = "Bill Depth (mm)",
+        y = "Body Mass (g)",
+        title = paste0("Correlation (no Species): ",
+            round(cor(penguins$bill_depth_mm, 
+                penguins$body_mass_g, use = "complete"),
+                4))) +
+    theme(legend.position = "none")
+
+gadelie <- with(subset(penguins, species == "Adelie"),
+    ggplot() + aes(x = bill_depth_mm, y = body_mass_g) +
+        geom_point(colour = "darkorchid") +
+        geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+        labs(x = "Bill Depth (mm)",
+            y = "Body Mass (g)",
+            title = paste0("Correlation for Adelie Penguins: ",
+                round(cor(bill_depth_mm, body_mass_g, 
+                    use = "complete"), 
+                4)))
+)
+ginstrap <- with(subset(penguins, species == "Chinstrap"),
+    ggplot() + aes(x = bill_depth_mm, y = body_mass_g) +
+        geom_point(colour = "forestgreen") +
+        geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+        labs(x = "Bill Depth (mm)",
+            y = "Body Mass (g)",
+            title = paste0("Correlation for Chinstrap Penguins: ",
+                round(cor(bill_depth_mm, body_mass_g, 
+                    use = "complete"), 
+                4)))
+)
+gentoo <- with(subset(penguins, species == "Gentoo"),
+    ggplot() + aes(x = bill_depth_mm, y = body_mass_g) +
+        geom_point(colour = "orange3") +
+        geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+        labs(x = "Bill Depth (mm)",
+            y = "Body Mass (g)",
+            title = paste0("Correlation for Gentoo Penguins: ",
+                round(cor(bill_depth_mm, body_mass_g, 
+                    use = "complete"), 
+                4)))
+)
+
+gall + (gadelie / ginstrap / gentoo)
+```
+
+:::notes
+This is an example of something called **Simpson's Paradox**: If we don't account for the sub-groups, we get the opposite affect! As we can see in the plot, if we have all the groups together than it looks like a negative correlation, but once we separate groups each individual group has a positive correlation.
+
+(Note that I hid the code for this plot - the code I used to ensure the colours matched and I got the right layout is pretty advanced, and I also used some tricks along the way.)
+:::
+
+### Correlation Summary
+
+- $r$ is a measure of **linear** association
+    - I've said it plenty, I'll say it again: $r$ does not apply to non-linear patterns!
+    - Always plot your data before calculating $r$.\lspace
+- $r$ is like a measure of how two variables vary together.
+    - Formula is similar to the variance formula!\lspace
+- $r$ is a number between -1 and 1, with 0 meaning no correlation and 1 or -1 meaning perfect correlation.
+    - A negative $r$ means a negative relationship (i.e. a line that goes down).\lspace
+- Everything on the "Comments" slide is fair game for test questions.
+
+## Participation Questions
+
+### Q01
+
+The correlation coefficient measures the strength of the correlation.
+
+1. True
+2. False
+
+### Q02
+
+If $r < 0$, there is a negative linear correlation.
+
+1. True
+2. False
+
+### Q03
+
+Which of the following represents the *strongest* correlation?
+
+1. 0.4
+2. 0.7
+3. -0.8
+4. 0
+
+### Q04
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+What is the best description of the plot on the right?
+
+1. No correlation, has an outlier.
+2. Strong correlation, has an outlier
+3. Slight negative correlation
+4. Shapeless
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 5
+#| fig-width: 6
+x <- c(runif(99, 0, 10), 11)
+y <- c(rnorm(99), 20)
+
+ggplot() + aes(x = x, y = y) + geom_point() #+ 
+    #geom_smooth(method = "lm", formula = y~x, se = FALSE)
+
+```
+:::
+::::
+
+### Extra context: Fitting a Line
+
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+A line would try and fit the outlier, which misleads us into thinking there might be a correlation!
+
+:::
+::: {.column width="50%"}
+
+```{r}
+#| fig-height: 5
+#| fig-width: 6
+ggplot() + aes(x = x, y = y) + geom_point() + 
+    geom_smooth(method = "lm", formula = y~x, se = FALSE)
+```
+:::
+::::
+
+
+### Q05
+
+Which statement is *true*.
+
+1. The explanatory variable causes the response.
+2. The response must be something measured *after* the explanatory variable.
+3. We use the explanatory variable to explain the response, without assuming causality.
+4. The correlation between the explanatory and response variable will be positive if the explanatory causes the response, negative if the response causes the explanatory.
+
+### Q06
+
+We can add colour to a plot using what type of variable?
+
+1. Categorical
+2. Quantitative
+
+
+
+:::notes
+**Exercises:**
+
+1. The following code will draw a plot and calculate the correlation coefficient. Currently, it's doing this for the column `mpg` (response) versus the column `wt` ("weight", explanatory) in the `mtcars` data which is built in to R. 
+    a. Re-run the code, but replace `wt` with `disp` (engine displacement), `hp` (horsepower), `drat` (rear axle ratio, although I couldn't explain this further), and `qsec` (quarter mile time, in seconds). Comment on the apparent pattern and the magnitude of the correlation.
+    b. Change `wt` to`cyl`, the number of cylinders. What do you notice about the plot, and how does this affect your interpretation of the correlation between `mpg` and `cyl`? Explain why `cyl` might be better incorporated as a categorical variable, even though it is indeed numeric.
+    c. Repeat part (b) for `am`, which is "0" for automatic transmission and "1" for manual transmission.
+
+```{r}
+#| echo: true
+plot(mpg ~ wt, data = mtcars)
+cor(mtcars$mpg, mtcars$wt)
+```
+
+2. The following figure comes from the article "Shared neural representations and temporal segmentation of political content predict ideological similarity" by De Brujin et al., published in 2023 ([link to aricle here](https://www.science.org/doi/10.1126/sciadv.abq5920)). The star on the plot indicates that they have found a statistically significant relationship (more on this next week). Is this a strong correlation?
+
+![](figs/scatterbad.png)
+
+3. The following figure comes from the article "Effect on Blood Pressure of Daily Lemon Ingestion and Walking" by Kato et al., published in 2013 ([link to article here](https://www.hindawi.com/journals/jnme/2014/912684/)). Comment on the shape of this relationship. Recall how we described a "strong" shape as a shape that remains even if some of the data points were removed.
+
+![](figs/lemon.png)
+
+**Exercises from OpenIntro Biotatistics textbook**
+
+Questions 1.35, 1.36, 1.37.
+
+For further R practice and case studies, see the [labs page for the OpenIntro textbook](https://www.openintro.org/book/statlabs/?labblock=biostat_intro_to_data).
+:::
+
+
+
