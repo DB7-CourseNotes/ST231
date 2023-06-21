@@ -11,7 +11,7 @@ date: "May 8, 2023"
 
 My definition: Statistics is the study of **variance** (or uncertainty).
 
-\pspace
+
 
 - The big question: is 1 **statistically different** from 100?\pause
     - 1 vs. 100 apples? Yes.
@@ -28,12 +28,12 @@ In my lecture notes, I use bold font for anything that you will be expected to b
 ### Why study variance?
 
 - Give context to different numbers.
-    - The size of the difference depends on the context.\lspace
+    - The size of the difference depends on the context.
 - We need to know *how* and *why* we were wrong.
     - *How*: What is the magnitude of the difference?
     - *Why*: Are we missing relationships? Bad sampling? Fundamental randomness?
 
-\pspace
+
 
 Variance is information!
 
@@ -47,7 +47,7 @@ I like to see that variances information. Think about an example, we're trying t
 
 - **Descriptive statistics** are used to explore the data.
     - Graphs/figures
-    - Numbers\lspace
+    - Numbers
 - **Inferential statistics** relate our data to the **population**.
     - Must have a good **sample** first!
     - Our sample has a mean. The population has a mean. How different do we expect them to be?
@@ -118,10 +118,10 @@ penguins[, c("species", "sex", "body_mass_g")] %>%
 :::
 ::: {.column width="50%"}
 - Species is **categorical**
-    - Mutually exclusive categories.\lspace
+    - Mutually exclusive categories.
 - Sex is **binary**
     - One or the other
-    - Special case of categorical with 2 cats\lspace
+    - Special case of categorical with 2 cats
 - Body mass is **quantitative**
     - It's a number (quantity)
 :::
@@ -145,7 +145,7 @@ The distinction between categorical and quantitative isn't always this obvious, 
 A student number looks like a quantitative variable, but it's actually just a name (category)!
 :::
 
-\pspace
+
 
 ::: {.callout-warning}
 ### Number of Children
@@ -165,7 +165,7 @@ Another gray area is a counting variable that has low counts. For example, if yo
 
 In the Palmer Penguins data set, a penguin is an individual.
 
-\pspace
+
 
 ::: {.callout-warning}
 ### CO$_2$ Measurements
@@ -214,7 +214,7 @@ Graph, chart, plot are *usually* synonyms.
     - Applies to more than just data.
 - *Charts* are plots that are meant to compare things.
 
-\pspace
+
 
 Takeaway message: A bar chart and a bar plot are the same thing. 
 
@@ -228,7 +228,7 @@ In this class, we'll use them all interchangably.
 - Mainly good for *emphasizing* one wedge
     - *Emphasizing* can mean *misrepresenting*!
 
-\pspace
+
 
 [https://www.darkhorseanalytics.com/blog/salvaging-the-pie](https://www.darkhorseanalytics.com/blog/salvaging-the-pie)
 
@@ -320,11 +320,11 @@ d. What can you conclude from these findings?
 ### Quantitative Variables
 
 - Discrete (whole numbers)
-    - Ex. Number of students in a classroom.\lspace
+    - Ex. Number of students in a classroom.
 - Continuous (could be measured with more precision)
     - Ex. height\pause
 
-\pspace
+
 
 ::: {.callout-warning}
 ### Grey Area
@@ -353,10 +353,10 @@ Here are the lengths of sharks:
 17.6 17.8 17.8 18.2 18.3 18.6 18.7 18.7 19.1 19.7 22.8
 ```
 
-\pspace
 
-- We could have measured more precisely!\lspace
-- Can't just draw a bar chart with all sharks that were 9.4, all that were 12.1, ...\lspace
+
+- We could have measured more precisely!
+- Can't just draw a bar chart with all sharks that were 9.4, all that were 12.1, ...
 
 :::notes
 How many we display this collection of shark lengths? It is clear that there are many different values that we could've gotten for the length and so we might not want to use something like a bar chart.
@@ -386,11 +386,11 @@ This plot demonstrates why bar chart isn't appropriate for these data. We can se
 
 The steps in building a histogram:
 
-\pspace
+
 
 1. Choose the bins.
-    - e.g. (0,10], (10,20], (20, 30], etc.\lspace
-2. Count the number of obs. in each bin.\lspace
+    - e.g. (0,10], (10,20], (20, 30], etc.
+2. Count the number of obs. in each bin.
 3. Draw a bar chart as if the bins are categories.
     - Bars should touch since there's nothing in between.
 :::
@@ -479,12 +479,12 @@ With histograms the bins that you choose are extremely important. Most software 
 When you're asked to comment on a histogram, always mention the following:
 
 - **Shape**: **Unimodal**/**bimodal** and **skewness**
-    - Skewness: put a glob of peanut butter on toast, "skew" it to one side.\lspace
+    - Skewness: put a glob of peanut butter on toast, "skew" it to one side.
 - **Center**: midpoint (**mean**/**median**)
     - **Mode** depends on the bin!
-    - Skewness shows up in the relation between mean and median: "Mean less (than median) means left (skew)."\lspace
-- **Spread**: the **range**/**variance**/**IQR**\lspace
-    - More on IQR later!\lspace
+    - Skewness shows up in the relation between mean and median: "Mean less (than median) means left (skew)."
+- **Spread**: the **range**/**variance**/**IQR**
+    - More on IQR later!
 - **Outliers**: points that don't fit the shape
     - More on outliers when we cover IQR!
 
@@ -590,12 +590,12 @@ Note that the shape of the distribution can be seen from the stem and leaf plot.
 ### Summary
 
 - **Individuals** are what we make measurements on
-    - Can be pairs, dates, or people\lspace
+    - Can be pairs, dates, or people
 - **Variables** are what we measure
-    - Can be derived from other measurements\lspace
-- You will not be asked to do anything with pie charts in this course.\lspace
+    - Can be derived from other measurements
+- You will not be asked to do anything with pie charts in this course.
 - **Bar charts** show counts of categories. 
-    - Can optionally sum to 1 (like a pie chart).\lspace
+    - Can optionally sum to 1 (like a pie chart).
 - **Histograms** are like bar charts for binned data.
     - **Bins matter**.
     - Must interpret **shape**.
@@ -606,11 +606,11 @@ Note that the shape of the distribution can be seen from the stem and leaf plot.
 
 Which of the following visualizations would be *least* appropriate for **discrete** data?
 
-\pspace
 
-1. Bar Chart\lspace
-2. Histogram\lspace
-3. Pie Chart\lspace
+
+1. Bar Chart
+2. Histogram
+3. Pie Chart
 4. Stem-and-Leaf plot
 
 ### Participation Question 2
@@ -620,10 +620,10 @@ Which of the following visualizations would be *least* appropriate for **discret
 \vspace{0.5cm}
 What shape is the distribution on the right?
 
-\pspace
 
-1. Symmetric\lspace
-2. Left Skewed\lspace
+
+1. Symmetric
+2. Left Skewed
 3. Right Skewed
 
 
@@ -647,33 +647,33 @@ ggplot() +
 
 Age was collected as the number of days since birth. What kind of variable is this?
 
-\pspace
 
-1. Ordered categorical\lspace
-2. Unorded categorical\lspace
-3. Discrete\lspace
+
+1. Ordered categorical
+2. Unorded categorical
+3. Discrete
 4. Continuous
 
 ### Q4
 
 Age was collected as 0-17, 18-25, 25-34, or 35+. What kind of variable is this?
 
-\pspace
 
-1. Ordered categorical\lspace
-2. Unorded categorical\lspace
-3. Discrete\lspace
+
+1. Ordered categorical
+2. Unorded categorical
+3. Discrete
 4. Continuous
 
 ### Q5
 
 Age was collected as age in years, then rounded to the nearest 10. What kind of variable is the rounded value of age?
 
-\pspace
 
-1. Ordered categorical\lspace
-2. Unorded categorical\lspace
-3. Discrete\lspace
+
+1. Ordered categorical
+2. Unorded categorical
+3. Discrete
 4. Continuous
 
 ### Q6
@@ -685,7 +685,7 @@ Age was collected as age in years, then rounded to the nearest 10. What kind of 
 
 Approximately what proportion of the data is larger than 0? Note that there are 40 data points.
 
-\pspace
+
 
 1. 50\%
 2. 25\%

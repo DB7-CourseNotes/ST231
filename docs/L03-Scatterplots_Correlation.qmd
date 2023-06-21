@@ -10,15 +10,15 @@ date: May 15, 2023
 ### Explanatory and Response Variables
 
 - **Response:** Responds to the explanatory variable.
-    - Also called **dependent** variable.\lspace
+    - Also called **dependent** variable.
 - **Explanatory:** Explains the response variable.
     - Also called **independent** variable.
 
 Knowledge about explanatory tells us about the response. 
 
-\pspace\pause
+\pause
 
-- We are *not* assuming the explanatory causes the response. We will *not* be covering causality in this course.\lspace
+- We are *not* assuming the explanatory causes the response. We will *not* be covering causality in this course.
 - We are discovering tendencies, *not* rules.
 
 :::notes
@@ -28,9 +28,9 @@ I just want to make this very clear: we are not looking for a causation. Instead
 ### Examples
 
 - Blood alcohol content affects reflex time.
-    – Some individuals may be more or less affected.\lspace
+    – Some individuals may be more or less affected.
 - Smoking cigarettes is associated with increased risk of lung cancer, and mortality.
-    – Some heavy smokers may live to age 90\lspace
+    – Some heavy smokers may live to age 90
 - As height increases, weight tends to increase.
     - Height does cause weight, but there are other explanations.
 
@@ -69,14 +69,14 @@ The rest of the data are shown in the plot. To create this plot, we put the numb
 
 :::: {.columns}
 ::: {.column width="50%"}
-\pspace
+
 
 - **Overall pattern**
     - Linear, curved, etc.
     - **Direction** (increasing/**positive**, decreasing/**negative**)
-    - Constant variability\lspace
+    - Constant variability
 - **Deviations** from the pattern
-    - E.g., linear only in a small range\lspace
+    - E.g., linear only in a small range
 - **Outliers**
     - As before, discuss outliers separately from the pattern.
 
@@ -136,7 +136,7 @@ The plot above shows a clear linear pattern. There is still some variation above
 
 Each point has an $x$ coordinate, $y$ coordinate, and some other information.
 
-\pspace
+
 
 We can encode that information with a colour!
 
@@ -209,10 +209,10 @@ Despite all of these wildly different shapes, all of these data sets have the sa
 ### Summarizing Plots
 
 - Each data point has an $x$ and a $y$. We plot $y$ against $x$.
-    - $y$ is the response, $x$ is the explanatory variable.\lspace
+    - $y$ is the response, $x$ is the explanatory variable.
 - We're looking to see if it's linear. Linear models are something we know how to deal with!
     - Deviations from linearity are noteworthy.
-    - Outliers are noteworthy.\lspace
+    - Outliers are noteworthy.
 - We can incorporate more information in a scatterplot, especially **categorical variables**.
 
 ## Correlation
@@ -225,7 +225,7 @@ Despite all of these wildly different shapes, all of these data sets have the sa
 
 From plots, we can sorta see that one looks more linear than another.
 
-\pspace
+
 
 It would be splendid if we could have a way to quantify this...
 
@@ -266,7 +266,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 $$
 where $s_x$ is the s.d. of $x$ and $s_y$ is the s.d. of $y$.
 
-\pspace
+
 
 It's like a variance for two variables at once!
 
@@ -283,12 +283,12 @@ $$
 r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
 $$
 
-- $s_x$ and $s_y$ are positive\lspace
+- $s_x$ and $s_y$ are positive
 - $s_x > \sum_{i=1}^n(x_i - \bar x)$, similar for $s_y$
-    - This can't be larger than 1\lspace
+    - This can't be larger than 1
 - $x_i - \bar x$ *can* be negative (same with $(y_i-\bar y)$).
 
-\pspace
+
 
 The correlation coefficient can be anything from -1 to 1, with 0 representing no correlation and -1 and 1 representing perfect correlation.
 
@@ -298,12 +298,12 @@ The fact that the correlation can be negative is important. A correlation coeffi
 
 ### Interpreting correlation
 
-- 1 and -1 are **perfect** correlation.\lspace
+- 1 and -1 are **perfect** correlation.
 - 0.8 is a strong correlation (depending on context)
     - Physics: 0.8 is very very weak.
     - Social science: 0.8 is very very strong.
 
-\pspace
+
 
 ```{r}
 #| echo: true
@@ -325,10 +325,10 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 $$
 
 - The order of $x$ and $y$ can be switched 
-    - 2 times 3 is the same as 3 times 2.\lspace
+    - 2 times 3 is the same as 3 times 2.
 - Since we're subtracting the mean and dividing by the s.d., the units don't matter!
-    - Switching from kg to lbs has no effect on the correlation.\lspace
-- $r>0$ means the line goes up. $r < 0$ means the line goes down.\lspace
+    - Switching from kg to lbs has no effect on the correlation.
+- $r>0$ means the line goes up. $r < 0$ means the line goes down.
 - Quantitative only
 - Linear only
 - *Not* robust to outliers. 
@@ -385,7 +385,7 @@ For these data, squaring didn't have much of an effect (as we can see in the plo
 
 Enzymatic activity is known to be affected by temperature. A study examined the activity rate (in micromoles per second, μmol/s) of the digestive enzyme acid phosphatase in vitro at varying temperatures (measured in kelvins, K). The findings are displayed in the following table.
 
-\pspace
+
 
 a. Describe the relationship
 b. Explain why it doesn't make sense to describe this as "positively associated" or "negatively associated".
@@ -414,7 +414,7 @@ c. This is a very strong relationship. The pattern clearly passes the facial imp
 
 All of the plots in the Anscombe quartet *have the same correlation coefficient*.
 
-\pspace
+
 
 $r$ is a measure of linear association - if it's not linear, $r$ can't be interpreted!!!
 
@@ -517,11 +517,11 @@ This is an example of something called **Simpson's Paradox**: If we don't accoun
 
 - $r$ is a measure of **linear** association
     - I've said it plenty, I'll say it again: $r$ does not apply to non-linear patterns!
-    - Always plot your data before calculating $r$.\lspace
+    - Always plot your data before calculating $r$.
 - $r$ is like a measure of how two variables vary together.
-    - Formula is similar to the variance formula!\lspace
+    - Formula is similar to the variance formula!
 - $r$ is a number between -1 and 1, with 0 meaning no correlation and 1 or -1 meaning perfect correlation.
-    - A negative $r$ means a negative relationship (i.e. a line that goes down).\lspace
+    - A negative $r$ means a negative relationship (i.e. a line that goes down).
 - Everything on the "Comments" slide is fair game for test questions.
 
 ## Participation Questions

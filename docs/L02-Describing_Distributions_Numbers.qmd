@@ -7,9 +7,9 @@ date: "2023-05-10"
 
 ### Parameters Versus Statistics
 
-- Numerical summaries are called parameters when they describe an entire population, and statistics when they describe a sample\lspace
-- Since we typically will not collect data on the entire population, we use (sample) statistics to make statements (with some uncertainty) about what the (population) parameter is.\lspace
-- Categorical variables are summarized by the count or proportion (percent) of the data in each category.\lspace
+- Numerical summaries are called parameters when they describe an entire population, and statistics when they describe a sample
+- Since we typically will not collect data on the entire population, we use (sample) statistics to make statements (with some uncertainty) about what the (population) parameter is.
+- Categorical variables are summarized by the count or proportion (percent) of the data in each category.
 - Quantitative variables are summarized by the centre and spread of the data
 
 
@@ -17,9 +17,9 @@ date: "2023-05-10"
 
 We assume there's some "true" population mean.
 
-- This will change if, say, a new baby is born.\lspace
+- This will change if, say, a new baby is born.
 
-\pspace
+
 
 We cannot know the population parameter!
 
@@ -37,10 +37,10 @@ Most of this course is centred around using the sample statistic to get an idea 
 
 The "centre" is a strange concept.
 
-- Where are "most" of the data?\lspace
-- If we took an individual at random, what's the "best guess" of their height?\lspace
+- Where are "most" of the data?
+- If we took an individual at random, what's the "best guess" of their height?
 
-\pspace
+
 
 We want to **summarize** the data using a few words/numbers.
 
@@ -52,7 +52,7 @@ I prefer the second description here - if I were to make a prediction, I want my
 ### Centre 1: The Median
 
 The **median** ($M$) is the midpoint of a distribution: half the observations are smaller and the other half are larger than it. To find the median:
-\pspace
+
 
 1. Arrange all observations in order of size, from smallest to largest.
 2. If the number of observations ($n$) is odd, the median $M$ is the centre observation in the ordered list. Find the location of the median by counting $(n + 1)/2$ observations up from the smallest observation.
@@ -91,7 +91,7 @@ Set 3: -2000 -1000 3 4 5000 60000000
 
 All three have the same median!
 
-\pspace
+
 
 Do the "centres" make sense? Do they provide a good summary?
 
@@ -141,12 +141,12 @@ Set 1: 1, 2, 3, 4, 5, 6
 Set 2: 1, 2, 3, 4, 5, 60
 ```
 
-\pspace
 
-- Both have the same median.\lspace
+
+- Both have the same median.
 - Mean of 3.5 and 12.5, respectively.
 
-\pspace
+
 
 Which do you think is the correct measure of the centre?
 
@@ -179,7 +179,7 @@ Set 2: 1 2 3 3 4 5
 Set 3: 1 3 3 3 3 5
 ```
 
-\pspace
+
 
 - All have the same **range** (max - min).
 
@@ -198,9 +198,9 @@ Consider set 1, which has a mean of 3:
     1 1 1 5 5 5
 
 - The distances to the mean are all -2 or 2
-    - If we found the mean, we'd get 0! We need to make sure they're all positive.\lspace
+    - If we found the mean, we'd get 0! We need to make sure they're all positive.
 - Alternative 1: Absolute value. 
-    The average *absolute* distance to the mean is 2.\lspace
+    The average *absolute* distance to the mean is 2.
 - Alternative 2: Squared value.
     - The **average squared distance to the mean** is 4
         - Important: This is not the actual variance calculation!
@@ -223,7 +223,7 @@ $$
 s^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)^2
 $$
 
-\pspace
+
 
 We use $n-1$ because of math reasons.
 :::
@@ -303,10 +303,10 @@ Set 2: 1 2 3 3 4 5
 Set 3: 1 3 3 3 3 5
 ```
 
-\pspace
 
-1. Draw out bar plots.\lspace
-2. Set up the table and find the variance.\lspace
+
+1. Draw out bar plots.
+2. Set up the table and find the variance.
 3. Compare the standard deviations; make a conclusion.
 :::
 ::: {.column width="50%"}
@@ -390,7 +390,7 @@ For practice, make sure you can calculate the median, and then the median of all
 
 The plot on the right shows the body masses for the Palmer Penguins.
 
-\pspace
+
 
 - The lowest point is Q0
 - The left of the box is Q1
@@ -435,9 +435,9 @@ Take a moment to compare the two plots and make sure you can explain the skewnes
 
 The IQR is defined as: Q3 - Q1.
 
-\pspace
 
-- Same units as the original data\lspace
+
+- Same units as the original data
 - Robust to outliers (unlike the sd)!
 
 :::notes
@@ -480,11 +480,11 @@ Most of the rest of this course will be spent looking at something similar for t
 ### Summary
 
 - The "centre" is trying to measure the most common value.  
-    - Often, this is our best **prediction**.\lspace
+    - Often, this is our best **prediction**.
 - The "spread" is trying to measure the scale, or variation.
-    - Gives context to the centre.\lspace
+    - Gives context to the centre.
 - The mean and variance
-    - Interpretations and formulas are important.\lspace
+    - Interpretations and formulas are important.
 - The median and IQR
     - Calculations, interpretations, five-number-summary, outliers, and boxplots are all important.
 
