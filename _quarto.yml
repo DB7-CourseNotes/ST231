@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: ../docs
+  output-dir: docs
 
 
 date-format: iso
@@ -18,19 +18,19 @@ book:
     - index.qmd
     - part: Pre-Midterm
       chapters:
-        - CourseNotes/L01-Intro_PicturingGraphs.qmd
-        - CourseNotes/L02-Describing_Distributions_Numbers.qmd
-        - CourseNotes/L03-Scatterplots_Correlation.qmd
-        - CourseNotes/L04-Regression.qmd
-        - CourseNotes/L05-Probability.qmd
-        - CourseNotes/L07-Normal_Distributions.qmd
-        - CourseNotes/L09-Binomial_Probabilities.qmd
-        - CourseNotes/L10-Sampling_Distributions.qmd
+        - L01-Intro_PicturingGraphs.qmd
+        - L02-Describing_Distributions_Numbers.qmd
+        - L03-Scatterplots_Correlation.qmd
+        - L04-Regression.qmd
+        - L05-Probability.qmd
+        - L07-Normal_Distributions.qmd
+        - L09-Binomial_Probabilities.qmd
+        - L10-Sampling_Distributions.qmd
     - part: Post-Midterm
       chapters:
-        - CourseNotes/L12-Intro_to_Inference-CI-pvals.qmd
-        - CourseNotes/L13-p_vals.qmd
-        - CourseNotes/L14-tCI.qmd
+        - L12-Intro_to_Inference-CI-pvals.qmd
+        - L13-p_vals.qmd
+        - L14-tCI.qmd
 
 execute: 
   warning: false
