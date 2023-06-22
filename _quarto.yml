@@ -13,7 +13,7 @@ book:
   author: "Dr. Devan Becker"
   date: "6/20/2023"
   repo-url: https://github.com/DB7-CourseNotes/ST231_S23
-  repo-actions: [edit]
+  repo-actions: [issue]
   chapters:
     - index.qmd
     - part: Pre-Midterm
@@ -38,10 +38,12 @@ execute:
 format:
   html:
     theme:
-      light: pulse
-      dark: cyborg
+      light: flatly
+      dark: darkly
+    mainfont: ubuntu, sans-serif
     execute:
-        echo: false
+        code-fold: true
+        code-summary: "Show the code"
         warning: false
 
 
