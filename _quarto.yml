@@ -30,7 +30,8 @@ book:
       chapters:
         - L12-Intro_to_Inference-CI-pvals.qmd
         - L13-p_vals.qmd
-        - L14-tCI.qmd
+        - L14-Inference_Cautions.qmd
+        - L15-tCI.qmd
 
 execute: 
   warning: false
