@@ -7,6 +7,13 @@
     "text": "Introduction\nThese course notes structured to coincide with Baldi and Moore’s The basic Practice of Statistics in the Life Sciences, 4th edition. However, I am working towards making them self-contained in order to provide these notes as an Open Educational Resources. In doing so, I will also borrow from OpenIntro Statistics for the Biomedical and Life Sciences, with attribution. As such, these resources have the same license (see the end of this page), except for those elements that are still present from Baldi & Moore (mainly exercises, which are being removed as I go)."
   },
   {
+    "objectID": "index.html#completion-progress",
+    "href": "index.html#completion-progress",
+    "title": "Course Notes for ST231",
+    "section": "Completion Progress",
+    "text": "Completion Progress\nThese notes are still in progress.\n\nCh01 has been edited since the version posted in class.\nCh02-Ch09 are the versions posted to MyLS for this semester.\nCh10 is near completion.\nCh11+ are direct copies of old notes and need editing, which may involve addition of new material.\n\nIf you read ahead, you may need to re-read later."
+  },
+  {
     "objectID": "index.html#helpful-information",
     "href": "index.html#helpful-information",
     "title": "Course Notes for ST231",
@@ -564,14 +571,14 @@
     "href": "L17-Two_Sample_hypothesis_Tests.html#the-standard-deviation-of-a-difference",
     "title": "14  Two-Sample t-Tests",
     "section": "15.4 The standard deviation of a difference",
-    "text": "15.4 The standard deviation of a difference\n\n# approximating the sampling distribution\ndifferences &lt;- c()\nfor(i in 1:10000){\n    m1 &lt;- mean(rnorm(22, 0, 2))\n    m2 &lt;- mean(rnorm(33, 0, 3))\n    differences[i] &lt;- m1 - m2\n}\nsd(differences)\n\n[1] 0.6748109\n\n\n… it’s not at all obvious where this number comes from."
+    "text": "15.4 The standard deviation of a difference\n\n# approximating the sampling distribution\ndifferences &lt;- c()\nfor(i in 1:10000){\n    m1 &lt;- mean(rnorm(22, 0, 2))\n    m2 &lt;- mean(rnorm(33, 0, 3))\n    differences[i] &lt;- m1 - m2\n}\nsd(differences)\n\n[1] 0.6791261\n\n\n… it’s not at all obvious where this number comes from."
   },
   {
     "objectID": "L17-Two_Sample_hypothesis_Tests.html#the-standard-deviation-of-a-difference-is",
     "href": "L17-Two_Sample_hypothesis_Tests.html#the-standard-deviation-of-a-difference-is",
     "title": "14  Two-Sample t-Tests",
     "section": "15.5 The standard deviation of a difference is…",
-    "text": "15.5 The standard deviation of a difference is…\nsomething like the sum\n\\[\nSE = \\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}\n\\] \n\n# Check\nsd(differences)\n\n[1] 0.6748109\n\nsqrt(4/22 + 9/33) # Close enough\n\n[1] 0.6741999"
+    "text": "15.5 The standard deviation of a difference is…\nsomething like the sum\n\\[\nSE = \\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}\n\\] \n\n# Check\nsd(differences)\n\n[1] 0.6791261\n\nsqrt(4/22 + 9/33) # Close enough\n\n[1] 0.6741999"
   },
   {
     "objectID": "L17-Two_Sample_hypothesis_Tests.html#putting-it-together",
@@ -753,7 +760,7 @@
     "href": "L19-CI_for_Proportions.html#simulation-results",
     "title": "16  Confidence Intervals for a Proportion",
     "section": "18.8 Simulation Results",
-    "text": "18.8 Simulation Results\n\nmean(p_does)\n\n[1] 0.9381\n\nmean(phat_does)\n\n[1] 0.9518\n\nmean(that_does)\n\n[1] 0.9518\n\n\nUsing the population proportion is… worse?\nDIY: Change \\(p\\) so that the normal approximation doesn’t apply."
+    "text": "18.8 Simulation Results\n\nmean(p_does)\n\n[1] 0.9388\n\nmean(phat_does)\n\n[1] 0.9509\n\nmean(that_does)\n\n[1] 0.9509\n\n\nUsing the population proportion is… worse?\nDIY: Change \\(p\\) so that the normal approximation doesn’t apply."
   },
   {
     "objectID": "L19-CI_for_Proportions.html#example-1",

@@ -3,6 +3,15 @@
 These course notes structured to coincide with Baldi and Moore's The basic Practice of Statistics in the Life Sciences, 4th edition. However, I am working towards making them self-contained in order to provide these notes as an Open Educational Resources. In doing so, I will also borrow from OpenIntro Statistics for the Biomedical and Life Sciences, with attribution. As such, these resources have the same license (see the end of this page), except for those elements that are still present from Baldi & Moore (mainly exercises, which are being removed as I go).
 
 
+## Completion Progress
+
+These notes are still in progress.
+
+- Ch01 has been edited since the version posted in class.
+- Ch02-Ch09 are the versions posted to MyLS for this semester.
+- Ch10 is near completion.
+- Ch11+ are direct copies of old notes and need editing, which may involve addition of new material. 
+    - If you read ahead, you may need to re-read later.
 
 ## Helpful Information
 
