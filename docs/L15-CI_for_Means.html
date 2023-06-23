@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Devan Becker">
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 <meta name="dcterms.date" content="2023-06-27">
 
-<title>Course Notes for ST231 - 11&nbsp; Confidence Intervals (without the Silliness)</title>
+<title>Course Notes for ST231 - 12&nbsp; Confidence Intervals in Practice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L13-p_vals.html" rel="prev">
+<link href="./L16-Hypothesis_Tests_for_Means.html" rel="next">
+<link href="./L14-Inference_Cautions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L14-tCI.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals (without the Silliness)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L15-CI_for_Means.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -144,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -229,8 +230,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-tCI.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals (without the Silliness)</span></span></a>
+  <a href="./L14-Inference_Cautions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Multiple Comparisons Problem</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15-CI_for_Means.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16-Hypothesis_Tests_for_Means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17-Two_Sample_hypothesis_Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-CI_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -245,23 +282,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#recap" id="toc-recap" class="nav-link active" data-scroll-target="#recap"><span class="header-section-number">11.1</span> Recap</a>
+  <li><a href="#recap" id="toc-recap" class="nav-link active" data-scroll-target="#recap"><span class="header-section-number">12.1</span> Recap</a>
   <ul class="collapse">
   <li><a href="#silly-confidence-intervals" id="toc-silly-confidence-intervals" class="nav-link" data-scroll-target="#silly-confidence-intervals">Silly confidence intervals</a></li>
   <li><a href="#simulation-setup" id="toc-simulation-setup" class="nav-link" data-scroll-target="#simulation-setup">Simulation Setup</a></li>
   <li><a href="#simulation-code" id="toc-simulation-code" class="nav-link" data-scroll-target="#simulation-code">Simulation Code</a></li>
   </ul></li>
-  <li><a href="#the-variance-has-variance" id="toc-the-variance-has-variance" class="nav-link" data-scroll-target="#the-variance-has-variance"><span class="header-section-number">11.2</span> The Variance has Variance</a>
+  <li><a href="#the-variance-has-variance" id="toc-the-variance-has-variance" class="nav-link" data-scroll-target="#the-variance-has-variance"><span class="header-section-number">12.2</span> The Variance has Variance</a>
   <ul class="collapse">
   <li><a href="#simulation-sample-statistics" id="toc-simulation-sample-statistics" class="nav-link" data-scroll-target="#simulation-sample-statistics">Simulation: sample statistics</a></li>
   <li><a href="#simulation-the-distribution-of-the-margin-of-error" id="toc-simulation-the-distribution-of-the-margin-of-error" class="nav-link" data-scroll-target="#simulation-the-distribution-of-the-margin-of-error">Simulation: The Distribution of the Margin of Error</a></li>
   </ul></li>
-  <li><a href="#removing-the-silliness" id="toc-removing-the-silliness" class="nav-link" data-scroll-target="#removing-the-silliness"><span class="header-section-number">11.3</span> Removing the Silliness</a>
+  <li><a href="#removing-the-silliness" id="toc-removing-the-silliness" class="nav-link" data-scroll-target="#removing-the-silliness"><span class="header-section-number">12.3</span> Removing the Silliness</a>
   <ul class="collapse">
   <li><a href="#the-t-distribution" id="toc-the-t-distribution" class="nav-link" data-scroll-target="#the-t-distribution">The t distribution</a></li>
   </ul></li>
-  <li><a href="#the-t-confidence-interval" id="toc-the-t-confidence-interval" class="nav-link" data-scroll-target="#the-t-confidence-interval"><span class="header-section-number">11.4</span> The <span class="math inline">\(t\)</span> Confidence Interval</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">11.5</span> Examples</a></li>
+  <li><a href="#the-t-confidence-interval" id="toc-the-t-confidence-interval" class="nav-link" data-scroll-target="#the-t-confidence-interval"><span class="header-section-number">12.4</span> The <span class="math inline">\(t\)</span> Confidence Interval</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">12.5</span> Examples</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -270,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Confidence Intervals (without the Silliness)</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></h1>
 </div>
 
 
@@ -279,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Devan Becker </p>
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -304,8 +341,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="recap" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">11.1</span> Recap</h2>
+<section id="recap" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="recap"><span class="header-section-number">12.1</span> Recap</h2>
 <section id="silly-confidence-intervals" class="level3">
 <h3 class="anchored" data-anchor-id="silly-confidence-intervals">Silly confidence intervals</h3>
 <p>If <span class="math inline">\(X\sim N(\mu,\sigma)\)</span>, where <span class="math inline">\(\sigma\)</span> <em>is known</em>, then a <span class="math inline">\((1-\alpha)\)</span>CI for <span class="math inline">\(\mu\)</span> based on <span class="math inline">\(\bar x\)</span> is: <span class="math display">\[
@@ -346,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="simulation-code" class="level3">
 <h3 class="anchored" data-anchor-id="simulation-code">Simulation Code</h3>
-<div class="cell" data-hash="L14-tCI_cache/html/simone_3a3de3c555a7debb8860ffb343de5cc0">
+<div class="cell" data-hash="L15-CI_for_Means_cache/html/simone_5d5c1c65b724568f24ecbb55d970166b">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set up empty vectors, to be filled with TRUE or FALSE</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## if the population mean is in the interval</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sigma_does <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># CI based on sigma does contain mu</span></span>
@@ -390,8 +427,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The reason for this discrepancy is shown in the next section:</p>
 </section>
 </section>
-<section id="the-variance-has-variance" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="the-variance-has-variance"><span class="header-section-number">11.2</span> The Variance has Variance</h2>
+<section id="the-variance-has-variance" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="the-variance-has-variance"><span class="header-section-number">12.2</span> The Variance has Variance</h2>
 <p>Recall that the <strong>Sampling distribution</strong> is all possible values of a statistic when sampling from a population. We’ve covered the sampling distribution for the sample mean: Every time you take a sample, you get a different mean. The distribution of these sample means is <span class="math inline">\(N(\mu,\sigma/\sqrt{n})\)</span>.</p>
 <p>The same idea applies to the sample variance! Every time you take a sample, you get a different variance. The sampling distribution is <strong>not</strong> a normal distribution. In the next section, we’ll demonstrate this fact.</p>
 <section id="simulation-sample-statistics" class="level3">
@@ -423,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Sampling Dist of Sample Vars"</span>)</span>
 <span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, n <span class="sc">-</span> <span class="dv">1</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L14-tCI_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<p><img src="L15-CI_for_Means_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>As can be seen in the plots above, the sampling distributions for the mean and variance are well known. Also, the sampling distribution for the variance is skewed, and therefore cannot be normal!</p>
@@ -448,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"Sampling Dist of MoE"</span>)</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> z_star<span class="sc">*</span>pop_sd<span class="sc">/</span><span class="fu">sqrt</span>(n), <span class="at">col =</span> <span class="dv">6</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L14-tCI_files/figure-html/sim_MoE-1.png" class="img-fluid" width="672"></p>
+<p><img src="L15-CI_for_Means_files/figure-html/sim_MoE-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The vertical purple line is <span class="math inline">\(z^*\sigma/\sqrt n\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> This is just a re-scaling of the sampling distribution of the sample variance, so it’s also skewed! Furthermore, the average MoE using <span class="math inline">\(s\)</span> is <em>smaller</em> than the MoE using <span class="math inline">\(\sigma\)</span>, even though it’s right-skewed:</p>
@@ -469,8 +506,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is why the CI using <span class="math inline">\(s\)</span> doesn’t capture the true mean as often - it’s giving us smaller intervals!</p>
 </section>
 </section>
-<section id="removing-the-silliness" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="removing-the-silliness"><span class="header-section-number">11.3</span> Removing the Silliness</h2>
+<section id="removing-the-silliness" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="removing-the-silliness"><span class="header-section-number">12.3</span> Removing the Silliness</h2>
 <p>The distribution of the sample variance is not important.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Instead, we care about the confidence intervals.</p>
 <p>I’m going to write this yet again: since <span class="math inline">\(\bar X\sim N(\mu,\sigma/\sqrt{n})\)</span>), <span class="math display">\[
 \frac{\bar X - \mu}{\sigma/\sqrt{n}} \sim N(0, 1)
@@ -489,7 +526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The second point is demonstrated in the following plot:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L14-tCI_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="L15-CI_for_Means_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The red line corresponds to a sample size of 2.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> As the colours move through red to blue, we increase the sample size. At <span class="math inline">\(df = \infty\)</span>, the <span class="math inline">\(t\)</span> distribution is exactly the same as the N(0,1) distribution. For anything smaller, the <span class="math inline">\(t\)</span> distribution puts more probability in the tails.</p>
@@ -525,21 +562,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="do">## this code just puts a label on the axis - not important</span></span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>)), <span class="st">"z*"</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">font =</span> <span class="dv">2</span>, <span class="at">col.axis =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L14-tCI_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="L15-CI_for_Means_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Since there’s more probability in the tails, you have to go further out to find the point such that 0.025 of the distribution is to the left.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> The <span class="math inline">\(t\)</span> distribution allows for more variance due to the variance of <span class="math inline">\(s\)</span>, and it does this by having larger critical values.</p>
 </section>
 </section>
-<section id="the-t-confidence-interval" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="the-t-confidence-interval"><span class="header-section-number">11.4</span> The <span class="math inline">\(t\)</span> Confidence Interval</h2>
+<section id="the-t-confidence-interval" class="level2" data-number="12.4">
+<h2 data-number="12.4" class="anchored" data-anchor-id="the-t-confidence-interval"><span class="header-section-number">12.4</span> The <span class="math inline">\(t\)</span> Confidence Interval</h2>
 <p>Now that you understand the reasoning behind using wider confidence intervals, I can show you the formula/ <span class="math display">\[
 \bar x \pm t_{n-1}^*s/\sqrt{n}
 \]</span></p>
 <p>where <span class="math inline">\(t^*_{n-1}\)</span> comes from <code>abs(qt(alpha/2, df = n-1))</code>.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
 <p>This has the same interpretation as the Z CI: 95% of the intervals constructed this way will contain the true population mean. This does <strong>NOT</strong> mean that there’s a 95% chance that the interval contains the true mean.</p>
 <p>What’s that? Of course, I can demonstrate by simulation! Thanks for asking! The following code is copied and pasted from above, only the critical value has been changed.</p>
-<div class="cell" data-hash="L14-tCI_cache/html/unnamed-chunk-8_c35f674db513afef7e4d231b4063af00">
+<div class="cell" data-hash="L15-CI_for_Means_cache/html/unnamed-chunk-8_d51d0f6e27ad27ba7c31444d722dbb48">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set up empty vectors, to be filled with TRUE or FALSE</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="do">## if the population mean is in the interval</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sigma_does <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># CI based on sigma does contain mu</span></span>
@@ -582,8 +619,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Now both of them contain the mean 95% of the time!<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> The difference between them is that the t CI doesn’t have as much information as the Z CI - the Z CI knows what the population sd is, but the t CI doesn’t. This is kinda magical: using math, we made it so that we don’t have to make assumptions in order to get at the truth!</p>
 </section>
-<section id="examples" class="level2" data-number="11.5">
-<h2 data-number="11.5" class="anchored" data-anchor-id="examples"><span class="header-section-number">11.5</span> Examples</h2>
+<section id="examples" class="level2" data-number="12.5">
+<h2 data-number="12.5" class="anchored" data-anchor-id="examples"><span class="header-section-number">12.5</span> Examples</h2>
 <ol type="1">
 <li><span class="math inline">\(\bar x = 0.4\)</span>, <span class="math inline">\(n = 100\)</span>, <span class="math inline">\(\sigma = 0.01\)</span>, find the 92%CI.
 <ul>
@@ -999,11 +1036,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L13-p_vals.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span>
+      <a href="./L14-Inference_Cautions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Multiple Comparisons Problem</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./L16-Hypothesis_Tests_for_Means.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

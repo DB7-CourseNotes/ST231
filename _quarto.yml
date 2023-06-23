@@ -31,7 +31,12 @@ book:
         - L12-Intro_to_Inference-CI-pvals.qmd
         - L13-p_vals.qmd
         - L14-Inference_Cautions.qmd
-        - L15-tCI.qmd
+        - L15-CI_for_Means.qmd
+        - L16-Hypothesis_Tests_for_Means.qmd
+        - L17-Two_Sample_hypothesis_Tests.qmd
+        - L18-Hypothesis_Tests_for_Proportions.qmd
+        - L19-CI_for_Proportions.qmd
+        - L19-Summary_of_Inference-Means_Proportions.qmd
 
 execute: 
   warning: false

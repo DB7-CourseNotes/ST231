@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Course Notes for ST231",
     "section": "",
-    "text": "Introduction\nThese course notes structured to coincide with Baldi and Moore’s The basic Practice of Statistics in the Life Sciences, 4th edition. However, I am working towards making them self-contained in order to provide these notes as an Open Educational Resources. In doing so, I will also borrow from OpenIntro Statistics for the Biomedical and Life Sciences, with attribution. As such, these resources have the same license (see the end of this page), except for those elements that are still present from Baldi & Moore."
+    "text": "Introduction\nThese course notes structured to coincide with Baldi and Moore’s The basic Practice of Statistics in the Life Sciences, 4th edition. However, I am working towards making them self-contained in order to provide these notes as an Open Educational Resources. In doing so, I will also borrow from OpenIntro Statistics for the Biomedical and Life Sciences, with attribution. As such, these resources have the same license (see the end of this page), except for those elements that are still present from Baldi & Moore (mainly exercises, which are being removed as I go)."
   },
   {
     "objectID": "index.html#helpful-information",
@@ -434,45 +434,528 @@
     "text": "Unless it’s a bad sample/study design↩︎\n“trail”↩︎\nThese numbers actually come from the data of pre-flight trails, but we’re going to treat them as the population for now.↩︎\n15.9 is 3 steps of 0.3 above 15; (15.9 - 15)/0.3 = 3↩︎\nThis is the definition. The description must always include the part about “assuming that the hypothesized value is the true value”↩︎\nWe can only use a standard normal distrubution because the mean of the sampling distribution is assumed to be \\(\\mu_0\\), our hypothesized mean. If this weren’t the case, then we would not get a standard normal distribution and thus we wouldn’t be able to use this method. This is why the “assuming the null is true” bit is important.↩︎\nThe symbol \\(\\alpha\\) refers to the significance level, but also comes up in a \\((1-\\alpha)\\)%CI. Perhaps this is foreshadowing.↩︎\nPlease read the APA’s statement on p-values, found on OWL. At least one short answer question will be based on this.↩︎\nAgain: if our guess is incompatible with our data, then it’s our guess that’s wrong, not the data.↩︎\nNotice how this conclusion brings back the context of the question.↩︎\nLabelled \\(z_{obs}\\).↩︎\nWe used \\(&gt;\\) rather than \\(&lt;\\) because \\(&gt;\\) appears in our alternate hypothesis.↩︎\nIf you do this and find a p-value that is larger than 1, you used the wrong tails!↩︎\nIn the app, it’s denoted “Use absolute value”. This is because you can find \\(P(Z &gt; |z_{obs}|)\\) so that you always get the upper tail↩︎\nThat is, at the \\(\\alpha=0.1\\) significance level.↩︎\n\\(z_{obs}\\)↩︎\nIf we had taken a different sample, we would have gotten a different p-value - p-values have a sampling distribution as well!!!↩︎\nAlso, our tests only work in reference to the alternate hypothesis. We can only reject/not reject in reference to \\(H_A\\).↩︎\nThis implies that p-values have sampling distributions!↩︎\nWhile you’re at it, what happens to the CI?↩︎\n“p-value” is literally short for “Probability Value”.↩︎\nHint: what are we calculating probabilities for?↩︎\nHint: refer to the previous question.↩︎"
   },
   {
-    "objectID": "L14-tCI.html#recap",
-    "href": "L14-tCI.html#recap",
-    "title": "11  Confidence Intervals (without the Silliness)",
-    "section": "11.1 Recap",
-    "text": "11.1 Recap\n\nSilly confidence intervals\nIf \\(X\\sim N(\\mu,\\sigma)\\), where \\(\\sigma\\) is known, then a \\((1-\\alpha)\\)CI for \\(\\mu\\) based on \\(\\bar x\\) is: \\[\n\\bar x \\pm z^*\\frac{\\sigma}{\\sqrt{n}}\n\\] where \\(z^*\\) is found such that \\(P(Z &lt; -z^*) = \\alpha/2\\) - or \\(P(Z &gt; z^*) = \\alpha/2\\) - or \\(P(Z &lt; z^*) = 1 - \\alpha/2\\) - or \\(P(Z &gt; -z^*) = 1 - \\alpha/2\\)\nA natrual question is: why not use \\(s\\), the sample standard deviation?\nTo demonstrate why we can’t just use \\(s\\), I have set up a simulation study.\n\n\nSimulation Setup\n\nTake random values from the standard normal distribution.\nCalculate the mean and sd.\nCalculate the 95% confidence interval with \\(\\sigma\\) and with \\(s\\).\nRecord whether the population mean is in the interval.\nCount how many intervals contain the population mean.\n\nShould be 95% of them!\n\n\nBefore we begin, I want to show some R code for finding confidence intervals. If you’re given that \\(\\bar x = 7.28\\), \\(n=15\\), \\(\\sigma = 1.24\\), and you want to calculate a 95% CI:1\n\nz_star &lt;- abs(qnorm(0.05/2))\nlower_bound &lt;- 7.28 - z_star*1.24/sqrt(15)\nupper_bound &lt;- 7.28 + z_star*1.24/sqrt(15)\nc(lower_bound, upper_bound)\n\n[1] 6.652485 7.907515\n\n\nAlternatively, we can use c(-1, 1) to stand in for “\\(\\pm\\)”. The code is a little weird to get your head around, but trust me - it works!\n\n7.28 + c(-1, 1)*z_star*1.24/sqrt(15)\n\n[1] 6.652485 7.907515\n\n\n\n\nSimulation Code\n\n## Set up empty vectors, to be filled with TRUE or FALSE\n## if the population mean is in the interval\nsigma_does &lt;- c() # CI based on sigma does contain mu\ns_does &lt;- c() # CI based on s does contain mu\n\npop_sd &lt;- 1\npop_mean &lt;- 0\nn &lt;- 15 # sample size\n\nz_star &lt;- abs(qnorm(0.05 / 2))\n\n## You aren't expected to understand \"for\" loops, but\n## you need to be able to find CIs\nfor (i in 1:100000) { # repeat this code a bunch of times\n    new_sample &lt;- rnorm(n = n, mean = pop_mean, sd = pop_sd)\n    xbar &lt;- mean(new_sample)\n    samp_sd &lt;- sd(new_sample)\n\n    CI_sigma &lt;- xbar + c(-1, 1) * z_star * pop_sd / sqrt(n)\n    CI_s &lt;- xbar + c(-1, 1) * z_star * samp_sd / sqrt(n)\n    # Do they contain the population mean?\n    # in other words, is the lower bound less than pop_mean\n    # *and* is the upper bound larger than pop_mean?\n    # (Not testable)\n    sigma_does[i] &lt;- (CI_sigma[1] &lt; pop_mean) & (CI_sigma[2] &gt; pop_mean)\n    s_does[i] &lt;- (CI_s[1] &lt; pop_mean) & (CI_s[2] &gt; pop_mean)\n}\n\n## The mean of a bunch of TRUEs and FALSEs is\n## the proportion of TRUEs (TRUE == 1, FALSE == 0)\nmean(sigma_does)\n\n[1] 0.94887\n\nmean(s_does)\n\n[1] 0.92991\n\n\nThe CI based on \\(s\\) only contains \\(\\mu\\) 93% of the time! This is a pretty big discrepancy. What happens when you increase the sample size, n?2\nThe reason for this discrepancy is shown in the next section:"
+    "objectID": "L14-Inference_Cautions.html",
+    "href": "L14-Inference_Cautions.html",
+    "title": "11  The Multiple Comparisons Problem",
+    "section": "",
+    "text": "12 Hypothesis Errors\nWhen you test a hypothesis, there are two types of errors: You could reject when the null is true or you could fail to reject when the null is false. The following matrix summarises this:\nIn other words:\nSuppose we have a coin that’s heads 5% of the time. What’s the probability of at least one heads in 10 flips?\nAs we saw in previous lectures: P(\\(\\ge\\) 1 heads in 10 flips) = 1 - P(no heads in 10 flips). We can calculate this in R:\n1 - dbinom(0, size = 10, prob = 0.05)\n\n[1] 0.4012631\nWhy did I do this? Consider the following problem:\nSuppose you’re testing 10 hypotheses at the 5% level. Assuming all of the null hypotheses are true, what’s the probability that at least one of them is significant?\nSince we’re testing at the 5% level, P(Type 1 Error) = 0.05, so\nP(\\(\\ge\\) 1 rejection in 10 hypotheses) =\n1 - dbinom(0, size = 10, prob = 0.05)\n\n[1] 0.4012631\nIn other words, there’s about a 40% chance that we’d get a significant result even though all of the null hypotheses are true.4"
   },
   {
-    "objectID": "L14-tCI.html#the-variance-has-variance",
-    "href": "L14-tCI.html#the-variance-has-variance",
-    "title": "11  Confidence Intervals (without the Silliness)",
-    "section": "11.2 The Variance has Variance",
-    "text": "11.2 The Variance has Variance\nRecall that the Sampling distribution is all possible values of a statistic when sampling from a population. We’ve covered the sampling distribution for the sample mean: Every time you take a sample, you get a different mean. The distribution of these sample means is \\(N(\\mu,\\sigma/\\sqrt{n})\\).\nThe same idea applies to the sample variance! Every time you take a sample, you get a different variance. The sampling distribution is not a normal distribution. In the next section, we’ll demonstrate this fact.\n\nSimulation: sample statistics\nI’m going to generate a bunch of samples from a \\(N(0, 0.2)\\) distribution. I’ll calculate the mean and variance from each distribution, then plot the histogram.\n\nn &lt;- 10\npop_mean &lt;- 0\npop_sd &lt;- 0.2\nsample_means &lt;- c()\nsample_vars &lt;- c()\n\nfor (i in 1:100000) {\n    new_sample &lt;- rnorm(n = n, mean = pop_mean, sd = pop_sd)\n    sample_means[i] &lt;- mean(new_sample)\n    sample_vars[i] &lt;- var(new_sample)\n}\n\npar(mfrow = c(1, 2))\nhist(sample_means, breaks = 25, freq = FALSE,\n    main = \"Sampling Dist of Sample Means\")\ncurve(dnorm(x, pop_mean, pop_sd / sqrt(n)), add = TRUE,\n    col = 4, lwd = 2)\n## (n-1)s^2/sigma^2 follows a chi-square distribution on\n## n-1 degrees of freedom. If you understand this, you are\n## far too qualified to be taking this course. This fact\n## is outside the scope of the course.\nhist(sample_vars * (n - 1) / (pop_sd^2), breaks = 25, freq = FALSE,\n    main = \"Sampling Dist of Sample Vars\")\ncurve(dchisq(x, n - 1), add = TRUE, col = 2, lwd = 2)\n\n\n\n\nAs can be seen in the plots above, the sampling distributions for the mean and variance are well known. Also, the sampling distribution for the variance is skewed, and therefore cannot be normal!\nWhen we use \\(\\bar x+ z^*s/\\sqrt{n}\\), \\(\\bar x\\) has variance, but so does \\(s\\).3 This is why the CI changes. When we know \\(\\sigma\\), the Margin of Error (MoE) is always the same. When the standard deviation changes for each sample, so does the MoE.\n\n\nSimulation: The Distribution of the Margin of Error\nThe sampling distribution of the Margin of Error is interesting to look at. This section is entirely option - you just need to know that each sample has a different margin of error.\n\nn &lt;- 10\npop_mean &lt;- 0\npop_sd &lt;- 0.2\nsample_MoEs &lt;- c()\nz_star &lt;- abs(qnorm(0.5/2))\n\nfor(i in 1:100000){\n    new_sample &lt;- rnorm(n=n, mean=pop_mean, sd=pop_sd)\n    sample_MoEs[i] &lt;- z_star*sd(new_sample)/sqrt(n)\n}\n\nhist(sample_MoEs, breaks = 25,\n    main = \"Sampling Dist of MoE\")\nabline(v = z_star*pop_sd/sqrt(n), col = 6, lwd = 2)\n\n\n\n\nThe vertical purple line is \\(z^*\\sigma/\\sqrt n\\).4 This is just a re-scaling of the sampling distribution of the sample variance, so it’s also skewed! Furthermore, the average MoE using \\(s\\) is smaller than the MoE using \\(\\sigma\\), even though it’s right-skewed:\n\nc(\"MoE (sigma)\" = z_star*pop_sd/sqrt(n),\n    \"Average MoE (s)\" = mean(sample_MoEs))\n\n    MoE (sigma) Average MoE (s) \n     0.04265848      0.04148352 \n\nc(\"MoE (sigma)\" = z_star*pop_sd/sqrt(n),\n    \"Median MoE (s)\" = median(sample_MoEs))\n\n   MoE (sigma) Median MoE (s) \n    0.04265848     0.04104300 \n\n\nThis is why the CI using \\(s\\) doesn’t capture the true mean as often - it’s giving us smaller intervals!"
+    "objectID": "L14-Inference_Cautions.html#probability-of-errors",
+    "href": "L14-Inference_Cautions.html#probability-of-errors",
+    "title": "11  The Multiple Comparisons Problem",
+    "section": "12.1 Probability of errors",
+    "text": "12.1 Probability of errors\nWhat’s the probability your reject the null, even though it’s true? Let’s say we reject the null if the p-value is, say, less than 5%. This means that any value in the 5% tails of the distribution would lead to us rejecting the null hypothesis - even though it’s true! The prbability that we do this is 5%, since there’s a 5% chance that we’ll see a value that is “too unlikey” at the 5% level.\nAs usual, I like to demonstrate things via simulation. Here’s the setup:\n\nSet the population parameters as \\(\\mu = 0\\) and \\(\\sigma = 1\\)\nSimulate normal data\nDo a two sided test for \\(H_0: \\mu = 0\\)\n\nNote that this null hypothesis is TRUE\n\nCount how many times we reject the null.\n\nThe output of t.test() contains the p-value\n\n\n\nset.seed(21); par(mar = c(2,2,1,1)) # unimportant\n# set an empty vector, to be filled with p-values\npvals &lt;- c() \n\nfor(i in 1:10000){ # repeat 10,000 times\n    # Simulate 30 normal values with a population mean of 0\n    newsample &lt;- rnorm(n = 30, mean = 0, sd = 1)\n    # Test whether the population mean is 0\n    my_t_test &lt;- t.test(newsample, alternative = \"two.sided\", mu = 0)\n    # record the p-value (the output of t.test has some hidden values)\n    pvals[i] &lt;- my_t_test$p.value # \n}\n# Testing at the 5% level\nsum(pvals &lt; 0.05) / length(pvals) # should be close to 0.05\n\n[1] 0.0488\n\n# Fun fact: under the null hyothesis, all p-values are equally likely\n# this fun fact is not relevant to this course.\nhist(pvals)\nabline(v = 0.05, col = \"red\", lwd = 3)"
   },
   {
-    "objectID": "L14-tCI.html#removing-the-silliness",
-    "href": "L14-tCI.html#removing-the-silliness",
-    "title": "11  Confidence Intervals (without the Silliness)",
-    "section": "11.3 Removing the Silliness",
-    "text": "11.3 Removing the Silliness\nThe distribution of the sample variance is not important.5 Instead, we care about the confidence intervals.\nI’m going to write this yet again: since \\(\\bar X\\sim N(\\mu,\\sigma/\\sqrt{n})\\)), \\[\n\\frac{\\bar X - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\n\\] That is, you take the sample means, subtract the mean of the means, and divide by the standard error6, and you get a standard normal distribution.7\nOn the other hand, if we use \\(s\\) (which has it’s own variance), \\[\n\\frac{\\bar X - \\mu}{s/\\sqrt{n}} \\sim t_{n-1}\n\\] where \\(n-1\\) is the degrees of freedom (or df).8 This is called the \\(t\\) distribution, and is a lot like the normal distribution but it has higher variance.\nBefore we move on, notice how the formula with \\(\\sigma\\) results in N(0,1), which does not require any information for our sample. In the \\(t\\) distribution, we need to know the sample size!\n\nThe t distribution\nThere are two main features of the \\(t\\) distribution that I want you to know:\n\nIt’s centered at 0.9\nIt’s more variable than the normal distribution.\n\nThe second point is demonstrated in the following plot:\n\n\n\n\n\nThe red line corresponds to a sample size of 2.10 As the colours move through red to blue, we increase the sample size. At \\(df = \\infty\\), the \\(t\\) distribution is exactly the same as the N(0,1) distribution. For anything smaller, the \\(t\\) distribution puts more probability in the tails.\nThis shows up in the critical values:\n\nabs(qnorm(0.05/2)) # z^*\n\n[1] 1.959964\n\nabs(qt(0.05/2, df = 15 - 1)) # t^* n = 15\n\n[1] 2.144787\n\nabs(qt(0.05/2, df = 30 - 1)) # n = 30\n\n[1] 2.04523\n\nabs(qt(0.05/2, df = 50 - 1)) # n = 30\n\n[1] 2.009575\n\n\nNote that, just like qbinom finds the value such of a binomial distribution such that 0.025% of the distribution is to the left and qnorm finds the z-values such that 0.025 is to the left, qt11 finds the t-value.\n\nn_seq &lt;- seq(2, 100, by = 2)\nt_seq &lt;- abs(qt(0.05/2, df = n_seq-1))\nplot(n_seq, t_seq, type = \"b\",\n    ylab = \"abs(qt(0.05/2, df = n - 1))\",\n    xlab = \"n\",\n    # the code for the title is not important.\n    main = bquote(\"As df -&gt; infinity, t\"^\"*\"*\" -&gt; z\"^\"*\"))\nabline(h = abs(qnorm(0.05/2)), col = 3, lwd = 2)\n## this code just puts a label on the axis - not important\naxis(2, abs(qnorm(0.05/2)), \"z*\", col = 3, font = 2, col.axis = 3)\n\n\n\n\nSince there’s more probability in the tails, you have to go further out to find the point such that 0.025 of the distribution is to the left.12 The \\(t\\) distribution allows for more variance due to the variance of \\(s\\), and it does this by having larger critical values."
+    "objectID": "L14-Inference_Cautions.html#the-probability-of-type-2-errors",
+    "href": "L14-Inference_Cautions.html#the-probability-of-type-2-errors",
+    "title": "11  The Multiple Comparisons Problem",
+    "section": "12.2 The Probability of Type 2 Errors",
+    "text": "12.2 The Probability of Type 2 Errors\nFor a two-sided test, our hypotheses are: \\[\\begin{align*}\nH_0: \\mu &= \\mu_0\\\\\nH_A: \\mu &\\ne \\mu_0\\\\\n\\end{align*}\\]\nIf the null is actually false1, what’s \\(\\mu\\)? All we know is that it isn’t \\(\\mu_0\\).2 It could be a little above \\(\\mu_0\\), in which case it might be hard to reject \\(\\mu_0\\). It could be a far above \\(\\mu_0\\), in which case it might be easy to reject \\(\\mu_0\\).\n\nEx1: \\(\\mu = 0.001\\), \\(\\sigma = 1\\), and \\(\\mu_0 = 0\\).\n\nHard to reject \\(\\mu_0\\) since it’s so close to \\(\\mu\\) (low power)\nEasy to not reject the false \\(\\mu_0\\) (high probability of type 2 error)\nMost \\(\\bar x\\)’s would be close to \\(\\mu_0\\), relative to the standard error.\n\nEx2: \\(\\mu = 0.001\\), \\(\\sigma = 0.00000001\\), and \\(\\mu_0 = 0\\).\n\nEasy to reject \\(\\mu_0\\) since it’s so far from \\(\\mu\\) (high power)\nHard to not reject the false \\(\\mu_0\\) (low Type 2)\n\n\nPower is our ability to correctly reject a false null hypothesis, and is defined as 1 - P(Type 2 Error)\nThese interpretations are missing the Standard Error, which incorporates sample size. The power depends on the distance between \\(\\mu\\) and \\(\\mu_0\\) relative to the standard error. We can partially control the standard error by having a better study design3 and a larger sample size, both of which would give us more power."
   },
   {
-    "objectID": "L14-tCI.html#the-t-confidence-interval",
-    "href": "L14-tCI.html#the-t-confidence-interval",
-    "title": "11  Confidence Intervals (without the Silliness)",
-    "section": "11.4 The \\(t\\) Confidence Interval",
-    "text": "11.4 The \\(t\\) Confidence Interval\nNow that you understand the reasoning behind using wider confidence intervals, I can show you the formula/ \\[\n\\bar x \\pm t_{n-1}^*s/\\sqrt{n}\n\\]\nwhere \\(t^*_{n-1}\\) comes from abs(qt(alpha/2, df = n-1)).13\nThis has the same interpretation as the Z CI: 95% of the intervals constructed this way will contain the true population mean. This does NOT mean that there’s a 95% chance that the interval contains the true mean.\nWhat’s that? Of course, I can demonstrate by simulation! Thanks for asking! The following code is copied and pasted from above, only the critical value has been changed.\n\n## Set up empty vectors, to be filled with TRUE or FALSE\n## if the population mean is in the interval\nsigma_does &lt;- c() # CI based on sigma does contain mu\ns_does &lt;- c() # CI based on s does contain mu\n\npop_sd &lt;- 1\npop_mean &lt;- 0\nn &lt;- 15 # sample size\n\nz_star &lt;- abs(qnorm(0.05/2))\nt_star &lt;- abs(qt(0.05/2, n - 1)) # NEW\n\n## You aren't expected to understand \"for\" loops, but\n## you need to be able to find CIs\nfor(i in 1:100000){ # repeat this code a bunch of times\n    new_sample &lt;- rnorm(n = n, mean = pop_mean, sd = pop_sd)\n    xbar &lt;- mean(new_sample)\n    samp_sd &lt;- sd(new_sample)\n\n    CI_sigma &lt;- xbar + c(-1, 1)*z_star*pop_sd/sqrt(n)\n    CI_s &lt;- xbar + c(-1, 1)*t_star*samp_sd/sqrt(n) # NEW\n    # Do they contain the population mean?\n    # in other words, is the lower bound less than pop_mean\n    # *and* is the upper bound larger than pop_mean?\n    # (Not testable)\n    sigma_does[i] &lt;- (CI_sigma[1] &lt; pop_mean) & (CI_sigma[2] &gt; pop_mean)\n    s_does[i] &lt;- (CI_s[1] &lt; pop_mean) & (CI_s[2] &gt; pop_mean)\n}\n\n## The mean of a bunch of TRUEs and FALSEs is\n## the proportion of TRUEs (TRUE == 1, FALSE == 0)\nmean(sigma_does)\n\n[1] 0.95069\n\nmean(s_does)\n\n[1] 0.95091\n\n\nNow both of them contain the mean 95% of the time!14 The difference between them is that the t CI doesn’t have as much information as the Z CI - the Z CI knows what the population sd is, but the t CI doesn’t. This is kinda magical: using math, we made it so that we don’t have to make assumptions in order to get at the truth!"
+    "objectID": "L14-Inference_Cautions.html#power-by-simulation-diy",
+    "href": "L14-Inference_Cautions.html#power-by-simulation-diy",
+    "title": "11  The Multiple Comparisons Problem",
+    "section": "12.3 Power by Simulation (DIY)",
+    "text": "12.3 Power by Simulation (DIY)\nThe following code calculates the power. Run it many times, changing \\(\\mu_0\\), \\(\\sigma\\), and \\(n\\) to see what happens to the power.\n\n# Set parameters\nmu &lt;- 0 # don't change this, but change the other parameters\nmu_0 &lt;- 0.1\nsigma &lt;- 0.5\nn &lt;- 50\n\n# Record p-vals\np_vals &lt;- c()\nfor(i in 1:10000){\n    p_vals[i] &lt;- t.test(rnorm(n, mu, sigma), mu = mu_0)$p.value\n}\n# The proportion of times the null was (correctly) rejected\nmean(p_vals &lt; 0.05) # Power\n\n[1] 0.2835\n\nmean(p_vals &gt; 0.05) # P(Type 2 Error)\n\n[1] 0.7165"
   },
   {
-    "objectID": "L14-tCI.html#examples",
-    "href": "L14-tCI.html#examples",
-    "title": "11  Confidence Intervals (without the Silliness)",
-    "section": "11.5 Examples",
-    "text": "11.5 Examples\n\n\\(\\bar x = 0.4\\), \\(n = 100\\), \\(\\sigma = 0.01\\), find the 92%CI.\n\nThis is a bit of a trick: I gave you \\(\\sigma\\)! This always refers to the population standard deviation, so that’s what it is here. The Z CI can be found with the R code:\n\n\n\n0.4 + c(-1, 1)*abs(qnorm(0.08/2)) * 0.01/sqrt(100)\n\n[1] 0.3982493 0.4017507\n\n\n\n\\(\\bar x = 0.4\\), \\(n = 100\\), \\(s = 0.01\\), will a 92%CI be wider than or smaller than the CI from Example 1?\n\nWe use \\(t\\) to account for the extra variance we have when we estimate \\(s\\). More variance means wider tails! The CI will be wider!\n\n\n\n0.4 + c(-1, 1)*abs(qt(0.08/2, df = 100-1)) * 0.01/sqrt(100)\n\n[1] 0.3982312 0.4017688\n\n\nIt’s only slightly wider. The sample size is large enough that the variance in the estimate is small.15 Try this again with a smaller \\(n\\) and see what happens to the difference!\n\nIf \\(n=16\\) and the 95%CI for \\(\\mu\\) is (10, 15), what’s the variance?\n\nA general form of the CI is \\(\\bar x \\pm t^* s/\\sqrt{n}\\).\n\n\\(\\bar x\\) is in the centre, so \\(\\bar x\\) is 12.5\n\nThe MoE is 2.5, so \\(t^* s/\\sqrt{n} = 2.5\\).\n\n\\(t^*\\) is qt(0.05/2, 16 - 1) = 2.131\n\n\\(2.131s/\\sqrt{16} = 2.5\\), so \\(s = 2.5\\sqrt{16}/2.131 = 4.69\\)\nThe variance is \\(4.69^2 = 21.9961\\)"
+    "objectID": "L14-Inference_Cautions.html#footnotes",
+    "href": "L14-Inference_Cautions.html#footnotes",
+    "title": "11  The Multiple Comparisons Problem",
+    "section": "",
+    "text": "False in the population, not just rejected due to a sample.↩︎\nI once saw a bag in a grocery store with a label that said “It’s Not Bacon”. I had no idea what was in that bag. In the video I said it was kale, but that turns out to be false.↩︎\nto reduce \\(s\\)↩︎\nNote that, if the hypotheses are all based on the same data, they’re probably not independent.↩︎\nThe actual strategies for this are outside the scope of this course.↩︎"
   },
   {
-    "objectID": "L14-tCI.html#footnotes",
-    "href": "L14-tCI.html#footnotes",
-    "title": "11  Confidence Intervals (without the Silliness)",
+    "objectID": "L15-CI_for_Means.html#recap",
+    "href": "L15-CI_for_Means.html#recap",
+    "title": "12  Confidence Intervals in Practice",
+    "section": "12.1 Recap",
+    "text": "12.1 Recap\n\nSilly confidence intervals\nIf \\(X\\sim N(\\mu,\\sigma)\\), where \\(\\sigma\\) is known, then a \\((1-\\alpha)\\)CI for \\(\\mu\\) based on \\(\\bar x\\) is: \\[\n\\bar x \\pm z^*\\frac{\\sigma}{\\sqrt{n}}\n\\] where \\(z^*\\) is found such that \\(P(Z &lt; -z^*) = \\alpha/2\\) - or \\(P(Z &gt; z^*) = \\alpha/2\\) - or \\(P(Z &lt; z^*) = 1 - \\alpha/2\\) - or \\(P(Z &gt; -z^*) = 1 - \\alpha/2\\)\nA natrual question is: why not use \\(s\\), the sample standard deviation?\nTo demonstrate why we can’t just use \\(s\\), I have set up a simulation study.\n\n\nSimulation Setup\n\nTake random values from the standard normal distribution.\nCalculate the mean and sd.\nCalculate the 95% confidence interval with \\(\\sigma\\) and with \\(s\\).\nRecord whether the population mean is in the interval.\nCount how many intervals contain the population mean.\n\nShould be 95% of them!\n\n\nBefore we begin, I want to show some R code for finding confidence intervals. If you’re given that \\(\\bar x = 7.28\\), \\(n=15\\), \\(\\sigma = 1.24\\), and you want to calculate a 95% CI:1\n\nz_star &lt;- abs(qnorm(0.05/2))\nlower_bound &lt;- 7.28 - z_star*1.24/sqrt(15)\nupper_bound &lt;- 7.28 + z_star*1.24/sqrt(15)\nc(lower_bound, upper_bound)\n\n[1] 6.652485 7.907515\n\n\nAlternatively, we can use c(-1, 1) to stand in for “\\(\\pm\\)”. The code is a little weird to get your head around, but trust me - it works!\n\n7.28 + c(-1, 1)*z_star*1.24/sqrt(15)\n\n[1] 6.652485 7.907515\n\n\n\n\nSimulation Code\n\n## Set up empty vectors, to be filled with TRUE or FALSE\n## if the population mean is in the interval\nsigma_does &lt;- c() # CI based on sigma does contain mu\ns_does &lt;- c() # CI based on s does contain mu\n\npop_sd &lt;- 1\npop_mean &lt;- 0\nn &lt;- 15 # sample size\n\nz_star &lt;- abs(qnorm(0.05 / 2))\n\n## You aren't expected to understand \"for\" loops, but\n## you need to be able to find CIs\nfor (i in 1:100000) { # repeat this code a bunch of times\n    new_sample &lt;- rnorm(n = n, mean = pop_mean, sd = pop_sd)\n    xbar &lt;- mean(new_sample)\n    samp_sd &lt;- sd(new_sample)\n\n    CI_sigma &lt;- xbar + c(-1, 1) * z_star * pop_sd / sqrt(n)\n    CI_s &lt;- xbar + c(-1, 1) * z_star * samp_sd / sqrt(n)\n    # Do they contain the population mean?\n    # in other words, is the lower bound less than pop_mean\n    # *and* is the upper bound larger than pop_mean?\n    # (Not testable)\n    sigma_does[i] &lt;- (CI_sigma[1] &lt; pop_mean) & (CI_sigma[2] &gt; pop_mean)\n    s_does[i] &lt;- (CI_s[1] &lt; pop_mean) & (CI_s[2] &gt; pop_mean)\n}\n\n## The mean of a bunch of TRUEs and FALSEs is\n## the proportion of TRUEs (TRUE == 1, FALSE == 0)\nmean(sigma_does)\n\n[1] 0.94887\n\nmean(s_does)\n\n[1] 0.92991\n\n\nThe CI based on \\(s\\) only contains \\(\\mu\\) 93% of the time! This is a pretty big discrepancy. What happens when you increase the sample size, n?2\nThe reason for this discrepancy is shown in the next section:"
+  },
+  {
+    "objectID": "L15-CI_for_Means.html#the-variance-has-variance",
+    "href": "L15-CI_for_Means.html#the-variance-has-variance",
+    "title": "12  Confidence Intervals in Practice",
+    "section": "12.2 The Variance has Variance",
+    "text": "12.2 The Variance has Variance\nRecall that the Sampling distribution is all possible values of a statistic when sampling from a population. We’ve covered the sampling distribution for the sample mean: Every time you take a sample, you get a different mean. The distribution of these sample means is \\(N(\\mu,\\sigma/\\sqrt{n})\\).\nThe same idea applies to the sample variance! Every time you take a sample, you get a different variance. The sampling distribution is not a normal distribution. In the next section, we’ll demonstrate this fact.\n\nSimulation: sample statistics\nI’m going to generate a bunch of samples from a \\(N(0, 0.2)\\) distribution. I’ll calculate the mean and variance from each distribution, then plot the histogram.\n\nn &lt;- 10\npop_mean &lt;- 0\npop_sd &lt;- 0.2\nsample_means &lt;- c()\nsample_vars &lt;- c()\n\nfor (i in 1:100000) {\n    new_sample &lt;- rnorm(n = n, mean = pop_mean, sd = pop_sd)\n    sample_means[i] &lt;- mean(new_sample)\n    sample_vars[i] &lt;- var(new_sample)\n}\n\npar(mfrow = c(1, 2))\nhist(sample_means, breaks = 25, freq = FALSE,\n    main = \"Sampling Dist of Sample Means\")\ncurve(dnorm(x, pop_mean, pop_sd / sqrt(n)), add = TRUE,\n    col = 4, lwd = 2)\n## (n-1)s^2/sigma^2 follows a chi-square distribution on\n## n-1 degrees of freedom. If you understand this, you are\n## far too qualified to be taking this course. This fact\n## is outside the scope of the course.\nhist(sample_vars * (n - 1) / (pop_sd^2), breaks = 25, freq = FALSE,\n    main = \"Sampling Dist of Sample Vars\")\ncurve(dchisq(x, n - 1), add = TRUE, col = 2, lwd = 2)\n\n\n\n\nAs can be seen in the plots above, the sampling distributions for the mean and variance are well known. Also, the sampling distribution for the variance is skewed, and therefore cannot be normal!\nWhen we use \\(\\bar x+ z^*s/\\sqrt{n}\\), \\(\\bar x\\) has variance, but so does \\(s\\).3 This is why the CI changes. When we know \\(\\sigma\\), the Margin of Error (MoE) is always the same. When the standard deviation changes for each sample, so does the MoE.\n\n\nSimulation: The Distribution of the Margin of Error\nThe sampling distribution of the Margin of Error is interesting to look at. This section is entirely option - you just need to know that each sample has a different margin of error.\n\nn &lt;- 10\npop_mean &lt;- 0\npop_sd &lt;- 0.2\nsample_MoEs &lt;- c()\nz_star &lt;- abs(qnorm(0.5/2))\n\nfor(i in 1:100000){\n    new_sample &lt;- rnorm(n=n, mean=pop_mean, sd=pop_sd)\n    sample_MoEs[i] &lt;- z_star*sd(new_sample)/sqrt(n)\n}\n\nhist(sample_MoEs, breaks = 25,\n    main = \"Sampling Dist of MoE\")\nabline(v = z_star*pop_sd/sqrt(n), col = 6, lwd = 2)\n\n\n\n\nThe vertical purple line is \\(z^*\\sigma/\\sqrt n\\).4 This is just a re-scaling of the sampling distribution of the sample variance, so it’s also skewed! Furthermore, the average MoE using \\(s\\) is smaller than the MoE using \\(\\sigma\\), even though it’s right-skewed:\n\nc(\"MoE (sigma)\" = z_star*pop_sd/sqrt(n),\n    \"Average MoE (s)\" = mean(sample_MoEs))\n\n    MoE (sigma) Average MoE (s) \n     0.04265848      0.04148352 \n\nc(\"MoE (sigma)\" = z_star*pop_sd/sqrt(n),\n    \"Median MoE (s)\" = median(sample_MoEs))\n\n   MoE (sigma) Median MoE (s) \n    0.04265848     0.04104300 \n\n\nThis is why the CI using \\(s\\) doesn’t capture the true mean as often - it’s giving us smaller intervals!"
+  },
+  {
+    "objectID": "L15-CI_for_Means.html#removing-the-silliness",
+    "href": "L15-CI_for_Means.html#removing-the-silliness",
+    "title": "12  Confidence Intervals in Practice",
+    "section": "12.3 Removing the Silliness",
+    "text": "12.3 Removing the Silliness\nThe distribution of the sample variance is not important.5 Instead, we care about the confidence intervals.\nI’m going to write this yet again: since \\(\\bar X\\sim N(\\mu,\\sigma/\\sqrt{n})\\)), \\[\n\\frac{\\bar X - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0, 1)\n\\] That is, you take the sample means, subtract the mean of the means, and divide by the standard error6, and you get a standard normal distribution.7\nOn the other hand, if we use \\(s\\) (which has it’s own variance), \\[\n\\frac{\\bar X - \\mu}{s/\\sqrt{n}} \\sim t_{n-1}\n\\] where \\(n-1\\) is the degrees of freedom (or df).8 This is called the \\(t\\) distribution, and is a lot like the normal distribution but it has higher variance.\nBefore we move on, notice how the formula with \\(\\sigma\\) results in N(0,1), which does not require any information for our sample. In the \\(t\\) distribution, we need to know the sample size!\n\nThe t distribution\nThere are two main features of the \\(t\\) distribution that I want you to know:\n\nIt’s centered at 0.9\nIt’s more variable than the normal distribution.\n\nThe second point is demonstrated in the following plot:\n\n\n\n\n\nThe red line corresponds to a sample size of 2.10 As the colours move through red to blue, we increase the sample size. At \\(df = \\infty\\), the \\(t\\) distribution is exactly the same as the N(0,1) distribution. For anything smaller, the \\(t\\) distribution puts more probability in the tails.\nThis shows up in the critical values:\n\nabs(qnorm(0.05/2)) # z^*\n\n[1] 1.959964\n\nabs(qt(0.05/2, df = 15 - 1)) # t^* n = 15\n\n[1] 2.144787\n\nabs(qt(0.05/2, df = 30 - 1)) # n = 30\n\n[1] 2.04523\n\nabs(qt(0.05/2, df = 50 - 1)) # n = 30\n\n[1] 2.009575\n\n\nNote that, just like qbinom finds the value such of a binomial distribution such that 0.025% of the distribution is to the left and qnorm finds the z-values such that 0.025 is to the left, qt11 finds the t-value.\n\nn_seq &lt;- seq(2, 100, by = 2)\nt_seq &lt;- abs(qt(0.05/2, df = n_seq-1))\nplot(n_seq, t_seq, type = \"b\",\n    ylab = \"abs(qt(0.05/2, df = n - 1))\",\n    xlab = \"n\",\n    # the code for the title is not important.\n    main = bquote(\"As df -&gt; infinity, t\"^\"*\"*\" -&gt; z\"^\"*\"))\nabline(h = abs(qnorm(0.05/2)), col = 3, lwd = 2)\n## this code just puts a label on the axis - not important\naxis(2, abs(qnorm(0.05/2)), \"z*\", col = 3, font = 2, col.axis = 3)\n\n\n\n\nSince there’s more probability in the tails, you have to go further out to find the point such that 0.025 of the distribution is to the left.12 The \\(t\\) distribution allows for more variance due to the variance of \\(s\\), and it does this by having larger critical values."
+  },
+  {
+    "objectID": "L15-CI_for_Means.html#the-t-confidence-interval",
+    "href": "L15-CI_for_Means.html#the-t-confidence-interval",
+    "title": "12  Confidence Intervals in Practice",
+    "section": "12.4 The \\(t\\) Confidence Interval",
+    "text": "12.4 The \\(t\\) Confidence Interval\nNow that you understand the reasoning behind using wider confidence intervals, I can show you the formula/ \\[\n\\bar x \\pm t_{n-1}^*s/\\sqrt{n}\n\\]\nwhere \\(t^*_{n-1}\\) comes from abs(qt(alpha/2, df = n-1)).13\nThis has the same interpretation as the Z CI: 95% of the intervals constructed this way will contain the true population mean. This does NOT mean that there’s a 95% chance that the interval contains the true mean.\nWhat’s that? Of course, I can demonstrate by simulation! Thanks for asking! The following code is copied and pasted from above, only the critical value has been changed.\n\n## Set up empty vectors, to be filled with TRUE or FALSE\n## if the population mean is in the interval\nsigma_does &lt;- c() # CI based on sigma does contain mu\ns_does &lt;- c() # CI based on s does contain mu\n\npop_sd &lt;- 1\npop_mean &lt;- 0\nn &lt;- 15 # sample size\n\nz_star &lt;- abs(qnorm(0.05/2))\nt_star &lt;- abs(qt(0.05/2, n - 1)) # NEW\n\n## You aren't expected to understand \"for\" loops, but\n## you need to be able to find CIs\nfor(i in 1:100000){ # repeat this code a bunch of times\n    new_sample &lt;- rnorm(n = n, mean = pop_mean, sd = pop_sd)\n    xbar &lt;- mean(new_sample)\n    samp_sd &lt;- sd(new_sample)\n\n    CI_sigma &lt;- xbar + c(-1, 1)*z_star*pop_sd/sqrt(n)\n    CI_s &lt;- xbar + c(-1, 1)*t_star*samp_sd/sqrt(n) # NEW\n    # Do they contain the population mean?\n    # in other words, is the lower bound less than pop_mean\n    # *and* is the upper bound larger than pop_mean?\n    # (Not testable)\n    sigma_does[i] &lt;- (CI_sigma[1] &lt; pop_mean) & (CI_sigma[2] &gt; pop_mean)\n    s_does[i] &lt;- (CI_s[1] &lt; pop_mean) & (CI_s[2] &gt; pop_mean)\n}\n\n## The mean of a bunch of TRUEs and FALSEs is\n## the proportion of TRUEs (TRUE == 1, FALSE == 0)\nmean(sigma_does)\n\n[1] 0.95069\n\nmean(s_does)\n\n[1] 0.95091\n\n\nNow both of them contain the mean 95% of the time!14 The difference between them is that the t CI doesn’t have as much information as the Z CI - the Z CI knows what the population sd is, but the t CI doesn’t. This is kinda magical: using math, we made it so that we don’t have to make assumptions in order to get at the truth!"
+  },
+  {
+    "objectID": "L15-CI_for_Means.html#examples",
+    "href": "L15-CI_for_Means.html#examples",
+    "title": "12  Confidence Intervals in Practice",
+    "section": "12.5 Examples",
+    "text": "12.5 Examples\n\n\\(\\bar x = 0.4\\), \\(n = 100\\), \\(\\sigma = 0.01\\), find the 92%CI.\n\nThis is a bit of a trick: I gave you \\(\\sigma\\)! This always refers to the population standard deviation, so that’s what it is here. The Z CI can be found with the R code:\n\n\n\n0.4 + c(-1, 1)*abs(qnorm(0.08/2)) * 0.01/sqrt(100)\n\n[1] 0.3982493 0.4017507\n\n\n\n\\(\\bar x = 0.4\\), \\(n = 100\\), \\(s = 0.01\\), will a 92%CI be wider than or smaller than the CI from Example 1?\n\nWe use \\(t\\) to account for the extra variance we have when we estimate \\(s\\). More variance means wider tails! The CI will be wider!\n\n\n\n0.4 + c(-1, 1)*abs(qt(0.08/2, df = 100-1)) * 0.01/sqrt(100)\n\n[1] 0.3982312 0.4017688\n\n\nIt’s only slightly wider. The sample size is large enough that the variance in the estimate is small.15 Try this again with a smaller \\(n\\) and see what happens to the difference!\n\nIf \\(n=16\\) and the 95%CI for \\(\\mu\\) is (10, 15), what’s the variance?\n\nA general form of the CI is \\(\\bar x \\pm t^* s/\\sqrt{n}\\).\n\n\\(\\bar x\\) is in the centre, so \\(\\bar x\\) is 12.5\n\nThe MoE is 2.5, so \\(t^* s/\\sqrt{n} = 2.5\\).\n\n\\(t^*\\) is qt(0.05/2, 16 - 1) = 2.131\n\n\\(2.131s/\\sqrt{16} = 2.5\\), so \\(s = 2.5\\sqrt{16}/2.131 = 4.69\\)\nThe variance is \\(4.69^2 = 21.9961\\)"
+  },
+  {
+    "objectID": "L15-CI_for_Means.html#footnotes",
+    "href": "L15-CI_for_Means.html#footnotes",
+    "title": "12  Confidence Intervals in Practice",
     "section": "",
     "text": "You’ll need to do this sort of thing on a test/assignment.↩︎\nRe-run the code and try it!↩︎\nBoth are random variables.↩︎\nRecall that this never changes since \\(\\sigma\\) is fixed.↩︎\nAnd very complicated.↩︎\nthe standard deviation of the sampling distribution↩︎\nThe word “standard” shows up way too much. Statisticians are bad at naming things.↩︎\nThis is another example of statisticians being bad at naming things.↩︎\nJust like N(0,1)↩︎\nThe degrees of freedom is \\(n-1\\).↩︎\nThe person reading this is a cutie.↩︎\nTry this for other \\(\\alpha\\) values and larger \\(n\\).↩︎\nNote: I’m not even going to bother writing out the \\(P()\\) notation for \\(t^*_{n-1}\\) because you’ll never use it. You’ll only need to find \\(t^*_{n-1}\\) in this course.↩︎\nThis means it’s working!↩︎\nRecall: For both the sample mean and the sample proportion, the variance of the sampling distribution decreases as \\(n\\) increases.↩︎"
+  },
+  {
+    "objectID": "L16-Hypothesis_Tests_for_Means.html",
+    "href": "L16-Hypothesis_Tests_for_Means.html",
+    "title": "13  t-Tests for a Mean",
+    "section": "",
+    "text": "14 It’s all the same.\nWe’ve been over this before! If the population is normal (or the sample size is large enough) and we have an SRS, then \\[\n\\frac{\\bar X - \\mu}{S/\\sqrt{n}}\\sim t_{n-1}\n\\]\nAgain, the \\(t\\) distribution is used to account for the extra variability from the estimated standard deviation.1\nThis means our test statistic is \\[\nt_{obs} = \\frac{\\bar x - \\mu}{s/\\sqrt{n}}\n\\]\nSince this is a \\(t\\) distibution, we use pt(t_obs, df = n -1), possibly one minus and/or double, depending on the alternate hypothesis.2\nThat’s it. That’s the big difference. When we estimate the standard deviation, we use the t-distribution.\nA matched pairs design allows us to use a one-sample t-test3. Since the pairs are matched, we can calculate the differences between pairs and treat this like a single vector of observations. It is honkey tonk ridonkulous to say that we know the true population standard deviation for the difference in observations, so a \\(z\\) test could never be appropriate.\nThe setup is the same as it was in the study design video. Given a sample of volounteers, we create a small cut on both hands and put ointment on one of the two cuts4. Does the ointment help. For each individual, we observe a difference. That is, one observation per person!\nNote: Differences were calculated as With minus Without! The last row of this table now represents our data - we can forget that the other two rows exist!\nThis is where the assumption that we know the population standard deviation is preposterous: we’re looking just at the differences! Even if there’s a true value of the sd for healing time for all people, the standard deviation of the difference between healing times isn’t a reasonable quantity to speak of.\nSince we’re looking at the difference, we no longer have a hypothesized value of \\(\\mu_0\\). Instead, we hypothesize that the average pairwise difference is 0, i.e. \\(\\mu_{with-without} = \\mu_{diff} = 0\\)5. The alternative is “with” &lt; “without”, i.e. \\(\\mu_{diff} &lt; 0\\).6\nx &lt;- c(-0.78, 0.01, -0.33, -0.7, -0.2, 0.61, -0.87, -2.1)\nxbar &lt;- mean(x)\ns &lt;- sd(x)\nn &lt;- length(x)\n\nt_obs &lt;- (xbar - 0)/(s/sqrt(n)) # xbar is with - w/out\npt(t_obs, df = n - 1) # Alternative is &lt;\n\n[1] 0.04662624\nSo our p-value is approximately 0.04. At the 5% level, the null hypothesis would be rejected and we would conclude that the ointment works7. At the 1% level, we would conclude that it doesn’t have a significant effect. This is why it’s important to know the significance level before calculating the p-value - we now get to choose whether our results are statistically significant!"
+  },
+  {
+    "objectID": "L16-Hypothesis_Tests_for_Means.html#pilot-fatigue",
+    "href": "L16-Hypothesis_Tests_for_Means.html#pilot-fatigue",
+    "title": "13  t-Tests for a Mean",
+    "section": "15.1 Pilot Fatigue",
+    "text": "15.1 Pilot Fatigue\nIn the pilot fatigue example from the Understanding p-values lecture, we assumed that we had the population sd. I lied - it was actually a sample statistic! We should have used a t-test, not a z test.\nRecall:\n\n\\(H_0: \\mu = 15\\) versus \\(H_A: \\mu &gt; 15\\) with\n\\(n = 16\\), \\(\\bar x = 15.9\\), \\(s = 1.2\\) (not \\(\\sigma\\)) \\[\nt_{obs} = \\frac{15.9 - 15}{1.2/\\sqrt{16}} = 3\n\\]\n\nUsing the \\(t\\) distribution, our p-value is:\n\n1 - pt(3, df = 16)\n\n[1] 0.00423975\n\n\nThis is larger than our previous p-value of 0.0013. This will always be the case: if the \\(z_{obs}\\) test statistic is the same as the \\(t_{obs}\\) test statistic, then the p-value for \\(t_{obs}\\) will be wider."
+  },
+  {
+    "objectID": "L16-Hypothesis_Tests_for_Means.html#footnotes",
+    "href": "L16-Hypothesis_Tests_for_Means.html#footnotes",
+    "title": "13  t-Tests for a Mean",
+    "section": "",
+    "text": "Which is used in the caclulation of the Estimated Standard Error.↩︎\nLike pnorm(), it always calculates the probability below the test statistic.↩︎\nWe’ll learn about two-sample t-tests in the next lecture.↩︎\nAnd most likely a bandage on both.↩︎\nIn other words, the healing times are the same for each subject↩︎\nThis is where it’s important to know that we did with minus without; we could have done without minus with, but then our alternate hypotheses would need to be &gt;.↩︎\nA p-value says nothing about the effect size, so we can’t say whether it’s practically significant↩︎"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html",
+    "href": "L17-Two_Sample_hypothesis_Tests.html",
+    "title": "14  Two-Sample t-Tests",
+    "section": "",
+    "text": "15 How much can one more sample complicate things?"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#notation-subscripts-everywhere",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#notation-subscripts-everywhere",
+    "title": "14  Two-Sample t-Tests",
+    "section": "15.1 Notation: Subscripts everywhere!",
+    "text": "15.1 Notation: Subscripts everywhere!\nWe now have two samples.\n\\(\\bar X_1\\sim N(\\mu_1, \\sigma_1/\\sqrt{n_1})\\), where \\(s_1\\) is the estimated standard deviation of a given sample.\n\\(\\bar X_2\\sim N(\\mu_2, \\sigma_2/\\sqrt{n_2})\\) \nGoal: Are the means the same? I.e., is \\(\\mu_1 = \\mu_2\\)?"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#how-one-more-sample-complicates-things",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#how-one-more-sample-complicates-things",
+    "title": "14  Two-Sample t-Tests",
+    "section": "15.2 How one more sample complicates things",
+    "text": "15.2 How one more sample complicates things\n\nWhat’s the sampling distribution of a difference?\nIt turns out, it’s complicated."
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#the-mean-of-the-difference",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#the-mean-of-the-difference",
+    "title": "14  Two-Sample t-Tests",
+    "section": "15.3 The mean of the difference",
+    "text": "15.3 The mean of the difference\nHere’s the complicated bit: the mean of the difference is…\nthe difference in means. \\[\n\\bar X_1 - \\bar X_2 \\sim N(\\mu_1 - \\mu_2, ???)\n\\] \nOkay that was the easy part."
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#the-standard-deviation-of-a-difference",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#the-standard-deviation-of-a-difference",
+    "title": "14  Two-Sample t-Tests",
+    "section": "15.4 The standard deviation of a difference",
+    "text": "15.4 The standard deviation of a difference\n\n# approximating the sampling distribution\ndifferences &lt;- c()\nfor(i in 1:10000){\n    m1 &lt;- mean(rnorm(22, 0, 2))\n    m2 &lt;- mean(rnorm(33, 0, 3))\n    differences[i] &lt;- m1 - m2\n}\nsd(differences)\n\n[1] 0.6748109\n\n\n… it’s not at all obvious where this number comes from."
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#the-standard-deviation-of-a-difference-is",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#the-standard-deviation-of-a-difference-is",
+    "title": "14  Two-Sample t-Tests",
+    "section": "15.5 The standard deviation of a difference is…",
+    "text": "15.5 The standard deviation of a difference is…\nsomething like the sum\n\\[\nSE = \\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}\n\\] \n\n# Check\nsd(differences)\n\n[1] 0.6748109\n\nsqrt(4/22 + 9/33) # Close enough\n\n[1] 0.6741999"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#putting-it-together",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#putting-it-together",
+    "title": "14  Two-Sample t-Tests",
+    "section": "15.6 Putting it Together",
+    "text": "15.6 Putting it Together\n\\[\n\\bar X_1 - \\bar X_2 \\sim N\\left(\\mu_1 - \\mu_2, \\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}\\right)\n\\]"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#aside-pooled-variance",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#aside-pooled-variance",
+    "title": "14  Two-Sample t-Tests",
+    "section": "15.7 Aside: “Pooled Variance”",
+    "text": "15.7 Aside: “Pooled Variance”\n\nAssumes the populations are perfectly normal and have the same variance.\nYou shouldn’t assume this."
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#s-is-estimated",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#s-is-estimated",
+    "title": "14  Two-Sample t-Tests",
+    "section": "16.1 \\(s\\) is estimated",
+    "text": "16.1 \\(s\\) is estimated\n\\[\n\\frac{(\\bar X_1 - \\bar X_2) - (\\mu_1 - \\mu_2)}{\\sqrt{\\frac{S_1^2}{n_1} + \\frac{S_2^2}{n_2}}} \\sim t_{df=???}\n\\]"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#the-degrees-of-freedom",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#the-degrees-of-freedom",
+    "title": "14  Two-Sample t-Tests",
+    "section": "16.2 The degrees of freedom",
+    "text": "16.2 The degrees of freedom\n\nThere’s an ugly formula for the degrees of freedom. \nWe’re not going to use it.\n\nInstead, just use the smallest sample size, and subtract 1 (or use R)."
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#two-sample-t-test-and-ci",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#two-sample-t-test-and-ci",
+    "title": "14  Two-Sample t-Tests",
+    "section": "16.3 Two-Sample t-test and CI",
+    "text": "16.3 Two-Sample t-test and CI\nWe are usually testing for the difference in means, i.e. \\[\\begin{align*}\nH_0: \\mu_1 = \\mu_2 &\\Leftrightarrow H_0:\\mu_1 - \\mu_2 = \\mu_d = 0\\\\\nH_0: \\mu_1 &lt; \\mu_2 &\\Leftrightarrow H_0:\\mu_1 - \\mu_2 = \\mu_d &lt; 0\\\\\n\\end{align*}\\]\n\\[t_{obs} = \\frac{\\bar x_1 - \\bar x_2}{\\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}}\\]\n\\[\n\\text{p-value} = P(T &lt; t_{obs}) = \\texttt{pt(t\\_obs, df = min(n1, n2)-1)}\n\\]\nA \\((1-\\alpha)\\) CI for \\(\\mu_d\\) is \\[\n\\bar x_1 - \\bar x_2 \\pm t^*\\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}\n\\]\nwhere \\(t^*\\) is based on the smaller of \\(n_1 - 1\\) and \\(n_2 - 1\\)"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#two-sample-versus-matched",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#two-sample-versus-matched",
+    "title": "14  Two-Sample t-Tests",
+    "section": "17.1 Two-Sample versus Matched",
+    "text": "17.1 Two-Sample versus Matched\nFrom the Ointment example:\n\n\n\n\nSubject 1\nS2\nS3\nS4\nS5\nS6\nS7\nS8\n\n\n\n\nWith Oint\n6.44\n6.06\n4.22\n3.3\n6.5\n3.49\n7.01\n4.22\n\n\nWithout\n7.22\n6.05\n4.55\n4\n6.7\n2.88\n7.88\n6.32\n\n\nDifference\n-0.78\n0.01\n-0.33\n-0.7\n-0.2\n0.61\n-0.87\n-2.1"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#in-r-matched-pairs-same-as-last-lecture",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#in-r-matched-pairs-same-as-last-lecture",
+    "title": "14  Two-Sample t-Tests",
+    "section": "17.2 In R: Matched pairs (same as last lecture)",
+    "text": "17.2 In R: Matched pairs (same as last lecture)\n\nwithoint &lt;- c(6.44, 6.06, 4.22, 3.3, 6.5, 3.49, 7.01, 4.22)\nwithout &lt;- c(7.22, 6.05, 4.55, 4, 6.7, 2.88, 7.88, 6.32)\ndiff &lt;- withoint - without\n\nt.test(x = diff, alternative = \"less\")\n\n\n    One Sample t-test\n\ndata:  diff\nt = -1.9421, df = 7, p-value = 0.04663\nalternative hypothesis: true mean is less than 0\n95 percent confidence interval:\n        -Inf -0.01332314\nsample estimates:\nmean of x \n   -0.545"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#by-hand-two-sample-t-test",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#by-hand-two-sample-t-test",
+    "title": "14  Two-Sample t-Tests",
+    "section": "17.3 By “hand”: Two-sample t-test",
+    "text": "17.3 By “hand”: Two-sample t-test\n\nmdiff &lt;- mean(withoint) - mean(without)\nsediff &lt;- sqrt(var(withoint)/8 + var(without)/8)\n\npt(mdiff/sediff, df = 7)\n\n[1] 0.26042"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#in-r-two-sample-t-test",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#in-r-two-sample-t-test",
+    "title": "14  Two-Sample t-Tests",
+    "section": "17.4 In R: Two-sample t-test",
+    "text": "17.4 In R: Two-sample t-test\n\nt.test(x = withoint, y = without, alternative = \"less\")\n\n\n    Welch Two Sample t-test\n\ndata:  withoint and without\nt = -0.67584, df = 13.736, p-value = 0.2552\nalternative hypothesis: true difference in means is less than 0\n95 percent confidence interval:\n      -Inf 0.8772719\nsample estimates:\nmean of x mean of y \n    5.155     5.700"
+  },
+  {
+    "objectID": "L17-Two_Sample_hypothesis_Tests.html#conclusion",
+    "href": "L17-Two_Sample_hypothesis_Tests.html#conclusion",
+    "title": "14  Two-Sample t-Tests",
+    "section": "17.5 Conclusion",
+    "text": "17.5 Conclusion\n\nIf you can have matched pairs, you should use a matched pairs test.\nMost of the time, you’ll need to use a two-sample t-test.\n\nDon’t get fooled by equal sample sizes!"
+  },
+  {
+    "objectID": "L18-Hypothesis_Tests_for_Proportions.html",
+    "href": "L18-Hypothesis_Tests_for_Proportions.html",
+    "title": "15  Large sample test for a proportion",
+    "section": "",
+    "text": "16 Refresher\nIn the lecture on sampling distributions, we learned that the sampling distribution of a sample proportion can be found as follows:\nIf \\(X\\sim B(n,p)\\) and \\(np&gt;10\\) and \\(n(1-p)&gt;10\\), then \\[\n\\hat p \\sim N\\left(p, \\sqrt{\\frac{p(1-p)}{n}}\\right)\n\\]\nThis relies on the population proportion to find the standard error, but this is never available.1 The standard error can be estimated and used in the sampling distribution: \\[\n\\hat p \\sim N\\left(p, \\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\\right)\n\\]\nI said that this would be the last time I change the standard error. I will now make a liar out of myself.\nAs before, we write our hypotheses: \\[\nH_0:p = p_0 \\text{ vs. } H_A: p \\{&gt;or&lt;or\\ne\\} p_0\n\\]\nWe always write $H_0:p = $ and then fill in the value for \\(p_0\\), then we use that same value in the alternate hypothesis but use either \\(&gt;\\), \\(&lt;\\), or \\(\\ne\\) based on the wording of the question.\nAs before, we use the sampling distribution to find our p-value. In this case, though, we have a hypothesized value for the population proportion. In fact, we must assume that the null is true.2 If this is the case, we have the standard error!\nI swear, this is the last time I introduce a new standard error for the sampling distribution of the sample proportion. Assuming \\(H_0\\) is true (and the conditions are met), \\[\n\\hat p \\sim N\\left(p_0, \\sqrt{\\frac{p_0(1-p_0)}{n}}\\right)\n\\]"
+  },
+  {
+    "objectID": "L18-Hypothesis_Tests_for_Proportions.html#the-test-statistic",
+    "href": "L18-Hypothesis_Tests_for_Proportions.html#the-test-statistic",
+    "title": "15  Large sample test for a proportion",
+    "section": "17.1 The Test Statistic",
+    "text": "17.1 The Test Statistic\nAs you can guess from the sampling distribution, the test statistic is:\n\\[\nz_{obs} = \\frac{\\hat p - p_0}{\\sqrt{p_0(1-p_0)/n}}\n\\]\nand then we can use the normal distribution as usual: \\[\nP(Z \\{&gt;or&lt;or\\text{ further away than}\\} z_{obs}) = \\dots\n\\]\nwhere we use \\(&gt;\\) if the alternate hypothesis uses \\(&gt;\\), \\(&lt;\\) if the alternate hypothesis uses \\(&lt;\\), and we look at the two tails if the alternate hypothesis is \\(\\ne\\).\nA common question is: which \\(p\\) do we use to check normality?\nFor a hypothesis test, we assume the null is true, i.e. \\(p=p_0\\). We should use this assumption everywhere! For a hypothesis test about a proportion, we check whether \\(np_0&gt;10\\) and \\(n(1-p_0)&gt;10\\)3."
+  },
+  {
+    "objectID": "L18-Hypothesis_Tests_for_Proportions.html#mendelian-genetics",
+    "href": "L18-Hypothesis_Tests_for_Proportions.html#mendelian-genetics",
+    "title": "15  Large sample test for a proportion",
+    "section": "18.1 Mendelian Genetics",
+    "text": "18.1 Mendelian Genetics\nTo test his theory that 75% of plants would inheret a dominant gene, Gregor Mendel cross bred pure breeds of pea plants. Out of 7324 plants, 5474 showed the dominant trait. At the 4.5% level, is this compatible with the hypothesis of 75% dominant?\nSolution:\n\nCheck: \\(np_0 = 7324*0.75 &gt; 10\\) and \\(n(1-p_0) = 7324*0.25 &gt; 10\\).\n\\(z_{obs} = \\frac{\\hat p - p_0}{\\sqrt{p_0(1-p_0)/n}} = \\frac{0.747 - 0.75}{\\sqrt{0.75*0.25/7324}} = -0.513\\)\n\\(p-val = 2 *P(Z &lt; z_{obs})\\) = 2*pnorm(-0.513) = 0.608\n\nWe doubled the \\(P(Z &lt; z_{obs})\\) because we want both tails. If you do this and your p-value is larger than 1, do \\(1 - P(Z &lt; z_{obs})\\) first and then double it.\n\nConclusion: Since \\(p-val &gt; \\alpha\\), we do not reject the null. The hypothesis that 75% of plants inherent the dominant trait is compatible with the data.\n\nThe last step is important: always word your conclusion in the context of the study."
+  },
+  {
+    "objectID": "L18-Hypothesis_Tests_for_Proportions.html#mendelian-genetics-part-2",
+    "href": "L18-Hypothesis_Tests_for_Proportions.html#mendelian-genetics-part-2",
+    "title": "15  Large sample test for a proportion",
+    "section": "18.2 Mendelian Genetics Part 2",
+    "text": "18.2 Mendelian Genetics Part 2\nRecall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5%4 CI can be found as: \\[\n\\hat p \\pm z^*\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}} = 0.747 \\pm 2.005\\sqrt{\\frac{0.747(1-0.747)}{7324}}\n\\]\nwhich results in the CI (0.737, 0.758).\nNote that \\(\\hat p\\) was used in the SE since the CI is not based on a hypothesis. For proportions, it is not true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors."
+  },
+  {
+    "objectID": "L18-Hypothesis_Tests_for_Proportions.html#footnotes",
+    "href": "L18-Hypothesis_Tests_for_Proportions.html#footnotes",
+    "title": "15  Large sample test for a proportion",
+    "section": "",
+    "text": "f it was, then why are we doing inference?↩︎\nWe want to be strict about this so that it’s more convincing if we prove it wrong.↩︎\nAs before, both conditions must be true.↩︎\n\\(\\alpha = 0.045\\), so \\(1 - \\alpha = 0.955\\).↩︎"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html",
+    "href": "L19-CI_for_Proportions.html",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "",
+    "text": "17 Introduction"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#this-is-the-same-as-the-last-video.",
+    "href": "L19-CI_for_Proportions.html#this-is-the-same-as-the-last-video.",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "17.1 This is the same as the last video.",
+    "text": "17.1 This is the same as the last video.\n\nBased on our data, we make an interval that we think describes the population.\nIn this case, we just have a different population distribution?"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#assumptions",
+    "href": "L19-CI_for_Proportions.html#assumptions",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "17.2 Assumptions",
+    "text": "17.2 Assumptions\nIn stats, assumptions give us power but only if they hold.\nAssumptions for a CI for \\(p\\) are the same as the assumptions for the binomial distribution, with the addition of an SRS."
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#sampling-distribution-of-hat-p",
+    "href": "L19-CI_for_Proportions.html#sampling-distribution-of-hat-p",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.1 Sampling Distribution of \\(\\hat p\\)",
+    "text": "18.1 Sampling Distribution of \\(\\hat p\\)\nAs we saw before the midterm, if the population is \\(B(n,p)\\), then under certain conditions,\n\\[\\hat p \\sim N\\left(p, \\sqrt{\\frac{p(1-p)}{n}}\\right)\\]"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#deja-vu",
+    "href": "L19-CI_for_Proportions.html#deja-vu",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.2 Deja-Vu",
+    "text": "18.2 Deja-Vu\nSince \\(\\hat p \\sim N(p, \\sqrt{\\frac{p(1-p)}{n}})\\),\n\\[\n\\frac{\\hat p - p}{\\sqrt{p(1-p)/n}} \\sim N(0,1)\n\\]\nAgain, we can use the form \\(z = (x-\\mu)/\\sigma\\), but replace \\(x\\), \\(\\mu\\), and \\(\\sigma\\) with the correct values.\nA \\((1-\\alpha)\\)CI for \\(p\\) is:\n\\[\n\\hat p \\pm z^*\\sqrt{\\frac{p(1-p)}{n}}\n\\]"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#we-dont-know-the-variance-why-not-t_n-1",
+    "href": "L19-CI_for_Proportions.html#we-dont-know-the-variance-why-not-t_n-1",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.3 We don’t know the variance, why not \\(t_{n-1}^*\\)?",
+    "text": "18.3 We don’t know the variance, why not \\(t_{n-1}^*\\)?\n\nWe used \\(t_{n-1}^*\\) because we had to estimate \\(\\sigma\\)\nThere’s no \\(\\sigma\\) to estimate!\nThe variance of the Binomial distribution is entirely determined by \\(p\\)!\n\nBinom be crazy."
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#but-devan-we-still-dont-know-p",
+    "href": "L19-CI_for_Proportions.html#but-devan-we-still-dont-know-p",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.4 … but Devan, we still don’t know \\(p\\)!",
+    "text": "18.4 … but Devan, we still don’t know \\(p\\)!\nThe \\((1-\\alpha)\\)CI for \\(p\\) is:\n\\[\n\\hat p \\pm z^*\\sqrt{\\frac{p(1-p)}{n}}\n\\] which needs \\(p\\) in the second part of the equation.\nWhy not just plug in \\(\\hat p\\)?\nOkay fine. \n\\(\\sqrt{\\hat p(1-\\hat p)/n}\\) is called the estimated standard error, since its the sd of the sampling distribution, but it’s based on an estimate."
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#final_version_v2_update_lasttry_srsly.docx.pdf",
+    "href": "L19-CI_for_Proportions.html#final_version_v2_update_lasttry_srsly.docx.pdf",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.5 Final_Version_V2_Update_LastTry_Srsly.docx.pdf",
+    "text": "18.5 Final_Version_V2_Update_LastTry_Srsly.docx.pdf\nThe \\((1-\\alpha)\\)CI for \\(p\\) is:\n\\[\n\\hat p \\pm z^*\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n\\]\nwhere \\(z^*\\) is chosen such that \\(P(Z &lt; -z^*) = \\alpha/2\\)."
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#devan-style-simulation",
+    "href": "L19-CI_for_Proportions.html#devan-style-simulation",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.6 Devan Style: Simulation",
+    "text": "18.6 Devan Style: Simulation\n\nn &lt;- 100\np &lt;- 0.7\nSE_true &lt;- sqrt(p*(1-p)/n)\np_does &lt;- c()\nphat_does &lt;- c()\nthat_does &lt;- c()\nz_star &lt;- abs(qnorm(0.05/2))\nt_star &lt;- abs(qt(0.05/2, df = n-1))"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#devan-style-simulation-1",
+    "href": "L19-CI_for_Proportions.html#devan-style-simulation-1",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.7 Devan Style: Simulation",
+    "text": "18.7 Devan Style: Simulation\n\nfor(i in 1:10000){\n    new_sample &lt;- rbinom(n=1, size=n, prob=p)\n    phat &lt;- new_sample/n\n    SE_est &lt;- sqrt(phat*(1-phat)/n)\n    \n    pCI &lt;- phat + c(-1,1)*z_star*SE_true\n    phatCI &lt;- phat + c(-1,1)*z_star*SE_est\n    thatCI &lt;- phat + c(-1,1)*t_star*SE_est\n    \n    p_does[i] &lt;- pCI[1] &lt; p & pCI[2] &gt; p\n    phat_does[i] &lt;- phatCI[1] &lt; p & phatCI[2] &gt; p\n    that_does[i] &lt;- thatCI[1] &lt; p & thatCI[2] &gt; p\n}"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#simulation-results",
+    "href": "L19-CI_for_Proportions.html#simulation-results",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "18.8 Simulation Results",
+    "text": "18.8 Simulation Results\n\nmean(p_does)\n\n[1] 0.9381\n\nmean(phat_does)\n\n[1] 0.9518\n\nmean(that_does)\n\n[1] 0.9518\n\n\nUsing the population proportion is… worse?\nDIY: Change \\(p\\) so that the normal approximation doesn’t apply."
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#example-1",
+    "href": "L19-CI_for_Proportions.html#example-1",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "19.1 Example 1",
+    "text": "19.1 Example 1\nIt was found that 591 out of 700 people sampled supported a certain political position. Find a 91%CI."
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#example-2",
+    "href": "L19-CI_for_Proportions.html#example-2",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "19.2 Example 2",
+    "text": "19.2 Example 2\nIt was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.\n\nn &lt;- 70\nphat &lt;- 68/70\nse_est &lt;- sqrt(phat*(1-phat)/n)\nz_star &lt;- abs(qnorm(0.09/2))\n\nphat + c(-1, 1)*z_star*se_est\n\n[1] 0.9376692 1.0051879\n\n\n… so it would be reasonable to say that the popluation proportion is larger than 1???"
+  },
+  {
+    "objectID": "L19-CI_for_Proportions.html#example-2-1",
+    "href": "L19-CI_for_Proportions.html#example-2-1",
+    "title": "16  Confidence Intervals for a Proportion",
+    "section": "19.3 Example 2",
+    "text": "19.3 Example 2\nIt was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.\n\nprop.test(x = 68, n = 70)\n\n\n    1-sample proportions test with continuity correction\n\ndata:  68 out of 70, null probability 0.5\nX-squared = 60.357, df = 1, p-value = 7.912e-15\nalternative hypothesis: true p is not equal to 0.5\n95 percent confidence interval:\n 0.8913981 0.9950358\nsample estimates:\n        p \n0.9714286"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "",
+    "text": "18 Inference is the Inverse of Probability\nThere is some true population parameter. When we collect a sample, we can a random collection of observations from this population parameter. In other words, we get randomness from a population value - this is Probability.\nIf we make assumptions about our data, we have the benefit of math. This math allows us to go backwards and say something aboot the population. In other words, we get a population value from randomess - this is Inference."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#assumptions",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#assumptions",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "19.1 Assumptions",
+    "text": "19.1 Assumptions\n\nSRS from the population of interest\n\nThis ensures independence between observations\n\nPopulation is normal\nWe know \\(\\sigma\\)"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "19.2 Sampling Distribution",
+    "text": "19.2 Sampling Distribution\nSince \\(\\sigma\\) is known, we can standardize \\(\\bar X\\) as follows:\n\\[\n\\frac{\\bar X - \\mu}{\\sigma/\\sqrt{n}} \\sim N(0,1)\n\\]"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#confidence-interval",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#confidence-interval",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "19.3 Confidence Interval",
+    "text": "19.3 Confidence Interval\nA \\((1-\\alpha)\\)CI can be found as:\n\\[\n\\bar x \\pm z^*\\frac{\\sigma}{\\sqrt n}\n\\]\nwhere \\(z^*\\) = abs(qnorm(alpha/2)).\nIf we take repeated samples from the population, 95% of the CIs that we construct this way will contain the true population mean. This is not a probability.\n\n# A 94.5% CI\nset.seed(2)\nsigma &lt;- 10\nalpha &lt;- 0.055\nx &lt;- rnorm(n = 30, mean = 4, sd = sigma)\nx\n\n [1]  -4.96914547   5.84849185  19.87845331  -7.30375674   3.19748243\n [6]   5.32420284  11.07954729   1.60301976  23.84473937   2.61212988\n[11]   8.17650751  13.81752777   0.07304644  -6.39668977  21.82228960\n[16] -19.11069085  12.78604581   4.35806718  14.12828692   8.32265155\n[21]  24.90819205  -7.99925820  19.89638200  23.54651642   4.04937777\n[26] -20.51706388   8.77237303  -1.96558169  11.92203270   6.89636710\n\nxbar &lt;- mean(x)\nn &lt;- length(x)\nzstar &lt;- abs(qnorm(alpha/2))\n\nxbar + c(-1,1)*zstar*sigma/sqrt(n)\n\n[1] 2.783345 9.790091"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-test",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-test",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "19.4 Hypothesis test",
+    "text": "19.4 Hypothesis test\nPrior to collecting data, we have the hypotheses: \\[\\begin{align*}\nH_0:\\mu = \\mu_0\nH_A: \\mu &lt; \\mu_0\n\\end{align*}\\]\nWe also must set the significance level \\(\\alpha\\) prior to collecting data.\nOnce we collect data, we calculate the test statistic: \\[\nz_{obs} = \\frac{\\bar x - \\mu}{\\sigma/\\sqrt{n}}\n\\]\nSince our alterate hypothesis is “&lt;”, the p-value is found as: \\[\n\\text{p-value} = P(Z &lt; z_{obs})\n\\]\nIf \\(p &lt; \\alpha\\), we reject the null hypothesis. In our conclusion, we specify what this means in terms of the study.\n\n# Same x as before\n# testing if the population mean is less than 5\nzobs &lt;- (xbar - 5)/(sigma/sqrt(n))\npnorm(zobs)\n\n[1] 0.7595216\n\npnorm(zobs) &lt; alpha # If TRUE, reject null\n\n[1] FALSE"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-z",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-z",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "19.5 R Code for z",
+    "text": "19.5 R Code for z\nThere is none, because it’s bonkers to assume that the population sd is known. The z-test is taught for two reasons: to demonstrate the underlying mechanics, and to motivate sample size calculations (discussed later in this document)."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#assumptions-1",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#assumptions-1",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "20.1 Assumptions",
+    "text": "20.1 Assumptions\n\nSRS from the population of interest\n\nThis ensures independence between observations\n\nPopulation is normal (or n is “large” enough)"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution-1",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution-1",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "20.2 Sampling Distribution",
+    "text": "20.2 Sampling Distribution\nSince \\(s\\) is estimated, there is extra variance in our test statistic. The sampling distribution is: \\[\\begin{align*}\n\\bar X &\\sim N(\\mu, \\sigma/\\sqrt{n})\\\\\nS &\\sim \\text{ Something Else}\\\\\n\\text{Therefore, } \\frac{\\bar X - \\mu}{S/\\sqrt n} &\\sim t_{n-1}\n\\end{align*}\\]"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#confidence-interval-1",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#confidence-interval-1",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "20.3 Confidence Interval",
+    "text": "20.3 Confidence Interval\n\\[\n\\bar x \\pm t_{n-1}^*s/\\sqrt{n}\n\\]\nwhere \\(t_{n-1}^*\\) = abs(qt(alpha/2, df = n-1)).\n\ns &lt;- sd(x)\ntstar &lt;- abs(qt(alpha/2, n - 1))\nxbar + c(-1, 1)*tstar*s/sqrt(n)\n\n[1]  2.001979 10.571458"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-test-1",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-test-1",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "20.4 Hypothesis Test",
+    "text": "20.4 Hypothesis Test\nPrior to collecting data, we have the hypotheses: \\[\\begin{align*}\nH_0:\\mu = \\mu_0\nH_A: \\mu \\ne \\mu_0\n\\end{align*}\\]\nWe also must set the significance level \\(\\alpha\\) prior to collecting data.\nOnce we collect data, we calculate the test statistic: \\[\nt_{obs} = \\frac{\\bar x - \\mu}{s/\\sqrt{n}}\n\\]\nSince our alterate hypothesis is “\\(\\ne\\)”, the p-value is found as: \\[\n\\text{p-value} = 2*(1-P(T &gt; |t_{obs}|))\\text{, or } 2*P(T &lt; -|t_{obs}|)\n\\] although this is best understood as checking the tails (i.e. if \\(t_{obs}\\) is negative, do \\(2*P(T &lt; t_{obs})\\) and if it’s positive do \\(2*P(T &lt; -t_{obs})\\)).\n\ntobs &lt;- (xbar - 5)/(s/sqrt(n))\ntobs\n\n[1] 0.6004565\n\n2*(1 - pt(abs(tobs), df = n - 1))\n\n[1] 0.5528661\n\n2*(1 - pt(abs(tobs), df = n - 1)) &lt; alpha # if TRUE, reject null\n\n[1] FALSE"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-t",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-t",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "20.5 R Code for t",
+    "text": "20.5 R Code for t\n\n# This gives the same CI and p-value as before\nt.test(x, mu = 5, alternative = \"two.sided\", conf.level = 1 - alpha)\n\n\n    One Sample t-test\n\ndata:  x\nt = 0.60046, df = 29, p-value = 0.5529\nalternative hypothesis: true mean is not equal to 5\n94.5 percent confidence interval:\n  2.001979 10.571458\nsample estimates:\nmean of x \n 6.286718"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#assumptions-2",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#assumptions-2",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "21.1 Assumptions",
+    "text": "21.1 Assumptions\n\nAssumptions for one-sample t-tests hold for each sample\nSamples are indendent from each other.\n\nFor a two-sample t-test, we will NEVER assume that the standard deviation is known."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution-2",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution-2",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "21.2 Sampling Distribution",
+    "text": "21.2 Sampling Distribution\n\\[\n\\bar X_1 - \\bar X_2 \\sim N\\left(\\mu_1 - \\mu_2, \\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}\\right)\n\\]"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#confidence-intervals",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#confidence-intervals",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "21.3 Confidence Intervals",
+    "text": "21.3 Confidence Intervals\nA \\((1-\\alpha)\\) CI for \\(\\mu_d\\) is \\[\n\\bar x_1 - \\bar x_2 \\pm t^*\\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}\n\\]\nwhere \\(t^*\\) is based on the smaller of \\(n_1 - 1\\) and \\(n_2 - 1\\)"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-tests",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-tests",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "21.4 Hypothesis Tests",
+    "text": "21.4 Hypothesis Tests\nWe are usually testing for the difference in means, i.e. \\[\\begin{align*}\nH_0: \\mu_1 = \\mu_2 &\\Leftrightarrow H_0:\\mu_1 - \\mu_2 = \\mu_d = 0\\\\\nH_0: \\mu_1 &lt; \\mu_2 &\\Leftrightarrow H_0:\\mu_1 - \\mu_2 = \\mu_d &lt; 0\\\\\n\\end{align*}\\]\n\\[t_{obs} = \\frac{\\bar x_1 - \\bar x_2}{\\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}}\\]\n\\[\n\\text{p-value} = P(T &lt; t_{obs}) = \\texttt{pt(t\\_obs, df = min(n1, n2)-1)}\n\\]"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-two-sample-t-tests",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-two-sample-t-tests",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "21.5 R Code for two-sample t-tests",
+    "text": "21.5 R Code for two-sample t-tests\nIn the code below, the null hypothesis is FALSE, but the effect size is small and the sample sizes aren’t large enough to detect a difference.\n\nx1 &lt;- rnorm(30, mean = 2, sd = 3)\nx2 &lt;- rnorm(30, mean = 2.1, sd = 3)\n\n# HA: mu1 - mu2 &lt; 0\nt.test(x1, x2, alternative = \"less\") \n\n\n    Welch Two Sample t-test\n\ndata:  x1 and x2\nt = 0.61442, df = 57.845, p-value = 0.7293\nalternative hypothesis: true difference in means is less than 0\n95 percent confidence interval:\n     -Inf 1.980861\nsample estimates:\nmean of x mean of y \n 1.894851  1.362458 \n\n\nx1 and x2 have the same sample size, but there’s no reason to match up the first element of x1 with the first element of x2, the second element of x1 with the second element of x2, etc. The following code is completely inappropriate.\n\nt.test(x1 - x2, alternative = \"less\")\n\n\n    One Sample t-test\n\ndata:  x1 - x2\nt = 0.57848, df = 29, p-value = 0.7163\nalternative hypothesis: true mean is less than 0\n95 percent confidence interval:\n     -Inf 2.096155\nsample estimates:\nmean of x \n 0.532393"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#assumptions-3",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#assumptions-3",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "22.1 Assumptions",
+    "text": "22.1 Assumptions\nFirst, we check if a binomial distribution is appropriate:\n\nFixed number of trials.\nIndependent observations.\nOutcomes are either “success” or “failure”.\n\nE.g. Dice roll is a 5, patient recovered, etc.\n\nThe probability of success is constant for all observations.\n\nTo use tests and CIs, we need one additional assumption:\n\nThe sample is an SRS.\n\nThis covers assumption 3, since SRS ensures independence among observations. It also covers assumption 4: The probability that the first patient recovers is the same as the probability the second patient recovers since the patients come in a random order."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution-3",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#sampling-distribution-3",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "22.2 Sampling Distribution",
+    "text": "22.2 Sampling Distribution\nWe can only approximate the sampling distribution if both \\(np&gt;10\\) and \\(n(1-p)&gt;10\\), otherwise our sample is too small to say anything meaningful about \\(p\\). Assuming this is true, the population can be approximated by a normal distribution: \\[\nX\\stackrel{approx.}{\\sim} N(np, \\sqrt{np(1-p)})\n\\]\nNote that the equation above refers to \\(X\\), the number of successes out of \\(n\\) trials. This population distribution can be used to find the sampling distribution of the sample proportion: \\[\n\\hat p \\stackrel{approx.}{\\sim} N\\left(p, \\sqrt{\\frac{p(1-p)}{n}}\\right)\n\\]\nwhere \\(\\hat p\\) is the sample proportion (number of successes divided by number of trials) and \\(p\\) is the population proportion."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#confidence-intervals-1",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#confidence-intervals-1",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "22.3 Confidence Intervals",
+    "text": "22.3 Confidence Intervals\nThe sampling distribution involves the population proportion, which is not available to us. Instead, we use the sample proportion.\n\\[\n\\hat p \\pm z^*\\sqrt{\\frac{\\hat p(1-\\hat p)}{n}}\n\\]\nFor the t-test, the t distribution was used because \\(s\\) was estimated. We’re not estimating \\(s\\) here, so there’s no reason to use \\(t\\). We always use \\(z\\) for proportions.\n\n# Testing p &gt; 0.35\np0 &lt;- 0.35\nalpha &lt;- 0.045\nxbin &lt;- rbinom(n = 1, size = 30, prob = 0.3)\nphat &lt;- xbin / 30\nzstar &lt;- abs(qnorm(alpha/2))\n\nphat + c(-1, 1)*zstar*sqrt(p0*(1-p0)/30)\n\n[1] 0.2587633 0.6079033"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-tests-1",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#hypothesis-tests-1",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "22.4 Hypothesis tests",
+    "text": "22.4 Hypothesis tests\nPrior to collecting data, we have the hypotheses: \\[\\begin{align*}\nH_0: p = p_0\nH_A: p &gt; p_0\n\\end{align*}\\]\nWe also must set the significance level \\(\\alpha\\) prior to collecting data.\nAgain, the standard error involves the true population proportion. However, we now have a hypothesized proportion. This is what we must use.\nOnce we collect data, we calculate the test statistic: \\[\nz_{obs} = \\frac{\\hat p - p_0}{\\sqrt{\\frac{p_0(1-p_0)}{n}}}\n\\]\nSince our alterate hypothesis is “\\(\\ne\\)”, the p-value is found as: \\[\n\\text{p-value} = P(Z &gt; z_{obs})\n\\]\n\n# Testing p &gt; 0.35\np0 &lt;- 0.35\nalpha &lt;- 0.045\nxbin &lt;- rbinom(n = 1, size = 30, prob = 0.3)\nphat &lt;- xbin / 30\nzstar &lt;- abs(qnorm(alpha/2))\n\nzobs &lt;- (phat - p0)/sqrt(p0*(1-p0)/30)\n1 - pnorm(zobs)\n\n[1] 0.7170734\n\n1 - pnorm(zobs) &lt; alpha\n\n[1] FALSE"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-p",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#r-code-for-p",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "22.5 R Code for p",
+    "text": "22.5 R Code for p\nThere are two commands for tests/CIs for proportions. One uses something like our normal distribution, and one uses an exact test1.\nFor the following code, specifying alternative = \"greater\" gives us a one-sided confidence interval. This is not a concept that you need to understand, but this is why the CI looks weird.\nThe takeaway message here is this: In stats, there is usually more than one way to do things, and there’s not always a clear reason to use one over the other. We teach the basic normal approximation so that you understand at least some of the underlying mechanics, but either of these would be better in a real-world application.\n\n# Similar to our p-value (normal approx), but with fancier math\nprop.test(xbin, 30, alternative = \"greater\", conf.level = 0.955, p = 0.35)\n\n\n    1-sample proportions test with continuity correction\n\ndata:  xbin out of 30, null probability 0.35\nX-squared = 0.14652, df = 1, p-value = 0.6491\nalternative hypothesis: true p is greater than 0.35\n95.5 percent confidence interval:\n 0.1676928 1.0000000\nsample estimates:\n  p \n0.3 \n\n\n\n# Exact test, using a different kind of fancy math\n# There are some drawbacks to using an exact test,\n# but that's outside the scope of this course.\nbinom.test(xbin, 30, p = 0.35, alternative = \"greater\")\n\n\n    Exact binomial test\n\ndata:  xbin and 30\nnumber of successes = 9, number of trials = 30, p-value = 0.7753\nalternative hypothesis: true probability of success is greater than 0.35\n95 percent confidence interval:\n 0.166326 1.000000\nsample estimates:\nprobability of success \n                   0.3 \n\n\n\n# CI from before \nphat + c(-1, 1)*zstar*sqrt(p0*(1-p0)/30)\n\n[1] 0.12543 0.47457\n\n# For confidence intervals, alternative must be two.sided\nprop.test(xbin, 30, alternative = \"two.sided\", conf.level = 0.955, p = 0.35)\n\n\n    1-sample proportions test with continuity correction\n\ndata:  xbin out of 30, null probability 0.35\nX-squared = 0.14652, df = 1, p-value = 0.7019\nalternative hypothesis: true p is not equal to 0.35\n95.5 percent confidence interval:\n 0.1519501 0.4996657\nsample estimates:\n  p \n0.3 \n\n# For confidence intervals, alternative must be two.sided\nbinom.test(xbin, 30, alternative = \"two.sided\", conf.level = 0.955, p = 0.35)\n\n\n    Exact binomial test\n\ndata:  xbin and 30\nnumber of successes = 9, number of trials = 30, p-value = 0.7027\nalternative hypothesis: true probability of success is not equal to 0.35\n95.5 percent confidence interval:\n 0.1447633 0.4980533\nsample estimates:\nprobability of success \n                   0.3"
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#sample-size-calculations",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#sample-size-calculations",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "23.1 Sample Size Calculations",
+    "text": "23.1 Sample Size Calculations\nIn order to propose a study2, researchers have to give some idea about what results they expect. As we saw before, a small confidence interval is always better3. In many grant proposals, researchers choose the sample size based on the desired width of their confidence interval.\nSuppose we want a 92% confidence interval for a mean no wider than 2 units on either side. In other words, we want \\(MoE = 2\\), i.e. \\(z^*sigma/\\sqrt n = 2\\). We know \\(z^*\\), but we don’t know what our standard deviation is! To get around this, we treat estimates from previous studies as if they’re population values.\nIf a previous study found a standard deviation of 5, then we have \\(1.75*5/\\sqrt n = 2\\), so \\(n = (1.75*5/2)^2 = 19.14\\). Of course, \\(n\\) must be an integer. If we round down to 19, then \\(MoE = 1.75*5/\\sqrt{19} = 2.007 &gt; 2\\), but we specified that the MoE cannot be larger than 2! When calculating sample size, never round down."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#sample-size-calculations-2",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#sample-size-calculations-2",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "23.2 Sample Size Calculations 2",
+    "text": "23.2 Sample Size Calculations 2\nIt is slightly more correct to use \\(s\\) and a \\(t^*_{n-1}\\) value than \\(\\sigma\\) and a \\(z^*\\) value. However, \\(t^*_{n-1}\\) relies on \\(n\\)! There’s no simple way to rearrange the equation for \\(n\\), so we would just check each value of \\(n\\) until we’re satisfied.\n\nMoE &lt;- 2\ns &lt;- 5\nalpha &lt;- 0.08\n\n# Using vectorized calculation\nn &lt;- 15:25\nMoE_vec &lt;- abs(qt(alpha/2, df = n - 1))*s/sqrt(n) \nMoE_vec\n\n [1] 2.436747 2.347173 2.266834 2.194240 2.128221 2.067837 2.012330 1.961075\n [9] 1.913554 1.869335 1.828051\n\n# Which n gives us the desired MoE?\nn[MoE_vec &lt; MoE]\n\n[1] 22 23 24 25\n\n\nSo we would use \\(n = 22\\).\n\nEverything below this line is outside the scope of this course."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#inference-for-other-parameters",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#inference-for-other-parameters",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "23.3 Inference for Other Parameters",
+    "text": "23.3 Inference for Other Parameters\nNot everything is normal, and not everything is easily estimated. Here are some quick descriptions of inference for other parameters, along with their sampling distributions:\n\nA sequence of means, where we want to know if one of the means is significantly different from the others. This is called Statistical Process Control, or Statistical Quality Control.\n\nThe distribution of sample means is still normal, even if we have a sequence of them!4\nOften used in industrial applications to see when a machine needs to be tweaked.\n\nThe standard deviation \\(\\sigma\\): Not often done for one- or two-sample tests, but such tests exist. The sampling distribution is the same as the one I’ve been avoiding: the \\(\\chi^2\\)5\n\nFor Mixed Effects Models, tests around the standard deviation are very important.\nThere are Statistical Process Control methods for the standard deviation as well!\n\nThe median: Sometimes done, but require strong assumptions about the population.\n\nThe median is just one of the quartiles, the other quartiles can be estimated as well! The sampling distribution comes from Bootstrap sampling, which takes repeated samples from the sample (assumes the sample is representative of the population). This sounds counterintuitive, but there’s a lot of math showing that this is a reasonable thing to do.\nThis is sometimes called robust estimation, which is often a type of non-parametric estimation.\n\nExtreme values: Uses a result called an Extreme Value Theorem.\n\nThe Generalized Extreme Value Distribution describes the distribution of the largest value in a future sample. This is extremely6 useful in predicting/characterizing climate change: if our models predict certain values for maximum rainfall, temperature, etc., but we observe much larger values, then the nature of our data must be changing.\n\nThe spatial/temporal location of observations, e.g. predicting the likely locations of forest fires.\n\nSee my thesis for examples."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#bayesian-inference",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#bayesian-inference",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "23.4 Bayesian Inference",
+    "text": "23.4 Bayesian Inference\nWhat if we could say that there’s a 95% chance that the population mean is in the confidence interval? In this case, the population parameter must have a probability distribution!\nIn order to make any inferences, we have to first make assumptions about the population parameter’s distribution. These assumptions must be reasonable but must not rely on our data (called a “prior” distribution). This is essentially what we do with hypothesis tests, but hypothesis tests are asking about a single value, whereas prior distributions say something about every possible population value. Just like with hypothesis tests, once we incorporate our data we can evaluate how reasonable our prior assumptions were.\nThis represents a seismic shift in our view of probability. Let’s go back to the coin example that I used for CIs: If a coin has been flipped, then it’s either heads or tails. There’s no probability inherent in the coin, it’s just our knowledge that’s uncertain. To a Bayesian, this is a probability! Bayesiand define probability as a measure of uncertainty. This allows for p-values and CIs as probabilities, although because of the way the math works out there are much better ways to go about these procedures."
+  },
+  {
+    "objectID": "L19-Summary_of_Inference-Means_Proportions.html#footnotes",
+    "href": "L19-Summary_of_Inference-Means_Proportions.html#footnotes",
+    "title": "17  Inference: Overview, R Code, and Special Topics",
+    "section": "",
+    "text": "It uses the actual sampling distribution, which is outside the scope of this course.↩︎\nand get funding↩︎\nAssuming it still has the correct “coverage”, e.g. it actually will capture the true value 95% of the time.↩︎\nOr t.↩︎\nPronounced “kai square”, sometimes spelled “chi-square”.↩︎\npun intended↩︎"
   }
 ]
