@@ -1,0 +1,437 @@
+---
+title: "Inference: Overview, R Code, and Special Topics"
+author: "Devan Becker"
+date: "24/07/2020"
+output:
+  word_document:
+    toc: yes
+  pdf_document:
+    number_sections: yes
+    toc: yes
+  tufte::tufte_html:
+    css: my_tufte.css
+    number_sections: yes
+    toc: yes
+    tufte_variant: envisioned
+    highlight: zenburn
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(2112)
+```
+
+# Inference is the Inverse of Probability
+
+There is some true population parameter. When we collect a sample, we can a random collection of observations from this population parameter. In other words, we get randomness from a population value - this is Probability.
+
+If we make assumptions about our data, we have the benefit of math. This math allows us to go backwards and say something aboot the population. In other words, we get a population value from randomess - this is Inference.
+
+# Inference about a Mean, $\sigma$ known
+
+## Assumptions
+
+1. SRS from the population of interest
+    - This ensures independence between observations
+2. Population is normal
+3. We know $\sigma$
+
+## Sampling Distribution
+
+Since $\sigma$ is known, we can standardize $\bar X$ as follows:
+
+$$
+\frac{\bar X - \mu}{\sigma/\sqrt{n}} \sim N(0,1)
+$$
+
+## Confidence Interval
+
+A $(1-\alpha)$CI can be found as:
+
+$$
+\bar x \pm z^*\frac{\sigma}{\sqrt n}
+$$
+
+where $z^*$ = `abs(qnorm(alpha/2))`.
+
+If we take repeated samples from the population, 95% of the CIs that we construct this way will contain the true population mean. This is *not* a probability.
+
+```{r}
+# A 94.5% CI
+set.seed(2)
+sigma <- 10
+alpha <- 0.055
+x <- rnorm(n = 30, mean = 4, sd = sigma)
+x
+
+xbar <- mean(x)
+n <- length(x)
+zstar <- abs(qnorm(alpha/2))
+
+xbar + c(-1,1)*zstar*sigma/sqrt(n)
+```
+
+
+## Hypothesis test
+
+Prior to collecting data, we have the hypotheses:
+\begin{align*}
+H_0:\mu = \mu_0
+H_A: \mu < \mu_0
+\end{align*}
+
+We also must set the significance level $\alpha$ prior to collecting data.
+
+Once we collect data, we calculate the test statistic:
+$$
+z_{obs} = \frac{\bar x - \mu}{\sigma/\sqrt{n}}
+$$
+
+Since our alterate hypothesis is "<", the p-value is found as:
+$$
+\text{p-value} = P(Z < z_{obs})
+$$
+
+If $p < \alpha$, we reject the null hypothesis. In our conclusion, we specify what this means in terms of the study.
+
+```{r}
+# Same x as before
+# testing if the population mean is less than 5
+zobs <- (xbar - 5)/(sigma/sqrt(n))
+pnorm(zobs)
+pnorm(zobs) < alpha # If TRUE, reject null
+```
+
+## R Code for z
+
+There is none, because it's bonkers to assume that the population sd is known. The z-test is taught for two reasons: to demonstrate the underlying mechanics, and to motivate sample size calculations (discussed later in this document).
+
+# Inference about a Mean, $\sigma$ estimated by $s$
+
+## Assumptions
+
+1. SRS from the population of interest
+    - This ensures independence between observations
+2. Population is normal (or n is "large" enough)
+
+
+## Sampling Distribution
+
+Since $s$ is estimated, there is extra variance in our test statistic. The sampling distribution is:
+\begin{align*}
+\bar X &\sim N(\mu, \sigma/\sqrt{n})\\
+S &\sim \text{ Something Else}\\
+\text{Therefore, } \frac{\bar X - \mu}{S/\sqrt n} &\sim t_{n-1}
+\end{align*}
+
+## Confidence Interval
+
+$$
+\bar x \pm t_{n-1}^*s/\sqrt{n}
+$$
+
+where $t_{n-1}^*$ = `abs(qt(alpha/2, df = n-1))`.
+
+```{r}
+s <- sd(x)
+tstar <- abs(qt(alpha/2, n - 1))
+xbar + c(-1, 1)*tstar*s/sqrt(n)
+```
+
+
+## Hypothesis Test
+
+Prior to collecting data, we have the hypotheses:
+\begin{align*}
+H_0:\mu = \mu_0
+H_A: \mu \ne \mu_0
+\end{align*}
+
+We also must set the significance level $\alpha$ prior to collecting data.
+
+Once we collect data, we calculate the test statistic:
+$$
+t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
+$$
+
+Since our alterate hypothesis is "$\ne$", the p-value is found as:
+$$
+\text{p-value} = 2*(1-P(T > |t_{obs}|))\text{, or } 2*P(T < -|t_{obs}|)
+$$
+although this is best understood as checking the tails (i.e. if $t_{obs}$ is negative, do $2*P(T < t_{obs})$ and if it's positive do $2*P(T < -t_{obs})$). 
+
+```{r}
+tobs <- (xbar - 5)/(s/sqrt(n))
+tobs
+2*(1 - pt(abs(tobs), df = n - 1))
+2*(1 - pt(abs(tobs), df = n - 1)) < alpha # if TRUE, reject null
+```
+
+## R Code for t
+
+```{r}
+# This gives the same CI and p-value as before
+t.test(x, mu = 5, alternative = "two.sided", conf.level = 1 - alpha)
+```
+
+
+# Two-Sample t-tests
+
+## Assumptions 
+
+- Assumptions for one-sample t-tests hold for each sample
+- Samples are indendent from each other.
+
+For a two-sample t-test, we will NEVER assume that the standard deviation is known.
+
+## Sampling Distribution
+
+$$
+\bar X_1 - \bar X_2 \sim N\left(\mu_1 - \mu_2, \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\right)
+$$
+
+
+## Confidence Intervals
+
+A $(1-\alpha)$ CI for $\mu_d$ is
+$$
+\bar x_1 - \bar x_2 \pm t^*\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+$$
+
+where $t^*$ is based on the smaller of $n_1 - 1$ and $n_2 - 1$
+
+## Hypothesis Tests
+
+We are usually testing for the difference in means, i.e.
+\begin{align*}
+H_0: \mu_1 = \mu_2 &\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d = 0\\
+H_0: \mu_1 < \mu_2 &\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d < 0\\
+\end{align*}\vspace{-15mm}
+
+$$t_{obs} = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$$\vspace{-12mm}
+
+$$
+\text{p-value} = P(T < t_{obs}) = \texttt{pt(t\_obs, df = min(n1, n2)-1)}
+$$
+
+
+## R Code for two-sample t-tests
+
+In the code below, the null hypothesis is FALSE, but the effect size is small and the sample sizes aren't large enough to detect a difference.
+
+```{r}
+x1 <- rnorm(30, mean = 2, sd = 3)
+x2 <- rnorm(30, mean = 2.1, sd = 3)
+
+# HA: mu1 - mu2 < 0
+t.test(x1, x2, alternative = "less") 
+```
+
+`x1` and `x2` have the same sample size, but there's no reason to match up the first element of `x1` with the first element of `x2`, the second element of `x1` with the second element of `x2`, etc. The following code is *completely* inappropriate.
+
+```{r}
+t.test(x1 - x2, alternative = "less")
+```
+
+
+
+# Inference about a Proportion
+
+## Assumptions
+
+First, we check if a binomial distribution is appropriate:
+
+1. Fixed number of trials.
+2. Independent observations.
+3. Outcomes are either "success" or "failure".
+    - E.g. Dice roll is a 5, patient recovered, etc.
+4. The probability of success is constant for all observations.
+
+To use tests and CIs, we need one additional assumption:
+
+1. The sample is an SRS.
+
+This covers assumption 3, since SRS ensures independence among observations. It also covers assumption 4: The probability that the first patient recovers is the same as the probability the second patient recovers since the patients come in a random order.
+
+## Sampling Distribution
+
+We can only approximate the sampling distribution if both $np>10$ and $n(1-p)>10$, otherwise our sample is too small to say anything meaningful about $p$. Assuming this is true, the population can be approximated by a normal distribution:
+$$
+X\stackrel{approx.}{\sim} N(np, \sqrt{np(1-p)})
+$$
+
+Note that the equation above refers to $X$, the number of successes out of $n$ trials. This population distribution can be used to find the sampling distribution of the sample proportion:
+$$
+\hat p \stackrel{approx.}{\sim} N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)
+$$
+
+where $\hat p$ is the sample proportion (number of successes divided by number of trials) and $p$ is the population proportion.
+
+
+
+## Confidence Intervals
+
+The sampling distribution involves the population proportion, which is not available to us. Instead, we use the sample proportion.
+
+$$
+\hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}}
+$$
+
+For the t-test, the t distribution was used because $s$ was estimated. We're not estimating $s$ here, so there's no reason to use $t$. We always use $z$ for proportions.
+
+```{r}
+# Testing p > 0.35
+p0 <- 0.35
+alpha <- 0.045
+xbin <- rbinom(n = 1, size = 30, prob = 0.3)
+phat <- xbin / 30
+zstar <- abs(qnorm(alpha/2))
+
+phat + c(-1, 1)*zstar*sqrt(p0*(1-p0)/30)
+```
+
+
+## Hypothesis tests
+
+Prior to collecting data, we have the hypotheses:
+\begin{align*}
+H_0: p = p_0
+H_A: p > p_0
+\end{align*}
+
+We also must set the significance level $\alpha$ prior to collecting data.
+
+Again, the standard error involves the true population proportion. However, we now have a hypothesized proportion. This is what we must use.
+
+Once we collect data, we calculate the test statistic:
+$$
+z_{obs} = \frac{\hat p - p_0}{\sqrt{\frac{p_0(1-p_0)}{n}}}
+$$
+
+Since our alterate hypothesis is "$\ne$", the p-value is found as:
+$$
+\text{p-value} = P(Z > z_{obs})
+$$
+
+
+```{r}
+# Testing p > 0.35
+p0 <- 0.35
+alpha <- 0.045
+xbin <- rbinom(n = 1, size = 30, prob = 0.3)
+phat <- xbin / 30
+zstar <- abs(qnorm(alpha/2))
+
+zobs <- (phat - p0)/sqrt(p0*(1-p0)/30)
+1 - pnorm(zobs)
+1 - pnorm(zobs) < alpha
+```
+
+
+## R Code for p
+
+There are two commands for tests/CIs for proportions. One uses something like our normal distribution, and one uses an exact test^[It uses the actual sampling distribution, which is outside the scope of this course.].
+
+For the following code, specifying `alternative = "greater"` gives us a one-sided confidence interval. This is not a concept that you need to understand, but this is why the CI looks weird.
+
+The takeaway message here is this: In stats, there is usually more than one way to do things, and there's not always a clear reason to use one over the other. We teach the basic normal approximation so that you understand at least some of the underlying mechanics, but either of these would be better in a real-world application. 
+
+```{r}
+# Similar to our p-value (normal approx), but with fancier math
+prop.test(xbin, 30, alternative = "greater", conf.level = 0.955, p = 0.35)
+```
+
+```{r}
+# Exact test, using a different kind of fancy math
+# There are some drawbacks to using an exact test,
+# but that's outside the scope of this course.
+binom.test(xbin, 30, p = 0.35, alternative = "greater")
+```
+
+```{r}
+# CI from before 
+phat + c(-1, 1)*zstar*sqrt(p0*(1-p0)/30)
+
+# For confidence intervals, alternative must be two.sided
+prop.test(xbin, 30, alternative = "two.sided", conf.level = 0.955, p = 0.35)
+
+# For confidence intervals, alternative must be two.sided
+binom.test(xbin, 30, alternative = "two.sided", conf.level = 0.955, p = 0.35)
+```
+
+
+# Special Topics in Inference
+
+## Sample Size Calculations
+
+In order to propose a study^[and get funding], researchers have to give some idea about what results they expect. As we saw before, a small confidence interval is always better^[Assuming it still has the correct "coverage", e.g. it actually will capture the true value 95% of the time.]. In many grant proposals, researchers choose the sample size based on the desired width of their confidence interval.
+
+Suppose we want a 92% confidence interval for a mean no wider than 2 units on either side. In other words, we want $MoE = 2$, i.e. $z^*sigma/\sqrt n = 2$. We know $z^*$, but we don't know what our standard deviation is! To get around this, we treat estimates from previous studies as if they're population values.
+
+If a previous study found a standard deviation of 5, then we have $1.75*5/\sqrt n = 2$, so $n = (1.75*5/2)^2 = 19.14$. Of course, $n$ must be an integer. If we round *down* to 19, then $MoE = 1.75*5/\sqrt{19} = 2.007 > 2$, but we specified that the MoE *cannot* be larger than 2! When calculating sample size, *never round down*.
+
+
+## Sample Size Calculations 2
+
+It is slightly more correct to use $s$ and a $t^*_{n-1}$ value than $\sigma$ and a $z^*$ value. However, $t^*_{n-1}$ relies on $n$! There's no simple way to rearrange the equation for $n$, so we would just check each value of $n$ until we're satisfied.
+
+```{r}
+MoE <- 2
+s <- 5
+alpha <- 0.08
+
+# Using vectorized calculation
+n <- 15:25
+MoE_vec <- abs(qt(alpha/2, df = n - 1))*s/sqrt(n) 
+MoE_vec
+
+# Which n gives us the desired MoE?
+n[MoE_vec < MoE]
+```
+
+So we would use $n = 22$.
+
+----
+
+Everything below this line is outside the scope of this course.
+
+----
+
+## Inference for Other Parameters
+
+Not everything is normal, and not everything is easily estimated. Here are some quick descriptions of inference for other parameters, along with their sampling distributions:
+
+- A sequence of means, where we want to know if one of the means is significantly different from the others. This is called Statistical Process Control, or Statistical Quality Control.
+    - The distribution of sample means is still normal, even if we have a sequence of them!^[Or t.]
+    - Often used in industrial applications to see when a machine needs to be tweaked.
+- The standard deviation $\sigma$: Not often done for one- or two-sample tests, but such tests exist. The sampling distribution is the same as the one I've been avoiding: the $\chi^2$^[Pronounced "kai square", sometimes spelled "chi-square".] 
+    - For *Mixed Effects Models*, tests around the standard deviation are very important.
+    - There are Statistical Process Control methods for the standard deviation as well!
+- The median: Sometimes done, but require strong assumptions about the population. 
+    - The median is just one of the quartiles, the other quartiles can be estimated as well! The sampling distribution comes from *Bootstrap sampling*, which takes repeated samples from the sample (assumes the sample is representative of the population). This sounds counterintuitive, but there's a lot of math showing that this is a reasonable thing to do.
+    - This is sometimes called *robust estimation*, which is often a type of non-parametric estimation.
+- Extreme values: Uses a result called an Extreme Value Theorem. 
+    - The Generalized Extreme Value Distribution describes the distribution of the largest value in a future sample. This is extremely^[pun intended] useful in predicting/characterizing climate change: if our models predict certain values for maximum rainfall, temperature, etc., but we observe much larger values, then the nature of our data must be changing.
+- The spatial/temporal location of observations, e.g. predicting the likely locations of forest fires.
+    - See my thesis for examples.
+
+
+## Bayesian Inference
+
+What if we could say that there's a 95% chance that the population mean is in the confidence interval? In this case, the population parameter must have a probability distribution! 
+
+In order to make any inferences, we have to first make assumptions about the population parameter's distribution. These assumptions must be reasonable but must *not* rely on our data (called a "prior" distribution). This is essentially what we do with hypothesis tests, but hypothesis tests are asking about a single value, whereas prior distributions say something about every possible population value. Just like with hypothesis tests, once we incorporate our data we can evaluate how reasonable our prior assumptions were. 
+
+This represents a seismic shift in our view of probability. Let's go back to the coin example that I used for CIs: If a coin has been flipped, then it's either heads or tails. There's no probability inherent in the coin, it's just our knowledge that's uncertain. To a Bayesian, this is a probability! Bayesiand define probability as a measure of uncertainty. This allows for p-values and CIs as probabilities, although because of the way the math works out there are much better ways to go about these procedures.
+
+
+
+
+
+
+
+
+
+
+
+

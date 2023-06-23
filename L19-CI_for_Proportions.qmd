@@ -1,0 +1,186 @@
+---
+title: "Confidence Intervals for a Proportion"
+author: "Devan Becker"
+date: "15/07/2020"
+output: 
+    beamer_presentation:
+        colortheme: Western2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+## This is the same as the last video.
+
+- Based on our data, we make an interval that we think describes the population.\newline\pause
+
+- In this case, we just have a different population distribution?
+
+## Assumptions
+
+In stats, assumptions give us power \pause but only if they hold.
+
+\pause
+
+Assumptions for a CI for $p$ are the same as the assumptions for the binomial distribution, with the addition of an SRS.
+
+# The CI for $p$
+
+## Sampling Distribution of $\hat p$
+
+As we saw before the midterm, if the population is $B(n,p)$, then under certain conditions,
+
+$$\hat p \sim N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)$$
+
+
+## Deja-Vu
+
+Since $\hat p \sim N(p, \sqrt{\frac{p(1-p)}{n}})$, 
+
+$$
+\frac{\hat p - p}{\sqrt{p(1-p)/n}} \sim N(0,1)
+$$
+
+\pause Again, we can use the form $z = (x-\mu)/\sigma$, but replace $x$, $\mu$, and $\sigma$ with the correct values.\pause
+
+A $(1-\alpha)$CI for $p$ is:
+
+$$
+\hat p \pm z^*\sqrt{\frac{p(1-p)}{n}}
+$$
+
+## We don't know the variance, why not $t_{n-1}^*$?
+
+- We used $t_{n-1}^*$ because we had to estimate $\sigma$\newline
+
+- There's no $\sigma$ to estimate!\newline
+
+- The variance of the Binomial distribution is entirely determined by $p$!
+    - Binom be crazy.
+
+
+## ... but Devan, we still don't know $p$!
+
+
+The $(1-\alpha)$CI for $p$ is:
+
+$$
+\hat p \pm z^*\sqrt{\frac{p(1-p)}{n}}
+$$
+which needs $p$ in the second part of the equation.\pause
+
+\quad
+
+Why not just plug in $\hat p$?\pause
+
+Okay fine. \pause
+
+$\sqrt{\hat p(1-\hat p)/n}$ is called the **estimated standard error**, since its the sd of the sampling distribution, but it's based on an estimate.
+
+## Final_Version_V2_Update_LastTry_Srsly.docx.pdf
+
+The $(1-\alpha)$CI for $p$ is:
+
+$$
+\hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}}
+$$
+
+where $z^*$ is chosen such that $P(Z < -z^*) = \alpha/2$.
+
+
+## Devan Style: Simulation
+
+```{r}
+n <- 100
+p <- 0.7
+SE_true <- sqrt(p*(1-p)/n)
+p_does <- c()
+phat_does <- c()
+that_does <- c()
+z_star <- abs(qnorm(0.05/2))
+t_star <- abs(qt(0.05/2, df = n-1))
+```
+
+## Devan Style: Simulation
+
+```{r}
+for(i in 1:10000){
+    new_sample <- rbinom(n=1, size=n, prob=p)
+    phat <- new_sample/n
+    SE_est <- sqrt(phat*(1-phat)/n)
+    
+    pCI <- phat + c(-1,1)*z_star*SE_true
+    phatCI <- phat + c(-1,1)*z_star*SE_est
+    thatCI <- phat + c(-1,1)*t_star*SE_est
+    
+    p_does[i] <- pCI[1] < p & pCI[2] > p
+    phat_does[i] <- phatCI[1] < p & phatCI[2] > p
+    that_does[i] <- thatCI[1] < p & thatCI[2] > p
+}
+```
+
+## Simulation Results
+
+```{r}
+mean(p_does)
+mean(phat_does)
+mean(that_does)
+```
+
+Using the population proportion is... worse?\pause
+
+DIY: Change $p$ so that the normal approximation doesn't apply.
+
+# Examlpes and Cautions
+
+## Example 1 {.t}
+
+It was found that 591 out of 700 people sampled supported a certain political position. Find a 91%CI.
+
+
+## Example 2 {.t}
+
+It was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.\pause
+
+```{r}
+n <- 70
+phat <- 68/70
+se_est <- sqrt(phat*(1-phat)/n)
+z_star <- abs(qnorm(0.09/2))
+
+phat + c(-1, 1)*z_star*se_est
+```
+
+... so it would be reasonable to say that the popluation proportion is larger than 1???
+
+
+## Example 2 {.t}
+
+It was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.\pause
+
+```{r}
+prop.test(x = 68, n = 70)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

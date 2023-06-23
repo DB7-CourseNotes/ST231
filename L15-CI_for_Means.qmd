@@ -1,0 +1,346 @@
+---
+title: "Confidence Intervals in Practice"
+author: "Dr. Devan Becker"
+date: "June 27, 2023"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(2112)
+```
+
+## Recap
+
+### Silly confidence intervals
+
+If $X\sim N(\mu,\sigma)$, where $\sigma$ *is known*, then a $(1-\alpha)$CI for $\mu$ based on $\bar x$ is:
+$$
+\bar x \pm z^*\frac{\sigma}{\sqrt{n}}
+$$
+where $z^*$ is found such that $P(Z < -z^*) = \alpha/2$
+    - or $P(Z > z^*) = \alpha/2$
+    - or $P(Z < z^*) = 1 - \alpha/2$
+    - or $P(Z > -z^*) = 1 - \alpha/2$
+
+A natrual question is: why not use $s$, the **sample standard deviation**?
+
+To demonstrate why we can't just use $s$, I have set up a simulation study.
+
+
+### Simulation Setup
+
+1. Take random values from the standard normal distribution.
+2. Calculate the mean and sd.
+3. Calculate the 95\% confidence interval with $\sigma$ and with $s$.
+4. Record whether the population mean is in the interval.
+5. Count how many intervals contain the population mean.
+    - Should be 95% of them!
+
+
+Before we begin, I want to show some R code for finding confidence intervals. If you're given that $\bar x = 7.28$, $n=15$, $\sigma = 1.24$, and you want to calculate a 95\% CI:^[You'll need to do this sort of thing on a test/assignment.]
+
+```{r}
+z_star <- abs(qnorm(0.05/2))
+lower_bound <- 7.28 - z_star*1.24/sqrt(15)
+upper_bound <- 7.28 + z_star*1.24/sqrt(15)
+c(lower_bound, upper_bound)
+```
+
+Alternatively, we can use `c(-1, 1)` to stand in for "$\pm$". The code is a little weird to get your head around, but trust me - it works!
+
+```{r}
+7.28 + c(-1, 1)*z_star*1.24/sqrt(15)
+```
+
+
+### Simulation Code
+
+```{r simone, echo = TRUE, cache = TRUE}
+## Set up empty vectors, to be filled with TRUE or FALSE
+## if the population mean is in the interval
+sigma_does <- c() # CI based on sigma does contain mu
+s_does <- c() # CI based on s does contain mu
+
+pop_sd <- 1
+pop_mean <- 0
+n <- 15 # sample size
+
+z_star <- abs(qnorm(0.05 / 2))
+
+## You aren't expected to understand "for" loops, but
+## you need to be able to find CIs
+for (i in 1:100000) { # repeat this code a bunch of times
+    new_sample <- rnorm(n = n, mean = pop_mean, sd = pop_sd)
+    xbar <- mean(new_sample)
+    samp_sd <- sd(new_sample)
+
+    CI_sigma <- xbar + c(-1, 1) * z_star * pop_sd / sqrt(n)
+    CI_s <- xbar + c(-1, 1) * z_star * samp_sd / sqrt(n)
+    # Do they contain the population mean?
+    # in other words, is the lower bound less than pop_mean
+    # *and* is the upper bound larger than pop_mean?
+    # (Not testable)
+    sigma_does[i] <- (CI_sigma[1] < pop_mean) & (CI_sigma[2] > pop_mean)
+    s_does[i] <- (CI_s[1] < pop_mean) & (CI_s[2] > pop_mean)
+}
+
+## The mean of a bunch of TRUEs and FALSEs is
+## the proportion of TRUEs (TRUE == 1, FALSE == 0)
+mean(sigma_does)
+mean(s_does)
+```
+
+The CI based on $s$ only contains $\mu$ 93\% of the time! This is a pretty big discrepancy. What happens when you increase the sample size, n?^[Re-run the code and try it!]
+
+
+The reason for this discrepancy is shown in the next section:
+
+## The Variance has Variance
+
+Recall that the **Sampling distribution** is all possible values of a statistic when sampling from a population. We've covered the sampling distribution for the sample mean: Every time you take a sample, you get a different mean. The distribution of these sample means is $N(\mu,\sigma/\sqrt{n})$.
+
+The same idea applies to the sample variance! Every time you take a sample, you get a different variance. The sampling distribution is **not** a normal distribution. In the next section, we'll demonstrate this fact.
+
+### Simulation: sample statistics
+
+I'm going to generate a bunch of samples from a $N(0, 0.2)$ distribution. I'll calculate the mean and variance from each distribution, then plot the histogram.
+
+```{r}
+n <- 10
+pop_mean <- 0
+pop_sd <- 0.2
+sample_means <- c()
+sample_vars <- c()
+
+for (i in 1:100000) {
+    new_sample <- rnorm(n = n, mean = pop_mean, sd = pop_sd)
+    sample_means[i] <- mean(new_sample)
+    sample_vars[i] <- var(new_sample)
+}
+
+par(mfrow = c(1, 2))
+hist(sample_means, breaks = 25, freq = FALSE,
+    main = "Sampling Dist of Sample Means")
+curve(dnorm(x, pop_mean, pop_sd / sqrt(n)), add = TRUE,
+    col = 4, lwd = 2)
+## (n-1)s^2/sigma^2 follows a chi-square distribution on
+## n-1 degrees of freedom. If you understand this, you are
+## far too qualified to be taking this course. This fact
+## is outside the scope of the course.
+hist(sample_vars * (n - 1) / (pop_sd^2), breaks = 25, freq = FALSE,
+    main = "Sampling Dist of Sample Vars")
+curve(dchisq(x, n - 1), add = TRUE, col = 2, lwd = 2)
+```
+
+As can be seen in the plots above, the sampling distributions for the mean and variance are well known. Also, the sampling distribution for the variance is skewed, and therefore cannot be normal!
+
+When we use $\bar x+ z^*s/\sqrt{n}$, $\bar x$ has variance, but so does $s$.^[Both are **random variables.**] This is why the CI changes. When we know $\sigma$, the **Margin of Error** (MoE) is always the same. When the standard deviation changes for each sample, so does the MoE.
+
+### Simulation: The Distribution of the Margin of Error
+
+The sampling distribution of the Margin of Error is interesting to look at. This section is entirely option - you just need to know that each sample has a different margin of error.
+
+```{r sim_MoE}
+n <- 10
+pop_mean <- 0
+pop_sd <- 0.2
+sample_MoEs <- c()
+z_star <- abs(qnorm(0.5/2))
+
+for(i in 1:100000){
+    new_sample <- rnorm(n=n, mean=pop_mean, sd=pop_sd)
+    sample_MoEs[i] <- z_star*sd(new_sample)/sqrt(n)
+}
+
+hist(sample_MoEs, breaks = 25,
+    main = "Sampling Dist of MoE")
+abline(v = z_star*pop_sd/sqrt(n), col = 6, lwd = 2)
+```
+
+The vertical purple line is $z^*\sigma/\sqrt n$.^[Recall that this never changes since $\sigma$ is fixed.] This is just a re-scaling of the sampling distribution of the sample variance, so it's also skewed! Furthermore, the average MoE using $s$ is *smaller* than the MoE using $\sigma$, even though it's right-skewed:
+
+```{r}
+c("MoE (sigma)" = z_star*pop_sd/sqrt(n),
+    "Average MoE (s)" = mean(sample_MoEs))
+c("MoE (sigma)" = z_star*pop_sd/sqrt(n),
+    "Median MoE (s)" = median(sample_MoEs))
+```
+
+This is why the CI using $s$ doesn't capture the true mean as often - it's giving us smaller intervals!
+
+
+## Removing the Silliness
+
+The distribution of the sample variance is not important.^[And very complicated.] Instead, we care about the confidence intervals.
+
+I'm going to write this yet again: since $\bar X\sim N(\mu,\sigma/\sqrt{n})$),
+$$
+\frac{\bar X - \mu}{\sigma/\sqrt{n}} \sim N(0, 1)
+$$
+That is, you take the sample means, subtract the mean of the means, and divide by the **standard error**^[the standard deviation of the sampling distribution], and you get a standard normal distribution.^[The word "standard" shows up way too much. Statisticians are bad at naming things.]
+
+On the other hand, if we use $s$ (which has it's own variance),
+$$
+\frac{\bar X - \mu}{s/\sqrt{n}} \sim t_{n-1}
+$$
+where $n-1$ is the **degrees of freedom** (or **df**).^[This is another example of statisticians being bad at naming things.] This is called the $t$ distribution, and is a lot like the normal distribution but it has higher variance.
+
+Before we move on, notice how the formula with $\sigma$ results in N(0,1), which does not require any information for our sample. In the $t$ distribution, we need to know the sample size!
+
+
+### The t distribution
+
+There are two main features of the $t$ distribution that I want you to know:
+
+- It's centered at 0.^[Just like N(0,1)]
+- It's more variable than the normal distribution.
+
+The second point is demonstrated in the following plot:
+
+```{r echo=FALSE}
+xseq <- seq(-2.75, 2.75, length.out = 300)
+nseq <- dnorm(xseq)
+t1seq <- dt(xseq, 1)
+t5seq <- dt(xseq, 5)
+t10seq <- dt(xseq, 10)
+t20seq <- dt(xseq, 20)
+t30seq <- dt(xseq, 30)
+
+colseq <- colorRampPalette(c("red", "blue"))(5)
+
+plot(xseq, nseq, xlab = "x", ylab = "Distribution", type = "l", lwd = 3)
+lines(xseq, t1seq, col = colseq[1], lwd = 2)
+lines(xseq, t5seq, col = colseq[2], lwd = 2)
+lines(xseq, t10seq, col = colseq[3], lwd = 2)
+lines(xseq, t20seq, col = colseq[4], lwd = 2)
+lines(xseq, t30seq, col = colseq[5], lwd = 2)
+legend("topright",
+    legend = c("N(0,1)", "t(1)", "t(5)", "t(10)", "t(20)", "t(30)"),
+    col = c(1, colseq), lwd = c(2,1,1,1,1,1)+1)
+```
+
+The red line corresponds to a sample size of 2.^[The degrees of freedom is $n-1$.] As the colours move through red to blue, we increase the sample size. At $df = \infty$, the $t$ distribution is exactly the same as the N(0,1) distribution. For anything smaller, the $t$ distribution puts more probability in the tails.
+
+This shows up in the critical values:
+
+```{r}
+abs(qnorm(0.05/2)) # z^*
+abs(qt(0.05/2, df = 15 - 1)) # t^* n = 15
+abs(qt(0.05/2, df = 30 - 1)) # n = 30
+abs(qt(0.05/2, df = 50 - 1)) # n = 30
+```
+
+Note that, just like `qbinom` finds the value such of a binomial distribution such that 0.025\% of the distribution is to the left and `qnorm` finds the z-values such that 0.025 is to the left, `qt`^[The person reading this is a cutie.] finds the t-value.
+
+```{r}
+n_seq <- seq(2, 100, by = 2)
+t_seq <- abs(qt(0.05/2, df = n_seq-1))
+plot(n_seq, t_seq, type = "b",
+    ylab = "abs(qt(0.05/2, df = n - 1))",
+    xlab = "n",
+    # the code for the title is not important.
+    main = bquote("As df -> infinity, t"^"*"*" -> z"^"*"))
+abline(h = abs(qnorm(0.05/2)), col = 3, lwd = 2)
+## this code just puts a label on the axis - not important
+axis(2, abs(qnorm(0.05/2)), "z*", col = 3, font = 2, col.axis = 3)
+```
+
+
+Since there's more probability in the tails, you have to go further out to find the point such that 0.025 of the distribution is to the left.^[Try this for other $\alpha$ values and larger $n$.] The $t$ distribution allows for more variance due to the variance of $s$, and it does this by having larger critical values.
+
+
+## The $t$ Confidence Interval
+
+Now that you understand the reasoning behind using wider confidence intervals, I can show you the formula/
+$$
+\bar x \pm t_{n-1}^*s/\sqrt{n}
+$$
+
+where $t^*_{n-1}$ comes from `abs(qt(alpha/2, df = n-1))`.^[Note: I'm not even going to bother writing out the $P()$ notation for $t^*_{n-1}$ because you'll never use it. You'll only need to find $t^*_{n-1}$ in this course.]
+
+This has the same interpretation as the Z CI: 95\% of the intervals constructed this way will contain the true population mean. This does **NOT** mean that there's a 95\% chance that the interval contains the true mean.
+
+What's that? Of course, I can demonstrate by simulation! Thanks for asking! The following code is copied and pasted from above, only the critical value has been changed.
+
+```{r echo = TRUE, cache = TRUE}
+## Set up empty vectors, to be filled with TRUE or FALSE
+## if the population mean is in the interval
+sigma_does <- c() # CI based on sigma does contain mu
+s_does <- c() # CI based on s does contain mu
+
+pop_sd <- 1
+pop_mean <- 0
+n <- 15 # sample size
+
+z_star <- abs(qnorm(0.05/2))
+t_star <- abs(qt(0.05/2, n - 1)) # NEW
+
+## You aren't expected to understand "for" loops, but
+## you need to be able to find CIs
+for(i in 1:100000){ # repeat this code a bunch of times
+    new_sample <- rnorm(n = n, mean = pop_mean, sd = pop_sd)
+    xbar <- mean(new_sample)
+    samp_sd <- sd(new_sample)
+
+    CI_sigma <- xbar + c(-1, 1)*z_star*pop_sd/sqrt(n)
+    CI_s <- xbar + c(-1, 1)*t_star*samp_sd/sqrt(n) # NEW
+    # Do they contain the population mean?
+    # in other words, is the lower bound less than pop_mean
+    # *and* is the upper bound larger than pop_mean?
+    # (Not testable)
+    sigma_does[i] <- (CI_sigma[1] < pop_mean) & (CI_sigma[2] > pop_mean)
+    s_does[i] <- (CI_s[1] < pop_mean) & (CI_s[2] > pop_mean)
+}
+
+## The mean of a bunch of TRUEs and FALSEs is
+## the proportion of TRUEs (TRUE == 1, FALSE == 0)
+mean(sigma_does)
+mean(s_does)
+```
+
+Now both of them contain the mean 95\% of the time!^[This means it's working!] The difference between them is that the t CI doesn't have as much information as the Z CI - the Z CI knows what the population sd is, but the t CI doesn't. This is kinda magical: using math, we made it so that we don't have to make assumptions in order to get at the truth!
+
+## Examples
+
+1. $\bar x = 0.4$, $n = 100$, $\sigma = 0.01$, find the 92\%CI.
+    - This is a bit of a trick: I gave you $\sigma$! This always refers to the population standard deviation, so that's what it is here. The Z CI can be found with the R code:
+```{r}
+0.4 + c(-1, 1)*abs(qnorm(0.08/2)) * 0.01/sqrt(100)
+```
+
+2. $\bar x = 0.4$, $n = 100$, $s = 0.01$, will a 92\%CI be *wider than* or *smaller than* the CI from Example 1?
+    - We use $t$ to account for the extra variance we have when we estimate $s$. More variance means wider tails! The CI will be wider!
+
+```{r}
+0.4 + c(-1, 1)*abs(qt(0.08/2, df = 100-1)) * 0.01/sqrt(100)
+```
+
+It's only slightly wider. The sample size is large enough that the variance in the estimate is small.^[Recall: For both the sample mean and the sample proportion, the variance of the sampling distribution decreases as $n$ increases.] Try this again with a smaller $n$ and see what happens to the difference!
+
+3. If $n=16$ and the 95%CI for $\mu$ is (10, 15), what's the variance?
+    1. A general form of the CI is $\bar x \pm t^* s/\sqrt{n}$.
+        - $\bar x$ is in the centre, so $\bar x$ is 12.5
+    2. The MoE is 2.5, so $t^* s/\sqrt{n} = 2.5$.
+        - $t^*$ is `qt(0.05/2, 16 - 1)` = `r abs(round(qt(0.05/2, 16 - 1), 3))`
+    3. $2.131s/\sqrt{16} = 2.5$, so $s = 2.5\sqrt{16}/2.131 = 4.69$
+    4. The variance is $4.69^2 = 21.9961$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

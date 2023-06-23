@@ -1,0 +1,122 @@
+---
+title: "t-Tests for a Mean"
+author: "Devan Becker"
+date: "July 22, 2020"
+output: 
+  word_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+  tufte::tufte_html:
+    css: my_tufte.css
+    number_sections: yes
+    toc: yes
+    tufte_variant: envisioned
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
+```
+
+# It's all the same.
+
+
+We've been over this before! If the population is normal (or the sample size is large enough) and we have an SRS, then
+$$
+\frac{\bar X - \mu}{S/\sqrt{n}}\sim t_{n-1}
+$$
+
+Again, the $t$ distribution is used to account for the extra variability from the estimated standard deviation.^[Which is used in the caclulation of the Estimated Standard Error.]
+
+This means our test statistic is
+$$
+t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
+$$
+
+
+Since this is a $t$ distibution, we use `pt(t_obs, df = n -1)`, possibly one minus and/or double, depending on the alternate hypothesis.^[Like `pnorm()`, it always calculates the probability below the test statistic.]
+
+That's it. That's the big difference. When we estimate the standard deviation, we use the t-distribution.
+
+
+# Examples
+
+## Pilot Fatigue
+
+In the pilot fatigue example from the Understanding p-values lecture, we assumed that we had the population sd. I lied - it was actually a sample statistic! We should have used a t-test, not a z test.
+
+
+Recall: 
+
+- $H_0: \mu = 15$ versus $H_A: \mu > 15$ with 
+- $n = 16$, $\bar x = 15.9$, $s = 1.2$ (not $\sigma$)
+$$
+t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
+$$
+
+Using the $t$ distribution, our p-value is:
+
+```{r}
+1 - pt(3, df = 16)
+```
+
+
+This is *larger* than our previous p-value of 0.0013. This will always be the case: if the $z_{obs}$ test statistic is the same as the $t_{obs}$ test statistic, then the p-value for $t_{obs}$ will be wider. 
+
+
+# Matched Pairs
+
+A matched pairs design allows us to use a one-sample t-test^[We'll learn about two-sample t-tests in the next lecture.]. Since the pairs are matched, we can calculate the differences between pairs and treat this like a single vector of observations. It is honkey tonk ridonkulous to say that we know the true population standard deviation for the difference in observations, so a $z$ test could never be appropriate.
+
+The setup is the same as it was in the study design video. Given a sample of volounteers, we create a small cut on both hands and put ointment on one of the two cuts^[And most likely a bandage on both.]. Does the ointment help. For each individual, we observe a *difference*. That is, one observation per person!
+
+|   | Subject 1    | S2   | S3   | S4  | S5  | S6   | S7   | S8   |
+|---|--------------|------|------|-----|-----|------|------|------|
+| With Oint | 6.44 | 6.06 | 4.22 | 3.3 | 6.5 | 3.49 | 7.01 | 4.22 |
+| Without   | 7.22 | 6.05 | 4.55 | 4   | 6.7 | 2.88 | 7.88 | 6.32 |
+| Difference| -0.78 | 0.01|-0.33|-0.7| -0.2 | 0.61 | -0.87 | -2.1 |
+
+*Note*: Differences were calculated as With minus Without! The last row of this table now represents our data - we can forget that the other two rows exist!
+
+This is where the assumption that we know the population standard deviation is preposterous: we're looking just at the differences! Even if there's a true value of the sd for healing time for all people, the standard deviation of the difference between healing times isn't a reasonable quantity to speak of.
+
+
+
+Since we're looking at the *difference*, we no longer have a hypothesized value of $\mu_0$. Instead, we hypothesize that the average pairwise difference is 0, i.e. $\mu_{with-without} = \mu_{diff} = 0$^[In other words, the healing times are the same for each subject]. The alternative is "with" < "without", i.e. $\mu_{diff} < 0$.^[This is where it's important to know that we did with minus without; we could have done without minus with, but then our alternate hypotheses would need to be >.]
+
+```{r echo = TRUE}
+x <- c(-0.78, 0.01, -0.33, -0.7, -0.2, 0.61, -0.87, -2.1)
+xbar <- mean(x)
+s <- sd(x)
+n <- length(x)
+
+t_obs <- (xbar - 0)/(s/sqrt(n)) # xbar is with - w/out
+pt(t_obs, df = n - 1) # Alternative is <
+```
+
+
+So our p-value is approximately 0.04. At the 5% level, the null hypothesis would be rejected and we would conclude that the ointment works^[A p-value says *nothing* about the effect size, so we can't say whether it's **practically significant**]. At the 1% level, we would conclude that it doesn't have a significant effect. This is why it's important to know the significance level before calculating the p-value - we now get to choose whether our results are statistically significant!
+
+# Self-Study Questions
+
+
+1. Explain why: If the $z_{obs}$ test statistic is the same as the $t_{obs}$ test statistic, then the p-value for $t_{obs}$ will be wider. 
+2. If a test is statistically signficant, does that mean there's a large effect size? That is, does a hypothesis test tell you anything about the size of the effect?
+    - Compare this to confidence intervals.
+3. Can we interpret a $t$ confidence interval as "all null hypothesis values that would not be rejected"?
+4. Re-do the ointment example, but using without - with.
+    a. Draw a t distribution and mark the two test statistics, then fill in the area that corresponds to the p-value. 
+
+
+
+
+
+
+
+
+
+
+
+

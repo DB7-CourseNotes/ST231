@@ -1,0 +1,193 @@
+---
+title: "Two-Sample t-Tests"
+author: "Devan Becker"
+date: "22/07/2020"
+output: 
+    beamer_presentation:
+        colortheme: Western2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# How much can one more sample complicate things?
+
+## Notation: Subscripts everywhere!
+
+We now have two samples.
+
+$\bar X_1\sim N(\mu_1, \sigma_1/\sqrt{n_1})$, where $s_1$ is the estimated standard deviation of a given sample.
+
+$\bar X_2\sim N(\mu_2, \sigma_2/\sqrt{n_2})$ \pause
+
+\quad
+
+*Goal:* Are the means the same? I.e., is $\mu_1 = \mu_2$?
+
+## How one more sample complicates things
+
+- What's the sampling distribution of a difference?\newline\pause
+
+- It turns out, it's complicated.\newline
+
+
+
+## The mean of the difference
+
+Here's the complicated bit: the mean of the difference is...\pause
+
+the difference in means.
+$$
+\bar X_1 - \bar X_2 \sim N(\mu_1 - \mu_2, ???)
+$$
+\pause
+
+Okay that was the easy part.
+
+
+
+## The standard deviation of a difference {.t}
+
+```{r}
+# approximating the sampling distribution
+differences <- c()
+for(i in 1:10000){
+    m1 <- mean(rnorm(22, 0, 2))
+    m2 <- mean(rnorm(33, 0, 3))
+    differences[i] <- m1 - m2
+}
+sd(differences)
+```
+
+... it's not at all obvious where this number comes from.
+
+
+## The standard deviation of a difference is...
+
+something like the sum\pause
+
+
+$$
+SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+$$
+\pause
+
+```{r}
+# Check
+sd(differences)
+sqrt(4/22 + 9/33) # Close enough
+```
+
+
+## Putting it Together
+
+$$
+\bar X_1 - \bar X_2 \sim N\left(\mu_1 - \mu_2, \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\right)
+$$
+
+## Aside: "Pooled Variance"
+
+- Assumes the populations are perfectly normal and have the same variance.\pause
+
+- You shouldn't assume this.
+
+# The Test Statistic
+
+## $s$ is estimated
+
+$$
+\frac{(\bar X_1 - \bar X_2) - (\mu_1 - \mu_2)}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} \sim t_{df=???}
+$$
+
+
+## The degrees of freedom
+
+- There's an ugly formula for the degrees of freedom. \newline\pause
+
+- We're not going to use it.\pause
+
+\quad
+
+Instead, just use the *smallest* sample size, and subtract 1 (or use R).
+
+## Two-Sample t-test and CI
+
+We are usually testing for the difference in means, i.e.
+\begin{align*}
+H_0: \mu_1 = \mu_2 &\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d = 0\\
+H_0: \mu_1 < \mu_2 &\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d < 0\\
+\end{align*}\vspace{-15mm}
+
+$$t_{obs} = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$$\vspace{-12mm}
+
+$$
+\text{p-value} = P(T < t_{obs}) = \texttt{pt(t\_obs, df = min(n1, n2)-1)}
+$$
+
+A $(1-\alpha)$ CI for $\mu_d$ is
+$$
+\bar x_1 - \bar x_2 \pm t^*\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+$$
+
+where $t^*$ is based on the smaller of $n_1 - 1$ and $n_2 - 1$
+
+
+# Examples
+
+## Two-Sample versus Matched
+
+From the Ointment example:
+
+|   | Subject 1    | S2   | S3   | S4  | S5  | S6   | S7   | S8   |
+|---|--------------|------|------|-----|-----|------|------|------|
+| With Oint | 6.44 | 6.06 | 4.22 | 3.3 | 6.5 | 3.49 | 7.01 | 4.22 |
+| Without   | 7.22 | 6.05 | 4.55 | 4   | 6.7 | 2.88 | 7.88 | 6.32 |
+| Difference| -0.78 | 0.01|-0.33|-0.7| -0.2 | 0.61 | -0.87 | -2.1 |
+
+
+## In R: Matched pairs (same as last lecture)
+
+```{r}
+withoint <- c(6.44, 6.06, 4.22, 3.3, 6.5, 3.49, 7.01, 4.22)
+without <- c(7.22, 6.05, 4.55, 4, 6.7, 2.88, 7.88, 6.32)
+diff <- withoint - without
+
+t.test(x = diff, alternative = "less")
+```
+
+
+## By "hand": Two-sample t-test
+
+```{r}
+mdiff <- mean(withoint) - mean(without)
+sediff <- sqrt(var(withoint)/8 + var(without)/8)
+
+pt(mdiff/sediff, df = 7)
+```
+
+
+## In R: Two-sample t-test
+
+```{r}
+t.test(x = withoint, y = without, alternative = "less")
+```
+
+## Conclusion
+
+- If you can have matched pairs, you should use a matched pairs test.\pause
+
+- Most of the time, you'll need to use a two-sample t-test.
+    - Don't get fooled by equal sample sizes!
+
+
+
+
+
+
+
+
+
+
+
+
