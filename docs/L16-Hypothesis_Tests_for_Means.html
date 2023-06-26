@@ -282,13 +282,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#its-all-the-same." id="toc-its-all-the-same." class="nav-link active" data-scroll-target="#its-all-the-same."><span class="header-section-number">14</span> It’s all the same.</a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">15</span> Examples</a>
+  <li><a href="#its-all-the-same." id="toc-its-all-the-same." class="nav-link active" data-scroll-target="#its-all-the-same."><span class="header-section-number">13.1</span> It’s all the same.</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">13.2</span> Examples</a>
   <ul class="collapse">
-  <li><a href="#pilot-fatigue" id="toc-pilot-fatigue" class="nav-link" data-scroll-target="#pilot-fatigue"><span class="header-section-number">15.1</span> Pilot Fatigue</a></li>
+  <li><a href="#pilot-fatigue" id="toc-pilot-fatigue" class="nav-link" data-scroll-target="#pilot-fatigue">Pilot Fatigue</a></li>
   </ul></li>
-  <li><a href="#matched-pairs" id="toc-matched-pairs" class="nav-link" data-scroll-target="#matched-pairs"><span class="header-section-number">16</span> Matched Pairs</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">17</span> Self-Study Questions</a></li>
+  <li><a href="#matched-pairs" id="toc-matched-pairs" class="nav-link" data-scroll-target="#matched-pairs"><span class="header-section-number">13.3</span> Matched Pairs</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">13.4</span> Self-Study Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -331,8 +331,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="its-all-the-same." class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> It’s all the same.</h1>
+<section id="its-all-the-same." class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="its-all-the-same."><span class="header-section-number">13.1</span> It’s all the same.</h2>
 <p>We’ve been over this before! If the population is normal (or the sample size is large enough) and we have an SRS, then <span class="math display">\[
 \frac{\bar X - \mu}{S/\sqrt{n}}\sim t_{n-1}
 \]</span></p>
@@ -343,10 +343,10 @@ t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
 <p>Since this is a <span class="math inline">\(t\)</span> distibution, we use <code>pt(t_obs, df = n -1)</code>, possibly one minus and/or double, depending on the alternate hypothesis.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>That’s it. That’s the big difference. When we estimate the standard deviation, we use the t-distribution.</p>
 </section>
-<section id="examples" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> Examples</h1>
-<section id="pilot-fatigue" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="pilot-fatigue"><span class="header-section-number">15.1</span> Pilot Fatigue</h2>
+<section id="examples" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">13.2</span> Examples</h2>
+<section id="pilot-fatigue" class="level3">
+<h3 class="anchored" data-anchor-id="pilot-fatigue">Pilot Fatigue</h3>
 <p>In the pilot fatigue example from the Understanding p-values lecture, we assumed that we had the population sd. I lied - it was actually a sample statistic! We should have used a t-test, not a z test.</p>
 <p>Recall:</p>
 <ul>
@@ -365,8 +365,8 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 <p>This is <em>larger</em> than our previous p-value of 0.0013. This will always be the case: if the <span class="math inline">\(z_{obs}\)</span> test statistic is the same as the <span class="math inline">\(t_{obs}\)</span> test statistic, then the p-value for <span class="math inline">\(t_{obs}\)</span> will be wider.</p>
 </section>
 </section>
-<section id="matched-pairs" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> Matched Pairs</h1>
+<section id="matched-pairs" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="matched-pairs"><span class="header-section-number">13.3</span> Matched Pairs</h2>
 <p>A matched pairs design allows us to use a one-sample t-test<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Since the pairs are matched, we can calculate the differences between pairs and treat this like a single vector of observations. It is honkey tonk ridonkulous to say that we know the true population standard deviation for the difference in observations, so a <span class="math inline">\(z\)</span> test could never be appropriate.</p>
 <p>The setup is the same as it was in the study design video. Given a sample of volounteers, we create a small cut on both hands and put ointment on one of the two cuts<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Does the ointment help. For each individual, we observe a <em>difference</em>. That is, one observation per person!</p>
 <table class="table">
@@ -436,8 +436,8 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 </div>
 <p>So our p-value is approximately 0.04. At the 5% level, the null hypothesis would be rejected and we would conclude that the ointment works<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. At the 1% level, we would conclude that it doesn’t have a significant effect. This is why it’s important to know the significance level before calculating the p-value - we now get to choose whether our results are statistically significant!</p>
 </section>
-<section id="self-study-questions" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> Self-Study Questions</h1>
+<section id="self-study-questions" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">13.4</span> Self-Study Questions</h2>
 <ol type="1">
 <li>Explain why: If the <span class="math inline">\(z_{obs}\)</span> test statistic is the same as the <span class="math inline">\(t_{obs}\)</span> test statistic, then the p-value for <span class="math inline">\(t_{obs}\)</span> will be wider.</li>
 <li>If a test is statistically signficant, does that mean there’s a large effect size? That is, does a hypothesis test tell you anything about the size of the effect?

@@ -248,17 +248,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#refresher" id="toc-refresher" class="nav-link active" data-scroll-target="#refresher"><span class="header-section-number">16</span> Refresher</a></li>
-  <li><a href="#hypothesis-tests-for-proportions" id="toc-hypothesis-tests-for-proportions" class="nav-link" data-scroll-target="#hypothesis-tests-for-proportions"><span class="header-section-number">17</span> Hypothesis tests for proportions</a>
+  <li><a href="#refresher" id="toc-refresher" class="nav-link active" data-scroll-target="#refresher"><span class="header-section-number">15.1</span> Refresher</a></li>
+  <li><a href="#hypothesis-tests-for-proportions" id="toc-hypothesis-tests-for-proportions" class="nav-link" data-scroll-target="#hypothesis-tests-for-proportions"><span class="header-section-number">15.2</span> Hypothesis tests for proportions</a>
   <ul class="collapse">
-  <li><a href="#the-test-statistic" id="toc-the-test-statistic" class="nav-link" data-scroll-target="#the-test-statistic"><span class="header-section-number">17.1</span> The Test Statistic</a></li>
+  <li><a href="#the-test-statistic" id="toc-the-test-statistic" class="nav-link" data-scroll-target="#the-test-statistic">The Test Statistic</a></li>
   </ul></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">18</span> Example</a>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">15.3</span> Example</a>
   <ul class="collapse">
-  <li><a href="#mendelian-genetics" id="toc-mendelian-genetics" class="nav-link" data-scroll-target="#mendelian-genetics"><span class="header-section-number">18.1</span> Mendelian Genetics</a></li>
-  <li><a href="#mendelian-genetics-part-2" id="toc-mendelian-genetics-part-2" class="nav-link" data-scroll-target="#mendelian-genetics-part-2"><span class="header-section-number">18.2</span> Mendelian Genetics Part 2</a></li>
+  <li><a href="#mendelian-genetics" id="toc-mendelian-genetics" class="nav-link" data-scroll-target="#mendelian-genetics">Mendelian Genetics</a></li>
+  <li><a href="#mendelian-genetics-part-2" id="toc-mendelian-genetics-part-2" class="nav-link" data-scroll-target="#mendelian-genetics-part-2">Mendelian Genetics Part 2</a></li>
   </ul></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">19</span> Self-Study Questions</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">15.4</span> Self-Study Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -301,8 +301,8 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="refresher" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> Refresher</h1>
+<section id="refresher" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="refresher"><span class="header-section-number">15.1</span> Refresher</h2>
 <p>In the lecture on sampling distributions, we learned that the sampling distribution of a sample proportion can be found as follows:</p>
 <p>If <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span>, then <span class="math display">\[
 \hat p \sim N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)
@@ -312,8 +312,8 @@ ul.task-list li input[type="checkbox"] {
 \]</span></p>
 <p>I said that this would be the last time I change the standard error. I will now make a liar out of myself.</p>
 </section>
-<section id="hypothesis-tests-for-proportions" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> Hypothesis tests for proportions</h1>
+<section id="hypothesis-tests-for-proportions" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="hypothesis-tests-for-proportions"><span class="header-section-number">15.2</span> Hypothesis tests for proportions</h2>
 <p>As before, we write our hypotheses: <span class="math display">\[
 H_0:p = p_0 \text{ vs. } H_A: p \{&gt;or&lt;or\ne\} p_0
 \]</span></p>
@@ -322,8 +322,8 @@ H_0:p = p_0 \text{ vs. } H_A: p \{&gt;or&lt;or\ne\} p_0
 <p>I swear, this is the last time I introduce a new standard error for the sampling distribution of the sample proportion. Assuming <span class="math inline">\(H_0\)</span> is true (and the conditions are met), <span class="math display">\[
 \hat p \sim N\left(p_0, \sqrt{\frac{p_0(1-p_0)}{n}}\right)
 \]</span></p>
-<section id="the-test-statistic" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="the-test-statistic"><span class="header-section-number">17.1</span> The Test Statistic</h2>
+<section id="the-test-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="the-test-statistic">The Test Statistic</h3>
 <p>As you can guess from the sampling distribution, the test statistic is:</p>
 <p><span class="math display">\[
 z_{obs} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}}
@@ -336,10 +336,10 @@ P(Z \{&gt;or&lt;or\text{ further away than}\} z_{obs}) = \dots
 <p>For a hypothesis test, we assume the null is true, i.e.&nbsp;<span class="math inline">\(p=p_0\)</span>. We should use this assumption <em>everywhere</em>! For a hypothesis test about a proportion, we check whether <span class="math inline">\(np_0&gt;10\)</span> and <span class="math inline">\(n(1-p_0)&gt;10\)</span><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
 </section>
 </section>
-<section id="example" class="level1" data-number="18">
-<h1 data-number="18"><span class="header-section-number">18</span> Example</h1>
-<section id="mendelian-genetics" class="level2" data-number="18.1">
-<h2 data-number="18.1" class="anchored" data-anchor-id="mendelian-genetics"><span class="header-section-number">18.1</span> Mendelian Genetics</h2>
+<section id="example" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="example"><span class="header-section-number">15.3</span> Example</h2>
+<section id="mendelian-genetics" class="level3">
+<h3 class="anchored" data-anchor-id="mendelian-genetics">Mendelian Genetics</h3>
 <p>To test his theory that 75% of plants would inheret a dominant gene, Gregor Mendel cross bred pure breeds of pea plants. Out of 7324 plants, 5474 showed the dominant trait. At the 4.5% level, is this compatible with the hypothesis of 75% dominant?</p>
 <p><strong>Solution:</strong></p>
 <ol type="1">
@@ -353,8 +353,8 @@ P(Z \{&gt;or&lt;or\text{ further away than}\} z_{obs}) = \dots
 </ol>
 <p>The last step is important: always word your conclusion in the context of the study.</p>
 </section>
-<section id="mendelian-genetics-part-2" class="level2" data-number="18.2">
-<h2 data-number="18.2" class="anchored" data-anchor-id="mendelian-genetics-part-2"><span class="header-section-number">18.2</span> Mendelian Genetics Part 2</h2>
+<section id="mendelian-genetics-part-2" class="level3">
+<h3 class="anchored" data-anchor-id="mendelian-genetics-part-2">Mendelian Genetics Part 2</h3>
 <p>Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5%<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> CI can be found as: <span class="math display">\[
 \hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}} = 0.747 \pm 2.005\sqrt{\frac{0.747(1-0.747)}{7324}}
 \]</span></p>
@@ -362,8 +362,8 @@ P(Z \{&gt;or&lt;or\text{ further away than}\} z_{obs}) = \dots
 <p>Note that <span class="math inline">\(\hat p\)</span> was used in the SE since the CI is not based on a hypothesis. For proportions, it is not true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors.</p>
 </section>
 </section>
-<section id="self-study-questions" class="level1" data-number="19">
-<h1 data-number="19"><span class="header-section-number">19</span> Self-Study Questions</h1>
+<section id="self-study-questions" class="level2" data-number="15.4">
+<h2 data-number="15.4" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">15.4</span> Self-Study Questions</h2>
 <ol type="1">
 <li>When do we use <span class="math inline">\(\hat p\)</span> in the standard error? When do we use <span class="math inline">\(p_0\)</span>?</li>
 <li>Explain why we don’t estimate the standard error in a hypothesis test about a proportion.</li>
