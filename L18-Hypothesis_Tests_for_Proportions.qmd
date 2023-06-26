@@ -18,7 +18,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Refresher
+## Refresher
 
 In the lecture on sampling distributions, we learned that the sampling distribution of a sample proportion can be found as follows:
 
@@ -35,7 +35,7 @@ $$
 I said that this would be the last time I change the standard error. I will now make a liar out of myself.
 
 
-# Hypothesis tests for proportions
+## Hypothesis tests for proportions
 
 
 As before, we write our hypotheses:
@@ -53,7 +53,7 @@ $$
 $$
 
 
-## The Test Statistic
+### The Test Statistic
 
 As you can guess from the sampling distribution, the test statistic is:
 
@@ -74,9 +74,9 @@ For a hypothesis test, we assume the null is true, i.e. $p=p_0$. We should use t
 
 
 
-# Example
+## Example
 
-## Mendelian Genetics 
+### Mendelian Genetics 
 
 To test his theory that 75% of plants would inheret a dominant gene, Gregor Mendel cross bred pure breeds of pea plants. Out of 7324 plants, 5474 showed the dominant trait. At the 4.5% level, is this compatible with the hypothesis of 75% dominant?
 
@@ -90,7 +90,7 @@ To test his theory that 75% of plants would inheret a dominant gene, Gregor Mend
 
 The last step is important: always word your conclusion in the context of the study.
 
-## Mendelian Genetics Part 2
+### Mendelian Genetics Part 2
 
 Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5\%^[$\alpha = 0.045$, so $1 - \alpha = 0.955$.] CI can be found as:
 $$
@@ -102,7 +102,7 @@ which results in the CI (0.737, 0.758).
 Note that $\hat p$ was used in the SE since the CI is not based on a hypothesis. For proportions, it is not true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors. 
 
 
-# Self-Study Questions
+## Self-Study Questions
 
 1. When do we use $\hat p$ in the standard error? When do we use $p_0$?
 2. Explain why we don't estimate the standard error in a hypothesis test about a proportion.

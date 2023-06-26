@@ -20,7 +20,7 @@ library(dplyr)
 library(ggplot2)
 ```
 
-# It's all the same.
+## It's all the same.
 
 
 We've been over this before! If the population is normal (or the sample size is large enough) and we have an SRS, then
@@ -41,9 +41,9 @@ Since this is a $t$ distibution, we use `pt(t_obs, df = n -1)`, possibly one min
 That's it. That's the big difference. When we estimate the standard deviation, we use the t-distribution.
 
 
-# Examples
+## Examples
 
-## Pilot Fatigue
+### Pilot Fatigue
 
 In the pilot fatigue example from the Understanding p-values lecture, we assumed that we had the population sd. I lied - it was actually a sample statistic! We should have used a t-test, not a z test.
 
@@ -66,7 +66,7 @@ Using the $t$ distribution, our p-value is:
 This is *larger* than our previous p-value of 0.0013. This will always be the case: if the $z_{obs}$ test statistic is the same as the $t_{obs}$ test statistic, then the p-value for $t_{obs}$ will be wider. 
 
 
-# Matched Pairs
+## Matched Pairs
 
 A matched pairs design allows us to use a one-sample t-test^[We'll learn about two-sample t-tests in the next lecture.]. Since the pairs are matched, we can calculate the differences between pairs and treat this like a single vector of observations. It is honkey tonk ridonkulous to say that we know the true population standard deviation for the difference in observations, so a $z$ test could never be appropriate.
 
@@ -99,7 +99,7 @@ pt(t_obs, df = n - 1) # Alternative is <
 
 So our p-value is approximately 0.04. At the 5% level, the null hypothesis would be rejected and we would conclude that the ointment works^[A p-value says *nothing* about the effect size, so we can't say whether it's **practically significant**]. At the 1% level, we would conclude that it doesn't have a significant effect. This is why it's important to know the significance level before calculating the p-value - we now get to choose whether our results are statistically significant!
 
-# Self-Study Questions
+## Self-Study Questions
 
 
 1. Explain why: If the $z_{obs}$ test statistic is the same as the $t_{obs}$ test statistic, then the p-value for $t_{obs}$ will be wider. 

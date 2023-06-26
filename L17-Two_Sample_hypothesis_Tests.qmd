@@ -11,9 +11,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# How much can one more sample complicate things?
+## How much can one more sample complicate things?
 
-## Notation: Subscripts everywhere!
+### Notation: Subscripts everywhere!
 
 We now have two samples.
 
@@ -25,7 +25,7 @@ $\bar X_2\sim N(\mu_2, \sigma_2/\sqrt{n_2})$ \pause
 
 *Goal:* Are the means the same? I.e., is $\mu_1 = \mu_2$?
 
-## How one more sample complicates things
+### How one more sample complicates things
 
 - What's the sampling distribution of a difference?\newline\pause
 
@@ -33,7 +33,7 @@ $\bar X_2\sim N(\mu_2, \sigma_2/\sqrt{n_2})$ \pause
 
 
 
-## The mean of the difference
+### The mean of the difference
 
 Here's the complicated bit: the mean of the difference is...\pause
 
@@ -47,10 +47,10 @@ Okay that was the easy part.
 
 
 
-## The standard deviation of a difference {.t}
+### The standard deviation of a difference {.t}
 
 ```{r}
-# approximating the sampling distribution
+## approximating the sampling distribution
 differences <- c()
 for(i in 1:10000){
     m1 <- mean(rnorm(22, 0, 2))
@@ -63,7 +63,7 @@ sd(differences)
 ... it's not at all obvious where this number comes from.
 
 
-## The standard deviation of a difference is...
+### The standard deviation of a difference is...
 
 something like the sum\pause
 
@@ -74,34 +74,34 @@ $$
 \pause
 
 ```{r}
-# Check
+## Check
 sd(differences)
 sqrt(4/22 + 9/33) # Close enough
 ```
 
 
-## Putting it Together
+### Putting it Together
 
 $$
 \bar X_1 - \bar X_2 \sim N\left(\mu_1 - \mu_2, \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\right)
 $$
 
-## Aside: "Pooled Variance"
+### Aside: "Pooled Variance"
 
 - Assumes the populations are perfectly normal and have the same variance.\pause
 
 - You shouldn't assume this.
 
-# The Test Statistic
+## The Test Statistic
 
-## $s$ is estimated
+### $s$ is estimated
 
 $$
 \frac{(\bar X_1 - \bar X_2) - (\mu_1 - \mu_2)}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} \sim t_{df=???}
 $$
 
 
-## The degrees of freedom
+### The degrees of freedom
 
 - There's an ugly formula for the degrees of freedom. \newline\pause
 
@@ -111,7 +111,7 @@ $$
 
 Instead, just use the *smallest* sample size, and subtract 1 (or use R).
 
-## Two-Sample t-test and CI
+### Two-Sample t-test and CI
 
 We are usually testing for the difference in means, i.e.
 \begin{align*}
@@ -133,9 +133,9 @@ $$
 where $t^*$ is based on the smaller of $n_1 - 1$ and $n_2 - 1$
 
 
-# Examples
+## Examples
 
-## Two-Sample versus Matched
+### Two-Sample versus Matched
 
 From the Ointment example:
 
@@ -146,7 +146,7 @@ From the Ointment example:
 | Difference| -0.78 | 0.01|-0.33|-0.7| -0.2 | 0.61 | -0.87 | -2.1 |
 
 
-## In R: Matched pairs (same as last lecture)
+### In R: Matched pairs (same as last lecture)
 
 ```{r}
 withoint <- c(6.44, 6.06, 4.22, 3.3, 6.5, 3.49, 7.01, 4.22)
@@ -157,7 +157,7 @@ t.test(x = diff, alternative = "less")
 ```
 
 
-## By "hand": Two-sample t-test
+### By "hand": Two-sample t-test
 
 ```{r}
 mdiff <- mean(withoint) - mean(without)
@@ -167,13 +167,13 @@ pt(mdiff/sediff, df = 7)
 ```
 
 
-## In R: Two-sample t-test
+### In R: Two-sample t-test
 
 ```{r}
 t.test(x = withoint, y = without, alternative = "less")
 ```
 
-## Conclusion
+### Conclusion
 
 - If you can have matched pairs, you should use a matched pairs test.\pause
 
