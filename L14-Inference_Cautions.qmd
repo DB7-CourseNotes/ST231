@@ -1,12 +1,63 @@
 ---
-title: "The Multiple Comparisons Problem"
+title: "Special Topics in Inference"
 author: "Devan Becker"
-date: "2023-06-25"
+date: "2023-06-26"
+execute:
+    cache: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+
+Now that we've covered the basics of confidence intervals and p-values, there is a huge world of inference to explore! What follows is a small window into the cautions and best practices of inference, especially with regards to p-values.
+
+## Interpreting p-values
+
+A p-value is **the probability of a result that is at least as extreme as the one we observed, given that the null hypothesis is true.** 
+
+It's a measure of evidence against the null. We assume that the null is true, then ask how likely our sample would be. There isn't a problem with our sample, so if it's unlikely then it must be our assumption that is wrong.
+
+::: {.callout-important}
+### "Given that the null hypothesis is true"
+
+Any interpretation of a p-value that does not assume that the null hypothesis is true is a bad interpretation.
+:::
+
+## Statistical Versus Practical Significance
+
+Suppose a new drug claims to increase your lifespan significantly. Wow! That sounds great! 
+
+After hearing this claim, you dig into the paper that made the claim, and found that the drug increases the average lifespan by 3 hours. How can they claim this was significant???
+
+This is the difference between statistical and practical significance. The probability of a result *at least as extreme*, given that the null hypothesis is true, says nothing of *how extreme* the results are. A very small **effect size** can be statistically significant, even if it's not a noticable change in practice.
+
+Furthermore, maybe this new drug costs $1,000 per day and has intense nausea as a side-effect. A statistically significant difference says *absolutely nothing* about the practical effects. 
+
+::: {.callout-important}
+### p-values were never meant to be the goal of a study.
+
+They are yet another tool in the health researcher's repertoire, meant to test whether data provide enough evidence against a very particular hypothesis.
+:::
+
+## Choosing a Significance Level
+
+To build intuition, we start from the extremes:
+
+- A significance level of $\alpha = 0$ will *never* reject the null hypothesis.
+    - No amount of evidence will convince you.
+- A siginficance level of $\alpha = 1$ will *always* reject the null hypothesis.
+    - Any evidence will convince you.
+
+When setting a confidence level, you must consider how much evidence you require. To quote Carl Sagan: "Extraordinary claims require extraordinary evidence."
+
+Here are some examples:
+
+- A new cancer treatment costs 10 times as much and the patient will never heal back to 100% health. To justify such a procedure, we want to be *reeeeeaaaaalllly* sure that it works, so we might set a significance level of $\alpha=0.001$ before we collect any data.
+- We are making a slight change to an advertising strategy that is based on scientific evidence. We're fairly certain it will work, and the consequences of it not working are very small. A larger significance level, perhaps $\alpha = 0.1$, might be appropriate. 
+    - $\alpha = 0.1$ is probably the largest significance level you will ever encounter.
+- 👽 **Aliens example**: There's an abberation in an image taken by a digital camera. According to the manufacturer, such an abberation would occur in 0.0001% of the pictures. If we think it's aliens, that's an extraordinary claim! We'd need some very strong evidence. Do you think that 0.0001% is strong enough? (We'll return to this later in the chapter.)
 
 ## Hypothesis Errors
 
@@ -22,8 +73,19 @@ In other words:\vspace{-3mm}
 - **Type 1:** False Positive
 - **Type 2:** False Negative
 
+There's another important point here: rejecting the null hypothesis does *not* mean that it's actually false! Any number of things might have happened, such as including an outlier or taking a biased sample. 
 
-### Probability of errors
+Similarly, failing to reject a null does *not* mean that it's true. We've already talked about this a bit - confidence intervals are all values that would not be rejected by a hypothesis test, so there are *many* plausible null hypotheses! However, we can also fail to reject the null *even though it's false*. This can also happen for multiple reasons:
+
+- Sample size is too small. 
+    - The distance between the null and the sample mean is calculated relative to the standard error. The standard error *decreases* with a larger sample, so if our sample isn't big enough then we might not have collected enough evidence to reject the null, regardless of whether it's true.
+- Large variability in the data.
+    - This is the other thing that can increase the standard error. With more variation, the distance between the null and the sample mean doesn't seem as large!
+    - We can fix this with better sampling strategies and with better study designs, or by getting a larger sample size!
+- Our significance level is too high.
+    - This isn't really something that we can change after we've seen the data.^[We can think long and hard about it *before* seeing the data, but once we see the data we are commited to a particular significance level. Anything else is borderline fraud, depending on the circumstances.]
+
+### The Probability of Type 1 Errors
 
 What's the probability your reject the null, even though it's true? Let's say we reject the null if the p-value is, say, less than 5%. This means that any value in the 5% tails of the distribution would lead to us rejecting the null hypothesis - even though it's true!^[Recall: the p-value is the probability of a result that is at least as extreme *assuming that the null hypothesis is true*!] The probability that we do this is 5%, since there's a 5% chance that we'll see a value that is "too unlikey" at the 5% level.
 
@@ -90,7 +152,7 @@ If the null is actually false^[False in the population, not just rejected due to
 
 **Power** is our ability to correctly reject a false null hypothesis, and is defined as 1 - P(Type 2 Error)
 
-These examples are both missing the **Standard Error**, which incorporates sample size. The power depends on the distance between $\mu$ and $\mu_0$ relative to the standard error, not just the population standard deviation. We can partially control the standard error by having a better study design^[to reduce $s$] and a larger sample size, both of which would give us more power.
+Note that these examples are both missing the **Standard Error**, which incorporates sample size. The power depends on the distance between $\mu$ and $\mu_0$ relative to the standard error, not just the population standard deviation. We can partially control the standard error by having a better study design^[to reduce $s$] and a larger sample size, both of which would give us more power.
 
 ### Power by Simulation (DIY)
 
@@ -143,6 +205,14 @@ P($\ge$ 1 rejection in 10 hypotheses) =
 
 In other words, there's about a 40% chance that we'd get at least one significant result *even though all of the null hypotheses are true*.^[Note that if the hypotheses are all based on the same data then they're probably not independent.]
 
+::: {.callout-important}
+### The Multiple Comparisons Problem
+
+When checking more than one hypothesis, the probability of an error increases! 
+
+This happens for both Type 1 and Type 2 errors, but is especially important for Type 1 errors. If you test $n$ errors at the $\alpha$% level, then the probability of a Type 1 error is $1 -(1 - \alpha)^n$.
+:::
+
 So how do we avoid the multiple comparisons problem? There are generally two ways to do it:
 
 1. Set a **Family-Wise Error Rate**, rather than an error rate for individual hypothesis tests. 
@@ -153,6 +223,8 @@ So how do we avoid the multiple comparisons problem? There are generally two way
     - If you check a second hypothesis, then your significance level is a lie! Testing two true null hypotheses at the 5% level will result in a significant result 9.75% of the time.
 
 Failure to account for multiple hypothesis testing is bad science and it's a path to the dark side. Consider this fantastic tool by [fivethirtyeight](https://projects.fivethirtyeight.com/p-hacking/). Play around with it - by checking a bunch of hypotheses, you can hack your way into finding one that supports your own point of view! In this particular example, your goal is to prove that either (a) the economy does better when a democrat in the white house or (b) the economy does better when a republican is in the white house. Both of these can be demonstrated with a statistically significant result if you check enough hypotheses!
+
+Let's return to the 👽 **aliens** example. We observed an abberation that only happens in 0.0001% of the pictures taken. However, *we took thousands of pictures*! Even though this event is rare, it had many chances to happen. This is exactly what multiple hypothesis testing is demonstrating: rare events will happen if you give them enough chances! Rejecting the null when it is actually true is a rare event, but it can easily happen if we check a lot of p-values!
 
 ## Summary
 
