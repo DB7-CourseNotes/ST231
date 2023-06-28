@@ -17,25 +17,25 @@ If $X\sim N(\mu,\sigma)$, where $\sigma$ *is known*, then a $(1-\alpha)$CI for $
 $$
 \bar x \pm z^*\frac{\sigma}{\sqrt{n}}
 $$
-where $z^*$ is found such that $P(Z < -z^*) = \alpha/2$
-    - or $P(Z > z^*) = \alpha/2$
-    - or $P(Z < z^*) = 1 - \alpha/2$
-    - or $P(Z > -z^*) = 1 - \alpha/2$
+where $z^*$ is found such that $P(Z < -z^*) = \alpha/2$,
 
-A natrual question is: why not use $s$, the **sample standard deviation**?
+- or we could have found $z^*$ such that $P(Z > z^*) = \alpha/2$,
+- or $P(Z < z^*) = 1 - \alpha/2$,
+- or $P(Z > -z^*) = 1 - \alpha/2$.
 
-To demonstrate why we can't just use $s$, I have set up a simulation study.
+A natural question is: why not use $s$, the **sample standard deviation**?
+
+To demonstrate why we can't just use $s$, I have set up a simulation. I like simulations.
 
 
 ### Simulation Setup
 
 1. Take random values from the standard normal distribution.
 2. Calculate the mean and sd.
-3. Calculate the 95\% confidence interval with $\sigma$ and with $s$.
+3. Calculate the 95% confidence interval with $\sigma$ and with $s$, both using a $z$ value.
 4. Record whether the population mean is in the interval.
 5. Count how many intervals contain the population mean.
     - Should be 95% of them!
-
 
 Before we begin, I want to show some R code for finding confidence intervals. If you're given that $\bar x = 7.28$, $n=15$, $\sigma = 1.24$, and you want to calculate a 95\% CI:^[You'll need to do this sort of thing on a test/assignment.]
 
@@ -52,6 +52,20 @@ Alternatively, we can use `c(-1, 1)` to stand in for "$\pm$". The code is a litt
 7.28 + c(-1, 1)*z_star*1.24/sqrt(15)
 ```
 
+Suppose that, unbeknownst to us, the true population mean was 7. To check if this is in our calculated confidence interval, we have to check that it's larger than the lower bound AND less than the upper bound:
+
+```{r}
+7 > 7.28 - z_star*1.24/sqrt(15) 
+7 < 7.28 + z_star*1.24/sqrt(15) 
+```
+
+This can be combined into code as follows:
+
+```{r}
+(7 > 7.28 - z_star*1.24/sqrt(15)) & (7 < 7.28 + z_star*1.24/sqrt(15))
+```
+
+This is enough to set up the simulation. Basically, we're going to generate a random data set from a known population, then check if the confidence interval contains the true mean. We'll do this thousands of times, and check which proportion contain the true mean. We're hoping it's 95%!
 
 ### Simulation Code
 
@@ -132,13 +146,13 @@ hist(sample_vars * (n - 1) / (pop_sd^2), breaks = 25, freq = FALSE,
 curve(dchisq(x, n - 1), add = TRUE, col = 2, lwd = 2)
 ```
 
-As can be seen in the plots above, the sampling distributions for the mean and variance are well known. Also, the sampling distribution for the variance is skewed, and therefore cannot be normal!
+As you can tell from the fact that I knew how to draw the correct curve on the plots, the sampling distributions for the mean and variance are well known. Also, the sampling distribution for the variance is skewed, and therefore cannot be normal!
 
 When we use $\bar x+ z^*s/\sqrt{n}$, $\bar x$ has variance, but so does $s$.^[Both are **random variables.**] This is why the CI changes. When we know $\sigma$, the **Margin of Error** (MoE) is always the same. When the standard deviation changes for each sample, so does the MoE.
 
 ### Simulation: The Distribution of the Margin of Error
 
-The sampling distribution of the Margin of Error is interesting to look at. This section is entirely option - you just need to know that each sample has a different margin of error.
+The sampling distribution of the Margin of Error is interesting to look at. This section is entirely optional - you just need to know that each sample has a different margin of error.
 
 ```{r sim_MoE}
 n <- 10
@@ -192,7 +206,7 @@ Before we move on, notice how the formula with $\sigma$ results in N(0,1), which
 
 There are two main features of the $t$ distribution that I want you to know:
 
-- It's centered at 0.^[Just like N(0,1)]
+- It's centered at 0, just like N(0,1).
 - It's more variable than the normal distribution.
 
 The second point is demonstrated in the following plot:
@@ -227,10 +241,10 @@ This shows up in the critical values:
 abs(qnorm(0.05/2)) # z^*
 abs(qt(0.05/2, df = 15 - 1)) # t^* n = 15
 abs(qt(0.05/2, df = 30 - 1)) # n = 30
-abs(qt(0.05/2, df = 50 - 1)) # n = 30
+abs(qt(0.05/2, df = 50 - 1)) # n = 50
 ```
 
-Note that, just like `qbinom` finds the value such of a binomial distribution such that 0.025\% of the distribution is to the left and `qnorm` finds the z-values such that 0.025 is to the left, `qt`^[The person reading this is a cutie.] finds the t-value.
+Note that, just like how `qbinom` finds the value such of a binomial distribution such that 0.025\% of the distribution is to the left and `qnorm` finds the z-values such that 0.025 is to the left, `qt`^[The person reading this is a cutie.] finds the t-value.
 
 ```{r}
 n_seq <- seq(2, 100, by = 2)
@@ -248,6 +262,11 @@ axis(2, abs(qnorm(0.05/2)), "z*", col = 3, font = 2, col.axis = 3)
 
 Since there's more probability in the tails, you have to go further out to find the point such that 0.025 of the distribution is to the left.^[Try this for other $\alpha$ values and larger $n$.] The $t$ distribution allows for more variance due to the variance of $s$, and it does this by having larger critical values.
 
+::: {.callout-information}
+### The $t$-distribution
+
+The $t$ distribution has higher variance than the Normal distribution due to the extra uncertainty in estimating $s$.
+:::
 
 ## The $t$ Confidence Interval
 
@@ -256,7 +275,7 @@ $$
 \bar x \pm t_{n-1}^*s/\sqrt{n}
 $$
 
-where $t^*_{n-1}$ comes from `abs(qt(alpha/2, df = n-1))`.^[Note: I'm not even going to bother writing out the $P()$ notation for $t^*_{n-1}$ because you'll never use it. You'll only need to find $t^*_{n-1}$ in this course.]
+where $t^*_{n-1}$ comes from `abs(qt(alpha/2, df = n-1))`.^[Note: I'm not even going to bother writing out the $P()$ notation for $t^*_{n-1}$ because you'll never use it. You'll only ever need to find $t^*_{n-1}$ in this course.]
 
 This has the same interpretation as the Z CI: 95\% of the intervals constructed this way will contain the true population mean. This does **NOT** mean that there's a 95\% chance that the interval contains the true mean.
 
@@ -298,7 +317,7 @@ mean(sigma_does)
 mean(s_does)
 ```
 
-Now both of them contain the mean 95\% of the time!^[This means it's working!] The difference between them is that the t CI doesn't have as much information as the Z CI - the Z CI knows what the population sd is, but the t CI doesn't. This is kinda magical: using math, we made it so that we don't have to make assumptions in order to get at the truth!
+Now both of them contain the mean 95\% of the time!^[This means it's working!] The difference between them is that the t CI doesn't have as much information as the Z CI - the Z CI knows what the population sd is, but the t CI doesn't. This is kinda magical: using math, we can get the truth with fewer assumptions!
 
 ## Examples
 
@@ -326,9 +345,13 @@ It's only slightly wider. The sample size is large enough that the variance in t
     4. The variance is $4.69^2 = 21.9961$
 
 
+## Summary
 
+This lesson could have been two sentences: The sample standard deviation has variance, so each confidence interval based on $s$ is slightly different. To account for this, we use the $t$ distribution. Then again, when someone tells me their name at a party I immediately forget it. Hopefully this long-winded exploration helps you understand why these facts are true and how they're relevant to the course.
 
+Note that all of the best practices for inference still apply! We can still get smaller intervals by taking better samples with larger sample sizes, and we still have to be careful to *never* speak of a calculated confidence interval in terms of chance.
 
+The $t$ confidence interval is actually used in practice. We'll see some code that calculates the interval for us in the next lecture, and then we'll never have to use `qt()` again! (Except possibly to demonstrate knowledge on tests.)
 
 
 
