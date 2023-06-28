@@ -613,7 +613,7 @@ What shape is the distribution on the right?
 #| echo: false
 #| eval: true
 #| fig-height: 4
-
+set.seed(2112)
 simdata <- rnorm(1000)^1.25
 ggplot() +
     aes(x = simdata) +

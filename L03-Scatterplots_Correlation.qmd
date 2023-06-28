@@ -4,6 +4,11 @@ institute: "Jam: *Response* by Barcelona"
 date: May 15, 2023
 ---
 
+```{r}
+#| echo: false
+#| eval: true
+set.seed(2112)
+```
 
 ## Relationships
 

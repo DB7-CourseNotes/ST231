@@ -3,7 +3,11 @@ title: "Regression"
 institute: "Jam:  by "
 ---
 
-
+```{r}
+#| echo: false
+#| eval: true
+set.seed(2112)
+```
 
 ## Introduction
 
