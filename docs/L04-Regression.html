@@ -333,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Just like we assume that there’s a “true” population mean, there is also a “true” slope and intercept for the line that characterizes the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. In the plot below, the green line represents the “true” relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and the data are random values above and below that line<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>In high school, you may have learned a line as <span class="math inline">\(y = mx + b\)</span>. In statistics, we often use latin letters for estimates and greek letters for population parameters<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The population line is thus:</p>
@@ -416,7 +416,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">3</span>, a <span class="sc">+</span> b<span class="sc">*</span><span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It looks like this is somewhere around where we would expect.</p>
@@ -427,7 +427,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## abline adds a line with slope b and intercept a to a plot.</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> a, <span class="at">b =</span> b, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>We cal also see the values of <span class="math inline">\(e\)</span>, the residuals.</p>
@@ -437,7 +437,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## abline can also draw a line with slope 0 (horizontal)</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -504,7 +504,7 @@ R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Varian
 <p>The third plot shows where this variance went. <em>The line itself has variance</em>; there is deviation in the line above and below the mean of <span class="math inline">\(y\)</span>. This is the variance that gets explained by incorporating <span class="math inline">\(x\)</span>! If you consider one of the points in <span class="math inline">\(y\)</span>, say <span class="math inline">\(y_1\)</span>, the distance between <span class="math inline">\(y_1\)</span> and <span class="math inline">\(\bar y\)</span> can be split up into the difference between <span class="math inline">\(\bar y\)</span> and the regression line plus the distance between the regression line and <span class="math inline">\(y_1\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The rest of the variance is left <strong>unexplianed</strong>. No regression will ever be perfect unless we are studing a very very simple .</p>
@@ -524,7 +524,7 @@ R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Varian
 <p>In the plot below, the black dots are the original data, and we’re trying to predict a new value at <span class="math inline">\(x = 25\)</span>. The red line is the true model that I generated the data from. The black line represents a linear model. This model fits the original data quite well<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, but predictions are completely inappropriate for values outside the data.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -533,13 +533,13 @@ R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Varian
 <p>The black line in the plot below represents a regression where all of the data was lumped together. As we can see, this line does not seem to fit the data well. There is a hidden relationship in the the data - the green points and the red points should be considered separately<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>A more serious consequence of a lurking variable has shown up before in the Palmer penguins data. In that example, the lurking variable actually <strong>reversed</strong> the correlation - if we lumped the groups together we got a negative correlation (and therefore negative slope), but if we looked at the groups individually we got positive associations in all of the groups! This is called <strong>Simpson’s Paradox</strong>, and basically means that we have to be very careful about interpreting correlations!</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L04-Regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="L04-Regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 

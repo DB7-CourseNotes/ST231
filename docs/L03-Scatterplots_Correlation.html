@@ -467,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Flipper Length (mm)"</span>,</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -495,7 +495,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Flipper Length (mm)"</span>,</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Body Mass (g)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -586,7 +586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y4 <span class="sc">~</span> x4, <span class="at">data =</span> anscombe)</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(y4 <span class="sc">~</span> x4, <span class="at">data =</span> anscombe))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="864"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="864"></p>
 </div>
 </div>
 <div class="notes">
@@ -639,7 +639,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Stronger correlation"</span>)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">/</span> g2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -724,7 +724,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1 <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It looks relatively linear. Take a moment to think of how correlated these two variables are, and assign it a value between 0 and 1. This is how you would guess the correlation coefficient</p>
@@ -755,7 +755,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>x1, anscombe<span class="sc">$</span>y1<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -797,7 +797,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="576"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 </div>
@@ -810,7 +810,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <h3 class="anchored" data-anchor-id="example-penguins">Example: Penguins</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="768"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <div class="notes">
@@ -884,7 +884,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="co">#+ </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="576"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="576"></p>
 </div>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">#geom_smooth(method = "lm", formula = y~x, se = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -901,7 +901,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y<span class="sc">~</span>x, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="576"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="576"></p>
 </div>
 </div>
 </div>
@@ -937,7 +937,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(mtcars<span class="sc">$</span>mpg, mtcars<span class="sc">$</span>wt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
