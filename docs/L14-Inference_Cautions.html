@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2023-06-25">
+<meta name="dcterms.date" content="2023-06-26">
 
-<title>Course Notes for ST231 - 11&nbsp; The Multiple Comparisons Problem</title>
+<title>Course Notes for ST231 - 11&nbsp; Special Topics in Inference</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L14-Inference_Cautions.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Multiple Comparisons Problem</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L14-Inference_Cautions.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics in Inference</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./L14-Inference_Cautions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Multiple Comparisons Problem</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics in Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -282,15 +282,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#hypothesis-errors" id="toc-hypothesis-errors" class="nav-link active" data-scroll-target="#hypothesis-errors"><span class="header-section-number">11.1</span> Hypothesis Errors</a>
+  <li><a href="#interpreting-p-values" id="toc-interpreting-p-values" class="nav-link active" data-scroll-target="#interpreting-p-values"><span class="header-section-number">11.1</span> Interpreting p-values</a></li>
+  <li><a href="#statistical-versus-practical-significance" id="toc-statistical-versus-practical-significance" class="nav-link" data-scroll-target="#statistical-versus-practical-significance"><span class="header-section-number">11.2</span> Statistical Versus Practical Significance</a></li>
+  <li><a href="#choosing-a-significance-level" id="toc-choosing-a-significance-level" class="nav-link" data-scroll-target="#choosing-a-significance-level"><span class="header-section-number">11.3</span> Choosing a Significance Level</a></li>
+  <li><a href="#hypothesis-errors" id="toc-hypothesis-errors" class="nav-link" data-scroll-target="#hypothesis-errors"><span class="header-section-number">11.4</span> Hypothesis Errors</a>
   <ul class="collapse">
-  <li><a href="#probability-of-errors" id="toc-probability-of-errors" class="nav-link" data-scroll-target="#probability-of-errors">Probability of errors</a></li>
+  <li><a href="#the-probability-of-type-1-errors" id="toc-the-probability-of-type-1-errors" class="nav-link" data-scroll-target="#the-probability-of-type-1-errors">The Probability of Type 1 Errors</a></li>
   <li><a href="#the-probability-of-type-2-errors" id="toc-the-probability-of-type-2-errors" class="nav-link" data-scroll-target="#the-probability-of-type-2-errors">The Probability of Type 2 Errors</a></li>
   <li><a href="#power-by-simulation-diy" id="toc-power-by-simulation-diy" class="nav-link" data-scroll-target="#power-by-simulation-diy">Power by Simulation (DIY)</a></li>
   </ul></li>
-  <li><a href="#multiple-comparisons" id="toc-multiple-comparisons" class="nav-link" data-scroll-target="#multiple-comparisons"><span class="header-section-number">11.2</span> Multiple Comparisons</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11.3</span> Summary</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">11.4</span> Self-Study Questions</a></li>
+  <li><a href="#multiple-comparisons" id="toc-multiple-comparisons" class="nav-link" data-scroll-target="#multiple-comparisons"><span class="header-section-number">11.5</span> Multiple Comparisons</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11.6</span> Summary</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">11.7</span> Self-Study Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -299,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">The Multiple Comparisons Problem</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics in Inference</span></h1>
 </div>
 
 
@@ -323,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-06-25</p>
+      <p class="date">2023-06-26</p>
     </div>
   </div>
   
@@ -333,8 +336,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="hypothesis-errors" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="hypothesis-errors"><span class="header-section-number">11.1</span> Hypothesis Errors</h2>
+<p>Now that we’ve covered the basics of confidence intervals and p-values, there is a huge world of inference to explore! What follows is a small window into the cautions and best practices of inference, especially with regards to p-values.</p>
+<section id="interpreting-p-values" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="interpreting-p-values"><span class="header-section-number">11.1</span> Interpreting p-values</h2>
+<p>A p-value is <strong>the probability of a result that is at least as extreme as the one we observed, given that the null hypothesis is true.</strong></p>
+<p>It’s a measure of evidence against the null. We assume that the null is true, then ask how likely our sample would be. There isn’t a problem with our sample, so if it’s unlikely then it must be our assumption that is wrong.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+“Given that the null hypothesis is true”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Any interpretation of a p-value that does not assume that the null hypothesis is true is a bad interpretation.</p>
+</div>
+</div>
+</section>
+<section id="statistical-versus-practical-significance" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="statistical-versus-practical-significance"><span class="header-section-number">11.2</span> Statistical Versus Practical Significance</h2>
+<p>Suppose a new drug claims to increase your lifespan significantly. Wow! That sounds great!</p>
+<p>After hearing this claim, you dig into the paper that made the claim, and found that the drug increases the average lifespan by 3 hours. How can they claim this was significant???</p>
+<p>This is the difference between statistical and practical significance. The probability of a result <em>at least as extreme</em>, given that the null hypothesis is true, says nothing of <em>how extreme</em> the results are. A very small <strong>effect size</strong> can be statistically significant, even if it’s not a noticable change in practice.</p>
+<p>Furthermore, maybe this new drug costs $1,000 per day and has intense nausea as a side-effect. A statistically significant difference says <em>absolutely nothing</em> about the practical effects.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+p-values were never meant to be the goal of a study.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>They are yet another tool in the health researcher’s repertoire, meant to test whether data provide enough evidence against a very particular hypothesis.</p>
+</div>
+</div>
+</section>
+<section id="choosing-a-significance-level" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="choosing-a-significance-level"><span class="header-section-number">11.3</span> Choosing a Significance Level</h2>
+<p>To build intuition, we start from the extremes:</p>
+<ul>
+<li>A significance level of <span class="math inline">\(\alpha = 0\)</span> will <em>never</em> reject the null hypothesis.
+<ul>
+<li>No amount of evidence will convince you.</li>
+</ul></li>
+<li>A siginficance level of <span class="math inline">\(\alpha = 1\)</span> will <em>always</em> reject the null hypothesis.
+<ul>
+<li>Any evidence will convince you.</li>
+</ul></li>
+</ul>
+<p>When setting a confidence level, you must consider how much evidence you require. To quote Carl Sagan: “Extraordinary claims require extraordinary evidence.”</p>
+<p>Here are some examples:</p>
+<ul>
+<li>A new cancer treatment costs 10 times as much and the patient will never heal back to 100% health. To justify such a procedure, we want to be <em>reeeeeaaaaalllly</em> sure that it works, so we might set a significance level of <span class="math inline">\(\alpha=0.001\)</span> before we collect any data.</li>
+<li>We are making a slight change to an advertising strategy that is based on scientific evidence. We’re fairly certain it will work, and the consequences of it not working are very small. A larger significance level, perhaps <span class="math inline">\(\alpha = 0.1\)</span>, might be appropriate.
+<ul>
+<li><span class="math inline">\(\alpha = 0.1\)</span> is probably the largest significance level you will ever encounter.</li>
+</ul></li>
+<li>👽 <strong>Aliens example</strong>: There’s an abberation in an image taken by a digital camera. According to the manufacturer, such an abberation would occur in 0.0001% of the pictures. If we think it’s aliens, that’s an extraordinary claim! We’d need some very strong evidence. Do you think that 0.0001% is strong enough? (We’ll return to this later in the chapter.)</li>
+</ul>
+</section>
+<section id="hypothesis-errors" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="hypothesis-errors"><span class="header-section-number">11.4</span> Hypothesis Errors</h2>
 <p>When you test a hypothesis, there are two types of errors: You could reject when the null is true or you could fail to reject when the null is false. The following matrix summarises this:</p>
 <table class="table">
 <thead>
@@ -362,9 +428,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Type 1:</strong> False Positive</li>
 <li><strong>Type 2:</strong> False Negative</li>
 </ul>
-<section id="probability-of-errors" class="level3">
-<h3 class="anchored" data-anchor-id="probability-of-errors">Probability of errors</h3>
-<p>What’s the probability your reject the null, even though it’s true? Let’s say we reject the null if the p-value is, say, less than 5%. This means that any value in the 5% tails of the distribution would lead to us rejecting the null hypothesis - even though it’s true!<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The probability that we do this is 5%, since there’s a 5% chance that we’ll see a value that is “too unlikey” at the 5% level.</p>
+<p>There’s another important point here: rejecting the null hypothesis does <em>not</em> mean that it’s actually false! Any number of things might have happened, such as including an outlier or taking a biased sample.</p>
+<p>Similarly, failing to reject a null does <em>not</em> mean that it’s true. We’ve already talked about this a bit - confidence intervals are all values that would not be rejected by a hypothesis test, so there are <em>many</em> plausible null hypotheses! However, we can also fail to reject the null <em>even though it’s false</em>. This can also happen for multiple reasons:</p>
+<ul>
+<li>Sample size is too small.
+<ul>
+<li>The distance between the null and the sample mean is calculated relative to the standard error. The standard error <em>decreases</em> with a larger sample, so if our sample isn’t big enough then we might not have collected enough evidence to reject the null, regardless of whether it’s true.</li>
+</ul></li>
+<li>Large variability in the data.
+<ul>
+<li>This is the other thing that can increase the standard error. With more variation, the distance between the null and the sample mean doesn’t seem as large!</li>
+<li>We can fix this with better sampling strategies and with better study designs, or by getting a larger sample size!</li>
+</ul></li>
+<li>Our significance level is too high.
+<ul>
+<li>This isn’t really something that we can change after we’ve seen the data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+</ul></li>
+</ul>
+<section id="the-probability-of-type-1-errors" class="level3">
+<h3 class="anchored" data-anchor-id="the-probability-of-type-1-errors">The Probability of Type 1 Errors</h3>
+<p>What’s the probability your reject the null, even though it’s true? Let’s say we reject the null if the p-value is, say, less than 5%. This means that any value in the 5% tails of the distribution would lead to us rejecting the null hypothesis - even though it’s true!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> The probability that we do this is 5%, since there’s a 5% chance that we’ll see a value that is “too unlikey” at the 5% level.</p>
 <p>As usual, I like to demonstrate things via simulation. Here’s the setup:</p>
 <ol type="1">
 <li>Set the population parameters as <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span></li>
@@ -375,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>Count how many times we reject the null.</li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-1_92e5e59a5057ae45384dec80c777269f">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">21</span>); <span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>)) <span class="co"># unimportant</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## set an empty vector, to be filled with p-values</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">c</span>() </span>
@@ -398,7 +481,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Since we’re testing at the 5% level, this value is close to 5%! It’s a little tricky to get your head around: If we think 5% is too unlikely, then we reject the null. However, things that have “only” a 5% chance happen about 5% of the time!</p>
 <p>The histogram below shows all of the p-values we generated. The 5% cutoff isn’t anything special - a test at the 10% level will falsely reject the null 10% of the time. A test at the 90% level will falsely reject the null 90% of the time!</p>
-<div class="cell">
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-2_9f1e3baad6a677113480f6277d21ad42">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Fun fact: under the null hyothesis, all p-values are equally likely</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## this fun fact is not relevant to this course.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pvals, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.05</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L14-Inference_Cautions_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -410,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 H_0: \mu &amp;= \mu_0\\
 H_A: \mu &amp;\ne \mu_0\\
 \end{align*}\]</span></p>
-<p>If the null is actually false<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, what’s <span class="math inline">\(\mu\)</span>? All we know is that it <em>isn’t</em> <span class="math inline">\(\mu_0\)</span>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> It could be a little above <span class="math inline">\(\mu_0\)</span>, in which case it might be hard to reject <span class="math inline">\(\mu_0\)</span>. It could be a far above <span class="math inline">\(\mu_0\)</span>, in which case it might be easy to reject <span class="math inline">\(\mu_0\)</span>.</p>
+<p>If the null is actually false<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, what’s <span class="math inline">\(\mu\)</span>? All we know is that it <em>isn’t</em> <span class="math inline">\(\mu_0\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> It could be a little above <span class="math inline">\(\mu_0\)</span>, in which case it might be hard to reject <span class="math inline">\(\mu_0\)</span>. It could be a far above <span class="math inline">\(\mu_0\)</span>, in which case it might be easy to reject <span class="math inline">\(\mu_0\)</span>.</p>
 <ul>
 <li>Ex1: <span class="math inline">\(\mu = 0.001\)</span>, <span class="math inline">\(\sigma = 1\)</span>, and <span class="math inline">\(\mu_0 = 0\)</span>.
 <ul>
@@ -425,42 +512,42 @@ H_A: \mu &amp;\ne \mu_0\\
 </ul></li>
 </ul>
 <p><strong>Power</strong> is our ability to correctly reject a false null hypothesis, and is defined as 1 - P(Type 2 Error)</p>
-<p>These examples are both missing the <strong>Standard Error</strong>, which incorporates sample size. The power depends on the distance between <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\mu_0\)</span> relative to the standard error, not just the population standard deviation. We can partially control the standard error by having a better study design<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> and a larger sample size, both of which would give us more power.</p>
+<p>Note that these examples are both missing the <strong>Standard Error</strong>, which incorporates sample size. The power depends on the distance between <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\mu_0\)</span> relative to the standard error, not just the population standard deviation. We can partially control the standard error by having a better study design<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and a larger sample size, both of which would give us more power.</p>
 </section>
 <section id="power-by-simulation-diy" class="level3">
 <h3 class="anchored" data-anchor-id="power-by-simulation-diy">Power by Simulation (DIY)</h3>
 <p>The following code calculates the power. Run it many times, changing <span class="math inline">\(\mu_0\)</span>, <span class="math inline">\(\sigma\)</span>, and <span class="math inline">\(n\)</span> to see what happens to the power.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set parameters</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># don't change this, but change the other parameters</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Record p-vals</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>){</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    newsample <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    p_vals[i] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fu">mean</span>(newsample)), <span class="dv">0</span>, sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)))</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## The proportion of times the null was (correctly) rejected</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="co"># Power</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-3_958212532e74041dcc22d75b3789aea5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set parameters</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># don't change this, but change the other parameters</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Record p-vals</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>){</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    newsample <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    p_vals[i] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fu">mean</span>(newsample)), <span class="dv">0</span>, sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## The proportion of times the null was (correctly) rejected</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="co"># Power</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0483</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&gt;</span> <span class="fl">0.05</span>) <span class="co"># P(Type 2 Error)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&gt;</span> <span class="fl">0.05</span>) <span class="co"># P(Type 2 Error)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9517</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="multiple-comparisons" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="multiple-comparisons"><span class="header-section-number">11.2</span> Multiple Comparisons</h2>
+<section id="multiple-comparisons" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="multiple-comparisons"><span class="header-section-number">11.5</span> Multiple Comparisons</h2>
 <p>Suppose we have a coin that’s heads 5% of the time. What’s the probability of at least one heads in 10 flips?</p>
 <p>As we saw in previous lectures: P(at least 1 heads in 10 flips) = 1 - P(no heads in 10 flips). We can calculate this in R:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-4_790c27d53e1f3c0ce72c3133ef1b3a3c">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4012631</code></pre>
 </div>
@@ -470,13 +557,27 @@ H_A: \mu &amp;\ne \mu_0\\
 <p>Suppose you’re testing 10 hypotheses at the 5% level. Assuming all of the null hypotheses are true, what’s the probability that at least one of them is significant?</p>
 <p>Since we’re testing at the 5% level, P(Type 1 Error) = 0.05, so</p>
 <p>P(<span class="math inline">\(\ge\)</span> 1 rejection in 10 hypotheses) =</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-5_efbcc07488c7c252500dd1d3cb7e367c">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4012631</code></pre>
 </div>
 </div>
-<p>In other words, there’s about a 40% chance that we’d get at least one significant result <em>even though all of the null hypotheses are true</em>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>In other words, there’s about a 40% chance that we’d get at least one significant result <em>even though all of the null hypotheses are true</em>.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The Multiple Comparisons Problem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When checking more than one hypothesis, the probability of an error increases!</p>
+<p>This happens for both Type 1 and Type 2 errors, but is especially important for Type 1 errors. If you test <span class="math inline">\(n\)</span> errors at the <span class="math inline">\(\alpha\)</span>% level, then the probability of a Type 1 error is <span class="math inline">\(1 -(1 - \alpha)^n\)</span>.</p>
+</div>
+</div>
 <p>So how do we avoid the multiple comparisons problem? There are generally two ways to do it:</p>
 <ol type="1">
 <li>Set a <strong>Family-Wise Error Rate</strong>, rather than an error rate for individual hypothesis tests.
@@ -491,9 +592,10 @@ H_A: \mu &amp;\ne \mu_0\\
 </ul></li>
 </ol>
 <p>Failure to account for multiple hypothesis testing is bad science and it’s a path to the dark side. Consider this fantastic tool by <a href="https://projects.fivethirtyeight.com/p-hacking/">fivethirtyeight</a>. Play around with it - by checking a bunch of hypotheses, you can hack your way into finding one that supports your own point of view! In this particular example, your goal is to prove that either (a) the economy does better when a democrat in the white house or (b) the economy does better when a republican is in the white house. Both of these can be demonstrated with a statistically significant result if you check enough hypotheses!</p>
+<p>Let’s return to the 👽 <strong>aliens</strong> example. We observed an abberation that only happens in 0.0001% of the pictures taken. However, <em>we took thousands of pictures</em>! Even though this event is rare, it had many chances to happen. This is exactly what multiple hypothesis testing is demonstrating: rare events will happen if you give them enough chances! Rejecting the null when it is actually true is a rare event, but it can easily happen if we check a lot of p-values!</p>
 </section>
-<section id="summary" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">11.3</span> Summary</h2>
+<section id="summary" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">11.6</span> Summary</h2>
 <ul>
 <li><strong>Type 1 Error:</strong> Reject a true null
 <ul>
@@ -509,25 +611,30 @@ H_A: \mu &amp;\ne \mu_0\\
 </ul></li>
 </ul>
 </section>
-<section id="self-study-questions" class="level2" data-number="11.4">
-<h2 data-number="11.4" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">11.4</span> Self-Study Questions</h2>
+<section id="self-study-questions" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">11.7</span> Self-Study Questions</h2>
 <ol type="1">
 <li>We set up the null hypotheses as “nothing interesting is going on”. In light of this, explain why power is a good thing.</li>
 <li>If we’re testing 5 hypotheses, what significance level should we use for each such that P(at least one type 1 error) = 0.05?</li>
 <li>In simple (non-mathy) terms, explain why increasing sample size increases power.</li>
 <li>If we have the hypotheses <span class="math inline">\(H_0:\mu = 1\)</span> versus <span class="math inline">\(H_0:\mu = 2\)</span>, we can directly calculate the power. Run the following code to open the Shiny app, and interpret the results.</li>
 </ol>
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-6_4911abb337c33c33e40828dc39b59660">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/SimplePower"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Recall: the p-value is the probability of a result that is at least as extreme <em>assuming that the null hypothesis is true</em>!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>False in the population, not just rejected due to a sample.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>I once saw a bag in a grocery store with a label that said “It’s Not Bacon”. I had no idea what was in that bag. In the video I said it was kale, but that turns out to be false.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>to reduce <span class="math inline">\(s\)</span><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Note that if the hypotheses are all based on the same data then they’re probably not independent.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>We can think long and hard about it <em>before</em> seeing the data, but once we see the data we are commited to a particular significance level. Anything else is borderline fraud, depending on the circumstances.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Recall: the p-value is the probability of a result that is at least as extreme <em>assuming that the null hypothesis is true</em>!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>False in the population, not just rejected due to a sample.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I once saw a bag in a grocery store with a label that said “It’s Not Bacon”. I had no idea what was in that bag. In the video I said it was kale, but that turns out to be false.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>to reduce <span class="math inline">\(s\)</span><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Note that if the hypotheses are all based on the same data then they’re probably not independent.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
