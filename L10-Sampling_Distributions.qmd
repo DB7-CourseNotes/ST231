@@ -114,7 +114,7 @@ c. The lengths of 56 perch from a Swedish lake.
     - The sampling distribution will still be normal (unimodal), but the mean of this sampling distribution will probably be somewhere in between the two peaks. In other words, it won't be describing either of the apparent subgroups! No amount of beautiful theorems will ever fix errors in sampling. 
     - In this case, we would want to find out why there are two subgroups before trying to say anything about the population distributions. If we actually have two types of fish, it's better to study them separately!
 
-![](figs/sampling_dist_examples.png)
+<!--- ![](figs/sampling_dist_examples.png) --->
 
 Source: Baldi \& Moore, 4th Edition.
 

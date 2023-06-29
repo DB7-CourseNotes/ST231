@@ -38,7 +38,7 @@ The assumptions are the same as the assumptions for CIs:
 
 The following image shows the output of a "trailmaking" app. Subjects are shown the numbers on a touch screen and are tasked with drawing a line^["trail"] starting at 1, then 2, and so on without touching the other numbers. The time is recorded.
 
-![](figs/Trails.jpg)
+<!--- ![](figs/Trails.jpg)--->
 
 In my research, this app was given to aerial forest fire fighters. Flying a plane is a very challenging task to begin with, made much more challenging when there's an active fire! The hypothesis is that pilots are measurably fatigued after a fire. However, this hypothesis must be converted into a mathematical construct that we can do something with!
 

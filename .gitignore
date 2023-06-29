@@ -1,5 +1,6 @@
 
 /.quarto/
+*pdf
 
 ./L*files/*
 ./L*cache/*

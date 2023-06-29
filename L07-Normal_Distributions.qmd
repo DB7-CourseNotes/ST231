@@ -126,7 +126,7 @@ sum(x > -3 & x < 3) # within 3
 
 Some variant of the following image appears in countless textbooks:
 
-![](figs/emprirical.png)
+<!--- ![](figs/emprirical.png) --->
 
 
 As a small side note, the image above uses the word "data". By this, it means that if this is the **population**, then 68% of all the data that it were possible to collect would be within one standard deviation of the mean. As we saw in the simulated data above, this number is almost never going to be perfect.
@@ -210,7 +210,7 @@ To calculate the probability that a randomly chosen value will be within a given
 
 Here's how we do it. If we only find $P(X\le-1)$, then we have taken too much of the distribution. Everything to the left of -2.5 was something that should not have been included. So why don't we just remove it? By this logic, we find $P(-2.5\le X \le  -1) = P(X\le -1) - P(X \le -2.5)$. This is shown graphically below:
 
-![](figs/addgraphs.png)
+<!--- ![](figs/addgraphs.png) --->
 
 Returning to the heights example, the probability of a randomly chosen woman being less than 160 cm can be calculated as:
 $$

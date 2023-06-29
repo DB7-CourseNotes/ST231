@@ -53,6 +53,7 @@ Height and weight are an example of how are the knowledge of one variable tells 
 
 ### Example
 
+<!---
 :::: {.columns}
 ::: {.column width="30%"}
 ![](figs/manatee1.png)
@@ -63,7 +64,7 @@ Height and weight are an example of how are the knowledge of one variable tells 
 
 :::
 ::::
-
+--->
 :::notes
 In the data frame above, we have an observation of the number of power boats registered in each year, as well as the number of manatees that died in a collision with a powerboat in that year. The table shown above is only a small part of the data.
 
@@ -87,7 +88,7 @@ The rest of the data are shown in the plot. To create this plot, we put the numb
 
 :::
 ::: {.column width="50%"}
-![](figs/manatee2.png)
+<!--- ![](figs/manatee2.png) --->
 :::
 ::::
 
@@ -399,7 +400,7 @@ c. Is this a strong or a weak relationship? Explain.
 
 :::
 ::: {.column width="50%"}
-![](figs/non-linear.png)
+<!--- ![](figs/non-linear.png) --->
 :::
 ::::
 
@@ -638,11 +639,11 @@ cor(mtcars$mpg, mtcars$wt)
 
 2. The following figure comes from the article "Shared neural representations and temporal segmentation of political content predict ideological similarity" by De Brujin et al., published in 2023 ([link to aricle here](https://www.science.org/doi/10.1126/sciadv.abq5920)). The star on the plot indicates that they have found a statistically significant relationship (more on this next week). Is this a strong correlation?
 
-![](figs/scatterbad.png)
+<!--- ![](figs/scatterbad.png) --->
 
 3. The following figure comes from the article "Effect on Blood Pressure of Daily Lemon Ingestion and Walking" by Kato et al., published in 2013 ([link to article here](https://www.hindawi.com/journals/jnme/2014/912684/)). Comment on the shape of this relationship. Recall how we described a "strong" shape as a shape that remains even if some of the data points were removed.
 
-![](figs/lemon.png)
+<!--- ![](figs/lemon.png) --->
 
 **Exercises from OpenIntro Biotatistics textbook**
 

@@ -129,8 +129,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Course Notes for ST231</a> 
-        <div class="sidebar-tools-main">
+        <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Course-Notes-for-ST231.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -406,13 +407,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="3.2" class="anchored" data-anchor-id="scatterplots"><span class="header-section-number">3.2</span> Scatterplots</h2>
 <section id="example" class="level3">
 <h3 class="anchored" data-anchor-id="example">Example</h3>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><img src="figs/manatee1.png" class="img-fluid"></p>
-</div><div class="column" style="width:50%;">
-<p><img src="figs/manatee2.png" class="img-fluid"></p>
-</div>
-</div>
+<!---
+:::: {.columns}
+::: {.column width="30%"}
+![](figs/manatee1.png)
+
+:::
+::: {.column width="50%"}
+![](figs/manatee2.png)
+
+:::
+::::
+--->
 <div class="notes">
 <p>In the data frame above, we have an observation of the number of power boats registered in each year, as well as the number of manatees that died in a collision with a powerboat in that year. The table shown above is only a small part of the data.</p>
 <p>The rest of the data are shown in the plot. To create this plot, we put the number of powerboats registered on the X axis, and the number of manatee deaths on the Y axis. The annotation on the plot demonstrates how the points were added. One of the columns in the data is labelled 1977 and in that year they were to 755,000 powerboats registered and they were 54 manatee deaths that year. Because these two numbers are measured on the same individual (with the individual being the year in this example), we know that those two numbers go together. If we had a collection of peoples heights and a separate collection of peoples weights, but no knowledge of which individual each was collected on, then we would not be able to make a scatterplot. In order to make a scatterplot, we have to know which observation on the X axis is associated with which observation on the Y axis.</p>
@@ -439,7 +445,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><img src="figs/manatee2.png" class="img-fluid"></p>
+<!--- ![](figs/manatee2.png) --->
 </div>
 </div>
 <div class="notes">
@@ -776,7 +782,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <li>Is this a strong or a weak relationship? Explain.</li>
 </ol>
 </div><div class="column" style="width:50%;">
-<p><img src="figs/non-linear.png" class="img-fluid"></p>
+<!--- ![](figs/non-linear.png) --->
 </div>
 </div>
 <div class="notes">
@@ -947,11 +953,11 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <ol start="2" type="1">
 <li>The following figure comes from the article “Shared neural representations and temporal segmentation of political content predict ideological similarity” by De Brujin et al., published in 2023 (<a href="https://www.science.org/doi/10.1126/sciadv.abq5920">link to aricle here</a>). The star on the plot indicates that they have found a statistically significant relationship (more on this next week). Is this a strong correlation?</li>
 </ol>
-<p><img src="figs/scatterbad.png" class="img-fluid"></p>
+<!--- ![](figs/scatterbad.png) --->
 <ol start="3" type="1">
 <li>The following figure comes from the article “Effect on Blood Pressure of Daily Lemon Ingestion and Walking” by Kato et al., published in 2013 (<a href="https://www.hindawi.com/journals/jnme/2014/912684/">link to article here</a>). Comment on the shape of this relationship. Recall how we described a “strong” shape as a shape that remains even if some of the data points were removed.</li>
 </ol>
-<p><img src="figs/lemon.png" class="img-fluid"></p>
+<!--- ![](figs/lemon.png) --->
 <p><strong>Exercises from OpenIntro Biotatistics textbook</strong></p>
 <p>Questions 1.35, 1.36, 1.37.</p>
 <p>For further R practice and case studies, see the <a href="https://www.openintro.org/book/statlabs/?labblock=biostat_intro_to_data">labs page for the OpenIntro textbook</a>.</p>

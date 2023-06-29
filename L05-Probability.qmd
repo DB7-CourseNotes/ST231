@@ -93,7 +93,7 @@ First, note that the probability of both events is P(Even **and** >3) = P(4) + P
 
 The word "and" came up in the addition rule, and so I should give a good definition of "and". When we talk about events A and B, P(A and B) refers to the probability that they both happen together. It's most helpful to see this as a Venn diagram:
 
-![](figs/Venn1.png)
+<!--- ![](figs/Venn1.png) --->
 
 P(A) is the area of the circle labelled A, P(B) is the area of the circle labelled B, and P(A and B) is the area of the overlap between these two circles. P(A or B) is the total shaded area, including the yellow-green, green, and dark green. 
 
