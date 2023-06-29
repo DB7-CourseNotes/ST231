@@ -6,8 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2020-07-22">
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="dcterms.date" content="2023-06-28">
 
 <title>Course Notes for ST231 - 13&nbsp; t-Tests for a Mean</title>
 <style>
@@ -282,12 +282,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#its-all-the-same." id="toc-its-all-the-same." class="nav-link active" data-scroll-target="#its-all-the-same."><span class="header-section-number">13.1</span> It’s all the same.</a></li>
+  <li><a href="#when-we-use-s-we-use-t" id="toc-when-we-use-s-we-use-t" class="nav-link active" data-scroll-target="#when-we-use-s-we-use-t"><span class="header-section-number">13.1</span> When we use <span class="math inline">\(s\)</span>, we use <span class="math inline">\(t\)</span></a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">13.2</span> Examples</a>
   <ul class="collapse">
   <li><a href="#pilot-fatigue" id="toc-pilot-fatigue" class="nav-link" data-scroll-target="#pilot-fatigue">Pilot Fatigue</a></li>
   </ul></li>
-  <li><a href="#matched-pairs" id="toc-matched-pairs" class="nav-link" data-scroll-target="#matched-pairs"><span class="header-section-number">13.3</span> Matched Pairs</a></li>
+  <li><a href="#matched-pairs" id="toc-matched-pairs" class="nav-link" data-scroll-target="#matched-pairs"><span class="header-section-number">13.3</span> Matched Pairs</a>
+  <ul class="collapse">
+  <li><a href="#t-tests-in-practice" id="toc-t-tests-in-practice" class="nav-link" data-scroll-target="#t-tests-in-practice">t-tests in Practice</a></li>
+  </ul></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">13.4</span> Self-Study Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -306,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Devan Becker </p>
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -321,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2020-07-22</p>
+      <p class="date">2023-06-28</p>
     </div>
   </div>
   
@@ -331,10 +334,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="its-all-the-same." class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="its-all-the-same."><span class="header-section-number">13.1</span> It’s all the same.</h2>
-<p>We’ve been over this before! If the population is normal (or the sample size is large enough) and we have an SRS, then <span class="math display">\[
-\frac{\bar X - \mu}{S/\sqrt{n}}\sim t_{n-1}
+<section id="when-we-use-s-we-use-t" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="when-we-use-s-we-use-t"><span class="header-section-number">13.1</span> When we use <span class="math inline">\(s\)</span>, we use <span class="math inline">\(t\)</span></h2>
+<p>We’ve been over this in confidence intervals, and the same thing applies to hypothesis tests! If the population is normal (or the sample size is large enough) and we have an SRS, then <span class="math display">\[
+\frac{\bar X - \mu}{s/\sqrt{n}}\sim t_{n-1}
 \]</span></p>
 <p>Again, the <span class="math inline">\(t\)</span> distribution is used to account for the extra variability from the estimated standard deviation.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>This means our test statistic is <span class="math display">\[
@@ -342,6 +345,21 @@ t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
 \]</span></p>
 <p>Since this is a <span class="math inline">\(t\)</span> distibution, we use <code>pt(t_obs, df = n -1)</code>, possibly one minus and/or double, depending on the alternate hypothesis.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>That’s it. That’s the big difference. When we estimate the standard deviation, we use the t-distribution.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The t-test for a population mean
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Given a sample mean <span class="math inline">\(\bar x\)</span> and a sample standard deviation <span class="math inline">\(s\)</span>, our test statistic is: <span class="math display">\[
+t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
+\]</span> Our hypotheses and calculations of the p-value work the same as they did for the z-test.</p>
+</div>
+</div>
 </section>
 <section id="examples" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">13.2</span> Examples</h2>
@@ -363,12 +381,25 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 </div>
 </div>
 <p>This is <em>larger</em> than our previous p-value of 0.0013. This will always be the case: if the <span class="math inline">\(z_{obs}\)</span> test statistic is the same as the <span class="math inline">\(t_{obs}\)</span> test statistic, then the p-value for <span class="math inline">\(t_{obs}\)</span> will be wider.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+p-values from a t-test are larger than a z-test (if you have <span class="math inline">\(\sigma=s\)</span>)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We almost never know the population standard deviation, so we have extra uncertainty. With extra uncertainty, we require more <em>evidence</em>! Recall that a p-value is a measure of evidence against a null.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="matched-pairs" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="matched-pairs"><span class="header-section-number">13.3</span> Matched Pairs</h2>
-<p>A matched pairs design allows us to use a one-sample t-test<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Since the pairs are matched, we can calculate the differences between pairs and treat this like a single vector of observations. It is honkey tonk ridonkulous to say that we know the true population standard deviation for the difference in observations, so a <span class="math inline">\(z\)</span> test could never be appropriate.</p>
-<p>The setup is the same as it was in the study design video. Given a sample of volounteers, we create a small cut on both hands and put ointment on one of the two cuts<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Does the ointment help. For each individual, we observe a <em>difference</em>. That is, one observation per person!</p>
+<p>A matched pairs design allows us to use a one-sample t-test when it looks like we have two samples<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Since the pairs are matched, we can calculate the differences between pairs and treat this like a single vector of observations. It is honkey tonk ridonkulous to say that we know the true population standard deviation for the difference in observations, so a <span class="math inline">\(z\)</span> test could never be appropriate.</p>
+<p>Consider the following example of a matched pairs experiment. Given a sample of brave volounteers, we create a small cut on both hands and put ointment on one of the two cuts<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. This study design eliminates the variation in healing times for different people since both cuts are on the same person! For each individual, we observe a <em>difference</em>. That is, one observation per person!</p>
 <table class="table">
 <thead>
 <tr class="header">
@@ -385,7 +416,7 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 </thead>
 <tbody>
 <tr class="odd">
-<td>With Oint</td>
+<td>With Ointment</td>
 <td>6.44</td>
 <td>6.06</td>
 <td>4.22</td>
@@ -420,7 +451,7 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 </tbody>
 </table>
 <p><em>Note</em>: Differences were calculated as With minus Without! The last row of this table now represents our data - we can forget that the other two rows exist!</p>
-<p>This is where the assumption that we know the population standard deviation is preposterous: we’re looking just at the differences! Even if there’s a true value of the sd for healing time for all people, the standard deviation of the difference between healing times isn’t a reasonable quantity to speak of.</p>
+<p>This is where the assumption that we know the population standard deviation is especially preposterous: we’re looking just at the differences! Even if there’s a true value of the sd for healing time for all people, the standard deviation of the difference between healing times isn’t a reasonable quantity to speak of.</p>
 <p>Since we’re looking at the <em>difference</em>, we no longer have a hypothesized value of <span class="math inline">\(\mu_0\)</span>. Instead, we hypothesize that the average pairwise difference is 0, i.e.&nbsp;<span class="math inline">\(\mu_{with-without} = \mu_{diff} = 0\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. The alternative is “with” &lt; “without”, i.e.&nbsp;<span class="math inline">\(\mu_{diff} &lt; 0\)</span>.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.78</span>, <span class="fl">0.01</span>, <span class="sc">-</span><span class="fl">0.33</span>, <span class="sc">-</span><span class="fl">0.7</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.61</span>, <span class="sc">-</span><span class="fl">0.87</span>, <span class="sc">-</span><span class="fl">2.1</span>)</span>
@@ -429,12 +460,55 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> <span class="dv">0</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n)) <span class="co"># xbar is with - w/out</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(t_obs, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Alternative is &lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice that we use pt() instead of pnorm()</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(t_obs, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Alternative is &lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04662624</code></pre>
 </div>
 </div>
 <p>So our p-value is approximately 0.04. At the 5% level, the null hypothesis would be rejected and we would conclude that the ointment works<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. At the 1% level, we would conclude that it doesn’t have a significant effect. This is why it’s important to know the significance level before calculating the p-value - we now get to choose whether our results are statistically significant!</p>
+<section id="t-tests-in-practice" class="level3">
+<h3 class="anchored" data-anchor-id="t-tests-in-practice">t-tests in Practice</h3>
+<p>Do you think that researchers in the field are typing test statistics into their calculator? Of course not! We’re finally at the point in this class where the methods are so commonly used that the built-in functions in R can calculate them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>with_oint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">6.44</span>, <span class="fl">6.06</span>, <span class="fl">4.22</span>, <span class="fl">3.3</span>, <span class="fl">6.5</span>, <span class="fl">3.49</span>, <span class="fl">7.0</span>, <span class="fl">4.22</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>without <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.22</span>, <span class="fl">6.05</span>, <span class="fl">4.55</span>, <span class="dv">4</span>  , <span class="fl">6.7</span>, <span class="fl">2.88</span>, <span class="fl">7.8</span>, <span class="fl">6.32</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> with_oint <span class="sc">-</span> without</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(difference, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  difference
+t = -1.9199, df = 7, p-value = 0.04817
+alternative hypothesis: true mean is less than 0
+95 percent confidence interval:
+         -Inf -0.007063183
+sample estimates:
+mean of x 
+ -0.53625 </code></pre>
+</div>
+</div>
+<p>Notice that the output shows a <strong>one-sided confidence interval</strong>. This isn’t a big leap from what you know: a confidence interval consists of all of the values that would <em>not</em> be rejected by a hypothesis test, and this works for one-sided as well as two-sided alternate hypotheses!</p>
+<p>To get a two-sided confidence interval, we can either leave <code>alternative</code> at it’s default value or set it to <code>"two.sided"</code>. We can also change the significance level with the <code>conf.level</code> argument. For an 89%CI:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(difference, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">conf.level =</span> <span class="fl">0.89</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  difference
+t = -1.9199, df = 7, p-value = 0.09635
+alternative hypothesis: true mean is not equal to 0
+89 percent confidence interval:
+ -1.04730428 -0.02519572
+sample estimates:
+mean of x 
+ -0.53625 </code></pre>
+</div>
+</div>
+<p>Notice that this calculated a two-sided p-value, which is twice what we saw before (and no longer significant at the 5% level!).</p>
+</section>
 </section>
 <section id="self-study-questions" class="level2" data-number="13.4">
 <h2 data-number="13.4" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">13.4</span> Self-Study Questions</h2>
@@ -461,7 +535,7 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 <li id="fn3"><p>We’ll learn about two-sample t-tests in the next lecture.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>And most likely a bandage on both.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>In other words, the healing times are the same for each subject<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>This is where it’s important to know that we did with minus without; we could have done without minus with, but then our alternate hypotheses would need to be &gt;.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>This is where it’s important to know that we did with minus without; we could have done without minus with, but then our alternate hypotheses would need to be “&gt;”.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>A p-value says <em>nothing</em> about the effect size, so we can’t say whether it’s <strong>practically significant</strong><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>

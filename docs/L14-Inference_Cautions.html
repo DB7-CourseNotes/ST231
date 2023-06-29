@@ -481,7 +481,11 @@ p-values were never meant to be the goal of a study.
 </div>
 <p>Since we’re testing at the 5% level, this value is close to 5%! It’s a little tricky to get your head around: If we think 5% is too unlikely, then we reject the null. However, things that have “only” a 5% chance happen about 5% of the time!</p>
 <p>The histogram below shows all of the p-values we generated. The 5% cutoff isn’t anything special - a test at the 10% level will falsely reject the null 10% of the time. A test at the 90% level will falsely reject the null 90% of the time!</p>
-<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-2_ab6c44f19b4e949307d8c06f179691db">
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-2_9f1e3baad6a677113480f6277d21ad42">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Fun fact: under the null hyothesis, all p-values are equally likely</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## this fun fact is not relevant to this course.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(pvals, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.05</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">0.05</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L14-Inference_Cautions_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -514,24 +518,24 @@ H_A: \mu &amp;\ne \mu_0\\
 <h3 class="anchored" data-anchor-id="power-by-simulation-diy">Power by Simulation (DIY)</h3>
 <p>The following code calculates the power. Run it many times, changing <span class="math inline">\(\mu_0\)</span>, <span class="math inline">\(\sigma\)</span>, and <span class="math inline">\(n\)</span> to see what happens to the power.</p>
 <div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-3_958212532e74041dcc22d75b3789aea5">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set parameters</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># don't change this, but change the other parameters</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Record p-vals</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>){</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    newsample <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    p_vals[i] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fu">mean</span>(newsample)), <span class="dv">0</span>, sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)))</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## The proportion of times the null was (correctly) rejected</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="co"># Power</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Set parameters</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># don't change this, but change the other parameters</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mu_0 <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Record p-vals</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>p_vals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>){</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    newsample <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, mu, sigma)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    p_vals[i] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(<span class="fu">mean</span>(newsample)), <span class="dv">0</span>, sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## The proportion of times the null was (correctly) rejected</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&lt;</span> <span class="fl">0.05</span>) <span class="co"># Power</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0483</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&gt;</span> <span class="fl">0.05</span>) <span class="co"># P(Type 2 Error)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_vals <span class="sc">&gt;</span> <span class="fl">0.05</span>) <span class="co"># P(Type 2 Error)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9517</code></pre>
 </div>
@@ -543,7 +547,7 @@ H_A: \mu &amp;\ne \mu_0\\
 <p>Suppose we have a coin that’s heads 5% of the time. What’s the probability of at least one heads in 10 flips?</p>
 <p>As we saw in previous lectures: P(at least 1 heads in 10 flips) = 1 - P(no heads in 10 flips). We can calculate this in R:</p>
 <div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-4_790c27d53e1f3c0ce72c3133ef1b3a3c">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4012631</code></pre>
 </div>
@@ -554,7 +558,7 @@ H_A: \mu &amp;\ne \mu_0\\
 <p>Since we’re testing at the 5% level, P(Type 1 Error) = 0.05, so</p>
 <p>P(<span class="math inline">\(\ge\)</span> 1 rejection in 10 hypotheses) =</p>
 <div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-5_efbcc07488c7c252500dd1d3cb7e367c">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4012631</code></pre>
 </div>
@@ -615,6 +619,10 @@ The Multiple Comparisons Problem
 <li>In simple (non-mathy) terms, explain why increasing sample size increases power.</li>
 <li>If we have the hypotheses <span class="math inline">\(H_0:\mu = 1\)</span> versus <span class="math inline">\(H_0:\mu = 2\)</span>, we can directly calculate the power. Run the following code to open the Shiny app, and interpret the results.</li>
 </ol>
+<div class="cell" data-hash="L14-Inference_Cautions_cache/html/unnamed-chunk-6_4911abb337c33c33e40828dc39b59660">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/SimplePower"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
