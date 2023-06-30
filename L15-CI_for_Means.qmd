@@ -27,6 +27,8 @@ A natural question is: why not use $s$, the **sample standard deviation**?
 
 To demonstrate why we can't just use $s$, I have set up a simulation. I like simulations.
 
+You can safely skip the simulations if you're the type who wants to just memorize a fact and will be sure to perfectly remember it later on. The upshot is this: since we're estimating the standard deviation, the normal distribution doesn't apply. Instead we use the $t$ distribution whenever we use $s$.
+
 
 ### Simulation Setup
 

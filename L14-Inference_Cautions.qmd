@@ -26,6 +26,17 @@ It's a measure of evidence against the null. We assume that the null is true, th
 Any interpretation of a p-value that does not assume that the null hypothesis is true is a bad interpretation.
 :::
 
+The following interpretations are *not* valid:
+
+
+- The probability of getting data like this.
+- Probability of our data *by chance alone*. 
+    - Would be correct if we made reference to the null
+- The probability that the null hypothesis is true
+    - This is just so wrong, but it unfortunately appears in a lot of published papers.
+
+Always look for wording that assumes that the null is true, and searches for evidence against it. 
+
 ## Statistical Versus Practical Significance
 
 Suppose a new drug claims to increase your lifespan significantly. Wow! That sounds great! 

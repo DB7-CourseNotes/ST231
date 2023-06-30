@@ -10,8 +10,8 @@ These notes are still in progress.
 - Ch01 has been edited since the version posted in class.
 - Ch02-Ch09 are the versions posted to MyLS for this semester.
     - There may be missing images due to copyright concerns. 
-- Ch11 is nearly fully updated for this semester.
-- Ch12+ are direct copies of old notes and need editing, which may involve addition of new material. 
+- Ch10-13 are updated for this book, and are the course notes I will refer to moving forward.
+- Ch14+ are direct copies of old notes and need editing, which may involve addition of new material. 
     - If you read ahead, you may need to re-read later.
 
 ## Helpful Information
