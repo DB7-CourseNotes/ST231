@@ -26,29 +26,25 @@ $\bar X_2\sim N(\mu_2, \sigma_2/\sqrt{n_2})$ \pause
 
 *Goal:* Are the means the same? I.e., is $\mu_1 = \mu_2$?
 
-### How one more sample complicates things
-
-- What's the sampling distribution of a difference?\newline\pause
-
-- It turns out, it's complicated.\newline
+With two samples, the difference in means has a sampling distribution. What is that distribution? It's difficult!
 
 
-
-### The mean of the difference
-
-Here's the complicated bit: the mean of the difference is...\pause
-
-the difference in means.
+The easy part is the mean of the difference. The mean of the difference is the difference in means.
 $$
 \bar X_1 - \bar X_2 \sim N(\mu_1 - \mu_2, ???)
 $$
-\pause
 
-Okay that was the easy part.
+The hard part is the standard deviation of the difference. Take a moment and think about what we're talking about here. What does it actually mean for the difference in means to have variance?
+
+It's the same as it was before, it just seems a little more complicated. When we take a pair of samples then find their difference, we have calculated a statistic! For every *pair* of samples, we'll get a different statistic. The variance that we seek is the variance of all of these statistics.
 
 
 
 ### The standard deviation of a difference {.t}
+
+Again, I'm going to use a simulation to demonstrate what happens if we take a bunch of pairs of samples, then find their difference.
+
+In this case, I'm sampling x1 as 22 values from a normal distribution with a mean of 0 and a standard deviation of 2, whereas x2 has 33 observations and comes from a distribution with a mean of 0 and a standard deviation of 3. I'm finding their means, then finding their differences. I repeat this 10,000 times, keeping track of what the difference in means was.
 
 ```{r}
 ## approximating the sampling distribution
@@ -63,16 +59,15 @@ sd(differences)
 
 ... it's not at all obvious where this number comes from.
 
+Both had a mean of 0, so the difference should be 0. But the standard deviation of the differences isn't obvious. There is a nice formula for the mean - $\sigma/\sqrt{n}$ - but it's not obvious how this works for two samples with different variances *and* different sample sizes!
 
-### The standard deviation of a difference is...
-
-something like the sum\pause
-
+It turns out that the following equation is the correct one for the standard deviation of the differences. Recall that the standard deviation of a sampling distribution is known as the Standard Error (SE).
 
 $$
 SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
 $$
-\pause
+
+And to verify that our simulation matches this idea:
 
 ```{r}
 ## Check
@@ -83,60 +78,63 @@ sqrt(4/22 + 9/33) # Close enough
 
 ### Putting it Together
 
+Altogether, this means that the difference between means has the following sampling distribution:
+
 $$
 \bar X_1 - \bar X_2 \sim N\left(\mu_1 - \mu_2, \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\right)
 $$
 
-### Aside: "Pooled Variance"
-
-- Assumes the populations are perfectly normal and have the same variance.\pause
-
-- You shouldn't assume this.
-
-## The Test Statistic
-
-### $s$ is estimated
-
+From this, we get the same general ideas as before. The hypothesis tests are based on the observed test statistic:
 $$
-\frac{(\bar X_1 - \bar X_2) - (\mu_1 - \mu_2)}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}} \sim t_{df=???}
+t_{obs} = \frac{\text{sample statistic} - \text{hypothesized value}}{\text{standard error}} = \frac{(\bar x_1 - \bar x_2) - 0}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
 $$
+where usually the hypothesized value is 0 so that we're testing whether the true population means are the same.
 
+::: {.callout-information}
+### Two-Sample Hypotheses
 
-### The degrees of freedom
-
-- There's an ugly formula for the degrees of freedom. \newline\pause
-
-- We're not going to use it.\pause
-
-\quad
-
-Instead, just use the *smallest* sample size, and subtract 1 (or use R).
-
-### Two-Sample t-test and CI
-
-We are usually testing for the difference in means, i.e.
+The usual hypotheses invlove the *equality* of the means, i.e.:
 \begin{align*}
 H_0: \mu_1 = \mu_2 &\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d = 0\\
 H_0: \mu_1 < \mu_2 &\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d < 0\\
-\end{align*}\vspace{-15mm}
+\end{align*}
+:::
 
-$$t_{obs} = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}$$\vspace{-12mm}
-
+The confidence interval is also the same idea:
 $$
-\text{p-value} = P(T < t_{obs}) = \texttt{pt(t\_obs, df = min(n1, n2)-1)}
-$$
-
-A $(1-\alpha)$ CI for $\mu_d$ is
-$$
-\bar x_1 - \bar x_2 \pm t^*\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+\text{sample statistic}\pm\text{critical value}*\text{standard error} = (\bar x_1 - \bar x_2)\pm t^*\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
 $$
 
-where $t^*$ is based on the smaller of $n_1 - 1$ and $n_2 - 1$
+In both of these, we still need to know the degrees of freedom! As we saw last lecture, the $t$-distribution requires some information about the sample size. In the one sample case, this was $n-1$. However, we now have two potentially different sample sizes! What do we do?
+
+Recall that the $t$-distribution gets closer and closer to the normal distribution as $n$ increases. The whole point of the $t$ is to get us a little further from the normal in order to account for the variance in the sample standard deviation. For the two-sample case, there is a "correct" formula, but it's big and scary and everything we're doing now is approximate anyway. Instead, we use a more conservative approach to ensure that we're not underestimating the variance.^[In general, we would much, much, much rather *overestimate* the variance. The whole point of statistics is to avoid overconfidence in our estimates.]
+
+::: {.callout-information}
+### Two-Sample $t$ degrees of freedom
+
+We use the smallest sample size, then subtract 1.
+:::
+
+In the simulation we did earlier, the two samples had sizes of 22 and 33. In both a CI and a hypothesis test, we would use 21 as the value in `qt()` or `pt()` (which are the same idea as `qnorm()` and `pnorm()`).
+
+
+
+### Aside: "Pooled Variance"
+
+There's another formula out there that uses a so-called "pooled variance" for the standard error of the differences. This assumes that both populations have the exact same variance, and tries to use information from both to estimate the variance. It essentially treats the two samples as one big sample from the same population in order to calculate the standard deviation. 
+
+This also implicitly assumes that both populations are normal, and this is not based on the CLT. Instead, the populations need to be normal. This is a huge assumption - we can use normality from the CLT because the math checks out. Assuming normality of the population is just a wild guess that we can't really check.
+
+It is also very, very unlikely that the two populations have the same standard deviation. 
+
+If the two assumptions are met, then the pooled standard deviation is the "correct" formula. However, the SE that we saw before still works very well! If the assumptions are not met, then the pooled SE works poorly and the SE we've seen is still very good!
+
+Except in exceptional cases, the SE that we've learned should be used. The idea of a pooled variance is a vestige of another age.
 
 
 ## Examples
 
-### Two-Sample versus Matched
+### Example 1: Two-Sample versus Matched
 
 From the Ointment example:
 
@@ -146,8 +144,7 @@ From the Ointment example:
 | Without   | 7.22 | 6.05 | 4.55 | 4   | 6.7 | 2.88 | 7.88 | 6.32 |
 | Difference| -0.78 | 0.01|-0.33|-0.7| -0.2 | 0.61 | -0.87 | -2.1 |
 
-
-### In R: Matched pairs (same as last lecture)
+First we'll do matched pairs. In this example, this is the correct test to use.
 
 ```{r}
 withoint <- c(6.44, 6.06, 4.22, 3.3, 6.5, 3.49, 7.01, 4.22)
@@ -157,29 +154,42 @@ diff <- withoint - without
 t.test(x = diff, alternative = "less")
 ```
 
-
-### By "hand": Two-sample t-test
-
-```{r}
-mdiff <- mean(withoint) - mean(without)
-sediff <- sqrt(var(withoint)/8 + var(without)/8)
-
-pt(mdiff/sediff, df = 7)
-```
-
-
-### In R: Two-sample t-test
+We could instead have done a two-sample test, which ignores the fact that the observations are paired. Since we know the pairings, this test is leaving out valuable information.
 
 ```{r}
 t.test(x = withoint, y = without, alternative = "less")
 ```
 
-### Conclusion
+This result should not be trusted since it misses a key aspect of the data.
 
-- If you can have matched pairs, you should use a matched pairs test.\pause
+### Example 2: Body Mass of Penguins
 
+In this example, we'll look at the difference in body mass between male and female penguins. 
+
+In this case, there is no clear pairing between the penguins. If they were monogomous couples, then the differences in body mass might tell us about couples, but doesn't say much about male and female penguins in general.
+
+This example gives us the opportunity to learn more notation in R! The previous example used `t.test(x=..., y=...)` to denote the two samples. If the data are neatly formatted in a data frame, then we can use the `~` notation to demonstrate that the body mass is split into different groups for male and female:
+
+```{r}
+library(palmerpenguins)
+t.test(body_mass_g ~ sex, data = penguins)
+```
+
+From this output, we get a two-sided p-value as well as a two-sided CI, both confirming that the difference in body mass is different from 0. You can also see that it's using "female minus male", rather than "male minus female". This is because R will put them in alphabetical order, so female comes first. 
+
+You may also be happy to hear that no, you will never have to manually enter the standard error formula! You may need to interpret it for tests, though!
+
+## Conclusion
+
+- If you can have matched pairs, you should use a matched pairs test.
 - Most of the time, you'll need to use a two-sample t-test.
     - Don't get fooled by equal sample sizes!
+- A two-sample t-test is based on the difference in means
+    - The standard error is tricky.
+    - The degrees of freedom is the *smallest* sample size minus 1.
+        - Used for the p-value for hypothesis tests and the critical value for confidence intervals.
+    - The null hypothesis is usually 0, and the alternate dependes on the order in which you subtract the means.
+
 
 
 
