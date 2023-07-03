@@ -9,8 +9,8 @@ number-depth: 2
 author: "Dr. Devan Becker"
 
 book:
-  title: "Course Notes for ST231"
-  subtitle: "Introduction to Statistics for the Life Sciences"
+  title: "Statistics for Life Sciences"
+  subtitle: "Course Notes for ST231, Sprummer 2023"
   author: "Dr. Devan Becker"
   date: "6/20/2023"
   repo-url: https://github.com/DB7-CourseNotes/ST231_S23
