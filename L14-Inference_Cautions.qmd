@@ -260,6 +260,74 @@ shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps",
 ```
 
 
+## Participation Questions
+
+### Q1
+
+p-values are the probability of observing our data *by chance alone*.
+
+\pspace
+
+1. True
+2. False
+
+### Q2
+
+p-values are the probability of getting data at least this extreme under the null hypothesis.
+
+\pspace
+
+1. True
+2. False
+
+
+### Q3
+
+p-values are a measure of evidence against the null hypothesis.
+
+\pspace
+
+1. True
+2. False
+
+### Q4
+
+|              | $H_0$ is TRUE | $H_0$ is FALSE |
+|--------------|---------------|----------------|
+| Don't Reject | Good!         | Type 2 Error   |
+| Reject       | Type 1 Error  | Hooray!        |
+
+In a particular hypothesis test, rejecting the null means diagnosing a patient with cancer. 
+
+Select *all* that are true.
+
+\pspace
+
+1. A low significance level means that I require strong evidence before I declare cancer.
+2. A high power means that I'm more likely to diagnose someone with cancer, assuming they actually have cancer.
+3. Low type 2 error means that I am less likely to miss true cancer diagnoses.
+4. The probability of type 1 error is equal to the significance level $\alpha$. 
+
+
+### Q5
+
+|              | $H_0$ is TRUE | $H_0$ is FALSE |
+|--------------|---------------|----------------|
+| Don't Reject | Good!         | Type 2 Error   |
+| Reject       | Type 1 Error  | Hooray!        |
+
+In a particular hypothesis test, rejecting the null means diagnosing a patient with cancer. 
+
+Which of the following is true about Type 1 and Type 2 error?
+
+\pspace
+
+1. Increasing $\alpha$ means I'm less likely to diagnose someone with cancer.
+2. High power means I'm more likely to diagnose someone with cancer who actually has cancer.
+3. The probability that my diagnosis is correct is 1 - P(Type 2 error).
+4. A smaller significance level means I'll have less power.
+
+
 
 
 
