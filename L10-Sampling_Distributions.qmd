@@ -7,6 +7,10 @@ execute:
   echo: true
 ---
 
+```{r}
+#| include: false
+set.seed(2112)
+```
 
 Please pay attention to the notes.^[These things!] They often contain important information.^[Or silliness.]
 
