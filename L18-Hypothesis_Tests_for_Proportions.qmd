@@ -1,17 +1,7 @@
 ---
 title: "Large sample test for a proportion"
 author: "Devan Becker"
-date: "21/07/2020"
-output: 
-  word_document:
-    toc: yes
-  pdf_document:
-    toc: yes
-  tufte::tufte_html:
-    css: my_tufte.css
-    number_sections: yes
-    toc: yes
-    tufte_variant: envisioned
+date: "2023-07-12"
 ---
 
 ```{r setup, include=FALSE}
@@ -27,12 +17,7 @@ $$
 \hat p \sim N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)
 $$
 
-This relies on the population proportion to find the standard error, but this is never available.^[f it was, then why are we doing inference?] The standard error can be estimated and used in the sampling distribution:
-$$
-\hat p \sim N\left(p, \sqrt{\frac{\hat p(1-\hat p)}{n}}\right)
-$$
-
-I said that this would be the last time I change the standard error. I will now make a liar out of myself.
+This relies on the population proportion to find the standard error, but this is never available.^[If it was, then why are we doing inference?] 
 
 
 ## Hypothesis tests for proportions
@@ -43,11 +28,11 @@ $$
 H_0:p = p_0 \text{ vs. } H_A: p \{>or<or\ne\} p_0
 $$
 
-We always write $H_0:p = $ and then fill in the value for $p_0$, then we use that same value in the alternate hypothesis but use either $>$, $<$, or $\ne$ based on the wording of the question.
+We always write $H_0:p = p_0$ and then fill in the value for $p_0$, then we use that same value in the alternate hypothesis but use either $>$, $<$, or $\ne$ based on the wording of the question.
 
-As before, we use the sampling distribution to find our p-value. In this case, though, we have a hypothesized value for the population proportion. In fact, we *must* assume that the null is true.^[We want to be strict about this so that it's more convincing if we prove it wrong.] If this is the case, we *have* the standard error!
+As before, we use the sampling distribution to find our p-value. In this case, though, we have a hypothesized value for the population proportion. In fact, we *must* assume that the null is true.^[We want to be strict about this so that it's more convincing if we prove it wrong.] If this is the case, we *do have* the standard error!
 
-I swear, this is the last time I introduce a new standard error for the sampling distribution of the sample proportion. Assuming $H_0$ is true (and the conditions are met),
+I swear, this is the last time I introduce a new standard error for the sampling distribution of the sample proportion.^[I'm lying.] Assuming $H_0$ is true (and the conditions are met),
 $$
 \hat p \sim N\left(p_0, \sqrt{\frac{p_0(1-p_0)}{n}}\right)
 $$
@@ -57,9 +42,12 @@ $$
 
 As you can guess from the sampling distribution, the test statistic is:
 
+::: {.callout-note}
+### Test Statistic for a Test for Proportions
 $$
-z_{obs} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}}
+z_{obs} = \frac{\text{observed} - \text{hypothesized}}{\text{standard error}} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}}
 $$
+:::
 
 and then we can use the normal distribution as usual:
 $$
@@ -68,10 +56,11 @@ $$
 
 where we use $>$ if the alternate hypothesis uses $>$, $<$ if the alternate hypothesis uses $<$, and we look at the two tails if the alternate hypothesis is $\ne$. 
 
-A common question is: which $p$ do we use to check normality? 
+A common question is: which $p$ do we use to check normality? We're supposed to check $np$ and $n(1-p)$, but do we use $\hat p$ or $p_0$?
 
-For a hypothesis test, we assume the null is true, i.e. $p=p_0$. We should use this assumption *everywhere*! For a hypothesis test about a proportion, we check whether $np_0>10$ and $n(1-p_0)>10$^[As before, both conditions must be true.].
+For a hypothesis test, we assume the null is true, i.e. $p=p_0$. We should use this assumption *everywhere*! For a hypothesis test about a proportion, we check whether $np_0>10$ and $n(1-p_0)>10$^[As before, both conditions must be true; it's not enough for just $np_0>10$ alone.].
 
+From here, we proceed as usual. We check the observed test statistic against a *normal* distribution and see whether our data are too extreme to come from the distribution assumed in the null hypothesis. 
 
 
 ## Example
@@ -90,23 +79,116 @@ To test his theory that 75% of plants would inheret a dominant gene, Gregor Mend
 
 The last step is important: always word your conclusion in the context of the study.
 
-### Mendelian Genetics Part 2
+These methods are extremely widespread, so of course they're implemented in R. Here's a verification of our results:
 
-Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5\%^[$\alpha = 0.045$, so $1 - \alpha = 0.955$.] CI can be found as:
+```{r}
+#| echo: true
+#| eval: true
+prop.test(x = 5474, n = 7324, p = 0.75)
+```
+
+The output should look familiar - it's very similar to the t-test output.
+
+We can see that the p-value (be careful not to mix up the `p-value` and the estimate of $p$, labelled `p` - these are very different things!) is a little different. Maybe it's because of rounding errors? We calculated the z test statistic to the nearest 3 decimal places, maybe that wasn't enough?
+
+```{r}
+#| echo: true
+x <- 5474
+n <- 7324
+phat <- x / n
+se <- sqrt(0.75 * (1 - 0.75) / n)
+2*pnorm((phat - 0.75) / se)
+```
+
+Nope, it's not a rounding problem!
+
+The actual answer is that R uses a *continuity correction factor* (which isn't going to be on the test for this course). The correction factor "shifts" the data so that the normal distribution aligns with the center of the bar, rather than the edge. See the following plot for why.
+
+```{r}
+#| echo: false
+#| eval: true
+xseq <- seq(0, 10, 0.1)
+xseq2 <- unique(round(xseq, 0))
+plot(xseq, dbinom(floor(xseq), 10, 0.4), type = "s",
+    main = 'The need for a "correction" factor',
+    xlab = "n*p", ylab = "Probability")
+lines(xseq2, dbinom(xseq2, 10, 0.4), type = "h")
+lines(xseq, dnorm(xseq, 0.4*10, sqrt(0.4*0.6*10)))
+```
+
+As you can see, the normal distribution aligns with the side of the bar. For values below the mean (in this case, $n=10$ and $p=0.4$, so the mean is 4), the normal distribution is overestimating the areas to the left, whereas above the mean it's underestimating the areas to the left. The correction factor shifts the normal distribution to the right by 0.5 so that it's a better estimate of the areas below the curve.
+
+If we run `prop.test()` without the correction factor, we get the exact same p-value that we saw before.
+
+```{r}
+#| echo: true
+#| eval: true
+prop.test(x = 5474, n = 7324, p = 0.75, correct = FALSE)
+```
+
+These details are not important, just be aware that almost all tests for proportions are run *with* the continuity correction factor. 
+
+### Mendelian Genetics Confidence Interval
+
+Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5\%^[$\alpha = 0.045$, so $1 - \alpha = 0.955$.] 
+
+In order to find the confidence interval, we again need the standard error! In the hypothesis test, we assumed that $p_0$ was the true population proportion in order to proceed with the test. However, we don't make this assumption for confidence intervals.
+
+What can we do? We don't have $p$ or $p_0$, so we're left with $\hat p$, the sample proportion that we calculated. In the t-test, this meant that we needed to switch to the $t$ distribution. However, that was because there was really good theory to say that the $t$ distribution is the correct distribution to use. There's no such theory here.
+
+::: {.callout-warning}
+### CIs for Proportions Only Work When the CLT Applies
+
+The $t$-distribution allows us to do hypothesis tests and make CIs even for smaller samples when we're not sure that the CLT applies. For proportions, we need a "large" sample.
+:::
+
+Now that we know all this, the CI can be found as:
 $$
 \hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}} = 0.747 \pm 2.005\sqrt{\frac{0.747(1-0.747)}{7324}}
 $$
 
-which results in the CI (0.737, 0.758).
+which results in the CI (0.737, 0.758). This matches the CI shown in the output of `prop.test()` above (double check this!).
 
-Note that $\hat p$ was used in the SE since the CI is not based on a hypothesis. For proportions, it is not true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors. 
+::: {.callout-warning}
+### Duality of Hypotheses and CIs
 
+For proportions, it is *not* true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors. 
+:::
+
+## Exact Test for Binomial
+
+In this course, we use the normal approximation to the binomial in order to do hypothesis tests. This is not the only way to do it: we don't always need to use the approximation! There's something called the "exact binomial test", which is a hypothesis test that uses the binomial distribution rather than the normal approximation (this will not be on tests).
+
+There are two main reasons why we might prefer the approximation, rather than using the exact test:
+
+1. If we have a large sample, then the approximation and the exact test are very very close. The approximation is computationally simpler.
+    - If we have a small sample, neither tests can accurately approximate the variance of the population, and thus the estimated standard error isn't well estimated either.
+2. Because the binomial distribution is discrete, the p-values for many different test statistics will be the same. By setting $\alpha$, we might not actually be getting $\alpha$.
+    - This is a technical point that can be safely ignored when studying for tests.
+
+The exact test can be performed using the `binom.test()` function in R.
+
+## Summary
+
+CIs and Hypothesis Tests work exactly as they did before, but now we're dealing with proportions. Just like the change from one sample to two sample $t$ tests, the standard error is important and difficult. 
+
+- For hypothesis tests, the standard error uses $p_0$.
+- For CIs, the standard error uses $\hat p$. 
+
+Interpreting these confidence intervals and hypothesis tests is very similar to before, but you must keep in mind that they're proportions. This mainly affects how you describe the end results.
+
+There are two other wrinkles to consider when using proportions:
+
+- The default test for proportions is the normal approximation with continuity correction.
+    - It is possible, but not recommended, to not use continuity correction.
+- There is also an exact test, but for large samples the approximation is faster and easier.
 
 ## Self-Study Questions
 
 1. When do we use $\hat p$ in the standard error? When do we use $p_0$?
 2. Explain why we don't estimate the standard error in a hypothesis test about a proportion.
-
+3. Explain in your own words why there's no $t$ version of a hypothesis test for proportions.
+4. Write a good summary of the Mendelian genetics example. What did we conclude, and how is this knowledge useful?
 
 
 
