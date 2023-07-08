@@ -298,6 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-2-body-mass-of-penguins" id="toc-example-2-body-mass-of-penguins" class="nav-link" data-scroll-target="#example-2-body-mass-of-penguins">Example 2: Body Mass of Penguins</a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">14.3</span> Conclusion</a></li>
+  <li><a href="#two-sample-t-test-example" id="toc-two-sample-t-test-example" class="nav-link" data-scroll-target="#two-sample-t-test-example"><span class="header-section-number">14.4</span> Two Sample t-test Example</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -566,6 +567,72 @@ mean in group female   mean in group male
 <li>The null hypothesis is usually 0, and the alternate dependes on the order in which you subtract the means.</li>
 </ul></li>
 </ul>
+</section>
+<section id="two-sample-t-test-example" class="level2 t" data-number="14.4">
+<h2 class="t anchored" data-number="14.4" data-anchor-id="two-sample-t-test-example"><span class="header-section-number">14.4</span> Two Sample t-test Example</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>Do mothers who smoke give birth to children with a lower birthweight than mothers who don’t?</p>
+<p>Test this at the 5% level using the data on the right.</p>
+</div><div class="column" style="width:40%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Smoker</th>
+<th>Non-Smoker</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mean</td>
+<td>6.78</td>
+<td>7.18</td>
+</tr>
+<tr class="even">
+<td>sd</td>
+<td>1.43</td>
+<td>1.60</td>
+</tr>
+<tr class="odd">
+<td>n</td>
+<td>50</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li>The null hypothesis is <span class="math inline">\(H_0: \mu_{smoke} = \mu_{non}\)</span>, which can be written as <span class="math inline">\(H_0: \mu_{non} - \mu_{smoke} = \mu_{n - s} = 0\)</span>.</li>
+<li>The alternate hypothesis is <span class="math inline">\(H_a: \mu_{smoke} &lt; \mu_{non}\)</span>, which could be written as
+<ul>
+<li><span class="math inline">\(H_a: \mu_{n - s} &gt; 0\)</span>, or</li>
+<li><span class="math inline">\(H_a: \mu_{s - n} &lt; 0\)</span></li>
+</ul></li>
+</ul>
+<p>It doesn’t matter which we choose, but we have to calculate the corresponding p-value! Let’s use <span class="math inline">\(\mu_{n-s}\)</span>.</p>
+<p>The sample mean difference is <span class="math inline">\(\bar x_{n - s} = 7.18 - 6.78 = 0.4\)</span>. The standard error is: <span class="math display">\[
+SE = \sqrt{\dfrac{s_s^2}{n_s} + \dfrac{s_n^2}{n_n}} = \sqrt{\dfrac{1.43^2}{50} + \dfrac{1.60^2}{100}} = 0.2578721
+\]</span></p>
+<p>Since we used <span class="math inline">\(\bar x_{n - s}\)</span>, our alternate tells us to find the p-value for a t-statistic larger than what we got.</p>
+<p><span class="math display">\[
+t_{obs} = \dfrac{\bar x_{n-s} - \mu_{n-s}}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.55
+\]</span></p>
+<p>Since we’re doing a right-tailed test, we calculate our p-value as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fl">1.55</span>, <span class="dv">49</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.06378844</code></pre>
+</div>
+</div>
+<p>To summarise:</p>
+<ul>
+<li><span class="math inline">\(H_0: \mu_{n - s} = 0\)</span> versus <span class="math inline">\(H_0: \mu_{n - s} &gt; 0\)</span></li>
+<li><span class="math inline">\(t_{obs} = 1.55\)</span></li>
+<li>p-value is 0.06</li>
+</ul>
+<p>Since our p-value is larger than 0.5, we do not have a statistically significant result. We fail to reject the hypothesis that smokers have lower birthweights. We conclude that we do not have enough evidence to say that smoking is associated with lower birthweights.</p>
 
 
 </section>

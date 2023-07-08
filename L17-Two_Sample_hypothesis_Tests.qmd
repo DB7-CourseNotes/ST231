@@ -191,14 +191,61 @@ You may also be happy to hear that no, you will never have to manually enter the
     - The null hypothesis is usually 0, and the alternate dependes on the order in which you subtract the means.
 
 
+## Two Sample t-test Example {.t}
+
+:::: {.columns}
+::: {.column width="60%"}
+Do mothers who smoke give birth to children with a lower birthweight than mothers who don't? 
+
+\pspace
+
+Test this at the 5% level using the data on the right.
+
+:::
+::: {.column width="40%"}
+\vspace{-7mm}
+| | Smoker | Non-Smoker |
+|---|---|---|
+| mean | 6.78 | 7.18 |
+| sd | 1.43 | 1.60 |
+| n | 50 | 100 |
+:::
+::::
+
+- The null hypothesis is $H_0: \mu_{smoke} = \mu_{non}$, which can be written as $H_0: \mu_{non} - \mu_{smoke} = \mu_{n - s} = 0$.\pause\lspace
+- The alternate hypothesis is $H_a: \mu_{smoke} < \mu_{non}$, which could be written as
+    - $H_a: \mu_{n - s} > 0$, or
+    - $H_a: \mu_{s - n} < 0$
+
+It doesn't matter which we choose, but we have to calculate the corresponding p-value! Let's use $\mu_{n-s}$.
 
 
+The sample mean difference is $\bar x_{n - s} = 7.18 - 6.78 = 0.4$. The standard error is:
+$$
+SE = \sqrt{\dfrac{s_s^2}{n_s} + \dfrac{s_n^2}{n_n}} = \sqrt{\dfrac{1.43^2}{50} + \dfrac{1.60^2}{100}} = 0.2578721
+$$
 
 
+Since we used $\bar x_{n - s}$, our alternate tells us to find the p-value for a t-statistic larger than what we got.
+
+$$
+t_{obs} = \dfrac{\bar x_{n-s} - \mu_{n-s}}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.55
+$$
+
+Since we're doing a right-tailed test, we calculate our p-value as:
+
+```{r}
+#| echo: true
+#| eval: true
+1 - pt(1.55, 49)
+```
 
 
+To summarise:
+
+- $H_0: \mu_{n - s} = 0$ versus $H_0: \mu_{n - s} > 0$
+- $t_{obs} = 1.55$
+- p-value is 0.06
 
 
-
-
-
+Since our p-value is larger than 0.5, we do not have a statistically significant result. We fail to reject the hypothesis that smokers have lower birthweights. We conclude that we do not have enough evidence to say that smoking is associated with lower birthweights.
