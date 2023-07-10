@@ -292,13 +292,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#two-sample-t-degrees-of-freedom" id="toc-two-sample-t-degrees-of-freedom" class="nav-link" data-scroll-target="#two-sample-t-degrees-of-freedom">Two-Sample <span class="math inline">\(t\)</span> degrees of freedom</a></li>
   <li><a href="#aside-pooled-variance" id="toc-aside-pooled-variance" class="nav-link" data-scroll-target="#aside-pooled-variance">Aside: “Pooled Variance”</a></li>
   </ul></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">14.2</span> Examples</a>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">14.2</span> Summary</a>
+  <ul class="collapse">
+  <li><a href="#two-sample-t-test-and-ci-overview" id="toc-two-sample-t-test-and-ci-overview" class="nav-link" data-scroll-target="#two-sample-t-test-and-ci-overview">Two-Sample t-test and CI Overview</a></li>
+  </ul></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">14.3</span> Examples</a>
   <ul class="collapse">
   <li><a href="#example-1-two-sample-versus-matched" id="toc-example-1-two-sample-versus-matched" class="nav-link" data-scroll-target="#example-1-two-sample-versus-matched">Example 1: Two-Sample versus Matched</a></li>
   <li><a href="#example-2-body-mass-of-penguins" id="toc-example-2-body-mass-of-penguins" class="nav-link" data-scroll-target="#example-2-body-mass-of-penguins">Example 2: Body Mass of Penguins</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">14.3</span> Conclusion</a></li>
-  <li><a href="#two-sample-t-test-example" id="toc-two-sample-t-test-example" class="nav-link" data-scroll-target="#two-sample-t-test-example"><span class="header-section-number">14.4</span> Two Sample t-test Example</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">14.4</span> Conclusion</a></li>
+  <li><a href="#two-sample-t-test-example" id="toc-two-sample-t-test-example" class="nav-link" data-scroll-target="#two-sample-t-test-example"><span class="header-section-number">14.5</span> Two Sample t-test Example</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -428,8 +432,28 @@ H_0: \mu_1 &lt; \mu_2 &amp;\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d &lt; 0\\
 <p>Except in exceptional cases, the SE that we’ve learned should be used. The idea of a pooled variance is a vestige of another age.</p>
 </section>
 </section>
-<section id="examples" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">14.2</span> Examples</h2>
+<section id="summary" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="summary"><span class="header-section-number">14.2</span> Summary</h2>
+<section id="two-sample-t-test-and-ci-overview" class="level3">
+<h3 class="anchored" data-anchor-id="two-sample-t-test-and-ci-overview">Two-Sample t-test and CI Overview</h3>
+<p>We are usually testing for the difference in means, i.e. <span class="math display">\[\begin{align*}
+H_0: \mu_1 = \mu_2 &amp;\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d = 0\\
+H_a: \mu_1 &lt; \mu_2 &amp;\Leftrightarrow H_a:\mu_1 - \mu_2 = \mu_d &lt; 0\\
+\end{align*}\]</span></p>
+<p><span class="math display">\[
+t_{obs} = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+\]</span> </p>
+<p><span class="math display">\[
+\text{p-value} = P(T &lt; t_{obs}) = \texttt{pt(t\_obs, df = min(n1, n2) - 1)}
+\]</span></p>
+<p><span class="math display">\[
+\text{A $(1-\alpha)$ CI for $\mu_d$ is }\bar x_1 - \bar x_2 \pm t^*\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+\]</span></p>
+<p>where <span class="math inline">\(t^*\)</span> is based on the smaller of <span class="math inline">\(n_1 - 1\)</span> and <span class="math inline">\(n_2 - 1\)</span></p>
+</section>
+</section>
+<section id="examples" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="examples"><span class="header-section-number">14.3</span> Examples</h2>
 <section id="example-1-two-sample-versus-matched" class="level3">
 <h3 class="anchored" data-anchor-id="example-1-two-sample-versus-matched">Example 1: Two-Sample versus Matched</h3>
 <p>From the Ointment example:</p>
@@ -549,8 +573,8 @@ mean in group female   mean in group male
 <p>You may also be happy to hear that no, you will never have to manually enter the standard error formula! You may need to interpret it for tests, though!</p>
 </section>
 </section>
-<section id="conclusion" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">14.3</span> Conclusion</h2>
+<section id="conclusion" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">14.4</span> Conclusion</h2>
 <ul>
 <li>If you can have matched pairs, you should use a matched pairs test.</li>
 <li>Most of the time, you’ll need to use a two-sample t-test.
@@ -568,8 +592,8 @@ mean in group female   mean in group male
 </ul></li>
 </ul>
 </section>
-<section id="two-sample-t-test-example" class="level2 t" data-number="14.4">
-<h2 class="t anchored" data-number="14.4" data-anchor-id="two-sample-t-test-example"><span class="header-section-number">14.4</span> Two Sample t-test Example</h2>
+<section id="two-sample-t-test-example" class="level2 t" data-number="14.5">
+<h2 class="t anchored" data-number="14.5" data-anchor-id="two-sample-t-test-example"><span class="header-section-number">14.5</span> Two Sample t-test Example</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p>Do mothers who smoke give birth to children with a lower birthweight than mothers who don’t?</p>

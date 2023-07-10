@@ -2,18 +2,6 @@
 title: "Inference: Overview, R Code, and Special Topics"
 author: "Devan Becker"
 date: "24/07/2020"
-output:
-  word_document:
-    toc: yes
-  pdf_document:
-    number_sections: yes
-    toc: yes
-  tufte::tufte_html:
-    css: my_tufte.css
-    number_sections: yes
-    toc: yes
-    tufte_variant: envisioned
-    highlight: zenburn
 ---
 
 ```{r setup, include=FALSE}
@@ -143,8 +131,8 @@ xbar + c(-1, 1)*tstar*s/sqrt(n)
 
 Prior to collecting data, we have the hypotheses:
 \begin{align*}
-H_0:\mu = \mu_0
-H_A: \mu \ne \mu_0
+H_0:&\mu = \mu_0\\
+H_A:&\mu [\ne\text{ or }>\text{ or }<] \mu_0
 \end{align*}
 
 We also must set the significance level $\alpha$ prior to collecting data.
@@ -154,10 +142,11 @@ $$
 t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
 $$
 
-Since our alterate hypothesis is "$\ne$", the p-value is found as:
+If our alterate hypothesis is "$\ne$", the p-value is found as:
 $$
 \text{p-value} = 2*(1-P(T > |t_{obs}|))\text{, or } 2*P(T < -|t_{obs}|)
 $$
+
 although this is best understood as checking the tails (i.e. if $t_{obs}$ is negative, do $2*P(T < t_{obs})$ and if it's positive do $2*P(T < -t_{obs})$). 
 
 ```{r}

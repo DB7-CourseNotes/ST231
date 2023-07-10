@@ -493,16 +493,17 @@ S &amp;\sim \text{ Something Else}\\
 <section id="hypothesis-test-1" class="level3">
 <h3 class="anchored" data-anchor-id="hypothesis-test-1">Hypothesis Test</h3>
 <p>Prior to collecting data, we have the hypotheses: <span class="math display">\[\begin{align*}
-H_0:\mu = \mu_0
-H_A: \mu \ne \mu_0
+H_0:&amp;\mu = \mu_0\\
+H_A:&amp;\mu [\ne\text{ or }&gt;\text{ or }&lt;] \mu_0
 \end{align*}\]</span></p>
 <p>We also must set the significance level <span class="math inline">\(\alpha\)</span> prior to collecting data.</p>
 <p>Once we collect data, we calculate the test statistic: <span class="math display">\[
 t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
 \]</span></p>
-<p>Since our alterate hypothesis is “<span class="math inline">\(\ne\)</span>”, the p-value is found as: <span class="math display">\[
+<p>If our alterate hypothesis is “<span class="math inline">\(\ne\)</span>”, the p-value is found as: <span class="math display">\[
 \text{p-value} = 2*(1-P(T &gt; |t_{obs}|))\text{, or } 2*P(T &lt; -|t_{obs}|)
-\]</span> although this is best understood as checking the tails (i.e.&nbsp;if <span class="math inline">\(t_{obs}\)</span> is negative, do <span class="math inline">\(2*P(T &lt; t_{obs})\)</span> and if it’s positive do <span class="math inline">\(2*P(T &lt; -t_{obs})\)</span>).</p>
+\]</span></p>
+<p>although this is best understood as checking the tails (i.e.&nbsp;if <span class="math inline">\(t_{obs}\)</span> is negative, do <span class="math inline">\(2*P(T &lt; t_{obs})\)</span> and if it’s positive do <span class="math inline">\(2*P(T &lt; -t_{obs})\)</span>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tobs <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> <span class="dv">5</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>tobs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

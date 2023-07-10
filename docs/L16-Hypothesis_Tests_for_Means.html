@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-06-28">
+<meta name="dcterms.date" content="2023-07-10">
 
 <title>Statistics for Life Sciences - 13&nbsp; t-Tests for a Mean</title>
 <style>
@@ -292,7 +292,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#t-tests-in-practice" id="toc-t-tests-in-practice" class="nav-link" data-scroll-target="#t-tests-in-practice">t-tests in Practice</a></li>
   </ul></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">13.4</span> Self-Study Questions</a></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">14</span> Recap</a>
+  <ul class="collapse">
+  <li><a href="#hypothesis-tests-in-general" id="toc-hypothesis-tests-in-general" class="nav-link" data-scroll-target="#hypothesis-tests-in-general"><span class="header-section-number">14.1</span> Hypothesis Tests in General</a></li>
+  <li><a href="#hypothesis-test-example" id="toc-hypothesis-test-example" class="nav-link" data-scroll-target="#hypothesis-test-example"><span class="header-section-number">14.2</span> Hypothesis Test Example</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">14.3</span> Confidence Intervals</a></li>
+  <li><a href="#confidence-interval-example" id="toc-confidence-interval-example" class="nav-link" data-scroll-target="#confidence-interval-example"><span class="header-section-number">14.4</span> Confidence Interval Example</a></li>
+  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">14.5</span> Participation Questions</a>
+  <ul class="collapse">
+  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
+  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
+  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
+  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
+  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
+  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
+  </ul></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">14.6</span> Self-Study Questions</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -325,7 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-06-28</p>
+      <p class="date">2023-07-10</p>
     </div>
   </div>
   
@@ -512,8 +528,174 @@ mean of x
 <p>Notice that this calculated a two-sided p-value, which is twice what we saw before (and no longer significant at the 5% level!).</p>
 </section>
 </section>
-<section id="self-study-questions" class="level2" data-number="13.4">
-<h2 data-number="13.4" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">13.4</span> Self-Study Questions</h2>
+<section id="recap" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Recap</h1>
+<section id="hypothesis-tests-in-general" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="hypothesis-tests-in-general"><span class="header-section-number">14.1</span> Hypothesis Tests in General</h2>
+<ol type="1">
+<li>Decide on a hypothesis.
+<ul>
+<li><span class="math inline">\(H_0: \mu = \mu_0\)</span> versus <span class="math inline">\(H_a: \mu [\ne,&gt;,\text{ or }&lt;] \mu_0\)</span></li>
+</ul></li>
+<li>Choose a significance level <span class="math inline">\(\alpha\)</span>.
+<ul>
+<li>Smaller leverl = require more evidence to reject the null.</li>
+</ul></li>
+<li>Gather data
+<ul>
+<li>Independent observations from same population; random sample.</li>
+</ul></li>
+<li>Calculate the test statistic based on <span class="math inline">\(\bar x\)</span>, <span class="math inline">\(s\)</span>, and <span class="math inline">\(\mu_0\)</span>.
+<ul>
+<li>Sampling distribution is based on the <em>null</em> hypothesis.</li>
+</ul></li>
+<li>Calculate the p-value according to the form of the <em>alternate</em> hypothesis.
+<ul>
+<li>If <span class="math inline">\(&lt;\)</span>, then <code>pnorm(z_obs)</code>; if <span class="math inline">\(&gt;\)</span>, then <code>1 - pnorm(z_obs)</code>; if two sided, double the correct one.</li>
+</ul></li>
+</ol>
+</section>
+<section id="hypothesis-test-example" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="hypothesis-test-example"><span class="header-section-number">14.2</span> Hypothesis Test Example</h2>
+<p>New York is sometimes called “the city that never sleeps”. At the 5% level, do the following data provide evidence that the average New Yorker gets less than 8 hours of sleep per night?</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\bar x\)</span></th>
+<th><span class="math inline">\(s\)</span></th>
+<th><span class="math inline">\(n\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>7.73</td>
+<td>0.77</td>
+<td>25</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Hypotheses: <span class="math inline">\(H_0: \mu = 8\)</span>, <span class="math inline">\(H_a:\mu &lt; 8\)</span>.</li>
+<li><span class="math inline">\(t_{obs}\)</span> = <span class="math inline">\(\dfrac{7.73 - 8}{0.77/5} = -1.75\)</span></li>
+<li>p-value = <code>pt(-1.75, 24)</code> = 0.0464</li>
+<li>Conclude: Since p &lt; <span class="math inline">\(\alpha\)</span>, we reject the null hypothesis.
+<ul>
+<li>We have found statistically significant evidence that New Yorkers sleep less than 8 hours per night on average.</li>
+</ul></li>
+</ul>
+</section>
+<section id="confidence-intervals" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">14.3</span> Confidence Intervals</h2>
+<ol type="1">
+<li>Choose a confidence level <span class="math inline">\(\alpha\)</span>.
+<ul>
+<li>“100(1-<span class="math inline">\(\alpha\)</span>)%CI</li>
+</ul></li>
+<li>Collect data
+<ul>
+<li>Independent observations from same population; random sample.</li>
+</ul></li>
+<li>Find the critical value <span class="math inline">\(t^*_{n-1}\)</span>
+<ul>
+<li>We will not need <span class="math inline">\(z^*\)</span> again, except possibly as comparison.</li>
+</ul></li>
+<li>Calculate <span class="math inline">\(\bar x \pm t^*s/\sqrt{n}\)</span></li>
+<li>Conclude: 95% of the intervals constructed this way will contain the true population mean.</li>
+</ol>
+</section>
+<section id="confidence-interval-example" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="confidence-interval-example"><span class="header-section-number">14.4</span> Confidence Interval Example</h2>
+<p>Construct a 95% CI for the New York sleep example.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\bar x\)</span></th>
+<th><span class="math inline">\(s\)</span></th>
+<th><span class="math inline">\(n\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>7.73</td>
+<td>0.77</td>
+<td>25</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> = </li>
+<li><span class="math inline">\(t^*_{n-1}\)</span> = <code>qt(0.025, 24)</code> = -2.0639.</li>
+<li><span class="math inline">\(\bar x \pm t^*_{n-1}s/\sqrt{n} = 7.73 \pm 2.0639*0.77/5 = (7.41, 8.05)\)</span></li>
+<li>Conclude: we are 95% confident that the true average nights sleep in New York is between 7.41 and 8.05.
+<ul>
+<li>This interval includes 8, so 8 would <em>not</em> be rejected by a hypothesis test?!?!</li>
+</ul></li>
+</ul>
+</section>
+<section id="participation-questions" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">14.5</span> Participation Questions</h2>
+<section id="q1" class="level3">
+<h3 class="anchored" data-anchor-id="q1">Q1</h3>
+<p>What is the standard error?</p>
+<ol type="1">
+<li><span class="math inline">\(\sigma/\sqrt{n}\)</span></li>
+<li><span class="math inline">\(\sqrt{\frac{p(1-p)}{n}}\)</span></li>
+<li><span class="math inline">\(\sqrt{s_1^2/n_1 + s_2^2/n}\)</span></li>
+<li>The standard deviation of the sampling distribution.</li>
+</ol>
+</section>
+<section id="q2" class="level3">
+<h3 class="anchored" data-anchor-id="q2">Q2</h3>
+<p>What is the standard deviation of the sampling distribution?</p>
+<ol type="1">
+<li>The standard deviation of the population divided by the square root of the sample size (<span class="math inline">\(\sigma/\sqrt{n}\)</span>).</li>
+<li>The standard deviation of the value of a sample statistic across all possible samples from the population.</li>
+<li>The same as the standard deviation of the population.</li>
+<li>The average distance to the mean of the population.</li>
+</ol>
+</section>
+<section id="q3" class="level3">
+<h3 class="anchored" data-anchor-id="q3">Q3</h3>
+<p>Why does the sampling distribution have a lower variance than the population?</p>
+<ol type="1">
+<li>Because the standard deviation is smaller than the variance.</li>
+<li>Because the population has a larger number of possible, so the variance is smaller.</li>
+<li>Because outliers are not as likely in a sample.</li>
+<li>Because we are summarising many observations from a sample into a single value.</li>
+</ol>
+</section>
+<section id="q4" class="level3">
+<h3 class="anchored" data-anchor-id="q4">Q4</h3>
+<p>After conducting a study, we found a p-value of 0.04. Did we find a statistically significant result?</p>
+<ol type="1">
+<li>Yes, since the p-value is less than 0.05</li>
+<li>No, since the p-value is less than 0.05</li>
+<li>We failed to set the significance lavel ahead of time, so we have to be very careful about concluding significance.</li>
+</ol>
+</section>
+<section id="q5" class="level3">
+<h3 class="anchored" data-anchor-id="q5">Q5</h3>
+<p>After conducting a study, we found a 95% confidence interval for <span class="math inline">\(\mu\)</span> from -0.1 to 1.9. What can we conclude?</p>
+<ol type="1">
+<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu \ne 0\)</span> would not be significant at the 5% level.</li>
+<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu &gt; 0\)</span> would not be significant at the 5% level.</li>
+<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu \ne 0\)</span> would not be significant at the 2.5% level.</li>
+<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu &gt; 0\)</span> would not be significant at the 2.5% level.</li>
+</ol>
+</section>
+<section id="q6" class="level3">
+<h3 class="anchored" data-anchor-id="q6">Q6</h3>
+<p>Under which condition does the CLT <em>not</em> apply?</p>
+<ol type="1">
+<li>For <span class="math inline">\(\bar x\)</span>, the sample size is between 3 and 60 but a histogram of the sample appears normal.</li>
+<li>For <span class="math inline">\(\bar x\)</span>, the sample size is much larger than 60.</li>
+<li>For <span class="math inline">\(\hat p\)</span>, the sample size is much larger than 60.</li>
+<li>For <span class="math inline">\(\hat p\)</span>, we have checked <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span></li>
+</ol>
+</section>
+</section>
+<section id="self-study-questions" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">14.6</span> Self-Study Questions</h2>
 <ol type="1">
 <li>Explain why: If the <span class="math inline">\(z_{obs}\)</span> test statistic is the same as the <span class="math inline">\(t_{obs}\)</span> test statistic, then the p-value for <span class="math inline">\(t_{obs}\)</span> will be wider.</li>
 <li>If a test is statistically signficant, does that mean there’s a large effect size? That is, does a hypothesis test tell you anything about the size of the effect?
@@ -528,6 +710,7 @@ mean of x
 </ol>
 
 
+</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

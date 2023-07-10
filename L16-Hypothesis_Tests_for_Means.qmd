@@ -1,7 +1,7 @@
 ---
 title: "t-Tests for a Mean"
 author: "Dr. Devan Becker"
-date: "June 28, 2023"
+date: "July 10, 2023"
 ---
 
 ```{r setup, include=FALSE}
@@ -127,6 +127,133 @@ t.test(difference, alternative = "two.sided", conf.level = 0.89)
 ```
 
 Notice that this calculated a two-sided p-value, which is twice what we saw before (and no longer significant at the 5% level!).
+
+
+# Recap
+
+## Hypothesis Tests in General
+
+1. Decide on a hypothesis.
+    - $H_0: \mu = \mu_0$ versus $H_a: \mu [\ne,>,\text{ or }<] \mu_0$\lspace
+2. Choose a significance level $\alpha$.
+    - Smaller leverl = require more evidence to reject the null.\lspace
+3. Gather data
+    - Independent observations from same population; random sample.\lspace
+4. Calculate the test statistic based on $\bar x$, $s$, and $\mu_0$.
+    - Sampling distribution is based on the *null* hypothesis.\lspace
+5. Calculate the p-value according to the form of the *alternate* hypothesis.
+    - If $<$, then `pnorm(z_obs)`; if $>$, then `1 - pnorm(z_obs)`; if two sided, double the correct one.
+
+## Hypothesis Test Example
+
+New York is sometimes called "the city that never sleeps". At the 5% level, do the following data provide evidence that the average New Yorker gets less than 8 hours of sleep per night?
+
+| $\bar x$ | $s$ | $n$ |
+|---|---|---|
+|7.73 | 0.77 | 25 |
+
+- Hypotheses: \pause $H_0: \mu = 8$, $H_a:\mu < 8$.\lspace
+- $t_{obs}$ = \pause $\dfrac{7.73 - 8}{0.77/5} = -1.75$\lspace
+- p-value = \pause `pt(-1.75, 24)` = `r round(pt(-1.75, 24), 4)`
+- Conclude: \pause Since p < $\alpha$, we reject the null hypothesis.
+    - We have found statistically significant evidence that New Yorkers sleep less than 8 hours per night on average. 
+
+## Confidence Intervals
+
+1. Choose a confidence level $\alpha$.
+    - "100(1-$\alpha$)%CI\lspace
+2. Collect data
+    - Independent observations from same population; random sample.\lspace
+3. Find the critical value $t^*_{n-1}$
+    - We will not need $z^*$ again, except possibly as comparison.\lspace
+4. Calculate $\bar x \pm t^*s/\sqrt{n}$\lspace
+5. Conclude: 95% of the intervals constructed this way will contain the true population mean.
+
+## Confidence Interval Example
+
+Construct a 95% CI for the New York sleep example.
+
+| $\bar x$ | $s$ | $n$ |
+|---|---|---|
+|7.73 | 0.77 | 25 |
+
+- $\alpha$ = \pause 0.05\lspace
+- $t^*_{n-1}$ = \pause `qt(0.025, 24)` = `r round(qt(0.025, 24), 4)`.\lspace
+- $\bar x \pm t^*_{n-1}s/\sqrt{n} = 7.73 \pm 2.0639*0.77/5 = (7.41, 8.05)$\lspace
+- Conclude: we are 95% confident that the true average nights sleep in New York is between 7.41 and 8.05.
+    - This interval includes 8, so 8 would *not* be rejected by a hypothesis test?!?!
+
+
+## Participation Questions
+
+### Q1
+
+What is the standard error?
+
+\pspace
+
+1. $\sigma/\sqrt{n}$
+2. $\sqrt{\frac{p(1-p)}{n}}$
+3. $\sqrt{s_1^2/n_1 + s_2^2/n}$
+4. The standard deviation of the sampling distribution.
+
+### Q2
+
+What is the standard deviation of the sampling distribution?
+
+\pspace
+
+1. The standard deviation of the population divided by the square root of the sample size ($\sigma/\sqrt{n}$).
+2. The standard deviation of the value of a sample statistic across all possible samples from the population.
+3. The same as the standard deviation of the population.
+4. The average distance to the mean of the population.
+
+### Q3
+
+Why does the sampling distribution have a lower variance than the population?
+
+\pspace
+
+1. Because the standard deviation is smaller than the variance.
+2. Because the population has a larger number of possible, so the variance is smaller.
+3. Because outliers are not as likely in a sample.
+4. Because we are summarising many observations from a sample into a single value.
+
+### Q4
+
+After conducting a study, we found a p-value of 0.04. Did we find a statistically significant result?
+
+\pspace
+
+1. Yes, since the p-value is less than 0.05
+2. No, since the p-value is less than 0.05
+3. We failed to set the significance lavel ahead of time, so we have to be very careful about concluding significance.
+
+### Q5
+
+After conducting a study, we found a 95% confidence interval for $\mu$ from -0.1 to 1.9. What can we conclude?
+
+\pspace
+
+1. Since 0 is in the interval, a hypothesis test for $\mu = 0$ versus $\mu \ne 0$ would not be significant at the 5% level. 
+2. Since 0 is in the interval, a hypothesis test for $\mu = 0$ versus $\mu > 0$ would not be significant at the 5% level. 
+3. Since 0 is in the interval, a hypothesis test for $\mu = 0$ versus $\mu \ne 0$ would not be significant at the 2.5% level. 
+4. Since 0 is in the interval, a hypothesis test for $\mu = 0$ versus $\mu > 0$ would not be significant at the 2.5% level. 
+
+### Q6
+
+Under which condition does the CLT *not* apply?
+
+\pspace
+
+1. For $\bar x$, the sample size is between 3 and 60 but a histogram of the sample appears normal.
+2. For $\bar x$, the sample size is much larger than 60.
+3. For $\hat p$, the sample size is much larger than 60.
+4. For $\hat p$, we have checked $np>10$ and $n(1-p)>10$
+
+
+
+
 
 ## Self-Study Questions
 

@@ -1,7 +1,7 @@
 ---
 title: "Sampling Distributions"
 author: "Devan Becker"
-date: "`r Sys.Date()`"
+date: "June 12, 2023"
 format: pdf
 execute: 
   echo: true

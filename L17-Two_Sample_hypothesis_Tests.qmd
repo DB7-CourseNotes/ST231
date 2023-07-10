@@ -132,6 +132,34 @@ If the two assumptions are met, then the pooled standard deviation is the "corre
 Except in exceptional cases, the SE that we've learned should be used. The idea of a pooled variance is a vestige of another age.
 
 
+## Summary
+
+### Two-Sample t-test and CI Overview
+
+
+We are usually testing for the difference in means, i.e.
+\begin{align*}
+H_0: \mu_1 = \mu_2 &\Leftrightarrow H_0:\mu_1 - \mu_2 = \mu_d = 0\\
+H_a: \mu_1 < \mu_2 &\Leftrightarrow H_a:\mu_1 - \mu_2 = \mu_d < 0\\
+\end{align*}\vspace{-15mm}
+
+$$
+t_{obs} = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}}
+$$
+\vspace{-10mm}
+
+$$
+\text{p-value} = P(T < t_{obs}) = \texttt{pt(t\_obs, df = min(n1, n2) - 1)}
+$$
+
+$$
+\text{A $(1-\alpha)$ CI for $\mu_d$ is }\bar x_1 - \bar x_2 \pm t^*\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+$$
+
+where $t^*$ is based on the smaller of $n_1 - 1$ and $n_2 - 1$
+
+
+
 ## Examples
 
 ### Example 1: Two-Sample versus Matched
