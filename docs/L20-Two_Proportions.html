@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2023-07-12">
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Statistics for Life Sciences - 15&nbsp; Large sample test for a proportion</title>
+<title>Statistics for Life Sciences - 17&nbsp; Inference for the Difference in Proportions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L19-CI_for_Proportions.html" rel="next">
-<link href="./L17-Two_Sample_hypothesis_Tests.html" rel="prev">
+<link href="./L19-Summary_of_Inference-Means_Proportions.html" rel="next">
+<link href="./L19-CI_for_Proportions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L18-Hypothesis_Tests_for_Proportions.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L20-Two_Proportions.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -255,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></span></a>
   </div>
 </li>
@@ -267,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Two_Proportions.html" class="sidebar-item-text sidebar-link">
+  <a href="./L20-Two_Proportions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></span></a>
   </div>
 </li>
@@ -289,19 +288,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#refresher" id="toc-refresher" class="nav-link active" data-scroll-target="#refresher"><span class="header-section-number">15.1</span> Refresher</a></li>
-  <li><a href="#hypothesis-tests-for-proportions" id="toc-hypothesis-tests-for-proportions" class="nav-link" data-scroll-target="#hypothesis-tests-for-proportions"><span class="header-section-number">15.2</span> Hypothesis tests for proportions</a>
+  <li><a href="#diy-confidence-intervals" id="toc-diy-confidence-intervals" class="nav-link active" data-scroll-target="#diy-confidence-intervals"><span class="header-section-number">17.1</span> DIY Confidence Intervals</a>
   <ul class="collapse">
-  <li><a href="#the-test-statistic" id="toc-the-test-statistic" class="nav-link" data-scroll-target="#the-test-statistic">The Test Statistic</a></li>
+  <li><a href="#standard-error-for-a-single-mean" id="toc-standard-error-for-a-single-mean" class="nav-link" data-scroll-target="#standard-error-for-a-single-mean">Standard Error for a Single Mean</a></li>
+  <li><a href="#standard-error-for-the-difference-in-means" id="toc-standard-error-for-the-difference-in-means" class="nav-link" data-scroll-target="#standard-error-for-the-difference-in-means">Standard Error for the Difference in Means</a></li>
+  <li><a href="#standard-error-for-a-single-proportion" id="toc-standard-error-for-a-single-proportion" class="nav-link" data-scroll-target="#standard-error-for-a-single-proportion">Standard Error for a Single Proportion</a></li>
+  <li><a href="#standard-error-for-the-difference-in-proportions" id="toc-standard-error-for-the-difference-in-proportions" class="nav-link" data-scroll-target="#standard-error-for-the-difference-in-proportions">Standard Error for the Difference in Proportions</a></li>
+  <li><a href="#confidence-interval-example" id="toc-confidence-interval-example" class="nav-link" data-scroll-target="#confidence-interval-example">Confidence Interval Example</a></li>
   </ul></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">15.3</span> Example</a>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing"><span class="header-section-number">17.2</span> Hypothesis Testing</a>
   <ul class="collapse">
-  <li><a href="#mendelian-genetics" id="toc-mendelian-genetics" class="nav-link" data-scroll-target="#mendelian-genetics">Mendelian Genetics</a></li>
-  <li><a href="#mendelian-genetics-confidence-interval" id="toc-mendelian-genetics-confidence-interval" class="nav-link" data-scroll-target="#mendelian-genetics-confidence-interval">Mendelian Genetics Confidence Interval</a></li>
+  <li><a href="#the-pooled-proportion" id="toc-the-pooled-proportion" class="nav-link" data-scroll-target="#the-pooled-proportion">The Pooled Proportion</a></li>
+  <li><a href="#hypothesis-test-example" id="toc-hypothesis-test-example" class="nav-link" data-scroll-target="#hypothesis-test-example">Hypothesis Test Example</a></li>
   </ul></li>
-  <li><a href="#exact-test-for-binomial" id="toc-exact-test-for-binomial" class="nav-link" data-scroll-target="#exact-test-for-binomial"><span class="header-section-number">15.4</span> Exact Test for Binomial</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">15.5</span> Summary</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">15.6</span> Self-Study Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -310,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></h1>
 </div>
 
 
@@ -319,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Devan Becker </p>
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -331,12 +330,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
       
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2023-07-12</p>
-    </div>
-  </div>
   
     
   </div>
@@ -344,212 +337,132 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="refresher" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="refresher"><span class="header-section-number">15.1</span> Refresher</h2>
-<p>In the lecture on sampling distributions, we learned that the sampling distribution of a sample proportion can be found as follows:</p>
-<p>If <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span>, then <span class="math display">\[
-\hat p \sim N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)
-\]</span></p>
-<p>This relies on the population proportion to find the standard error, but this is never available.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="diy-confidence-intervals" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="diy-confidence-intervals"><span class="header-section-number">17.1</span> DIY Confidence Intervals</h2>
+<p>This lesson is going to be a little different from the rest. I’m not going to give you the answers, I’m going to give you the tools.</p>
+<section id="standard-error-for-a-single-mean" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-for-a-single-mean">Standard Error for a Single Mean</h3>
+<p>As we’ve seen many times, this is <span class="math display">\[
+SE(\bar X) = \frac{\sigma}{\sqrt{n}} = \sqrt{\frac{\sigma^2}{n}},
+\]</span> but we often use <span class="math display">\[
+\hat{SE}(\bar X) = \frac{S}{\sqrt{n}} = \sqrt{\frac{S^2}{n}},
+\]</span> which is the <strong>estimated standard error</strong> (the “hat” on top of the letters “SE” indicates that it’s estimated). For the rest of this lecture, we’ll always use the estimated standard error.</p>
 </section>
-<section id="hypothesis-tests-for-proportions" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="hypothesis-tests-for-proportions"><span class="header-section-number">15.2</span> Hypothesis tests for proportions</h2>
-<p>As before, we write our hypotheses: <span class="math display">\[
-H_0:p = p_0 \text{ vs. } H_A: p \{&gt;or&lt;or\ne\} p_0
-\]</span></p>
-<p>We always write <span class="math inline">\(H_0:p = p_0\)</span> and then fill in the value for <span class="math inline">\(p_0\)</span>, then we use that same value in the alternate hypothesis but use either <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span>, or <span class="math inline">\(\ne\)</span> based on the wording of the question.</p>
-<p>As before, we use the sampling distribution to find our p-value. In this case, though, we have a hypothesized value for the population proportion. In fact, we <em>must</em> assume that the null is true.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> If this is the case, we <em>do have</em> the standard error!</p>
-<p>I swear, this is the last time I introduce a new standard error for the sampling distribution of the sample proportion.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Assuming <span class="math inline">\(H_0\)</span> is true (and the conditions are met), <span class="math display">\[
-\hat p \sim N\left(p_0, \sqrt{\frac{p_0(1-p_0)}{n}}\right)
-\]</span></p>
-<section id="the-test-statistic" class="level3">
-<h3 class="anchored" data-anchor-id="the-test-statistic">The Test Statistic</h3>
-<p>As you can guess from the sampling distribution, the test statistic is:</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Test Statistic for a Test for Proportions
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math display">\[
-z_{obs} = \frac{\text{observed} - \text{hypothesized}}{\text{standard error}} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}}
-\]</span></p>
-</div>
-</div>
-<p>and then we can use the normal distribution as usual: <span class="math display">\[
-P(Z \{&gt;or&lt;or\text{ further away than}\} z_{obs}) = \dots
-\]</span></p>
-<p>where we use <span class="math inline">\(&gt;\)</span> if the alternate hypothesis uses <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span> if the alternate hypothesis uses <span class="math inline">\(&lt;\)</span>, and we look at the two tails if the alternate hypothesis is <span class="math inline">\(\ne\)</span>.</p>
-<p>A common question is: which <span class="math inline">\(p\)</span> do we use to check normality? We’re supposed to check <span class="math inline">\(np\)</span> and <span class="math inline">\(n(1-p)\)</span>, but do we use <span class="math inline">\(\hat p\)</span> or <span class="math inline">\(p_0\)</span>?</p>
-<p>For a hypothesis test, we assume the null is true, i.e.&nbsp;<span class="math inline">\(p=p_0\)</span>. We should use this assumption <em>everywhere</em>! For a hypothesis test about a proportion, we check whether <span class="math inline">\(np_0&gt;10\)</span> and <span class="math inline">\(n(1-p_0)&gt;10\)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
-<p>From here, we proceed as usual. We check the observed test statistic against a <em>normal</em> distribution and see whether our data are too extreme to come from the distribution assumed in the null hypothesis.</p>
-</section>
-</section>
-<section id="example" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="example"><span class="header-section-number">15.3</span> Example</h2>
-<section id="mendelian-genetics" class="level3">
-<h3 class="anchored" data-anchor-id="mendelian-genetics">Mendelian Genetics</h3>
-<p>To test his theory that 75% of plants would inheret a dominant gene, Gregor Mendel cross bred pure breeds of pea plants. Out of 7324 plants, 5474 showed the dominant trait. At the 4.5% level, is this compatible with the hypothesis of 75% dominant?</p>
-<p><strong>Solution:</strong></p>
-<ol type="1">
-<li>Check: <span class="math inline">\(np_0 = 7324*0.75 &gt; 10\)</span> and <span class="math inline">\(n(1-p_0) = 7324*0.25 &gt; 10\)</span>.</li>
-<li><span class="math inline">\(z_{obs} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.747 - 0.75}{\sqrt{0.75*0.25/7324}} = -0.513\)</span></li>
-<li><span class="math inline">\(p-val = 2 *P(Z &lt; z_{obs})\)</span> = <code>2*pnorm(-0.513)</code> = 0.608
+<section id="standard-error-for-the-difference-in-means" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-for-the-difference-in-means">Standard Error for the Difference in Means</h3>
+<p>Even though we were subtracting means, we added their variances and then take their square root. <span class="math display">\[
+\hat{SE}(\bar X_1 - \bar X_2) = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+\]</span> It is an important fact that we add the variances and then take the square root.</p>
+<p>From this lesson, also note that we had to make the assumptions:</p>
 <ul>
-<li>We doubled the <span class="math inline">\(P(Z &lt; z_{obs})\)</span> because we want both tails. If you do this and your p-value is larger than 1, do <span class="math inline">\(1 - P(Z &lt; z_{obs})\)</span> first and then double it.</li>
+<li>The individuals within a group are independent of other individuals in that group.
+<ul>
+<li>For example, if we sample people in our own family then the samples are not independent. People in the same family tend to have similar characteristics, so knowledge of the characteristics of one family member are informative about the others.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 </ul></li>
-<li>Conclusion: Since <span class="math inline">\(p-val &gt; \alpha\)</span>, we do not reject the null. The hypothesis that 75% of plants inherent the dominant trait is compatible with the data.</li>
-</ol>
-<p>The last step is important: always word your conclusion in the context of the study.</p>
-<p>These methods are extremely widespread, so of course they’re implemented in R. Here’s a verification of our results:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">5474</span>, <span class="at">n =</span> <span class="dv">7324</span>, <span class="at">p =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    1-sample proportions test with continuity correction
-
-data:  5474 out of 7324, null probability 0.75
-X-squared = 0.24923, df = 1, p-value = 0.6176
-alternative hypothesis: true p is not equal to 0.75
-95 percent confidence interval:
- 0.7372578 0.7572926
-sample estimates:
-        p 
-0.7474058 </code></pre>
-</div>
-</div>
-<p>The output should look familiar - it’s very similar to the t-test output.</p>
-<p>We can see that the p-value (be careful not to mix up the <code>p-value</code> and the estimate of <span class="math inline">\(p\)</span>, labelled <code>p</code> - these are very different things!) is a little different. Maybe it’s because of rounding errors? We calculated the z test statistic to the nearest 3 decimal places, maybe that wasn’t enough?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5474</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">7324</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> x <span class="sc">/</span> n</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fl">0.75</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.75</span>) <span class="sc">/</span> n)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>((phat <span class="sc">-</span> <span class="fl">0.75</span>) <span class="sc">/</span> se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6081484</code></pre>
-</div>
-</div>
-<p>Nope, it’s not a rounding problem!</p>
-<p>The actual answer is that R uses a <em>continuity correction factor</em> (which isn’t going to be on the test for this course). The correction factor “shifts” the data so that the normal distribution aligns with the center of the bar, rather than the edge. See the following plot for why.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="L18-Hypothesis_Tests_for_Proportions_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>As you can see, the normal distribution aligns with the side of the bar. For values below the mean (in this case, <span class="math inline">\(n=10\)</span> and <span class="math inline">\(p=0.4\)</span>, so the mean is 4), the normal distribution is overestimating the areas to the left, whereas above the mean it’s underestimating the areas to the left. The correction factor shifts the normal distribution to the right by 0.5 so that it’s a better estimate of the areas below the curve.</p>
-<p>If we run <code>prop.test()</code> without the correction factor, we get the exact same p-value that we saw before.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">5474</span>, <span class="at">n =</span> <span class="dv">7324</span>, <span class="at">p =</span> <span class="fl">0.75</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    1-sample proportions test without continuity correction
-
-data:  5474 out of 7324, null probability 0.75
-X-squared = 0.26288, df = 1, p-value = 0.6081
-alternative hypothesis: true p is not equal to 0.75
-95 percent confidence interval:
- 0.7373269 0.7572253
-sample estimates:
-        p 
-0.7474058 </code></pre>
-</div>
-</div>
-<p>These details are not important, just be aware that almost all tests for proportions are run <em>with</em> the continuity correction factor.</p>
-</section>
-<section id="mendelian-genetics-confidence-interval" class="level3">
-<h3 class="anchored" data-anchor-id="mendelian-genetics-confidence-interval">Mendelian Genetics Confidence Interval</h3>
-<p>Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5%<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<p>In order to find the confidence interval, we again need the standard error! In the hypothesis test, we assumed that <span class="math inline">\(p_0\)</span> was the true population proportion in order to proceed with the test. However, we don’t make this assumption for confidence intervals.</p>
-<p>What can we do? We don’t have <span class="math inline">\(p\)</span> or <span class="math inline">\(p_0\)</span>, so we’re left with <span class="math inline">\(\hat p\)</span>, the sample proportion that we calculated. In the t-test, this meant that we needed to switch to the <span class="math inline">\(t\)</span> distribution. However, that was because there was really good theory to say that the <span class="math inline">\(t\)</span> distribution is the correct distribution to use. There’s no such theory here.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-CIs for Proportions Only Work When the CLT Applies
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The <span class="math inline">\(t\)</span>-distribution allows us to do hypothesis tests and make CIs even for smaller samples when we’re not sure that the CLT applies. For proportions, we need a “large” sample.</p>
-</div>
-</div>
-<p>Now that we know all this, the CI can be found as: <span class="math display">\[
-\hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}} = 0.747 \pm 2.005\sqrt{\frac{0.747(1-0.747)}{7324}}
-\]</span></p>
-<p>which results in the CI (0.737, 0.758). This matches the CI shown in the output of <code>prop.test()</code> above (double check this!).</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Duality of Hypotheses and CIs
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>For proportions, it is <em>not</em> true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="exact-test-for-binomial" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="exact-test-for-binomial"><span class="header-section-number">15.4</span> Exact Test for Binomial</h2>
-<p>In this course, we use the normal approximation to the binomial in order to do hypothesis tests. This is not the only way to do it: we don’t always need to use the approximation! There’s something called the “exact binomial test”, which is a hypothesis test that uses the binomial distribution rather than the normal approximation (this will not be on tests).</p>
-<p>There are two main reasons why we might prefer the approximation, rather than using the exact test:</p>
-<ol type="1">
-<li>If we have a large sample, then the approximation and the exact test are very very close. The approximation is computationally simpler.
+<li>The <em>groups</em> are independent.
 <ul>
-<li>If we have a small sample, neither tests can accurately approximate the variance of the population, and thus the estimated standard error isn’t well estimated either.</li>
+<li>For example, if we’re looking at the difference in mean heights between men and women, but we have spousal pairs. Spousal pairs have a smaller difference in height than the average difference in height.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul></li>
-<li>Because the binomial distribution is discrete, the p-values for many different test statistics will be the same. By setting <span class="math inline">\(\alpha\)</span>, we might not actually be getting <span class="math inline">\(\alpha\)</span>.
-<ul>
-<li>This is a technical point that can be safely ignored when studying for tests.</li>
-</ul></li>
-</ol>
-<p>The exact test can be performed using the <code>binom.test()</code> function in R.</p>
-</section>
-<section id="summary" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">15.5</span> Summary</h2>
-<p>CIs and Hypothesis Tests work exactly as they did before, but now we’re dealing with proportions. Just like the change from one sample to two sample <span class="math inline">\(t\)</span> tests, the standard error is important and difficult.</p>
-<ul>
-<li>For hypothesis tests, the standard error uses <span class="math inline">\(p_0\)</span>.</li>
-<li>For CIs, the standard error uses <span class="math inline">\(\hat p\)</span>.</li>
-</ul>
-<p>Interpreting these confidence intervals and hypothesis tests is very similar to before, but you must keep in mind that they’re proportions. This mainly affects how you describe the end results.</p>
-<p>There are two other wrinkles to consider when using proportions:</p>
-<ul>
-<li>The default test for proportions is the normal approximation with continuity correction.
-<ul>
-<li>It is possible, but not recommended, to not use continuity correction.</li>
-</ul></li>
-<li>There is also an exact test, but for large samples the approximation is faster and easier.</li>
 </ul>
 </section>
-<section id="self-study-questions" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">15.6</span> Self-Study Questions</h2>
+<section id="standard-error-for-a-single-proportion" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-for-a-single-proportion">Standard Error for a Single Proportion</h3>
+<p>This is nothing new, I’m just repeating it here: <span class="math display">\[
+\hat{SE}(\hat p) = \sqrt{\frac{\hat p(1 - \hat p)}{n}}
+\]</span></p>
+</section>
+<section id="standard-error-for-the-difference-in-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="standard-error-for-the-difference-in-proportions">Standard Error for the Difference in Proportions</h3>
+<p>This is up to you to find! Keed these in mind:</p>
+<ul>
+<li>The standard error cannot be negative, so you probably can’t subtract things.</li>
+<li>Variances can be added if we assume things are independent.
+<ul>
+<li>Make these assumptions explicit!</li>
+</ul></li>
+</ul>
+</section>
+<section id="confidence-interval-example" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-interval-example">Confidence Interval Example</h3>
+<p>This question is from <em>OpenIntro Introductory Statistics for the Life and Biomedical Sciences, First Edition</em>.</p>
+<p>The way a question is phrased can inﬂuence a person’s response. For example, Pew Research Center conducted a survey with the following question:</p>
+<pre><code>As you may know, by 2014 nearly all Americans will be required to have health insurance. [People who do not buy insurance will pay a penalty] while [People who cannot afford it will receive financial help from the government]. Do you approve or disapprove of this policy?</code></pre>
+<p>For each randomly sampled respondent, the statements in brackets were randomized: either they were kept in the order given above, or the order of the two statements was reversed. The table below shows the results of this experiment. Calculate and interpret a 90% conﬁdence interval of the difference in the probability of approval of the policy.</p>
+<p>| Sample size <span class="math inline">\(n_i\)</span> | Approve % |<br>
+Original Ordering | 771 | 47 |<br>
+Reversed Ordering | 732 | 34 |</p>
+<p><strong>Solution</strong></p>
+<p>Let <span class="math inline">\(p_1\)</span> be the proportion who approve when given the original ordering with sample size <span class="math inline">\(n_1\)</span>, and <span class="math inline">\(p_2\)</span> be the proportion who approve when given the reversed ordering with sample size <span class="math inline">\(n_2\)</span>. This question is asking us to calculate a confidence interval for <span class="math inline">\(p_1 - p_2\)</span>.</p>
+<p>We first check the conditions required to use the normal approximation.</p>
 <ol type="1">
-<li>When do we use <span class="math inline">\(\hat p\)</span> in the standard error? When do we use <span class="math inline">\(p_0\)</span>?</li>
-<li>Explain why we don’t estimate the standard error in a hypothesis test about a proportion.</li>
-<li>Explain in your own words why there’s no <span class="math inline">\(t\)</span> version of a hypothesis test for proportions.</li>
-<li>Write a good summary of the Mendelian genetics example. What did we conclude, and how is this knowledge useful?</li>
+<li>Pew Research Center is basically the world expert on opinion polling, so the samples are probably good.</li>
+<li>We can safely assume that the samples are independent.</li>
+<li>The two statements were randomly assigned, so it’s safe to say that the two groups are independent.</li>
+<li><span class="math inline">\(n_1 * 0.47 = 771 * 0.47 = 362.37\)</span>
+<ul>
+<li>There are <em>three</em> other calculations to check. Check them!</li>
+</ul></li>
 </ol>
+<p>Now that that’s covered, we can make a confidence interval. The general form is: <span class="math display">\[
+\text{Point Estimate}\pm\text{Critical Value}*\text{Standard Error}
+\]</span> From your homework above, verify that you can calculate the standard error as 0.025.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>Our point estimate is <span class="math inline">\(\hat p_1 - \hat p_2 = 0.47 - 0.34 = 0.13\)</span>. Since we doing a difference in proportions, our critical value comes from the normal distribution:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.9</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1.644854</code></pre>
+</div>
+</div>
+<p>So our confidence interval is: <span class="math display">\[
+0.13 \pm 1.65*0.025 = (0.09, 0.17)
+\]</span></p>
+<p>We are 90% confident that the true mean difference is between 0.09 and 0.17. This provides evidence that the two proportions are indeed different.</p>
+</section>
+</section>
+<section id="hypothesis-testing" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="hypothesis-testing"><span class="header-section-number">17.2</span> Hypothesis Testing</h2>
+<p>Here’s where things are a little less obvious - I’m not going to get you to find the standard error yourself!</p>
+<p>We are generally looking at a hypothesis test for whether two proportions are <em>equal</em>, that is, <span class="math display">\[
+H_0: p_1 = p_2\implies p_1 - p_2 = 0
+\]</span> with an alternative that they are not equal, or that one is bigger than the other. In other words, we’re looking at the hypotheses:<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> <span class="math display">\[\begin{align*}
+H_0: &amp;p_{1-2} = 0\\
+H_A: &amp;p_{1-2} \ne 0\text{ or }p_{1-2} &gt; 0\text{ or }p_{1-2} &gt; 0\\
+\end{align*}\]</span></p>
+<p>In the lesson on proportions, we saw that the standard error depended on the null hypothesis being <em>true</em>, since we calculate p-values under the assumption that the null hypothesis is true. How do we do that here?</p>
+<section id="the-pooled-proportion" class="level3">
+<h3 class="anchored" data-anchor-id="the-pooled-proportion">The Pooled Proportion</h3>
+<p>Under the null hypothesis, <span class="math inline">\(p_1 = p_2\)</span>. That’s like saying that we observed a bunch of successes and failures from a single group, instead of two. Let <span class="math inline">\(x_1\)</span> be the number of successes in the first group, and <span class="math inline">\(x_2\)</span> the number for the second. Then <span class="math display">\[
+\hat p = \frac{x_1 + x_2}{n_1 + n_2}
+\]</span> That is, we observed <span class="math inline">\(x_1 + x_2\)</span> successes out of <span class="math inline">\(n_1 + n_2\)</span> trials.</p>
+<p>For example, if we assume that two coins have the same probability of heads, the getting 5 heads in 9 flips for one coin and 3 heads out of 6 flips for the other. The two coins are assumed to be identical, so it’s like we flipped one coin 15 times and got 8 heads.</p>
+<p>From this, we might assume that our standard error is something like: <span class="math display">\[
+\hat{SE}(\hat p_1 - \hat p_2) = \sqrt{\frac{\hat p(1 - \hat p)}{???}}
+\]</span> The ??? might seem like it should be <span class="math inline">\(n_1 + n_2\)</span>, but some advanced math shows that this doesn’t quite work. Again, this is from the problem of adding variances, but working with standard deviations. Instead, the standard error is: <span class="math display">\[
+\hat{SE}(\hat p_1 - \hat p_2) = \sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}
+\]</span></p>
+<p>This standard error is based on the null hypothesis, specifically the assumption that the groups are identical, so it’s as if we took two samples from the same population.</p>
+<p>As before, the test statistic is <span class="math display">\[
+\frac{\text{sample statistic} - \text{hypothesized value}}{\text{standard error}} = \frac{(\hat p_1 - \hat p_2) - 0}{\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}}
+\]</span> and this is compared to the normal distribution.</p>
+</section>
+<section id="hypothesis-test-example" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-test-example">Hypothesis Test Example</h3>
+<p>Using the same example as before, we can set up our null hypothesis as <span class="math inline">\(p_1 = p_2\)</span>, and we’ll choose the alternate hypothesis <span class="math inline">\(p_1 \ne p_2\)</span>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>The standard error is calculated as <span class="math display">\[
+\frac{(\hat p_1 - \hat p_2) - 0}{\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}} = \frac{in}{progress}
+\]</span></p>
 
 
+</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If it was, then why are we doing inference?<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>We want to be strict about this so that it’s more convincing if we prove it wrong.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>I’m lying.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>As before, both conditions must be true; it’s not enough for just <span class="math inline">\(np_0&gt;10\)</span> alone.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p><span class="math inline">\(\alpha = 0.045\)</span>, so <span class="math inline">\(1 - \alpha = 0.955\)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Recall that <strong>independence</strong> means that knowledge of one outcome gives you a better guess at other outcomes.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In this example, we could find the difference in heights between spouses, then use this collection of differences in a <em>one-sample</em> t-test, which gives us different information, but it’s also interesting.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This is to ensure you have the correct caclulation, you won’t need to do this on a test.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>There may be a time in your life where you test whether <span class="math inline">\(p_1 - p_2 = 0.25\)</span> or something like that, and you’ll need to modify the methods a little bit.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>You may have also chosen <span class="math inline">\(p_1 &gt; p_2\)</span> if you thought, before seeing the results of the study, that the original order would lead to more agreement.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -904,13 +817,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L17-Two_Sample_hypothesis_Tests.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></span>
+      <a href="./L19-CI_for_Proportions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L19-CI_for_Proportions.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

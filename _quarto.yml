@@ -38,6 +38,7 @@ book:
         - L17-Two_Sample_hypothesis_Tests.qmd
         - L18-Hypothesis_Tests_for_Proportions.qmd
         - L19-CI_for_Proportions.qmd
+        - L20-Two_Proportions.qmd
         - L19-Summary_of_Inference-Means_Proportions.qmd
 
 execute: 

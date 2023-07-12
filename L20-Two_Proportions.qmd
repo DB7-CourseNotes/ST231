@@ -1,0 +1,148 @@
+---
+title: "Inference for the Difference in Proportions"
+---
+
+## DIY Confidence Intervals
+
+This lesson is going to be a little different from the rest. I'm not going to give you the answers, I'm going to give you the tools.
+
+### Standard Error for a Single Mean
+
+As we've seen many times, this is 
+$$
+SE(\bar X) = \frac{\sigma}{\sqrt{n}} = \sqrt{\frac{\sigma^2}{n}},
+$$
+but we often use
+$$
+\hat{SE}(\bar X) = \frac{S}{\sqrt{n}} = \sqrt{\frac{S^2}{n}},
+$$
+which is the **estimated standard error** (the "hat" on top of the letters "SE" indicates that it's estimated). For the rest of this lecture, we'll always use the estimated standard error.
+
+### Standard Error for the Difference in Means
+
+Even though we were subtracting means, we added their variances and then take their square root. 
+$$
+\hat{SE}(\bar X_1 - \bar X_2) = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
+$$
+It is an important fact that we add the variances and then take the square root.
+
+From this lesson, also note that we had to make the assumptions:
+
+- The individuals within a group are independent of other individuals in that group.
+    - For example, if we sample people in our own family then the samples are not independent. People in the same family tend to have similar characteristics, so knowledge of the characteristics of one family member are informative about the others.^[Recall that **independence** means that knowledge of one outcome gives you a better guess at other outcomes.]
+- The *groups* are independent.
+    - For example, if we're looking at the difference in mean heights between men and women, but we have spousal pairs. Spousal pairs have a smaller difference in height than the average difference in height.^[In this example, we could find the difference in heights between spouses, then use this collection of differences in a *one-sample* t-test, which gives us different information, but it's also interesting.]
+
+### Standard Error for a Single Proportion
+
+This is nothing new, I'm just repeating it here:
+$$
+\hat{SE}(\hat p) = \sqrt{\frac{\hat p(1 - \hat p)}{n}}
+$$
+
+### Standard Error for the Difference in Proportions
+
+This is up to you to find! Keed these in mind:
+
+- The standard error cannot be negative, so you probably can't subtract things.
+- Variances can be added if we assume things are independent. 
+    - Make these assumptions explicit!
+
+### Confidence Interval Example
+
+
+This question is from *OpenIntro Introductory Statistics for the Life and Biomedical Sciences, First Edition*.
+
+The way a question is phrased can inﬂuence a person’s response. For example, Pew Research Center conducted a survey with the following question: 
+
+    As you may know, by 2014 nearly all Americans will be required to have health insurance. [People who do not buy insurance will pay a penalty] while [People who cannot afford it will receive financial help from the government]. Do you approve or disapprove of this policy?
+
+For each randomly sampled respondent, the statements in brackets were randomized: either they were kept in the order given above, or the order of the two statements was reversed. The table below shows the results of this experiment. Calculate and interpret a 90% conﬁdence interval of the difference in the probability of approval of the policy.
+
+| | Sample size $n_i$ | Approve % |
+| Original Ordering | 771 | 47 |
+| Reversed Ordering | 732 | 34 |
+
+**Solution**
+
+Let $p_1$ be the proportion who approve when given the original ordering with sample size $n_1$, and $p_2$ be the proportion who approve when given the reversed ordering with sample size $n_2$. This question is asking us to calculate a confidence interval for $p_1 - p_2$.
+
+We first check the conditions required to use the normal approximation. 
+
+1. Pew Research Center is basically the world expert on opinion polling, so the samples are probably good.
+2. We can safely assume that the samples are independent.
+3. The two statements were randomly assigned, so it's safe to say that the two groups are independent.
+4. $n_1 * 0.47 = 771 * 0.47 = 362.37$
+    - There are *three* other calculations to check. Check them!
+
+Now that that's covered, we can make a confidence interval. The general form is:
+$$
+\text{Point Estimate}\pm\text{Critical Value}*\text{Standard Error}
+$$
+From your homework above, verify that you can calculate the standard error as 0.025.^[This is to ensure you have the correct caclulation, you won't need to do this on a test.]
+
+Our point estimate is $\hat p_1 - \hat p_2 = 0.47 - 0.34 = 0.13$. Since we doing a difference in proportions, our critical value comes from the normal distribution:
+
+```{r}
+qnorm((1 - 0.9)/2)
+```
+
+So our confidence interval is:
+$$
+0.13 \pm 1.65*0.025 = (0.09, 0.17)
+$$
+
+We are 90% confident that the true mean difference is between 0.09 and 0.17. This provides evidence that the two proportions are indeed different.
+
+## Hypothesis Testing
+
+Here's where things are a little less obvious - I'm not going to get you to find the standard error yourself!
+
+We are generally looking at a hypothesis test for whether two proportions are *equal*, that is,
+$$
+H_0: p_1 = p_2\implies p_1 - p_2 = 0
+$$
+with an alternative that they are not equal, or that one is bigger than the other. In other words, we're looking at the hypotheses:^[There may be a time in your life where you test whether $p_1 - p_2 = 0.25$ or something like that, and you'll need to modify the methods a little bit.]
+\begin{align*}
+H_0: &p_{1-2} = 0\\
+H_A: &p_{1-2} \ne 0\text{ or }p_{1-2} > 0\text{ or }p_{1-2} > 0\\
+\end{align*}
+
+In the lesson on proportions, we saw that the standard error depended on the null hypothesis being *true*, since we calculate p-values under the assumption that the null hypothesis is true. How do we do that here?
+
+### The Pooled Proportion
+
+Under the null hypothesis, $p_1 = p_2$. That's like saying that we observed a bunch of successes and failures from a single group, instead of two. Let $x_1$ be the number of successes in the first group, and $x_2$ the number for the second. Then
+$$
+\hat p = \frac{x_1 + x_2}{n_1 + n_2}
+$$
+That is, we observed $x_1 + x_2$ successes out of $n_1 + n_2$ trials. 
+
+For example, if we assume that two coins have the same probability of heads, the getting 5 heads in 9 flips for one coin and 3 heads out of 6 flips for the other. The two coins are assumed to be identical, so it's like we flipped one coin 15 times and got 8 heads.
+
+From this, we might assume that our standard error is something like:
+$$
+\hat{SE}(\hat p_1 - \hat p_2) = \sqrt{\frac{\hat p(1 - \hat p)}{???}}
+$$
+The ??? might seem like it should be $n_1 + n_2$, but some advanced math shows that this doesn't quite work. Again, this is from the problem of adding variances, but working with standard deviations. Instead, the standard error is:
+$$
+\hat{SE}(\hat p_1 - \hat p_2) = \sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}
+$$
+
+This standard error is based on the null hypothesis, specifically the assumption that the groups are identical, so it's as if we took two samples from the same population.
+
+As before, the test statistic is
+$$
+\frac{\text{sample statistic} - \text{hypothesized value}}{\text{standard error}} = \frac{(\hat p_1 - \hat p_2) - 0}{\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}}
+$$
+and this is compared to the normal distribution.
+
+### Hypothesis Test Example
+
+Using the same example as before, we can set up our null hypothesis as $p_1 = p_2$, and we'll choose the alternate hypothesis $p_1 \ne p_2$.^[You may have also chosen $p_1 > p_2$ if you thought, before seeing the results of the study, that the original order would lead to more agreement.]
+
+
+The standard error is calculated as
+$$
+\frac{(\hat p_1 - \hat p_2) - 0}{\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}} = \frac{in}{progress}
+$$
