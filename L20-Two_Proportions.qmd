@@ -60,6 +60,7 @@ The way a question is phrased can inﬂuence a person’s response. For example,
 For each randomly sampled respondent, the statements in brackets were randomized: either they were kept in the order given above, or the order of the two statements was reversed. The table below shows the results of this experiment. Calculate and interpret a 90% conﬁdence interval of the difference in the probability of approval of the policy.
 
 | | Sample size $n_i$ | Approve % |
+|----|----|----|
 | Original Ordering | 771 | 47 |
 | Reversed Ordering | 732 | 34 |
 
@@ -139,10 +140,24 @@ and this is compared to the normal distribution.
 
 ### Hypothesis Test Example
 
-Using the same example as before, we can set up our null hypothesis as $p_1 = p_2$, and we'll choose the alternate hypothesis $p_1 \ne p_2$.^[You may have also chosen $p_1 > p_2$ if you thought, before seeing the results of the study, that the original order would lead to more agreement.]
+Using the same example as before, we can set up our null hypothesis as $p_1 = p_2$, and we'll choose the alternate hypothesis $p_1 \ne p_2$.^[You might have also chosen $p_1 > p_2$ if you thought, before seeing the results of the study, that the original order would lead to more agreement.] We'll use the 5% level.
 
+The "pooled" estimate is based on $x_1$ and $x_2$, which we can find based on $\hat p_1$ and $n_1$. Since $\hat p_1 = x_1/n_1$, we can find $x_1 = \hat p_1 n_1 = 771 * 0.47 = 362.37$, which we'll round to 362. Similarly, we'll use $x_2$ as 249. 
+$$
+\hat p = \frac{362 + 249}{771 + 732} = 0.4065
+$$
 
-The standard error is calculated as
+The test statistic is calculated as
 $$
-\frac{(\hat p_1 - \hat p_2) - 0}{\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}} = \frac{in}{progress}
+\frac{(\hat p_1 - \hat p_2) - 0}{\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}} = \frac{(0.47 - 0.34) - 0}{\sqrt{0.4065(1-0.4065)(1/771 + 1/732)}} = 5.12
 $$
+
+We all remember the all-important value of 1.96, right? The total area under the normal curve above 1.96 plus the area below -1.96 adds to 5%. If we get a z-score above 1.96 or below -1.96, we know that the p-value is *smaller than* 5%. Intuitively, 5.12 is a *massive* z-score, and thus will have a miniscule p-value.
+
+```{r}
+2 * (1 - pnorm(5.12))
+```
+
+That's a p-value of approximately 0.0000003. We can safely reject the null hypothesis.
+
+This isn't surprising, the original proportions were 0.47 and 0.35, with sample sizes of 771 and 732. Given the sample size, we expect a pretty small standard error and thus we shouldn't be surprised that a difference of 0.13 counts as a "big" difference!
