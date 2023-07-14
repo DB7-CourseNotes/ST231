@@ -301,6 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-pooled-proportion" id="toc-the-pooled-proportion" class="nav-link" data-scroll-target="#the-pooled-proportion">The Pooled Proportion</a></li>
   <li><a href="#hypothesis-test-example" id="toc-hypothesis-test-example" class="nav-link" data-scroll-target="#hypothesis-test-example">Hypothesis Test Example</a></li>
   </ul></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">17.3</span> Example</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -453,6 +454,7 @@ H_A: &amp;p_{1-2} \ne 0\text{ or }p_{1-2} &gt; 0\text{ or }p_{1-2} &gt; 0\\
 \hat p = \frac{x_1 + x_2}{n_1 + n_2}
 \]</span> That is, we observed <span class="math inline">\(x_1 + x_2\)</span> successes out of <span class="math inline">\(n_1 + n_2\)</span> trials.</p>
 <p>For example, if we assume that two coins have the same probability of heads, the getting 5 heads in 9 flips for one coin and 3 heads out of 6 flips for the other. The two coins are assumed to be identical, so it’s like we flipped one coin 15 times and got 8 heads.</p>
+<p>As before, the assumption that the null hypothesis is true is used <em>everywhere</em>. This means it’s true for testing whether the normal approximation is appropriate. We must test <span class="math inline">\(n_1\hat p\)</span>, <span class="math inline">\(n_1(1 - \hat p)\)</span>, <span class="math inline">\(n_2\hat p\)</span>, and <span class="math inline">\(n_2(1 - \hat p)\)</span>.</p>
 <p>From this, we might assume that our standard error is something like: <span class="math display">\[
 \hat{SE}(\hat p_1 - \hat p_2) = \sqrt{\frac{\hat p(1 - \hat p)}{???}}
 \]</span> The ??? might seem like it should be <span class="math inline">\(n_1 + n_2\)</span>, but some advanced math shows that this doesn’t quite work. Again, this is from the problem of adding variances, but working with standard deviations. Instead, the standard error is: <span class="math display">\[
@@ -481,9 +483,56 @@ H_A: &amp;p_{1-2} \ne 0\text{ or }p_{1-2} &gt; 0\text{ or }p_{1-2} &gt; 0\\
 </div>
 <p>That’s a p-value of approximately 0.0000003. We can safely reject the null hypothesis.</p>
 <p>This isn’t surprising, the original proportions were 0.47 and 0.35, with sample sizes of 771 and 732. Given the sample size, we expect a pretty small standard error and thus we shouldn’t be surprised that a difference of 0.13 counts as a “big” difference!</p>
-
-
 </section>
+</section>
+<section id="example" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="example"><span class="header-section-number">17.3</span> Example</h2>
+<p>The following example comes from OpenIntro Statistics for Health and Life Sciences.</p>
+<p>The use of screening mammograms for breast cancer has been controversial for decades because the overall benefit on breast cancer mortality is uncertain. Several large randomized studies have been conducted in an attempt to estimate the effect of mammogram screening. A 30-year study to investigate the effectiveness of mammograms versus a standard non-mammogram breast cancer exam was conducted in Canada with 89,835 female participants. During a 5-year screening period, each woman was randomized to either receive annual mammograms or standard physical exams for breast cancer. During the 25 years following the screening period, each woman was screened for breast cancer according to the standard of care at her health care center.</p>
+<p>At the end of the 25 year follow-up period, 1,005 women died from breast cancer. The results by intervention are summarized below.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Died</th>
+<th>Survived</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mammogram</td>
+<td>500</td>
+<td>44,425</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>505</td>
+<td>44,405</td>
+</tr>
+</tbody>
+</table>
+<p>Assess whether the normal model can be used to analyze the study results.</p>
+<p>Since the participants were randomly assigned to each group, the groups can be treated as independent, and it is reasonable to assume independence of patients within each group. Participants in randomized studies are rarely random samples from a population, but the investigators in the Canadian trial recruited participants using a general publicity campaign, by sending personal invitation letters to women identified from general population lists, and through contacting family doctors. In this study, the participants can reasonably be thought of as a random sample.</p>
+<p>The pooled proportion <span class="math inline">\(\hat{p}\)</span> is</p>
+<p><span class="math display">\[
+\hat{p} = \dfrac{x_{1} + x_{2}}{n_{1} + n_{2}} = \dfrac{500 + 505}{500 + 44425 + 505 + 44405} = 0.0112
+\]</span></p>
+<p>Checking the success-failure condition for each group: <span class="math display">\[\begin{align*}
+\hat{p} \times n_{mgm} &amp;= 0.0112 \times \text{44,925} = 503\\
+(1 - \hat{p}) \times n_{mgm} &amp;= 0.9888 \times \text{44,925} = \text{44,422} \\
+\hat{p} \times n_{ctrl} &amp;= 0.0112 \times \text{44,910} = 503\\
+(1 - \hat{p}) \times n_{ctrl} &amp;= 0.9888 \times \text{44,910} = \text{44,407}
+\end{align*}\]</span> All values are at least 10.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<p>The normal model can be used to analyze the study results.</p>
+<p>We can use this information to do a hypothesis test for the equality of proportions.</p>
+<p>The standard error is still: <span class="math display">\[
+\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)} = 0.000702
+\]</span> That’s quite small, but this is to be expected with such a large sample size.</p>
+<p>The test statistic is <span class="math inline">\(\hat p_1 - \hat p_2 / 0.000706 = -0.17\)</span>. Again, using our intuition, this is way lower than our 1.96 value, so this is very much <em>not</em> a significant result.</p>
+<p>We conclude that there is insufficient evidence to reject the null hypothesis; the observed difference in breast cancer death rates is reasonably explained by sampling error when the two proportions are equal.</p>
+<p>Evaluating medical treatments typically requires accounting for additional evidence that cannot be evaluated from a statistical test. For example, if mammograms are much more expensive than a standard screening and do not offer clear benefits, there is reason to recommend standard screenings over mammograms. This study also found that a higher proportion of diagnosed breast cancer cases in the mammogram screening arm (3250 in the mammogram group vs 3133 in the physical exam group), despite the nearly equal number of breast cancer deaths. The investigators inferred that mammograms may cause over-diagnosis of breast cancer, a phenomenon in which a breast cancer diagnosed with mammogram and subsequent biopsy may never become symptomatic. The possibility of over-diagnosis is one of the reasons mammogram screening remains controversial.</p>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -493,6 +542,7 @@ H_A: &amp;p_{1-2} \ne 0\text{ or }p_{1-2} &gt; 0\text{ or }p_{1-2} &gt; 0\\
 <li id="fn3"><p>This is to ensure you have the correct caclulation, you won’t need to do this on a test.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>There may be a time in your life where you test whether <span class="math inline">\(p_1 - p_2 = 0.25\)</span> or something like that, and you’ll need to modify the methods a little bit.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>You might have also chosen <span class="math inline">\(p_1 &gt; p_2\)</span> if you thought, before seeing the results of the study, that the original order would lead to more agreement.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>It is worth noting that these values are very close to the original values we were given. If we were doing a confidence interval where we don’t use the pooled proportion, we could have just checked the values in the given table!<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

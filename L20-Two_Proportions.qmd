@@ -121,6 +121,8 @@ That is, we observed $x_1 + x_2$ successes out of $n_1 + n_2$ trials.
 
 For example, if we assume that two coins have the same probability of heads, the getting 5 heads in 9 flips for one coin and 3 heads out of 6 flips for the other. The two coins are assumed to be identical, so it's like we flipped one coin 15 times and got 8 heads.
 
+As before, the assumption that the null hypothesis is true is used *everywhere*. This means it's true for testing whether the normal approximation is appropriate. We must test $n_1\hat p$, $n_1(1 - \hat p)$, $n_2\hat p$, and $n_2(1 - \hat p)$.
+
 From this, we might assume that our standard error is something like:
 $$
 \hat{SE}(\hat p_1 - \hat p_2) = \sqrt{\frac{\hat p(1 - \hat p)}{???}}
@@ -161,3 +163,51 @@ We all remember the all-important value of 1.96, right? The total area under the
 That's a p-value of approximately 0.0000003. We can safely reject the null hypothesis.
 
 This isn't surprising, the original proportions were 0.47 and 0.35, with sample sizes of 771 and 732. Given the sample size, we expect a pretty small standard error and thus we shouldn't be surprised that a difference of 0.13 counts as a "big" difference!
+
+## Example
+
+The following example comes from OpenIntro Statistics for Health and Life Sciences.
+
+The use of screening mammograms for breast cancer has been controversial for decades because the overall benefit on breast cancer mortality is uncertain.  Several large randomized studies have been conducted in an attempt to estimate the effect of mammogram screening. A 30-year study to investigate the effectiveness of mammograms versus a standard non-mammogram breast cancer exam was conducted in Canada with 89,835 female participants. During a 5-year screening period, each woman was randomized to either receive annual mammograms or standard physical exams for breast cancer.  During the 25 years following the screening period, each woman was screened for breast cancer according to the standard of care at her health care center.
+
+At the end of the 25 year follow-up period, 1,005 women died from breast cancer. The results by intervention are summarized below.
+
+| | Died | Survived |
+|---|---|---|
+| Mammogram | 500 | 44,425 |
+| Control | 505 | 44,405 |
+
+Assess whether the normal model can be used to analyze the study results.
+
+Since the participants were randomly assigned to each group, the groups can be treated as independent, and it is reasonable to assume independence of patients within each group.  Participants in randomized studies are rarely random samples from a population, but the investigators in the Canadian trial recruited  participants using a general publicity campaign, by sending personal invitation letters to women identified from general population lists, and through contacting family doctors.  In this study, the participants can reasonably be thought of as a random sample.
+
+The pooled proportion $\hat{p}$ is  
+
+$$
+\hat{p} = \dfrac{x_{1} + x_{2}}{n_{1} + n_{2}} = \dfrac{500 + 505}{500 + 44425 + 505 + 44405} = 0.0112
+$$
+
+Checking the success-failure condition for each group: 
+\begin{align*}
+\hat{p} \times n_{mgm} &= 0.0112 \times \text{44,925} = 503\\
+(1 - \hat{p}) \times n_{mgm} &= 0.9888 \times \text{44,925} = \text{44,422} \\
+\hat{p} \times n_{ctrl} &= 0.0112 \times \text{44,910} = 503\\
+(1 - \hat{p}) \times n_{ctrl} &= 0.9888 \times \text{44,910} = \text{44,407}
+\end{align*}
+All values are at least 10.^[It is worth noting that these values are very close to the original values we were given. If we were doing a confidence interval where we don't use the pooled proportion, we could have just checked the values in the given table!]
+
+The normal model can be used to analyze the study results.
+
+We can use this information to do a hypothesis test for the equality of proportions.
+
+The standard error is still:
+$$
+\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)} = 0.000702
+$$
+That's quite small, but this is to be expected with such a large sample size.
+
+The test statistic is $\hat p_1 - \hat p_2 / 0.000706 = -0.17$. Again, using our intuition, this is way lower than our 1.96 value, so this is very much *not* a significant result.
+
+We conclude that there is insufficient evidence to reject the null hypothesis; the observed difference in breast cancer death rates is reasonably explained by sampling error when the two proportions are equal. 	
+
+Evaluating medical treatments typically requires accounting for additional evidence that cannot be evaluated from a statistical test. For example, if mammograms are much more expensive than a standard screening and do not offer clear benefits, there is reason to recommend standard screenings over mammograms. This study also found that a higher proportion of diagnosed breast cancer cases in the mammogram screening arm (3250 in the mammogram group vs 3133 in the physical exam group), despite the nearly equal number of breast cancer deaths.  The investigators inferred that mammograms may cause over-diagnosis of breast cancer, a phenomenon in which a breast cancer diagnosed with mammogram and subsequent biopsy may never become symptomatic. The possibility of over-diagnosis is one of the reasons mammogram screening remains controversial.
