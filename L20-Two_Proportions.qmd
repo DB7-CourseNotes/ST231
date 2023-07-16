@@ -55,7 +55,7 @@ This question is from *OpenIntro Introductory Statistics for the Life and Biomed
 
 The way a question is phrased can inﬂuence a person’s response. For example, Pew Research Center conducted a survey with the following question: 
 
-    As you may know, by 2014 nearly all Americans will be required to have health insurance. [People who do not buy insurance will pay a penalty] while [People who cannot afford it will receive financial help from the government]. Do you approve or disapprove of this policy?
+> As you may know, by 2014 nearly all Americans will be required to have health insurance. [People who do not buy insurance will pay a penalty] while [People who cannot afford it will receive financial help from the government]. Do you approve or disapprove of this policy?
 
 For each randomly sampled respondent, the statements in brackets were randomized: either they were kept in the order given above, or the order of the two statements was reversed. The table below shows the results of this experiment. Calculate and interpret a 90% conﬁdence interval of the difference in the probability of approval of the policy.
 
