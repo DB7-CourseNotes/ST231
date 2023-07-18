@@ -1,0 +1,203 @@
+---
+title: "L21: Chi-Square Test for Multiple Proportions"
+---
+
+## Differences in Proportions; Independence
+
+Recall the following example from the lesson on multiple proportions.^[Adapted from OpenIntro BioStats.] We were interested in whether getting a mammogram lead to fewer deaths due to breast cancer, and were presented the following data:
+
+| | Died | Survived | Total |
+|---|---|---|---|
+| Mammogram | 500 | 44,425 | 44,925 |
+| Control | 505 | 44,405 | 44,910 |
+| Total | 1,005 | 88,830 | 89,835 |
+
+In that lesson, we asked whether the proportion of people who died was the same in the mammogram group and the control group. This is a very specific approach, and in this lesson we will generalize it to many situations.
+
+The question can be re-worded as "Does knowing that the patient got a mammogram tell us more about whether they survived?" This phrasing should sound familiar - it's a question about **independence**! Instead of asking about the difference in proportions, we can ask about whether the survival of the patient is independent of the method of screening.
+
+In essence, we're checking *all* of the potential conditional probabilities. This includes P(Died | Mammogram) $\stackrel{?}{=}$ P(Died) as well as P(Mammogram | Died) $\stackrel{?}{=}$ P(Mammogram). Technically, these two statements are equivalent, so we can think about it whichever way is more useful. The test we're about to describe also tests for whether P(Died | Control) $\stackrel{?}{=}$ P(Died) at the same time. 
+
+::: {.callout-note}
+### Test for Independence of Columns and Rows
+
+The Chi-Square test that we are about to learn is a test of whether the rows of a two-way table are independent of the columns. This works no matter how many rows/columns there are.
+
+$$
+H_0: \text{The rows are indepenent of the columns} vs. \text{There is some form of dependence}
+$$
+The Chi-Square test gives a significant result if there is *any* deviation from independence, even if it's just one cell in the two-way table that doesn't fit the pattern.
+:::
+
+The interpretation of the test is that all of the rows look the same as each other; the counts in the rows are random deviations from the same distribution. The same interpretation applies to columns. 
+
+In this example, the test for a difference in proportions is the exact same idea as a test for independence of rows and columns, but this will generalize the same idea to any number of rows/columns.
+
+## Expected Counts
+
+Just like in the tests for two proportions, we're going to see what *would have* happened if there was actually no difference. That is, what would the table above look like if the outcome was **independent** of the screening method?
+
+As you'll clearly recall, we can multiply probabilities if they are independent. That is,
+$$
+P(A\text{ and }B) \stackrel{indep}{=}P(A)P(B),
+$$
+where, again, I stress that this is only true if events A and B are independent. 
+
+For hypothesis tests, we calculate things assuming that the null hypothesis is true. In this case, we assume that the events are independent and thus we can multiply their probabilities. So the proportion of people we expect to see in the "mammogram and died" group is:
+$$
+P(\text{mammogram and died}) = P(\text{mammogram})P(\text{died}) = \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) \approx 0.5662
+$$
+Where did these numbers come from? $P(\text{mammogram})$ is the number of people in the mammogram row divided by the total number of people. That is, this is the proportion of people who were screened via mammogram, regardless of whether they survived. Similarly, 10005 is the number of people who did not survive, regardless of whether they were screened via mammogram.^[In other words, they're the row probabilities regardless of column and the column probability regardless of row.] Note that this the probability of mammogram *and* died, not the probability of death *given that they* were screened via mammogram. 
+
+This is the proportion of patients, so the expected count is just $np$, the sample size times the proportion. Notice what happens to the calculation when we include this number:
+$$
+88935 * P(\text{mammogram and died}) = 88935 \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) = \frac{1005*44295}{88830} = 502.6
+$$
+
+::: {.callout-note}
+### Expected Counts for a Two-Way Table
+
+$$
+\text{Expect count for the cell in row }i\text{, column }j = \frac{(\text{row }i\text{ total})(\text{column }j\text{ total})}{\text{table total}}
+$$
+:::
+
+The following table shows the actual counts and expected counts in the format actual(expected). For practice, double check the calculations!
+
+| | Died | Survived | Total |
+|---|---|---|---|
+| Mammogram | 500 (502.6) | 44,425 (44,422.4) | 44,925 |
+| Control | 505 (502.4) | 44,405 (44,407.6) | 44,910 |
+| Total | 1,005 | 88,830 | 89,835
+
+### The Chi-Square Test Statistic
+
+Up until this exact moment, all our test statistics have been of the form (observed - hypothesized)/standard error. This ends here. Here we'll introduce the Chi-Square test statistic, often written as $\chi^2$, which is greek letter "chi", pronounced "kai". 
+
+::: {.callout-note}
+### The $\chi^2$ Test Statistic
+
+After gathering the observed counts and calculating the expected counts, the "Chi-Square" test statistic is:
+$$
+\chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
+$$
+:::
+
+There are a couple important features of this value:
+
+- The numbers are squared so that negatives don't cancel out wiht positives.
+- We divide by expected counts, which means that a large deviation is okay if it's for a large count.
+    - For example, 500 is 5 away from 505 and 44425 is 20 away from 44405, but the 500 and the 505 "feel" like they're closer together because the counts are small. With large counts, we're more forgiving of observed minus expected.
+
+This test statistic is based on the normal approximation to the binomial distribution, so you'd better believe that there are some conditions before we can do a hypothesis test!
+
+- Each individual must be independent of each other individual.
+    - This is *very* different from assuming that the clomn variable is independent of the row variable. 
+    - For example, random sampling will ensure independence of individuals in the study.
+- Each expected cell count must be larger than 10. 
+    - Some textbooks use the looser rule that at most 1/5th of the expected counts are less than 5. This gets confusing, and you really just need to ensure that you have a large enough sample in *each cell* of the two-way table.  
+
+For the mammogram example, these conditions are satisfied. Verify that the $\chi^2$ test stat is 0.02.
+
+The p-value for a $z$ test statistic is calculated from the normal distribution, the p-value for a $t$ test statistic is calculated from a $t$ distribution, and the $\chi^2$ test statistic is calculated from a $\chi^2$ distribution!
+
+The null hypothesis for this test is simply that the rows and columns are independent, with the alternate hypothesis being that this is false. Because of the way the $\chi^2$ statistic is calculated, any difference between observed and expected *increases* the test statistic. In other words, we only really care about the upper tail.
+
+Before we can calculate a p-value, we need to know the degrees of freedom. Again, this is a confusing concept that is often best memorized. For a two-way table, the df is 
+$$
+df = (r-1)(c-1)
+$$
+where $r$ is the number of rows and $c$ is the number of columns.
+
+We can calculate the right-tailed p-value as follows:
+
+```{r}
+1 - qchisq(0.02, df = 1)
+```
+
+That's nearly 1, so there's no reasonable significance level for which this test would be significant. We conclude that it's reasonable to think that the rows and columns are independent^[We're searching for evidece *against* the null, we can never conclude that the null is true!], and so we can say that there's no difference in outcome across different methods of screening.^[We can also say that there's no difference in levels of screening across outcomes, but this isn't meaningful given the context of the data.]
+
+::: {.callout-note}
+### The $\chi^2$ Test
+
+The $\chi^2$ test calculates the difference in observed counts and what would be expected if the rows and columns were independent, then finds a one-tailed p-value to tell whether the observed and expected counts are too different.
+
+A significant p-value means there is some sort of dependence, even if it's just one cell that is sufficiently different.
+:::
+
+### Example in R
+
+The following data come from the help file for the `chisq.test()` function in R.
+
+```{r}
+party_by_gender <- as.table(rbind(c(762, 327, 468), c(484, 239, 477)))
+# The following line is just to make sure we get pretty output
+# It is NOT something you'd be expect to reproduce
+dimnames(party_by_gender) <- list(gender = c("F", "M"),
+    party = c("Democrat","Independent", "Republican"))
+party_by_gender
+```
+
+We want to know whether the party affiliation is independent of the gender. By eye, it looks like there are more women in the democratic party, slightly more in the Independent party, and about the same in the republican party. However, there are more women in general in this study, so it's not immediately obvious that this is a difference in party affiliation or a difference in sample sizes across groups. This is where the $\chi^2$ test works best!
+
+Let's use the built-in R function to save us some work.^[For practice try to calculate these by hand!]
+
+```{r}
+chisq.test(party_by_gender)
+```
+
+We can see that the $\chi^2$ test statistic is 30.07, the degrees of freedom is (2-1)\*(3-1)=1\*2=2, and the resultant p-value is about 3 times ten to the negative 7. This is definitely a statistically significant relationship, and we can conclude that there's a difference in party affiliation across genders. 
+
+Now that we know there's a statistically significant difference, we can see where this difference is. We can look at which observed values are furthest from the expected values. Like in linear regression, we are looking at the **residuals**.
+
+::: {.callout-note}
+### Residuals for a $\chi^2$ Test
+
+For the cell in row $i$ and column $j$, the residual is defined as:
+$$
+\frac{\text{observed} - \text{expected}}{\sqrt{\text{expected}}}
+$$
+This is just the square root of their contribution to the $\chi^2$ test statistic, which preserves the sign (expected counts that are too small are still negative).
+:::
+
+
+```{r}
+# Rounding the values for nicer display
+round(chisq.test(party_by_gender)$residuals, 2)
+```
+
+The main thing that sticks out to me is that the count for republican women and republican men was about the same, but this is actually way more men than expected due to the sample size!
+
+## Confidence Intervals
+
+Let's not.^[There's not really a single statistic that's worth making a CI for. We could make one for each expected count, but that's silly.]
+
+## Chi-Square for "Goodness of Fit"
+
+In the lesson so far, the "expected" counts were the counts that would be expected if the null hypothesis were true, that is, if the rows and columns were independent. We can define the expected counts differently and still use the $\chi^2$ test!
+
+In particular, we can check whether a hypothesized distribution works for a given set of data.^[The name "Goodness of Fit" is often used for this, but it's a bad name. The null hypothesis is that the observed data fit with the given distribution, but we never confirm the null so we can never say that it's a "good" fit.] For example, we can check whether the demographics of a study are the same as the demographics in the population. The following example comes from the OpenIntro textbook, where it discusses a study called the "FAMuSS" study.
+
+| | African American | Asian | Caucasian | Other | Total |
+|---|----|---|---|---|---|
+| FAMuSS | 27 | 55 | 467 | 46 | 595 |
+| US Census | 0.128 | 0.01 | 0.804 | 0.058 | 1 |
+| Expected | 79.16 | 5.95 | 478.38 | 34.61 | 595 |
+
+In this example, we know the true distribution of ethnicities in the population, and we're testing whether the demographics in the study follow this distribution. 
+
+The "Expected" counts are simply the census proportions times the sample size. We can see visually that there's a difference, but are these differences big compared to sampling error? A hypothesis test will save us!
+
+We can calculate the $\chi^2$ statistic in the exact same way:
+$$
+\chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
+$$
+and compare this to a $\chi^2$ distribution. As before, I'm too lazy to do this by hand and I want R to do it for me. Let's use the usual 5% significance level.
+
+```{r}
+observed <- c(27, 55, 467, 46)
+hypothesized <- c(0.128, 0.01, 0.804, 0.058)
+chisq.test(x = observed, p = hypothesized)
+```
+
+According to R, the demographics are significantly different!

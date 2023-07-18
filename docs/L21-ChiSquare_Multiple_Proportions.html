@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2023-07-12">
+<meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Statistics for Life Sciences - 15&nbsp; Large sample test for a proportion</title>
+<title>Statistics for Life Sciences - 18&nbsp; L21: Chi-Square Test for Multiple Proportions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L19-CI_for_Proportions.html" rel="next">
-<link href="./L17-Two_Sample_hypothesis_Tests.html" rel="prev">
+<link href="./L19-Summary_of_Inference-Means_Proportions.html" rel="next">
+<link href="./L20-Two_Proportions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L18-Hypothesis_Tests_for_Proportions.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L21-ChiSquare_Multiple_Proportions.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L21: Chi-Square Test for Multiple Proportions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -255,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></span></a>
   </div>
 </li>
@@ -273,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-ChiSquare_Multiple_Proportions.html" class="sidebar-item-text sidebar-link">
+  <a href="./L21-ChiSquare_Multiple_Proportions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L21: Chi-Square Test for Multiple Proportions</span></span></a>
   </div>
 </li>
@@ -295,19 +294,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#refresher" id="toc-refresher" class="nav-link active" data-scroll-target="#refresher"><span class="header-section-number">15.1</span> Refresher</a></li>
-  <li><a href="#hypothesis-tests-for-proportions" id="toc-hypothesis-tests-for-proportions" class="nav-link" data-scroll-target="#hypothesis-tests-for-proportions"><span class="header-section-number">15.2</span> Hypothesis tests for proportions</a>
+  <li><a href="#differences-in-proportions-independence" id="toc-differences-in-proportions-independence" class="nav-link active" data-scroll-target="#differences-in-proportions-independence"><span class="header-section-number">18.1</span> Differences in Proportions; Independence</a></li>
+  <li><a href="#expected-counts" id="toc-expected-counts" class="nav-link" data-scroll-target="#expected-counts"><span class="header-section-number">18.2</span> Expected Counts</a>
   <ul class="collapse">
-  <li><a href="#the-test-statistic" id="toc-the-test-statistic" class="nav-link" data-scroll-target="#the-test-statistic">The Test Statistic</a></li>
+  <li><a href="#the-chi-square-test-statistic" id="toc-the-chi-square-test-statistic" class="nav-link" data-scroll-target="#the-chi-square-test-statistic">The Chi-Square Test Statistic</a></li>
+  <li><a href="#example-in-r" id="toc-example-in-r" class="nav-link" data-scroll-target="#example-in-r">Example in R</a></li>
   </ul></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">15.3</span> Example</a>
-  <ul class="collapse">
-  <li><a href="#mendelian-genetics" id="toc-mendelian-genetics" class="nav-link" data-scroll-target="#mendelian-genetics">Mendelian Genetics</a></li>
-  <li><a href="#mendelian-genetics-confidence-interval" id="toc-mendelian-genetics-confidence-interval" class="nav-link" data-scroll-target="#mendelian-genetics-confidence-interval">Mendelian Genetics Confidence Interval</a></li>
-  </ul></li>
-  <li><a href="#exact-test-for-binomial" id="toc-exact-test-for-binomial" class="nav-link" data-scroll-target="#exact-test-for-binomial"><span class="header-section-number">15.4</span> Exact Test for Binomial</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">15.5</span> Summary</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">15.6</span> Self-Study Questions</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">18.3</span> Confidence Intervals</a></li>
+  <li><a href="#chi-square-for-goodness-of-fit" id="toc-chi-square-for-goodness-of-fit" class="nav-link" data-scroll-target="#chi-square-for-goodness-of-fit"><span class="header-section-number">18.4</span> Chi-Square for “Goodness of Fit”</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -316,7 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">L21: Chi-Square Test for Multiple Proportions</span></h1>
 </div>
 
 
@@ -325,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-meta-heading">Affiliation</div>
   
     <div class="quarto-title-meta-contents">
-    <p class="author">Devan Becker </p>
+    <p class="author">Dr.&nbsp;Devan Becker </p>
   </div>
     <div class="quarto-title-meta-contents">
         <p class="affiliation">
@@ -337,12 +331,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
       
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2023-07-12</p>
-    </div>
-  </div>
   
     
   </div>
@@ -350,212 +338,322 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="refresher" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="refresher"><span class="header-section-number">15.1</span> Refresher</h2>
-<p>In the lecture on sampling distributions, we learned that the sampling distribution of a sample proportion can be found as follows:</p>
-<p>If <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span>, then <span class="math display">\[
-\hat p \sim N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)
-\]</span></p>
-<p>This relies on the population proportion to find the standard error, but this is never available.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-</section>
-<section id="hypothesis-tests-for-proportions" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="hypothesis-tests-for-proportions"><span class="header-section-number">15.2</span> Hypothesis tests for proportions</h2>
-<p>As before, we write our hypotheses: <span class="math display">\[
-H_0:p = p_0 \text{ vs. } H_A: p \{&gt;or&lt;or\ne\} p_0
-\]</span></p>
-<p>We always write <span class="math inline">\(H_0:p = p_0\)</span> and then fill in the value for <span class="math inline">\(p_0\)</span>, then we use that same value in the alternate hypothesis but use either <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span>, or <span class="math inline">\(\ne\)</span> based on the wording of the question.</p>
-<p>As before, we use the sampling distribution to find our p-value. In this case, though, we have a hypothesized value for the population proportion. In fact, we <em>must</em> assume that the null is true.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> If this is the case, we <em>do have</em> the standard error!</p>
-<p>I swear, this is the last time I introduce a new standard error for the sampling distribution of the sample proportion.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Assuming <span class="math inline">\(H_0\)</span> is true (and the conditions are met), <span class="math display">\[
-\hat p \sim N\left(p_0, \sqrt{\frac{p_0(1-p_0)}{n}}\right)
-\]</span></p>
-<section id="the-test-statistic" class="level3">
-<h3 class="anchored" data-anchor-id="the-test-statistic">The Test Statistic</h3>
-<p>As you can guess from the sampling distribution, the test statistic is:</p>
+<section id="differences-in-proportions-independence" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="differences-in-proportions-independence"><span class="header-section-number">18.1</span> Differences in Proportions; Independence</h2>
+<p>Recall the following example from the lesson on multiple proportions.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> We were interested in whether getting a mammogram lead to fewer deaths due to breast cancer, and were presented the following data:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Died</th>
+<th>Survived</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mammogram</td>
+<td>500</td>
+<td>44,425</td>
+<td>44,925</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>505</td>
+<td>44,405</td>
+<td>44,910</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>1,005</td>
+<td>88,830</td>
+<td>89,835</td>
+</tr>
+</tbody>
+</table>
+<p>In that lesson, we asked whether the proportion of people who died was the same in the mammogram group and the control group. This is a very specific approach, and in this lesson we will generalize it to many situations.</p>
+<p>The question can be re-worded as “Does knowing that the patient got a mammogram tell us more about whether they survived?” This phrasing should sound familiar - it’s a question about <strong>independence</strong>! Instead of asking about the difference in proportions, we can ask about whether the survival of the patient is independent of the method of screening.</p>
+<p>In essence, we’re checking <em>all</em> of the potential conditional probabilities. This includes P(Died | Mammogram) <span class="math inline">\(\stackrel{?}{=}\)</span> P(Died) as well as P(Mammogram | Died) <span class="math inline">\(\stackrel{?}{=}\)</span> P(Mammogram). Technically, these two statements are equivalent, so we can think about it whichever way is more useful. The test we’re about to describe also tests for whether P(Died | Control) <span class="math inline">\(\stackrel{?}{=}\)</span> P(Died) at the same time.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Test Statistic for a Test for Proportions
+Test for Independence of Columns and Rows
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Chi-Square test that we are about to learn is a test of whether the rows of a two-way table are independent of the columns. This works no matter how many rows/columns there are.</p>
+<p><span class="math display">\[
+H_0: \text{The rows are indepenent of the columns} vs. \text{There is some form of dependence}
+\]</span> The Chi-Square test gives a significant result if there is <em>any</em> deviation from independence, even if it’s just one cell in the two-way table that doesn’t fit the pattern.</p>
+</div>
+</div>
+<p>The interpretation of the test is that all of the rows look the same as each other; the counts in the rows are random deviations from the same distribution. The same interpretation applies to columns.</p>
+<p>In this example, the test for a difference in proportions is the exact same idea as a test for independence of rows and columns, but this will generalize the same idea to any number of rows/columns.</p>
+</section>
+<section id="expected-counts" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="expected-counts"><span class="header-section-number">18.2</span> Expected Counts</h2>
+<p>Just like in the tests for two proportions, we’re going to see what <em>would have</em> happened if there was actually no difference. That is, what would the table above look like if the outcome was <strong>independent</strong> of the screening method?</p>
+<p>As you’ll clearly recall, we can multiply probabilities if they are independent. That is, <span class="math display">\[
+P(A\text{ and }B) \stackrel{indep}{=}P(A)P(B),
+\]</span> where, again, I stress that this is only true if events A and B are independent.</p>
+<p>For hypothesis tests, we calculate things assuming that the null hypothesis is true. In this case, we assume that the events are independent and thus we can multiply their probabilities. So the proportion of people we expect to see in the “mammogram and died” group is: <span class="math display">\[
+P(\text{mammogram and died}) = P(\text{mammogram})P(\text{died}) = \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) \approx 0.5662
+\]</span> Where did these numbers come from? <span class="math inline">\(P(\text{mammogram})\)</span> is the number of people in the mammogram row divided by the total number of people. That is, this is the proportion of people who were screened via mammogram, regardless of whether they survived. Similarly, 10005 is the number of people who did not survive, regardless of whether they were screened via mammogram.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Note that this the probability of mammogram <em>and</em> died, not the probability of death <em>given that they</em> were screened via mammogram.</p>
+<p>This is the proportion of patients, so the expected count is just <span class="math inline">\(np\)</span>, the sample size times the proportion. Notice what happens to the calculation when we include this number: <span class="math display">\[
+88935 * P(\text{mammogram and died}) = 88935 \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) = \frac{1005*44295}{88830} = 502.6
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expected Counts for a Two-Way Table
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p><span class="math display">\[
-z_{obs} = \frac{\text{observed} - \text{hypothesized}}{\text{standard error}} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}}
+\text{Expect count for the cell in row }i\text{, column }j = \frac{(\text{row }i\text{ total})(\text{column }j\text{ total})}{\text{table total}}
 \]</span></p>
 </div>
 </div>
-<p>and then we can use the normal distribution as usual: <span class="math display">\[
-P(Z \{&gt;or&lt;or\text{ further away than}\} z_{obs}) = \dots
-\]</span></p>
-<p>where we use <span class="math inline">\(&gt;\)</span> if the alternate hypothesis uses <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span> if the alternate hypothesis uses <span class="math inline">\(&lt;\)</span>, and we look at the two tails if the alternate hypothesis is <span class="math inline">\(\ne\)</span>.</p>
-<p>A common question is: which <span class="math inline">\(p\)</span> do we use to check normality? We’re supposed to check <span class="math inline">\(np\)</span> and <span class="math inline">\(n(1-p)\)</span>, but do we use <span class="math inline">\(\hat p\)</span> or <span class="math inline">\(p_0\)</span>?</p>
-<p>For a hypothesis test, we assume the null is true, i.e.&nbsp;<span class="math inline">\(p=p_0\)</span>. We should use this assumption <em>everywhere</em>! For a hypothesis test about a proportion, we check whether <span class="math inline">\(np_0&gt;10\)</span> and <span class="math inline">\(n(1-p_0)&gt;10\)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
-<p>From here, we proceed as usual. We check the observed test statistic against a <em>normal</em> distribution and see whether our data are too extreme to come from the distribution assumed in the null hypothesis.</p>
-</section>
-</section>
-<section id="example" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="example"><span class="header-section-number">15.3</span> Example</h2>
-<section id="mendelian-genetics" class="level3">
-<h3 class="anchored" data-anchor-id="mendelian-genetics">Mendelian Genetics</h3>
-<p>To test his theory that 75% of plants would inheret a dominant gene, Gregor Mendel cross bred pure breeds of pea plants. Out of 7324 plants, 5474 showed the dominant trait. At the 4.5% level, is this compatible with the hypothesis of 75% dominant?</p>
-<p><strong>Solution:</strong></p>
-<ol type="1">
-<li>Check: <span class="math inline">\(np_0 = 7324*0.75 &gt; 10\)</span> and <span class="math inline">\(n(1-p_0) = 7324*0.25 &gt; 10\)</span>.</li>
-<li><span class="math inline">\(z_{obs} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.747 - 0.75}{\sqrt{0.75*0.25/7324}} = -0.513\)</span></li>
-<li><span class="math inline">\(p-val = 2 *P(Z &lt; z_{obs})\)</span> = <code>2*pnorm(-0.513)</code> = 0.608
-<ul>
-<li>We doubled the <span class="math inline">\(P(Z &lt; z_{obs})\)</span> because we want both tails. If you do this and your p-value is larger than 1, do <span class="math inline">\(1 - P(Z &lt; z_{obs})\)</span> first and then double it.</li>
-</ul></li>
-<li>Conclusion: Since <span class="math inline">\(p-val &gt; \alpha\)</span>, we do not reject the null. The hypothesis that 75% of plants inherent the dominant trait is compatible with the data.</li>
-</ol>
-<p>The last step is important: always word your conclusion in the context of the study.</p>
-<p>These methods are extremely widespread, so of course they’re implemented in R. Here’s a verification of our results:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">5474</span>, <span class="at">n =</span> <span class="dv">7324</span>, <span class="at">p =</span> <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    1-sample proportions test with continuity correction
-
-data:  5474 out of 7324, null probability 0.75
-X-squared = 0.24923, df = 1, p-value = 0.6176
-alternative hypothesis: true p is not equal to 0.75
-95 percent confidence interval:
- 0.7372578 0.7572926
-sample estimates:
-        p 
-0.7474058 </code></pre>
-</div>
-</div>
-<p>The output should look familiar - it’s very similar to the t-test output.</p>
-<p>We can see that the p-value (be careful not to mix up the <code>p-value</code> and the estimate of <span class="math inline">\(p\)</span>, labelled <code>p</code> - these are very different things!) is a little different. Maybe it’s because of rounding errors? We calculated the z test statistic to the nearest 3 decimal places, maybe that wasn’t enough?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5474</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">7324</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> x <span class="sc">/</span> n</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fl">0.75</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.75</span>) <span class="sc">/</span> n)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>((phat <span class="sc">-</span> <span class="fl">0.75</span>) <span class="sc">/</span> se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6081484</code></pre>
-</div>
-</div>
-<p>Nope, it’s not a rounding problem!</p>
-<p>The actual answer is that R uses a <em>continuity correction factor</em> (which isn’t going to be on the test for this course). The correction factor “shifts” the data so that the normal distribution aligns with the center of the bar, rather than the edge. See the following plot for why.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="L18-Hypothesis_Tests_for_Proportions_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>As you can see, the normal distribution aligns with the side of the bar. For values below the mean (in this case, <span class="math inline">\(n=10\)</span> and <span class="math inline">\(p=0.4\)</span>, so the mean is 4), the normal distribution is overestimating the areas to the left, whereas above the mean it’s underestimating the areas to the left. The correction factor shifts the normal distribution to the right by 0.5 so that it’s a better estimate of the areas below the curve.</p>
-<p>If we run <code>prop.test()</code> without the correction factor, we get the exact same p-value that we saw before.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">5474</span>, <span class="at">n =</span> <span class="dv">7324</span>, <span class="at">p =</span> <span class="fl">0.75</span>, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    1-sample proportions test without continuity correction
-
-data:  5474 out of 7324, null probability 0.75
-X-squared = 0.26288, df = 1, p-value = 0.6081
-alternative hypothesis: true p is not equal to 0.75
-95 percent confidence interval:
- 0.7373269 0.7572253
-sample estimates:
-        p 
-0.7474058 </code></pre>
-</div>
-</div>
-<p>These details are not important, just be aware that almost all tests for proportions are run <em>with</em> the continuity correction factor.</p>
-</section>
-<section id="mendelian-genetics-confidence-interval" class="level3">
-<h3 class="anchored" data-anchor-id="mendelian-genetics-confidence-interval">Mendelian Genetics Confidence Interval</h3>
-<p>Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5%<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<p>In order to find the confidence interval, we again need the standard error! In the hypothesis test, we assumed that <span class="math inline">\(p_0\)</span> was the true population proportion in order to proceed with the test. However, we don’t make this assumption for confidence intervals.</p>
-<p>What can we do? We don’t have <span class="math inline">\(p\)</span> or <span class="math inline">\(p_0\)</span>, so we’re left with <span class="math inline">\(\hat p\)</span>, the sample proportion that we calculated. In the t-test, this meant that we needed to switch to the <span class="math inline">\(t\)</span> distribution. However, that was because there was really good theory to say that the <span class="math inline">\(t\)</span> distribution is the correct distribution to use. There’s no such theory here.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<p>The following table shows the actual counts and expected counts in the format actual(expected). For practice, double check the calculations!</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Died</th>
+<th>Survived</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mammogram</td>
+<td>500 (502.6)</td>
+<td>44,425 (44,422.4)</td>
+<td>44,925</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>505 (502.4)</td>
+<td>44,405 (44,407.6)</td>
+<td>44,910</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td>1,005</td>
+<td>88,830</td>
+<td>89,835</td>
+</tr>
+</tbody>
+</table>
+<section id="the-chi-square-test-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="the-chi-square-test-statistic">The Chi-Square Test Statistic</h3>
+<p>Up until this exact moment, all our test statistics have been of the form (observed - hypothesized)/standard error. This ends here. Here we’ll introduce the Chi-Square test statistic, often written as <span class="math inline">\(\chi^2\)</span>, which is greek letter “chi”, pronounced “kai”.</p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-CIs for Proportions Only Work When the CLT Applies
+The <span class="math inline">\(\chi^2\)</span> Test Statistic
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The <span class="math inline">\(t\)</span>-distribution allows us to do hypothesis tests and make CIs even for smaller samples when we’re not sure that the CLT applies. For proportions, we need a “large” sample.</p>
-</div>
-</div>
-<p>Now that we know all this, the CI can be found as: <span class="math display">\[
-\hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}} = 0.747 \pm 2.005\sqrt{\frac{0.747(1-0.747)}{7324}}
+<p>After gathering the observed counts and calculating the expected counts, the “Chi-Square” test statistic is: <span class="math display">\[
+\chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
 \]</span></p>
-<p>which results in the CI (0.737, 0.758). This matches the CI shown in the output of <code>prop.test()</code> above (double check this!).</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+</div>
+</div>
+<p>There are a couple important features of this value:</p>
+<ul>
+<li>The numbers are squared so that negatives don’t cancel out wiht positives.</li>
+<li>We divide by expected counts, which means that a large deviation is okay if it’s for a large count.
+<ul>
+<li>For example, 500 is 5 away from 505 and 44425 is 20 away from 44405, but the 500 and the 505 “feel” like they’re closer together because the counts are small. With large counts, we’re more forgiving of observed minus expected.</li>
+</ul></li>
+</ul>
+<p>This test statistic is based on the normal approximation to the binomial distribution, so you’d better believe that there are some conditions before we can do a hypothesis test!</p>
+<ul>
+<li>Each individual must be independent of each other individual.
+<ul>
+<li>This is <em>very</em> different from assuming that the clomn variable is independent of the row variable.</li>
+<li>For example, random sampling will ensure independence of individuals in the study.</li>
+</ul></li>
+<li>Each expected cell count must be larger than 10.
+<ul>
+<li>Some textbooks use the looser rule that at most 1/5th of the expected counts are less than 5. This gets confusing, and you really just need to ensure that you have a large enough sample in <em>each cell</em> of the two-way table.</li>
+</ul></li>
+</ul>
+<p>For the mammogram example, these conditions are satisfied. Verify that the <span class="math inline">\(\chi^2\)</span> test stat is 0.02.</p>
+<p>The p-value for a <span class="math inline">\(z\)</span> test statistic is calculated from the normal distribution, the p-value for a <span class="math inline">\(t\)</span> test statistic is calculated from a <span class="math inline">\(t\)</span> distribution, and the <span class="math inline">\(\chi^2\)</span> test statistic is calculated from a <span class="math inline">\(\chi^2\)</span> distribution!</p>
+<p>The null hypothesis for this test is simply that the rows and columns are independent, with the alternate hypothesis being that this is false. Because of the way the <span class="math inline">\(\chi^2\)</span> statistic is calculated, any difference between observed and expected <em>increases</em> the test statistic. In other words, we only really care about the upper tail.</p>
+<p>Before we can calculate a p-value, we need to know the degrees of freedom. Again, this is a confusing concept that is often best memorized. For a two-way table, the df is <span class="math display">\[
+df = (r-1)(c-1)
+\]</span> where <span class="math inline">\(r\)</span> is the number of rows and <span class="math inline">\(c\)</span> is the number of columns.</p>
+<p>We can calculate the right-tailed p-value as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">qchisq</span>(<span class="fl">0.02</span>, <span class="at">df =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9993715</code></pre>
+</div>
+</div>
+<p>That’s nearly 1, so there’s no reasonable significance level for which this test would be significant. We conclude that it’s reasonable to think that the rows and columns are independent<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, and so we can say that there’s no difference in outcome across different methods of screening.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Duality of Hypotheses and CIs
+The <span class="math inline">\(\chi^2\)</span> Test
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For proportions, it is <em>not</em> true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors.</p>
+<p>The <span class="math inline">\(\chi^2\)</span> test calculates the difference in observed counts and what would be expected if the rows and columns were independent, then finds a one-tailed p-value to tell whether the observed and expected counts are too different.</p>
+<p>A significant p-value means there is some sort of dependence, even if it’s just one cell that is sufficiently different.</p>
 </div>
 </div>
 </section>
+<section id="example-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="example-in-r">Example in R</h3>
+<p>The following data come from the help file for the <code>chisq.test()</code> function in R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>party_by_gender <span class="ot">&lt;-</span> <span class="fu">as.table</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">762</span>, <span class="dv">327</span>, <span class="dv">468</span>), <span class="fu">c</span>(<span class="dv">484</span>, <span class="dv">239</span>, <span class="dv">477</span>)))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The following line is just to make sure we get pretty output</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># It is NOT something you'd be expect to reproduce</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(party_by_gender) <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">gender =</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"M"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">party =</span> <span class="fu">c</span>(<span class="st">"Democrat"</span>,<span class="st">"Independent"</span>, <span class="st">"Republican"</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>party_by_gender</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      party
+gender Democrat Independent Republican
+     F      762         327        468
+     M      484         239        477</code></pre>
+</div>
+</div>
+<p>We want to know whether the party affiliation is independent of the gender. By eye, it looks like there are more women in the democratic party, slightly more in the Independent party, and about the same in the republican party. However, there are more women in general in this study, so it’s not immediately obvious that this is a difference in party affiliation or a difference in sample sizes across groups. This is where the <span class="math inline">\(\chi^2\)</span> test works best!</p>
+<p>Let’s use the built-in R function to save us some work.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(party_by_gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  party_by_gender
+X-squared = 30.07, df = 2, p-value = 2.954e-07</code></pre>
+</div>
+</div>
+<p>We can see that the <span class="math inline">\(\chi^2\)</span> test statistic is 30.07, the degrees of freedom is (2-1)*(3-1)=1*2=2, and the resultant p-value is about 3 times ten to the negative 7. This is definitely a statistically significant relationship, and we can conclude that there’s a difference in party affiliation across genders.</p>
+<p>Now that we know there’s a statistically significant difference, we can see where this difference is. We can look at which observed values are furthest from the expected values. Like in linear regression, we are looking at the <strong>residuals</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Residuals for a <span class="math inline">\(\chi^2\)</span> Test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For the cell in row <span class="math inline">\(i\)</span> and column <span class="math inline">\(j\)</span>, the residual is defined as: <span class="math display">\[
+\frac{\text{observed} - \text{expected}}{\sqrt{\text{expected}}}
+\]</span> This is just the square root of their contribution to the <span class="math inline">\(\chi^2\)</span> test statistic, which preserves the sign (expected counts that are too small are still negative).</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rounding the values for nicer display</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">chisq.test</span>(party_by_gender)<span class="sc">$</span>residuals, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      party
+gender Democrat Independent Republican
+     F     2.20        0.41      -2.84
+     M    -2.50       -0.47       3.24</code></pre>
+</div>
+</div>
+<p>The main thing that sticks out to me is that the count for republican women and republican men was about the same, but this is actually way more men than expected due to the sample size!</p>
 </section>
-<section id="exact-test-for-binomial" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="exact-test-for-binomial"><span class="header-section-number">15.4</span> Exact Test for Binomial</h2>
-<p>In this course, we use the normal approximation to the binomial in order to do hypothesis tests. This is not the only way to do it: we don’t always need to use the approximation! There’s something called the “exact binomial test”, which is a hypothesis test that uses the binomial distribution rather than the normal approximation (this will not be on tests).</p>
-<p>There are two main reasons why we might prefer the approximation, rather than using the exact test:</p>
-<ol type="1">
-<li>If we have a large sample, then the approximation and the exact test are very very close. The approximation is computationally simpler.
-<ul>
-<li>If we have a small sample, neither tests can accurately approximate the variance of the population, and thus the estimated standard error isn’t well estimated either.</li>
-</ul></li>
-<li>Because the binomial distribution is discrete, the p-values for many different test statistics will be the same. By setting <span class="math inline">\(\alpha\)</span>, we might not actually be getting <span class="math inline">\(\alpha\)</span>.
-<ul>
-<li>This is a technical point that can be safely ignored when studying for tests.</li>
-</ul></li>
-</ol>
-<p>The exact test can be performed using the <code>binom.test()</code> function in R.</p>
 </section>
-<section id="summary" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">15.5</span> Summary</h2>
-<p>CIs and Hypothesis Tests work exactly as they did before, but now we’re dealing with proportions. Just like the change from one sample to two sample <span class="math inline">\(t\)</span> tests, the standard error is important and difficult.</p>
-<ul>
-<li>For hypothesis tests, the standard error uses <span class="math inline">\(p_0\)</span>.</li>
-<li>For CIs, the standard error uses <span class="math inline">\(\hat p\)</span>.</li>
-</ul>
-<p>Interpreting these confidence intervals and hypothesis tests is very similar to before, but you must keep in mind that they’re proportions. This mainly affects how you describe the end results.</p>
-<p>There are two other wrinkles to consider when using proportions:</p>
-<ul>
-<li>The default test for proportions is the normal approximation with continuity correction.
-<ul>
-<li>It is possible, but not recommended, to not use continuity correction.</li>
-</ul></li>
-<li>There is also an exact test, but for large samples the approximation is faster and easier.</li>
-</ul>
+<section id="confidence-intervals" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">18.3</span> Confidence Intervals</h2>
+<p>Let’s not.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 </section>
-<section id="self-study-questions" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">15.6</span> Self-Study Questions</h2>
-<ol type="1">
-<li>When do we use <span class="math inline">\(\hat p\)</span> in the standard error? When do we use <span class="math inline">\(p_0\)</span>?</li>
-<li>Explain why we don’t estimate the standard error in a hypothesis test about a proportion.</li>
-<li>Explain in your own words why there’s no <span class="math inline">\(t\)</span> version of a hypothesis test for proportions.</li>
-<li>Write a good summary of the Mendelian genetics example. What did we conclude, and how is this knowledge useful?</li>
-</ol>
+<section id="chi-square-for-goodness-of-fit" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="chi-square-for-goodness-of-fit"><span class="header-section-number">18.4</span> Chi-Square for “Goodness of Fit”</h2>
+<p>In the lesson so far, the “expected” counts were the counts that would be expected if the null hypothesis were true, that is, if the rows and columns were independent. We can define the expected counts differently and still use the <span class="math inline">\(\chi^2\)</span> test!</p>
+<p>In particular, we can check whether a hypothesized distribution works for a given set of data.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> For example, we can check whether the demographics of a study are the same as the demographics in the population. The following example comes from the OpenIntro textbook, where it discusses a study called the “FAMuSS” study.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th>African American</th>
+<th>Asian</th>
+<th>Caucasian</th>
+<th>Other</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FAMuSS</td>
+<td>27</td>
+<td>55</td>
+<td>467</td>
+<td>46</td>
+<td>595</td>
+</tr>
+<tr class="even">
+<td>US Census</td>
+<td>0.128</td>
+<td>0.01</td>
+<td>0.804</td>
+<td>0.058</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Expected</td>
+<td>79.16</td>
+<td>5.95</td>
+<td>478.38</td>
+<td>34.61</td>
+<td>595</td>
+</tr>
+</tbody>
+</table>
+<p>In this example, we know the true distribution of ethnicities in the population, and we’re testing whether the demographics in the study follow this distribution.</p>
+<p>The “Expected” counts are simply the census proportions times the sample size. We can see visually that there’s a difference, but are these differences big compared to sampling error? A hypothesis test will save us!</p>
+<p>We can calculate the <span class="math inline">\(\chi^2\)</span> statistic in the exact same way: <span class="math display">\[
+\chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
+\]</span> and compare this to a <span class="math inline">\(\chi^2\)</span> distribution. As before, I’m too lazy to do this by hand and I want R to do it for me. Let’s use the usual 5% significance level.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">27</span>, <span class="dv">55</span>, <span class="dv">467</span>, <span class="dv">46</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>hypothesized <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.128</span>, <span class="fl">0.01</span>, <span class="fl">0.804</span>, <span class="fl">0.058</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> observed, <span class="at">p =</span> hypothesized)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  observed
+X-squared = 440.18, df = 3, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>According to R, the demographics are significantly different!</p>
 
 
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If it was, then why are we doing inference?<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>We want to be strict about this so that it’s more convincing if we prove it wrong.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>I’m lying.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>As before, both conditions must be true; it’s not enough for just <span class="math inline">\(np_0&gt;10\)</span> alone.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p><span class="math inline">\(\alpha = 0.045\)</span>, so <span class="math inline">\(1 - \alpha = 0.955\)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Adapted from OpenIntro BioStats.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In other words, they’re the row probabilities regardless of column and the column probability regardless of row.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>We’re searching for evidece <em>against</em> the null, we can never conclude that the null is true!<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>We can also say that there’s no difference in levels of screening across outcomes, but this isn’t meaningful given the context of the data.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For practice try to calculate these by hand!<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>There’s not really a single statistic that’s worth making a CI for. We could make one for each expected count, but that’s silly.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>The name “Goodness of Fit” is often used for this, but it’s a bad name. The null hypothesis is that the observed data fit with the given distribution, but we never confirm the null so we can never say that it’s a “good” fit.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -910,13 +1008,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L17-Two_Sample_hypothesis_Tests.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></span>
+      <a href="./L20-Two_Proportions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L19-CI_for_Proportions.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
