@@ -51,7 +51,7 @@ Where did these numbers come from? $P(\text{mammogram})$ is the number of people
 
 This is the proportion of patients, so the expected count is just $np$, the sample size times the proportion. Notice what happens to the calculation when we include this number:
 $$
-88935 * P(\text{mammogram and died}) = 88935 \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) = \frac{1005*44295}{88830} = 502.6
+88935 * P(\text{mammogram and died}) = 88935 \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) = \frac{1005*44295}{89835} = 502.6
 $$
 
 ::: {.callout-note}
@@ -112,7 +112,7 @@ where $r$ is the number of rows and $c$ is the number of columns.
 We can calculate the right-tailed p-value as follows:
 
 ```{r}
-1 - qchisq(0.02, df = 1)
+1 - pchisq(0.02, df = 1)
 ```
 
 That's nearly 1, so there's no reasonable significance level for which this test would be significant. We conclude that it's reasonable to think that the rows and columns are independent^[We're searching for evidece *against* the null, we can never conclude that the null is true!], and so we can say that there's no difference in outcome across different methods of screening.^[We can also say that there's no difference in levels of screening across outcomes, but this isn't meaningful given the context of the data.]
