@@ -40,6 +40,7 @@ book:
         - L19-CI_for_Proportions.qmd
         - L20-Two_Proportions.qmd
         - L21-ChiSquare_Multiple_Proportions.qmd
+        - L22-Inference_for_Regression.qmd
         - L19-Summary_of_Inference-Means_Proportions.qmd
 
 execute: 
