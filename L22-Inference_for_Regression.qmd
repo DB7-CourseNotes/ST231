@@ -143,10 +143,10 @@ We'll start by checking a plot. I sometimes use "base R" plotting, and sometimes
 
 data(mtcars) # built-in data in R
 
-# Base R plot: y ~ x
+# Base R plot: y ~ x, data = ...
 plot(mpg ~ wt, data = mtcars)
 
-# Linear Model (lm): y ~ x
+# Linear Model (lm): y ~ x, data = ...
 mylm <- lm(mpg ~ wt, data = mtcars)
 
 # Add the line to the existing plot
