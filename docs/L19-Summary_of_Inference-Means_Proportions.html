@@ -9,7 +9,7 @@
 <meta name="author" content="Devan Becker">
 <meta name="dcterms.date" content="2023-07-19">
 
-<title>Statistics for Life Sciences - 20&nbsp; Inference: Overview, R Code, and Special Topics</title>
+<title>Statistics for Life Sciences - 21&nbsp; Inference: Overview, R Code, and Special Topics</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L22-Inference_for_Regression.html" rel="prev">
+<link href="./L23-ANOVA-oi.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L19-Summary_of_Inference-Means_Proportions.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L19-Summary_of_Inference-Means_Proportions.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -284,8 +284,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./L23-ANOVA-oi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span></a>
   </div>
 </li>
       </ul>
@@ -300,8 +306,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#inference-is-the-inverse-of-probability" id="toc-inference-is-the-inverse-of-probability" class="nav-link active" data-scroll-target="#inference-is-the-inverse-of-probability"><span class="header-section-number">20.1</span> Inference is the Inverse of Probability</a></li>
-  <li><a href="#inference-about-a-mean-sigma-known" id="toc-inference-about-a-mean-sigma-known" class="nav-link" data-scroll-target="#inference-about-a-mean-sigma-known"><span class="header-section-number">20.2</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> known</a>
+  <li><a href="#inference-is-the-inverse-of-probability" id="toc-inference-is-the-inverse-of-probability" class="nav-link active" data-scroll-target="#inference-is-the-inverse-of-probability"><span class="header-section-number">21.1</span> Inference is the Inverse of Probability</a></li>
+  <li><a href="#inference-about-a-mean-sigma-known" id="toc-inference-about-a-mean-sigma-known" class="nav-link" data-scroll-target="#inference-about-a-mean-sigma-known"><span class="header-section-number">21.2</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> known</a>
   <ul class="collapse">
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
   <li><a href="#sampling-distribution" id="toc-sampling-distribution" class="nav-link" data-scroll-target="#sampling-distribution">Sampling Distribution</a></li>
@@ -309,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#hypothesis-test" id="toc-hypothesis-test" class="nav-link" data-scroll-target="#hypothesis-test">Hypothesis test</a></li>
   <li><a href="#r-code-for-z" id="toc-r-code-for-z" class="nav-link" data-scroll-target="#r-code-for-z">R Code for z</a></li>
   </ul></li>
-  <li><a href="#inference-about-a-mean-sigma-estimated-by-s" id="toc-inference-about-a-mean-sigma-estimated-by-s" class="nav-link" data-scroll-target="#inference-about-a-mean-sigma-estimated-by-s"><span class="header-section-number">20.3</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> estimated by <span class="math inline">\(s\)</span></a>
+  <li><a href="#inference-about-a-mean-sigma-estimated-by-s" id="toc-inference-about-a-mean-sigma-estimated-by-s" class="nav-link" data-scroll-target="#inference-about-a-mean-sigma-estimated-by-s"><span class="header-section-number">21.3</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> estimated by <span class="math inline">\(s\)</span></a>
   <ul class="collapse">
   <li><a href="#assumptions-1" id="toc-assumptions-1" class="nav-link" data-scroll-target="#assumptions-1">Assumptions</a></li>
   <li><a href="#sampling-distribution-1" id="toc-sampling-distribution-1" class="nav-link" data-scroll-target="#sampling-distribution-1">Sampling Distribution</a></li>
@@ -317,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#hypothesis-test-1" id="toc-hypothesis-test-1" class="nav-link" data-scroll-target="#hypothesis-test-1">Hypothesis Test</a></li>
   <li><a href="#r-code-for-t" id="toc-r-code-for-t" class="nav-link" data-scroll-target="#r-code-for-t">R Code for t</a></li>
   </ul></li>
-  <li><a href="#two-sample-t-tests" id="toc-two-sample-t-tests" class="nav-link" data-scroll-target="#two-sample-t-tests"><span class="header-section-number">20.4</span> Two-Sample t-tests</a>
+  <li><a href="#two-sample-t-tests" id="toc-two-sample-t-tests" class="nav-link" data-scroll-target="#two-sample-t-tests"><span class="header-section-number">21.4</span> Two-Sample t-tests</a>
   <ul class="collapse">
   <li><a href="#assumptions-2" id="toc-assumptions-2" class="nav-link" data-scroll-target="#assumptions-2">Assumptions</a></li>
   <li><a href="#sampling-distribution-2" id="toc-sampling-distribution-2" class="nav-link" data-scroll-target="#sampling-distribution-2">Sampling Distribution</a></li>
@@ -325,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#hypothesis-tests" id="toc-hypothesis-tests" class="nav-link" data-scroll-target="#hypothesis-tests">Hypothesis Tests</a></li>
   <li><a href="#r-code-for-two-sample-t-tests" id="toc-r-code-for-two-sample-t-tests" class="nav-link" data-scroll-target="#r-code-for-two-sample-t-tests">R Code for two-sample t-tests</a></li>
   </ul></li>
-  <li><a href="#inference-about-a-proportion" id="toc-inference-about-a-proportion" class="nav-link" data-scroll-target="#inference-about-a-proportion"><span class="header-section-number">20.5</span> Inference about a Proportion</a>
+  <li><a href="#inference-about-a-proportion" id="toc-inference-about-a-proportion" class="nav-link" data-scroll-target="#inference-about-a-proportion"><span class="header-section-number">21.5</span> Inference about a Proportion</a>
   <ul class="collapse">
   <li><a href="#assumptions-3" id="toc-assumptions-3" class="nav-link" data-scroll-target="#assumptions-3">Assumptions</a></li>
   <li><a href="#sampling-distribution-3" id="toc-sampling-distribution-3" class="nav-link" data-scroll-target="#sampling-distribution-3">Sampling Distribution</a></li>
@@ -333,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#hypothesis-tests-1" id="toc-hypothesis-tests-1" class="nav-link" data-scroll-target="#hypothesis-tests-1">Hypothesis tests</a></li>
   <li><a href="#r-code-for-p" id="toc-r-code-for-p" class="nav-link" data-scroll-target="#r-code-for-p">R Code for p</a></li>
   </ul></li>
-  <li><a href="#special-topics-in-inference" id="toc-special-topics-in-inference" class="nav-link" data-scroll-target="#special-topics-in-inference"><span class="header-section-number">20.6</span> Special Topics in Inference</a>
+  <li><a href="#special-topics-in-inference" id="toc-special-topics-in-inference" class="nav-link" data-scroll-target="#special-topics-in-inference"><span class="header-section-number">21.6</span> Special Topics in Inference</a>
   <ul class="collapse">
   <li><a href="#sample-size-calculations" id="toc-sample-size-calculations" class="nav-link" data-scroll-target="#sample-size-calculations">Sample Size Calculations</a></li>
   <li><a href="#sample-size-calculations-2" id="toc-sample-size-calculations-2" class="nav-link" data-scroll-target="#sample-size-calculations-2">Sample Size Calculations 2</a></li>
@@ -348,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></h1>
 </div>
 
 
@@ -382,13 +388,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="inference-is-the-inverse-of-probability" class="level2" data-number="20.1">
-<h2 data-number="20.1" class="anchored" data-anchor-id="inference-is-the-inverse-of-probability"><span class="header-section-number">20.1</span> Inference is the Inverse of Probability</h2>
+<section id="inference-is-the-inverse-of-probability" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="inference-is-the-inverse-of-probability"><span class="header-section-number">21.1</span> Inference is the Inverse of Probability</h2>
 <p>There is some true population parameter. When we collect a sample, we can a random collection of observations from this population parameter. In other words, we get randomness from a population value - this is Probability.</p>
 <p>If we make assumptions about our data, we have the benefit of math. This math allows us to go backwards and say something aboot the population. In other words, we get a population value from randomess - this is Inference.</p>
 </section>
-<section id="inference-about-a-mean-sigma-known" class="level2" data-number="20.2">
-<h2 data-number="20.2" class="anchored" data-anchor-id="inference-about-a-mean-sigma-known"><span class="header-section-number">20.2</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> known</h2>
+<section id="inference-about-a-mean-sigma-known" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="inference-about-a-mean-sigma-known"><span class="header-section-number">21.2</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> known</h2>
 <section id="assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
 <ol type="1">
@@ -473,8 +479,8 @@ z_{obs} = \frac{\bar x - \mu}{\sigma/\sqrt{n}}
 <p>There is none, because it’s bonkers to assume that the population sd is known. The z-test is taught for two reasons: to demonstrate the underlying mechanics, and to motivate sample size calculations (discussed later in this document).</p>
 </section>
 </section>
-<section id="inference-about-a-mean-sigma-estimated-by-s" class="level2" data-number="20.3">
-<h2 data-number="20.3" class="anchored" data-anchor-id="inference-about-a-mean-sigma-estimated-by-s"><span class="header-section-number">20.3</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> estimated by <span class="math inline">\(s\)</span></h2>
+<section id="inference-about-a-mean-sigma-estimated-by-s" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="inference-about-a-mean-sigma-estimated-by-s"><span class="header-section-number">21.3</span> Inference about a Mean, <span class="math inline">\(\sigma\)</span> estimated by <span class="math inline">\(s\)</span></h2>
 <section id="assumptions-1" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions-1">Assumptions</h3>
 <ol type="1">
@@ -559,8 +565,8 @@ mean of x
 </div>
 </section>
 </section>
-<section id="two-sample-t-tests" class="level2" data-number="20.4">
-<h2 data-number="20.4" class="anchored" data-anchor-id="two-sample-t-tests"><span class="header-section-number">20.4</span> Two-Sample t-tests</h2>
+<section id="two-sample-t-tests" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="two-sample-t-tests"><span class="header-section-number">21.4</span> Two-Sample t-tests</h2>
 <section id="assumptions-2" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions-2">Assumptions</h3>
 <ul>
@@ -635,8 +641,8 @@ mean of x
 </div>
 </section>
 </section>
-<section id="inference-about-a-proportion" class="level2" data-number="20.5">
-<h2 data-number="20.5" class="anchored" data-anchor-id="inference-about-a-proportion"><span class="header-section-number">20.5</span> Inference about a Proportion</h2>
+<section id="inference-about-a-proportion" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="inference-about-a-proportion"><span class="header-section-number">21.5</span> Inference about a Proportion</h2>
 <section id="assumptions-3" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions-3">Assumptions</h3>
 <p>First, we check if a binomial distribution is appropriate:</p>
@@ -799,8 +805,8 @@ probability of success
 </div>
 </section>
 </section>
-<section id="special-topics-in-inference" class="level2" data-number="20.6">
-<h2 data-number="20.6" class="anchored" data-anchor-id="special-topics-in-inference"><span class="header-section-number">20.6</span> Special Topics in Inference</h2>
+<section id="special-topics-in-inference" class="level2" data-number="21.6">
+<h2 data-number="21.6" class="anchored" data-anchor-id="special-topics-in-inference"><span class="header-section-number">21.6</span> Special Topics in Inference</h2>
 <section id="sample-size-calculations" class="level3">
 <h3 class="anchored" data-anchor-id="sample-size-calculations">Sample Size Calculations</h3>
 <p>In order to propose a study<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, researchers have to give some idea about what results they expect. As we saw before, a small confidence interval is always better<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. In many grant proposals, researchers choose the sample size based on the desired width of their confidence interval.</p>
@@ -1235,8 +1241,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L22-Inference_for_Regression.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></span>
+      <a href="./L23-ANOVA-oi.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
