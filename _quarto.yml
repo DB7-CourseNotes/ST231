@@ -57,8 +57,6 @@ format:
         code-fold: true
         code-summary: "Show the code"
         warning: false
-  pdf:
-    include-in-header: defs_pdf.tex
 
 
 
