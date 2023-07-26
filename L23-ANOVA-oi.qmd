@@ -182,7 +182,7 @@ The mean square between groups is:
 $$
 MSG = \frac{1}{k-1}\sum_{i=1}^{k} n_{i}\left(\overline{x}_{i} - \overline{x}\right)^{2} = \frac{1}{df_{G}}SSG,
 $$
-where $SSG$ is the \term{sum of squares between groups}, $\sum_{i=1}^{k} n_{i}\left(\overline{x}_{i} - \overline{x}\right)^{2}$, and $df_{G}=k-1$ is the degrees of freedom associated with the $MSG$ when there are $k$ groups.
+where $SSG$ is the sum of squares between groups, $\sum_{i=1}^{k} n_{i}\left(\overline{x}_{i} - \overline{x}\right)^{2}$, and $df_{G}=k-1$ is the degrees of freedom associated with the $MSG$ when there are $k$ groups.
 
 Notice what's happening here: $MSG$ is kind of like a variance, but not the variance of individual values.
 
