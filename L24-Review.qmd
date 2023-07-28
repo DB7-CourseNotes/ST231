@@ -1,0 +1,250 @@
+# Post-Midterm Review
+
+```{r}
+#| include: false
+library(dplyr)
+library(palmerpenguins)
+set.seed(2112)
+```
+
+## The Broad Topics
+
+The following topics have applied to almost everything since the midterm.
+
+- **Standard Errors**
+    - Since our sample was random, we could have gotten different data. With different data, we'd get a different mean and sd. 
+    - The standard error of the mean represents uncertainty around the mean. With more data, we are more certain about the value.
+        - Effects of outliers diminish, and the overall variation "averages out".
+        - The same thing happens to the sd, but it's not a normal distribution.
+    - Be ready to explain how standard errors relate to various concepts.
+        - For example, could you explain why test statistics and p-values have a standard error (even though you don't know the formula for it)?
+- **Assumption Checking**
+    - All of the methods we use require assumptions about the population.
+    - There's always some sort of independence assumption, which can be satisfied by having a good sampling strategy.
+    - There's usually either an assumption of normality, or some conditions for which the normal approximation applies.
+        - For means, we need a big enough sample for the Central Limit Theorem to apply ($n > 30$ or $n>60$ or something like that). This applies to all of the groups for t-tests and ANOVA.
+        - For proportions, we need some form of $np>10$ and $n(1-p)>10$ so that the normal approximation applies. Be careful whether you need the observed proportion, hypothesized proportion, or pooled proportion!
+        - For regression, we assume that the residuals are normal, and we can assess this with the QQ Plot. 
+    - There are other assumptions that may be method-specific.
+        - For example, linear regression requires that the plot looks linear!
+- **Hypothesis Testing**
+    - Null and Alternative hypotheses: Convert the word problem into math.
+        - Null: Nothing is going on. Very often, this means $\mu = 0$ or $p = 0.5$ or $\mu_1 - \mu_0 = 0$. However, we could also test things like $p_1 - p_2 = 0.1$, i.e., whether $p_1$ is 10 percentage points higher than $p_2$. 
+        - Alternative: generally involves a $\ne$, $>$, or $<$. The wording of the statement will indicate whether it's a two sided ($\ne$), right-tailed ($>$), or left-tailed ($<$) p-value.
+    - Set the significance level.
+        - This determines how "strong" the evidence must be in order for us to reject the null. $\alpha = 0.1$ means we'll accept weak evidence, whereas $\alpha = 0.001$ means we need to be very sure of our results before the null is rejected.
+    - Test statistic: measures the distance between our observed data and the hypothesized value, *relative to the standard error*.
+        - Relies on the value from the null hypothesis, as well as the sample size!
+    - p-value: **ASSUMING THE NULL HYPOTHESIS IS TRUE**, the p-value measures the probability of getting data at least as extreme as the data we got.
+        - "At least as extreme" = this far away from the null values or further. The direction is determined by the alternative hypothesis.
+        - A small p-value is strong evidence. If $p < \alpha$, we reject the null and claim that our result is "statistically significant". 
+        - A small p-value does *not* mean that there's a large difference in the observed and hypothesized! It's a large difference *relative to the standard error*, which decreases with better study designs and larger sample sizes. For example, a 0.01% increase in cancer risk is not something that a person really needs to worry about, but a large enough sample might find a statistically significant result!
+- **Confidence Intervals** 
+    - If we were to repeat the exact same study many, many times with new samples each time, $(1-\alpha)$\% of the intervals we create will contain the true population parameter. 
+    - Generally, a CI has the form "point estimate $\pm$ critical value * standard error"
+        - Point estimate: the mean, for example.
+        - Critical value: the value from the relevant distribution that makes it a $(1-\alpha)$\% interval. Essentially, this controls the width of the interval so that the interval actually does contain the true parameter as often as we claim that it does.
+        - Standard error: see above.
+    - A 95% CI is essentially the middle 95% of the **sampling distribution**, if it were centered on the observed sample mean. 
+        - In other words, we use the standard error to determine an interval that we hope covers the middle 95% of all possible mean values.
+    - For a 95% CI, we want the middle 95%. This means we want 2.5% on either side, which is why we see $\alpha/2$ a lot when dealing with confidence intervals.
+- **Conclusion in the context of the problem**
+    - The beauty of stats is that it's rigorous math with applications to the real world - always remember that the data come from somewhere and the results might be meaningful to real people!
+- **Type 1 and 2 Error**
+    - Type 1 Error: rejecting a null when it's true.
+        - We reject if $p < \alpha$ because our p-value is "too unlikely" under the null. However, unlikely things still happen! 
+        - If $\alpha=0.05$, then we reject anything with a p-value less than 5%. However, things with a p-value of 5% still happen 5% of the time.
+        - P(Type 1 Error) = $\alpha$.
+            - In other words, we control P(Type 1 Error) when we choose a significance level.
+    - Type 2 Error: Fail to reject the null when it's false
+        - Even when the null is actually false, we may not have strong enough evidence to reject it.
+            - Better evidence comes from either a better study design or a larger sample size.
+        - **Power**: 1 - P(Type 2 Error), which is generally difficult to calculate.
+            - It is *not* $1-\alpha$.
+        - A study with low power might have p-values larger than $\alpha$, but the authors would not be able to say whether the null is false.
+- **Multiple Comparisons Problem**
+    - Suppose the null is true. We still have a 5% chance of rejecting a true null, and therefore a 95\% chance of correctly not rejecting it.
+    - If we have two nulls, both of which are true, then the probability that we correctly don't reject either is 0.95*0.95 = 0.9025. This means we have a 9.75% chance of rejecting at least one of them, even though they're both true.
+    - The multiple comparisons problem states that, when we check a lot of p-values, the Type 1 Error increases.
+
+
+## Means
+
+### One-sample t-tests and CIs for a Mean
+
+- **Assumptions**: The population is normal, or that the sample is large enough for the CLT to apply. Independence among observations.
+- **Null Hypothesis**: $H_0:\mu = \mu_0$, where $\mu_0$ is the hypothesized value given in the question. 
+- **Test Statistic**: $t_{obs} = \dfrac{\bar x - \mu_0}{s/\sqrt{n}}$
+- **p-value**: 
+    - pt($t_{obs}$) for left-tailed ($<$)
+    - 1 - pt($t_{obs}$) for right-tailed ($>$)
+    - 2*(1 - pt(|$t_{obs}$|)) for two-tailed ($\ne$)
+- **CI**: $\bar x \pm t_{n-1}^*\dfrac{s}{\sqrt{n}}$
+    - For a $(1-\alpha)$\% interval, $t^*_{n-1}$ comes from `qt(alpha/2)`
+        - E.g., for a 95% CI, $\alpha = 0.05$ and we would use `qt(0.025)`.
+        - This could also be written as `qt((1 - 0.95)/2)`.
+
+**Example**: The EPA claims that the average fuel mileage of cars is 19 mpg. Does the `mtcars` data set support this claim? 
+
+A small difference from 19 would not be important to us, so we're only going to reject this claim if there is strong evidence. For this reason, we'll use a significance level of 0.01.
+
+:::: {.columns}
+::: {.column width="50%"}
+
+The plot below does not quite look normal, but for this size sample it is potentially normal "enough".
+
+```{r}
+#| echo: false
+
+hist(mtcars$mpg, main = "Histogram of mpg",
+    xlab = "Fuel Efficiency (mpg)", ylab = "Count")
+```
+
+:::
+::: {.column width="50%"}
+
+The question asks whether our data support the claim, but does not ask if the true mpg is larger than or less than. We use a two-sided hypothesis test.
+
+$$
+H_0: \mu = 19\text{ vs. }H_A:\mu \ne 19
+$$
+
+We'll let R do the calculations for us.
+
+:::
+::::
+
+```{r}
+t.test(mtcars$mpg, mu = 19, 
+    alternative = "two.sided")
+```
+
+Our p-value is 0.31, which is much larger than our significance level of 0.05. We conclude that we cannot reject the EPA's claim.^[This does *not* mean that 19 is the true value, we just don't have evidence against this value. We don't confirm the null; it's set up in a such a way that we seek evidence *against* it, not for it.]
+
+
+<details>
+<summary>**Second Example**</summary>
+The `ggplot2` package also loads in a data set called `mpg`, do these data agree with our previous conclusion?
+
+```{r}
+#| echo: false
+data("mpg", package = "ggplot2")
+
+head(mpg)
+
+mpg <- mpg %>%
+    mutate(overall = 0.55*cty + 0.45*hwy)
+```
+
+```{r}
+#| echo: true
+t.test(mpg$overall, mu = 19)
+```
+
+The p-value for this test is 0.012, which is above our significance level of 0.01. However, it's only slightly above!
+
+If these are two well-collected samples from the population, then there's a $1 - (1 - 0.01)^2 = 0.0199\approx 2\%$ chance of at least one of them being significant by chance. 
+
+As mentioned in class, the mtcars data set is from 1973. This data set is from 1999-2008, so they're not exactly separate samples from the same population!
+
+</details>
+
+### Matched Pairs t-test for a Mean Difference
+
+A **matched pairs** study design is one where each subject is matched with another, only one of which gets the treatment and the other gets the control. See the oitment example from the class.
+
+A matched pairs test is actually just a one-sample t-test for the differences. In other words, we treat each difference as if it's the value we're calculating. The one-sample t-test assumptions and conclusions apply.
+
+### ANOVA for Multiple Means
+
+- **Assumptions**: The population is normal, or that the sample is large enough for the CLT to apply. Independence among observations. Independence between groups. Groups have the same variance.
+- **Null**: All means are equal, i.e. $\mu_1 = \mu_2 = ... = \mu_k = 0$.
+    - This is false if *any* or *all* of the means differ; ANOVA does not tell us which mean is significantly different from the others.
+- **Test Statistic**: $MSG/MSE$, which is interpreted as the variance of the group means (considering their sample sizes) divided by the variance in the data if we were to ignore the groups. 
+- **p-value**: Always right-tailed, since we're only testing whether the variance of group means is *too large* relative to the data varaince. The p-value is calculated from an F distribution.
+- **Conclusions and further steps**: If we reject the null and conclude that at least one group is statistically significant, we can then do a **post-hoc** analysis to determine which mean(s) is(are) statistically significantly different from the others.
+    - We use special techniques to control the Type 1 error!
+
+**Example**: The EPA's claim of 19 mpg as the average does *not* take into account the number of cylinders. When asked, the spokesperson said that the average mpg is the same regardless of the number of cylinders that a car has. 
+
+Let's test this claim! Again, we want strong evidence before we reject this claim, so we'll set the significance level to 0.01.
+
+:::: {.columns}
+::: {.column width="50%"}
+
+From the plot below, it looks like there will almost certainly be a difference! 
+
+```{r}
+#| echo: false
+
+boxplot(mpg ~ factor(cyl), data = mtcars,
+    ylab = "Fuel Efficiency (mpg)", xlab = "Number of Cylinders")
+```
+
+:::
+::: {.column width="50%"}
+
+The table shows that one of the assumptions of ANOVA is not satisfied (guess which before looking at the footnote^[Equal varince within groups]), so we should be careful when interpreting the results.
+
+```{r}
+#| echo: false
+mtcars %>%
+    group_by(cyl) %>%
+    summarise(mean = mean(mpg), sd = sd(mpg), size = n()) %>%
+    knitr::kable(digits = 2)
+```
+
+:::
+::::
+
+```{r}
+summary(aov(mpg ~ factor(cyl), data = mtcars))
+```
+
+## Proportions
+
+### One-Sample Test for Proportions
+
+- **Assumptions**: $np > 10$ and $n(1 - p)>10$ so that the normal approximation applies. Indpedence/good sampling.
+    - For hypothesis tests we use $p_0$ (the hypothesized proportion), for confidence intervals we use $\hat p$ (the estimated proportion).
+- **Hypotheses**: $p = p_0$.
+- **Test Statistic**: We assume normality, and under the null we have a standard error of $\sqrt{p_0(1 - p_0)/n}$. The test statistic is $z = (\hat p - p_0)/SE$
+- **p-value**: Since we're not estimating the standard deviation, we don't get a $t$ distribution. The p-value comes from the normal distribution.
+- **Confidence Intervals**: For a CI, we don't have a hypothesis and so we use $\hat p$ in the standard error.
+    - $100(1-\alpha)\%CI: \hat p \pm z^*\sqrt{\hat p(1 - \hat p)/n}$
+
+**Example**: It is suggested that, if male penguins are more likely to be the hunters, then there should be more females than males (the hunters will get hunted by orcas). Assuming that the Palmer Penguins data are a random sample, do we have evidence at the 5% level that males are the primary hunters?
+
+:::: {.columns}
+::: {.column width="60%"}
+\vspace{1cm}
+
+We are told to assume it's a random sample, and we can see from the plots that $n$ is large enough for $np_0>10$ and $n(1-p_0)>10$.
+
+Our hypothesis is that the proportion of males is less than 0.5:
+$$
+H_0: p = 0.5\text{ vs. }p < 0.05
+$$
+
+:::
+::: {.column width="40%"}
+
+```{r}
+#| echo: false
+
+barplot(table(penguins$sex), col = c(2, 3),
+    xlab = "Biological Sex", ylab = "Count")
+```
+:::
+::::
+
+We can look at the data as follows:
+
+```{r}
+table(penguins$sex == "male")
+prop.test(table(penguins$sex == "male"), p = 0.5, alternative = "less")
+```
+
+Since the p-value is 0.4564, we do not reject the null hypothesis. There is no evidence to suggest that there are fewer males than females, which means that males do not appear to be predated at a higher rate. 
+
+

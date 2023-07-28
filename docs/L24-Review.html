@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-07-10">
 
-<title>Statistics for Life Sciences - 13&nbsp; t-Tests for a Mean</title>
+<title>Statistics for Life Sciences - 22&nbsp; Post-Midterm Review</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L17-Two_Sample_hypothesis_Tests.html" rel="next">
-<link href="./L15-CI_for_Means.html" rel="prev">
+<link href="./L19-Summary_of_Inference-Means_Proportions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L16-Hypothesis_Tests_for_Means.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L24-Review.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -243,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Hypothesis_Tests_for_Means.html" class="sidebar-item-text sidebar-link active">
+  <a href="./L16-Hypothesis_Tests_for_Means.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></span></a>
   </div>
 </li>
@@ -297,7 +295,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L24-Review.html" class="sidebar-item-text sidebar-link">
+  <a href="./L24-Review.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span></a>
   </div>
 </li>
@@ -313,31 +311,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#when-we-use-s-we-use-t" id="toc-when-we-use-s-we-use-t" class="nav-link active" data-scroll-target="#when-we-use-s-we-use-t"><span class="header-section-number">13.1</span> When we use <span class="math inline">\(s\)</span>, we use <span class="math inline">\(t\)</span></a></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">13.2</span> Examples</a>
+  <li><a href="#the-broad-topics" id="toc-the-broad-topics" class="nav-link active" data-scroll-target="#the-broad-topics"><span class="header-section-number">22.1</span> The Broad Topics</a></li>
+  <li><a href="#means" id="toc-means" class="nav-link" data-scroll-target="#means"><span class="header-section-number">22.2</span> Means</a>
   <ul class="collapse">
-  <li><a href="#pilot-fatigue" id="toc-pilot-fatigue" class="nav-link" data-scroll-target="#pilot-fatigue">Pilot Fatigue</a></li>
+  <li><a href="#one-sample-t-tests-and-cis-for-a-mean" id="toc-one-sample-t-tests-and-cis-for-a-mean" class="nav-link" data-scroll-target="#one-sample-t-tests-and-cis-for-a-mean">One-sample t-tests and CIs for a Mean</a></li>
+  <li><a href="#matched-pairs-t-test-for-a-mean-difference" id="toc-matched-pairs-t-test-for-a-mean-difference" class="nav-link" data-scroll-target="#matched-pairs-t-test-for-a-mean-difference">Matched Pairs t-test for a Mean Difference</a></li>
+  <li><a href="#anova-for-multiple-means" id="toc-anova-for-multiple-means" class="nav-link" data-scroll-target="#anova-for-multiple-means">ANOVA for Multiple Means</a></li>
   </ul></li>
-  <li><a href="#matched-pairs" id="toc-matched-pairs" class="nav-link" data-scroll-target="#matched-pairs"><span class="header-section-number">13.3</span> Matched Pairs</a>
+  <li><a href="#proportions" id="toc-proportions" class="nav-link" data-scroll-target="#proportions"><span class="header-section-number">22.3</span> Proportions</a>
   <ul class="collapse">
-  <li><a href="#t-tests-in-practice" id="toc-t-tests-in-practice" class="nav-link" data-scroll-target="#t-tests-in-practice">t-tests in Practice</a></li>
-  </ul></li>
-  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">14</span> Recap</a>
-  <ul class="collapse">
-  <li><a href="#hypothesis-tests-in-general" id="toc-hypothesis-tests-in-general" class="nav-link" data-scroll-target="#hypothesis-tests-in-general"><span class="header-section-number">14.1</span> Hypothesis Tests in General</a></li>
-  <li><a href="#hypothesis-test-example" id="toc-hypothesis-test-example" class="nav-link" data-scroll-target="#hypothesis-test-example"><span class="header-section-number">14.2</span> Hypothesis Test Example</a></li>
-  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">14.3</span> Confidence Intervals</a></li>
-  <li><a href="#confidence-interval-example" id="toc-confidence-interval-example" class="nav-link" data-scroll-target="#confidence-interval-example"><span class="header-section-number">14.4</span> Confidence Interval Example</a></li>
-  <li><a href="#participation-questions" id="toc-participation-questions" class="nav-link" data-scroll-target="#participation-questions"><span class="header-section-number">14.5</span> Participation Questions</a>
-  <ul class="collapse">
-  <li><a href="#q1" id="toc-q1" class="nav-link" data-scroll-target="#q1">Q1</a></li>
-  <li><a href="#q2" id="toc-q2" class="nav-link" data-scroll-target="#q2">Q2</a></li>
-  <li><a href="#q3" id="toc-q3" class="nav-link" data-scroll-target="#q3">Q3</a></li>
-  <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
-  <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
-  <li><a href="#q6" id="toc-q6" class="nav-link" data-scroll-target="#q6">Q6</a></li>
-  </ul></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">14.6</span> Self-Study Questions</a></li>
+  <li><a href="#one-sample-test-for-proportions" id="toc-one-sample-test-for-proportions" class="nav-link" data-scroll-target="#one-sample-test-for-proportions">One-Sample Test for Proportions</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -347,7 +330,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></h1>
+<h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></h1>
 </div>
 
 
@@ -368,12 +351,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
       
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">2023-07-10</p>
-    </div>
-  </div>
   
     
   </div>
@@ -381,363 +358,345 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="when-we-use-s-we-use-t" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="when-we-use-s-we-use-t"><span class="header-section-number">13.1</span> When we use <span class="math inline">\(s\)</span>, we use <span class="math inline">\(t\)</span></h2>
-<p>We’ve been over this in confidence intervals, and the same thing applies to hypothesis tests! If the population is normal (or the sample size is large enough) and we have an SRS, then <span class="math display">\[
-\frac{\bar X - \mu}{s/\sqrt{n}}\sim t_{n-1}
-\]</span></p>
-<p>Again, the <span class="math inline">\(t\)</span> distribution is used to account for the extra variability from the estimated standard deviation.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>This means our test statistic is <span class="math display">\[
-t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
-\]</span></p>
-<p>Since this is a <span class="math inline">\(t\)</span> distibution, we use <code>pt(t_obs, df = n -1)</code>, possibly one minus and/or double, depending on the alternate hypothesis.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p>That’s it. That’s the big difference. When we estimate the standard deviation, we use the t-distribution.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-The t-test for a population mean
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Given a sample mean <span class="math inline">\(\bar x\)</span> and a sample standard deviation <span class="math inline">\(s\)</span>, our test statistic is: <span class="math display">\[
-t_{obs} = \frac{\bar x - \mu}{s/\sqrt{n}}
-\]</span> Our hypotheses and calculations of the p-value work the same as they did for the z-test.</p>
-</div>
-</div>
-</section>
-<section id="examples" class="level2" data-number="13.2">
-<h2 data-number="13.2" class="anchored" data-anchor-id="examples"><span class="header-section-number">13.2</span> Examples</h2>
-<section id="pilot-fatigue" class="level3">
-<h3 class="anchored" data-anchor-id="pilot-fatigue">Pilot Fatigue</h3>
-<p>In the pilot fatigue example from the Understanding p-values lecture, we assumed that we had the population sd. I lied - it was actually a sample statistic! We should have used a t-test, not a z test.</p>
-<p>Recall:</p>
+<section id="the-broad-topics" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="the-broad-topics"><span class="header-section-number">22.1</span> The Broad Topics</h2>
+<p>The following topics have applied to almost everything since the midterm.</p>
 <ul>
-<li><span class="math inline">\(H_0: \mu = 15\)</span> versus <span class="math inline">\(H_A: \mu &gt; 15\)</span> with</li>
-<li><span class="math inline">\(n = 16\)</span>, <span class="math inline">\(\bar x = 15.9\)</span>, <span class="math inline">\(s = 1.2\)</span> (not <span class="math inline">\(\sigma\)</span>) <span class="math display">\[
-t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
-\]</span></li>
+<li><strong>Standard Errors</strong>
+<ul>
+<li>Since our sample was random, we could have gotten different data. With different data, we’d get a different mean and sd.</li>
+<li>The standard error of the mean represents uncertainty around the mean. With more data, we are more certain about the value.
+<ul>
+<li>Effects of outliers diminish, and the overall variation “averages out”.</li>
+<li>The same thing happens to the sd, but it’s not a normal distribution.</li>
+</ul></li>
+<li>Be ready to explain how standard errors relate to various concepts.
+<ul>
+<li>For example, could you explain why test statistics and p-values have a standard error (even though you don’t know the formula for it)?</li>
+</ul></li>
+</ul></li>
+<li><strong>Assumption Checking</strong>
+<ul>
+<li>All of the methods we use require assumptions about the population.</li>
+<li>There’s always some sort of independence assumption, which can be satisfied by having a good sampling strategy.</li>
+<li>There’s usually either an assumption of normality, or some conditions for which the normal approximation applies.
+<ul>
+<li>For means, we need a big enough sample for the Central Limit Theorem to apply (<span class="math inline">\(n &gt; 30\)</span> or <span class="math inline">\(n&gt;60\)</span> or something like that). This applies to all of the groups for t-tests and ANOVA.</li>
+<li>For proportions, we need some form of <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span> so that the normal approximation applies. Be careful whether you need the observed proportion, hypothesized proportion, or pooled proportion!</li>
+<li>For regression, we assume that the residuals are normal, and we can assess this with the QQ Plot.</li>
+</ul></li>
+<li>There are other assumptions that may be method-specific.
+<ul>
+<li>For example, linear regression requires that the plot looks linear!</li>
+</ul></li>
+</ul></li>
+<li><strong>Hypothesis Testing</strong>
+<ul>
+<li>Null and Alternative hypotheses: Convert the word problem into math.
+<ul>
+<li>Null: Nothing is going on. Very often, this means <span class="math inline">\(\mu = 0\)</span> or <span class="math inline">\(p = 0.5\)</span> or <span class="math inline">\(\mu_1 - \mu_0 = 0\)</span>. However, we could also test things like <span class="math inline">\(p_1 - p_2 = 0.1\)</span>, i.e., whether <span class="math inline">\(p_1\)</span> is 10 percentage points higher than <span class="math inline">\(p_2\)</span>.</li>
+<li>Alternative: generally involves a <span class="math inline">\(\ne\)</span>, <span class="math inline">\(&gt;\)</span>, or <span class="math inline">\(&lt;\)</span>. The wording of the statement will indicate whether it’s a two sided (<span class="math inline">\(\ne\)</span>), right-tailed (<span class="math inline">\(&gt;\)</span>), or left-tailed (<span class="math inline">\(&lt;\)</span>) p-value.</li>
+</ul></li>
+<li>Set the significance level.
+<ul>
+<li>This determines how “strong” the evidence must be in order for us to reject the null. <span class="math inline">\(\alpha = 0.1\)</span> means we’ll accept weak evidence, whereas <span class="math inline">\(\alpha = 0.001\)</span> means we need to be very sure of our results before the null is rejected.</li>
+</ul></li>
+<li>Test statistic: measures the distance between our observed data and the hypothesized value, <em>relative to the standard error</em>.
+<ul>
+<li>Relies on the value from the null hypothesis, as well as the sample size!</li>
+</ul></li>
+<li>p-value: <strong>ASSUMING THE NULL HYPOTHESIS IS TRUE</strong>, the p-value measures the probability of getting data at least as extreme as the data we got.
+<ul>
+<li>“At least as extreme” = this far away from the null values or further. The direction is determined by the alternative hypothesis.</li>
+<li>A small p-value is strong evidence. If <span class="math inline">\(p &lt; \alpha\)</span>, we reject the null and claim that our result is “statistically significant”.</li>
+<li>A small p-value does <em>not</em> mean that there’s a large difference in the observed and hypothesized! It’s a large difference <em>relative to the standard error</em>, which decreases with better study designs and larger sample sizes. For example, a 0.01% increase in cancer risk is not something that a person really needs to worry about, but a large enough sample might find a statistically significant result!</li>
+</ul></li>
+</ul></li>
+<li><strong>Confidence Intervals</strong>
+<ul>
+<li>If we were to repeat the exact same study many, many times with new samples each time, <span class="math inline">\((1-\alpha)\)</span>% of the intervals we create will contain the true population parameter.</li>
+<li>Generally, a CI has the form “point estimate <span class="math inline">\(\pm\)</span> critical value * standard error”
+<ul>
+<li>Point estimate: the mean, for example.</li>
+<li>Critical value: the value from the relevant distribution that makes it a <span class="math inline">\((1-\alpha)\)</span>% interval. Essentially, this controls the width of the interval so that the interval actually does contain the true parameter as often as we claim that it does.</li>
+<li>Standard error: see above.</li>
+</ul></li>
+<li>A 95% CI is essentially the middle 95% of the <strong>sampling distribution</strong>, if it were centered on the observed sample mean.
+<ul>
+<li>In other words, we use the standard error to determine an interval that we hope covers the middle 95% of all possible mean values.</li>
+</ul></li>
+<li>For a 95% CI, we want the middle 95%. This means we want 2.5% on either side, which is why we see <span class="math inline">\(\alpha/2\)</span> a lot when dealing with confidence intervals.</li>
+</ul></li>
+<li><strong>Conclusion in the context of the problem</strong>
+<ul>
+<li>The beauty of stats is that it’s rigorous math with applications to the real world - always remember that the data come from somewhere and the results might be meaningful to real people!</li>
+</ul></li>
+<li><strong>Type 1 and 2 Error</strong>
+<ul>
+<li>Type 1 Error: rejecting a null when it’s true.
+<ul>
+<li>We reject if <span class="math inline">\(p &lt; \alpha\)</span> because our p-value is “too unlikely” under the null. However, unlikely things still happen!</li>
+<li>If <span class="math inline">\(\alpha=0.05\)</span>, then we reject anything with a p-value less than 5%. However, things with a p-value of 5% still happen 5% of the time.</li>
+<li>P(Type 1 Error) = <span class="math inline">\(\alpha\)</span>.
+<ul>
+<li>In other words, we control P(Type 1 Error) when we choose a significance level.</li>
+</ul></li>
+</ul></li>
+<li>Type 2 Error: Fail to reject the null when it’s false
+<ul>
+<li>Even when the null is actually false, we may not have strong enough evidence to reject it.
+<ul>
+<li>Better evidence comes from either a better study design or a larger sample size.</li>
+</ul></li>
+<li><strong>Power</strong>: 1 - P(Type 2 Error), which is generally difficult to calculate.
+<ul>
+<li>It is <em>not</em> <span class="math inline">\(1-\alpha\)</span>.</li>
+</ul></li>
+<li>A study with low power might have p-values larger than <span class="math inline">\(\alpha\)</span>, but the authors would not be able to say whether the null is false.</li>
+</ul></li>
+</ul></li>
+<li><strong>Multiple Comparisons Problem</strong>
+<ul>
+<li>Suppose the null is true. We still have a 5% chance of rejecting a true null, and therefore a 95% chance of correctly not rejecting it.</li>
+<li>If we have two nulls, both of which are true, then the probability that we correctly don’t reject either is 0.95*0.95 = 0.9025. This means we have a 9.75% chance of rejecting at least one of them, even though they’re both true.</li>
+<li>The multiple comparisons problem states that, when we check a lot of p-values, the Type 1 Error increases.</li>
+</ul></li>
 </ul>
-<p>Using the <span class="math inline">\(t\)</span> distribution, our p-value is:</p>
+</section>
+<section id="means" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="means"><span class="header-section-number">22.2</span> Means</h2>
+<section id="one-sample-t-tests-and-cis-for-a-mean" class="level3">
+<h3 class="anchored" data-anchor-id="one-sample-t-tests-and-cis-for-a-mean">One-sample t-tests and CIs for a Mean</h3>
+<ul>
+<li><strong>Assumptions</strong>: The population is normal, or that the sample is large enough for the CLT to apply. Independence among observations.</li>
+<li><strong>Null Hypothesis</strong>: <span class="math inline">\(H_0:\mu = \mu_0\)</span>, where <span class="math inline">\(\mu_0\)</span> is the hypothesized value given in the question.</li>
+<li><strong>Test Statistic</strong>: <span class="math inline">\(t_{obs} = \dfrac{\bar x - \mu_0}{s/\sqrt{n}}\)</span></li>
+<li><strong>p-value</strong>:
+<ul>
+<li>pt(<span class="math inline">\(t_{obs}\)</span>) for left-tailed (<span class="math inline">\(&lt;\)</span>)</li>
+<li>1 - pt(<span class="math inline">\(t_{obs}\)</span>) for right-tailed (<span class="math inline">\(&gt;\)</span>)</li>
+<li>2*(1 - pt(|<span class="math inline">\(t_{obs}\)</span>|)) for two-tailed (<span class="math inline">\(\ne\)</span>)</li>
+</ul></li>
+<li><strong>CI</strong>: <span class="math inline">\(\bar x \pm t_{n-1}^*\dfrac{s}{\sqrt{n}}\)</span>
+<ul>
+<li>For a <span class="math inline">\((1-\alpha)\)</span>% interval, <span class="math inline">\(t^*_{n-1}\)</span> comes from <code>qt(alpha/2)</code>
+<ul>
+<li>E.g., for a 95% CI, <span class="math inline">\(\alpha = 0.05\)</span> and we would use <code>qt(0.025)</code>.</li>
+<li>This could also be written as <code>qt((1 - 0.95)/2)</code>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><strong>Example</strong>: The EPA claims that the average fuel mileage of cars is 19 mpg. Does the <code>mtcars</code> data set support this claim?</p>
+<p>A small difference from 19 would not be important to us, so we’re only going to reject this claim if there is strong evidence. For this reason, we’ll use a significance level of 0.01.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>The plot below does not quite look normal, but for this size sample it is potentially normal “enough”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="dv">3</span>, <span class="at">df =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L24-Review_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>The question asks whether our data support the claim, but does not ask if the true mpg is larger than or less than. We use a two-sided hypothesis test.</p>
+<p><span class="math display">\[
+H_0: \mu = 19\text{ vs. }H_A:\mu \ne 19
+\]</span></p>
+<p>We’ll let R do the calculations for us.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mtcars<span class="sc">$</span>mpg, <span class="at">mu =</span> <span class="dv">19</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.00423975</code></pre>
+<pre><code>
+    One Sample t-test
+
+data:  mtcars$mpg
+t = 1.0237, df = 31, p-value = 0.3139
+alternative hypothesis: true mean is not equal to 19
+95 percent confidence interval:
+ 17.91768 22.26357
+sample estimates:
+mean of x 
+ 20.09062 </code></pre>
 </div>
 </div>
-<p>This is <em>larger</em> than our previous p-value of 0.0013. This will always be the case: if the <span class="math inline">\(z_{obs}\)</span> test statistic is the same as the <span class="math inline">\(t_{obs}\)</span> test statistic, then the p-value for <span class="math inline">\(t_{obs}\)</span> will be wider.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Our p-value is 0.31, which is much larger than our significance level of 0.05. We conclude that we cannot reject the EPA’s claim.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<details>
+<summary>
+<strong>Second Example</strong>
+</summary>
+<p>The <code>ggplot2</code> package also loads in a data set called <code>mpg</code>, do these data agree with our previous conclusion?</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 11
+  manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+  &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
+1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
+2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
+3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
+4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
+5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
+6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-p-values from a t-test are larger than a z-test (if you have <span class="math inline">\(\sigma=s\)</span>)
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mpg<span class="sc">$</span>overall, <span class="at">mu =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  mpg$overall
+t = 2.528, df = 233, p-value = 0.01213
+alternative hypothesis: true mean is not equal to 19
+95 percent confidence interval:
+ 19.18104 20.45998
+sample estimates:
+mean of x 
+ 19.82051 </code></pre>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>We almost never know the population standard deviation, so we have extra uncertainty. With extra uncertainty, we require more <em>evidence</em>! Recall that a p-value is a measure of evidence against a null.</p>
-</div>
-</div>
+<p>The p-value for this test is 0.012, which is above our significance level of 0.01. However, it’s only slightly above!</p>
+<p>If these are two well-collected samples from the population, then there’s a <span class="math inline">\(1 - (1 - 0.01)^2 = 0.0199\approx 2\%\)</span> chance of at least one of them being significant by chance.</p>
+<p>As mentioned in class, the mtcars data set is from 1973. This data set is from 1999-2008, so they’re not exactly separate samples from the same population!</p>
+</details>
 </section>
+<section id="matched-pairs-t-test-for-a-mean-difference" class="level3">
+<h3 class="anchored" data-anchor-id="matched-pairs-t-test-for-a-mean-difference">Matched Pairs t-test for a Mean Difference</h3>
+<p>A <strong>matched pairs</strong> study design is one where each subject is matched with another, only one of which gets the treatment and the other gets the control. See the oitment example from the class.</p>
+<p>A matched pairs test is actually just a one-sample t-test for the differences. In other words, we treat each difference as if it’s the value we’re calculating. The one-sample t-test assumptions and conclusions apply.</p>
 </section>
-<section id="matched-pairs" class="level2" data-number="13.3">
-<h2 data-number="13.3" class="anchored" data-anchor-id="matched-pairs"><span class="header-section-number">13.3</span> Matched Pairs</h2>
-<p>A matched pairs design allows us to use a one-sample t-test when it looks like we have two samples<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Since the pairs are matched, we can calculate the differences between pairs and treat this like a single vector of observations. It is honkey tonk ridonkulous to say that we know the true population standard deviation for the difference in observations, so a <span class="math inline">\(z\)</span> test could never be appropriate.</p>
-<p>Consider the following example of a matched pairs experiment. Given a sample of brave volounteers, we create a small cut on both hands and put ointment on one of the two cuts<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. This study design eliminates the variation in healing times for different people since both cuts are on the same person! For each individual, we observe a <em>difference</em>. That is, one observation per person!</p>
-<table class="table">
+<section id="anova-for-multiple-means" class="level3">
+<h3 class="anchored" data-anchor-id="anova-for-multiple-means">ANOVA for Multiple Means</h3>
+<ul>
+<li><strong>Assumptions</strong>: The population is normal, or that the sample is large enough for the CLT to apply. Independence among observations. Independence between groups. Groups have the same variance.</li>
+<li><strong>Null</strong>: All means are equal, i.e.&nbsp;<span class="math inline">\(\mu_1 = \mu_2 = ... = \mu_k = 0\)</span>.
+<ul>
+<li>This is false if <em>any</em> or <em>all</em> of the means differ; ANOVA does not tell us which mean is significantly different from the others.</li>
+</ul></li>
+<li><strong>Test Statistic</strong>: <span class="math inline">\(MSG/MSE\)</span>, which is interpreted as the variance of the group means (considering their sample sizes) divided by the variance in the data if we were to ignore the groups.</li>
+<li><strong>p-value</strong>: Always right-tailed, since we’re only testing whether the variance of group means is <em>too large</em> relative to the data varaince. The p-value is calculated from an F distribution.</li>
+<li><strong>Conclusions and further steps</strong>: If we reject the null and conclude that at least one group is statistically significant, we can then do a <strong>post-hoc</strong> analysis to determine which mean(s) is(are) statistically significantly different from the others.
+<ul>
+<li>We use special techniques to control the Type 1 error!</li>
+</ul></li>
+</ul>
+<p><strong>Example</strong>: The EPA’s claim of 19 mpg as the average does <em>not</em> take into account the number of cylinders. When asked, the spokesperson said that the average mpg is the same regardless of the number of cylinders that a car has.</p>
+<p>Let’s test this claim! Again, we want strong evidence before we reject this claim, so we’ll set the significance level to 0.01.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>From the plot below, it looks like there will almost certainly be a difference!</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L24-Review_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>The table shows that one of the assumptions of ANOVA is not satisfied (guess which before looking at the footnote<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>), so we should be careful when interpreting the results.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th></th>
-<th>Subject 1</th>
-<th>S2</th>
-<th>S3</th>
-<th>S4</th>
-<th>S5</th>
-<th>S6</th>
-<th>S7</th>
-<th>S8</th>
+<th style="text-align: right;">cyl</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">size</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>With Ointment</td>
-<td>6.44</td>
-<td>6.06</td>
-<td>4.22</td>
-<td>3.3</td>
-<td>6.5</td>
-<td>3.49</td>
-<td>7.01</td>
-<td>4.22</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">26.66</td>
+<td style="text-align: right;">4.51</td>
+<td style="text-align: right;">11</td>
 </tr>
 <tr class="even">
-<td>Without</td>
-<td>7.22</td>
-<td>6.05</td>
-<td>4.55</td>
-<td>4</td>
-<td>6.7</td>
-<td>2.88</td>
-<td>7.88</td>
-<td>6.32</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">19.74</td>
+<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">7</td>
 </tr>
 <tr class="odd">
-<td>Difference</td>
-<td>-0.78</td>
-<td>0.01</td>
-<td>-0.33</td>
-<td>-0.7</td>
-<td>-0.2</td>
-<td>0.61</td>
-<td>-0.87</td>
-<td>-2.1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">15.10</td>
+<td style="text-align: right;">2.56</td>
+<td style="text-align: right;">14</td>
 </tr>
 </tbody>
 </table>
-<p><em>Note</em>: Differences were calculated as “With minus Without”! This will be important for setting up the alternative hypothesis later.</p>
-<p>The important thing here is that last row of this table now represents our data - we can forget that the other two rows exist! In other words, we have <em>one</em> observation per person, rather than two sets of observations.</p>
-<p>This is where the assumption that we know the population standard deviation is especially preposterous: we’re looking just at the differences! Even if there’s a true value of the sd for healing time for all people, the standard deviation of the difference between healing times isn’t a reasonable quantity to speak of.</p>
-<p>Since we’re looking at the <em>difference</em>, we no longer have a hypothesized value of <span class="math inline">\(\mu_0\)</span>. Instead, we hypothesize that the average pairwise difference is 0, i.e.&nbsp;<span class="math inline">\(\mu_{with\; minus\; without} = \mu_{diff} = 0\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. The alternative is “with” &lt; “without”, i.e.&nbsp;<span class="math inline">\(\mu_{diff} &lt; 0\)</span>.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+</div>
+</div>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.78</span>, <span class="fl">0.01</span>, <span class="sc">-</span><span class="fl">0.33</span>, <span class="sc">-</span><span class="fl">0.7</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.61</span>, <span class="sc">-</span><span class="fl">0.87</span>, <span class="sc">-</span><span class="fl">2.1</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>t_obs <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> <span class="dv">0</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n)) <span class="co"># xbar is with - w/out</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Notice that we use pt() instead of pnorm()</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(t_obs, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>) <span class="co"># Alternative is &lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.04662624</code></pre>
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+factor(cyl)  2  824.8   412.4    39.7 4.98e-09 ***
+Residuals   29  301.3    10.4                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>So our p-value is approximately 0.04. At the 5% level, the null hypothesis would be rejected and we would conclude that the ointment works<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. At the 1% level, we would conclude that it doesn’t have a significant effect. This is why it’s important to know the significance level before calculating the p-value - we shouldn’t get to choose whether our results are statistically significant!</p>
-<section id="t-tests-in-practice" class="level3">
-<h3 class="anchored" data-anchor-id="t-tests-in-practice">t-tests in Practice</h3>
-<p>Do you think that researchers in the field are typing test statistics into their calculator? Of course not! We’re finally at the point in this class where the methods are so commonly used that the built-in functions in R can calculate them.</p>
+</section>
+</section>
+<section id="proportions" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="proportions"><span class="header-section-number">22.3</span> Proportions</h2>
+<section id="one-sample-test-for-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="one-sample-test-for-proportions">One-Sample Test for Proportions</h3>
+<ul>
+<li><strong>Assumptions</strong>: <span class="math inline">\(np &gt; 10\)</span> and <span class="math inline">\(n(1 - p)&gt;10\)</span> so that the normal approximation applies. Indpedence/good sampling.
+<ul>
+<li>For hypothesis tests we use <span class="math inline">\(p_0\)</span> (the hypothesized proportion), for confidence intervals we use <span class="math inline">\(\hat p\)</span> (the estimated proportion).</li>
+</ul></li>
+<li><strong>Hypotheses</strong>: <span class="math inline">\(p = p_0\)</span>.</li>
+<li><strong>Test Statistic</strong>: We assume normality, and under the null we have a standard error of <span class="math inline">\(\sqrt{p_0(1 - p_0)/n}\)</span>. The test statistic is <span class="math inline">\(z = (\hat p - p_0)/SE\)</span></li>
+<li><strong>p-value</strong>: Since we’re not estimating the standard deviation, we don’t get a <span class="math inline">\(t\)</span> distribution. The p-value comes from the normal distribution.</li>
+<li><strong>Confidence Intervals</strong>: For a CI, we don’t have a hypothesis and so we use <span class="math inline">\(\hat p\)</span> in the standard error.
+<ul>
+<li><span class="math inline">\(100(1-\alpha)\%CI: \hat p \pm z^*\sqrt{\hat p(1 - \hat p)/n}\)</span></li>
+</ul></li>
+</ul>
+<p><strong>Example</strong>: It is suggested that, if male penguins are more likely to be the hunters, then there should be more females than males (the hunters will get hunted by orcas). Assuming that the Palmer Penguins data are a random sample, do we have evidence at the 5% level that males are the primary hunters?</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>We are told to assume it’s a random sample, and we can see from the plots that <span class="math inline">\(n\)</span> is large enough for <span class="math inline">\(np_0&gt;10\)</span> and <span class="math inline">\(n(1-p_0)&gt;10\)</span>.</p>
+<p>Our hypothesis is that the proportion of males is less than 0.5: <span class="math display">\[
+H_0: p = 0.5\text{ vs. }p &lt; 0.05
+\]</span></p>
+</div><div class="column" style="width:40%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>with_oint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">6.44</span>, <span class="fl">6.06</span>, <span class="fl">4.22</span>, <span class="fl">3.3</span>, <span class="fl">6.5</span>, <span class="fl">3.49</span>, <span class="fl">7.0</span>, <span class="fl">4.22</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>without <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.22</span>, <span class="fl">6.05</span>, <span class="fl">4.55</span>, <span class="dv">4</span>  , <span class="fl">6.7</span>, <span class="fl">2.88</span>, <span class="fl">7.8</span>, <span class="fl">6.32</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> with_oint <span class="sc">-</span> without</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(difference, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L24-Review_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+<p>We can look at the data as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    One Sample t-test
+FALSE  TRUE 
+  165   168 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>), <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1-sample proportions test with continuity correction
 
-data:  difference
-t = -1.9199, df = 7, p-value = 0.04817
-alternative hypothesis: true mean is less than 0
+data:  table(penguins$sex == "male"), null probability 0.5
+X-squared = 0.012012, df = 1, p-value = 0.4564
+alternative hypothesis: true p is less than 0.5
 95 percent confidence interval:
-         -Inf -0.007063183
+ 0.0000000 0.5419071
 sample estimates:
-mean of x 
- -0.53625 </code></pre>
+        p 
+0.4954955 </code></pre>
 </div>
 </div>
-<p>Notice that the output shows a <strong>one-sided confidence interval</strong>. This isn’t a big leap from what you know: a confidence interval consists of all of the values that would <em>not</em> be rejected by a hypothesis test, and this works for one-sided as well as two-sided alternate hypotheses!</p>
-<p>To get a two-sided confidence interval, we can either leave <code>alternative</code> at it’s default value or set it to <code>"two.sided"</code>. We can also change the significance level with the <code>conf.level</code> argument. For an 89%CI:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(difference, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">conf.level =</span> <span class="fl">0.89</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    One Sample t-test
-
-data:  difference
-t = -1.9199, df = 7, p-value = 0.09635
-alternative hypothesis: true mean is not equal to 0
-89 percent confidence interval:
- -1.04730428 -0.02519572
-sample estimates:
-mean of x 
- -0.53625 </code></pre>
-</div>
-</div>
-<p>Notice that this calculated a two-sided p-value, which is twice what we saw before (and no longer significant at the 5% level!).</p>
-</section>
-</section>
-<section id="recap" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Recap</h1>
-<section id="hypothesis-tests-in-general" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="hypothesis-tests-in-general"><span class="header-section-number">14.1</span> Hypothesis Tests in General</h2>
-<ol type="1">
-<li>Decide on a hypothesis.
-<ul>
-<li><span class="math inline">\(H_0: \mu = \mu_0\)</span> versus <span class="math inline">\(H_a: \mu [\ne,&gt;,\text{ or }&lt;] \mu_0\)</span></li>
-</ul></li>
-<li>Choose a significance level <span class="math inline">\(\alpha\)</span>.
-<ul>
-<li>Smaller leverl = require more evidence to reject the null.</li>
-</ul></li>
-<li>Gather data
-<ul>
-<li>Independent observations from same population; random sample.</li>
-</ul></li>
-<li>Calculate the test statistic based on <span class="math inline">\(\bar x\)</span>, <span class="math inline">\(s\)</span>, and <span class="math inline">\(\mu_0\)</span>.
-<ul>
-<li>Sampling distribution is based on the <em>null</em> hypothesis.</li>
-</ul></li>
-<li>Calculate the p-value according to the form of the <em>alternate</em> hypothesis.
-<ul>
-<li>If <span class="math inline">\(&lt;\)</span>, then <code>pnorm(z_obs)</code>; if <span class="math inline">\(&gt;\)</span>, then <code>1 - pnorm(z_obs)</code>; if two sided, double the correct one.</li>
-</ul></li>
-</ol>
-</section>
-<section id="hypothesis-test-example" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="hypothesis-test-example"><span class="header-section-number">14.2</span> Hypothesis Test Example</h2>
-<p>New York is sometimes called “the city that never sleeps”. At the 5% level, do the following data provide evidence that the average New Yorker gets less than 8 hours of sleep per night?</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th><span class="math inline">\(\bar x\)</span></th>
-<th><span class="math inline">\(s\)</span></th>
-<th><span class="math inline">\(n\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>7.73</td>
-<td>0.77</td>
-<td>25</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Hypotheses: <span class="math inline">\(H_0: \mu = 8\)</span>, <span class="math inline">\(H_a:\mu &lt; 8\)</span>.</li>
-<li><span class="math inline">\(t_{obs}\)</span> = <span class="math inline">\(\dfrac{7.73 - 8}{0.77/5} = -1.75\)</span></li>
-<li>p-value = <code>pt(-1.75, 24)</code> = 0.0464</li>
-<li>Conclude: Since p &lt; <span class="math inline">\(\alpha\)</span>, we reject the null hypothesis.
-<ul>
-<li>We have found statistically significant evidence that New Yorkers sleep less than 8 hours per night on average.</li>
-</ul></li>
-</ul>
-</section>
-<section id="confidence-intervals" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">14.3</span> Confidence Intervals</h2>
-<ol type="1">
-<li>Choose a confidence level <span class="math inline">\(\alpha\)</span>.
-<ul>
-<li>“100(1-<span class="math inline">\(\alpha\)</span>)%CI</li>
-</ul></li>
-<li>Collect data
-<ul>
-<li>Independent observations from same population; random sample.</li>
-</ul></li>
-<li>Find the critical value <span class="math inline">\(t^*_{n-1}\)</span>
-<ul>
-<li>We will not need <span class="math inline">\(z^*\)</span> again, except possibly as comparison.</li>
-</ul></li>
-<li>Calculate <span class="math inline">\(\bar x \pm t^*s/\sqrt{n}\)</span></li>
-<li>Conclude: 95% of the intervals constructed this way will contain the true population mean.</li>
-</ol>
-</section>
-<section id="confidence-interval-example" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="confidence-interval-example"><span class="header-section-number">14.4</span> Confidence Interval Example</h2>
-<p>Construct a 95% CI for the New York sleep example.</p>
-<table class="table">
-<thead>
-<tr class="header">
-<th><span class="math inline">\(\bar x\)</span></th>
-<th><span class="math inline">\(s\)</span></th>
-<th><span class="math inline">\(n\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>7.73</td>
-<td>0.77</td>
-<td>25</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><span class="math inline">\(\alpha\)</span> = </li>
-<li><span class="math inline">\(t^*_{n-1}\)</span> = <code>qt(0.025, 24)</code> = -2.0639.</li>
-<li><span class="math inline">\(\bar x \pm t^*_{n-1}s/\sqrt{n} = 7.73 \pm 2.0639*0.77/5 = (7.41, 8.05)\)</span></li>
-<li>Conclude: we are 95% confident that the true average nights sleep in New York is between 7.41 and 8.05.
-<ul>
-<li>This interval includes 8, so 8 would <em>not</em> be rejected by a hypothesis test?!?!</li>
-</ul></li>
-</ul>
-</section>
-<section id="participation-questions" class="level2" data-number="14.5">
-<h2 data-number="14.5" class="anchored" data-anchor-id="participation-questions"><span class="header-section-number">14.5</span> Participation Questions</h2>
-<section id="q1" class="level3">
-<h3 class="anchored" data-anchor-id="q1">Q1</h3>
-<p>What is the standard error?</p>
-<ol type="1">
-<li><span class="math inline">\(\sigma/\sqrt{n}\)</span></li>
-<li><span class="math inline">\(\sqrt{\frac{p(1-p)}{n}}\)</span></li>
-<li><span class="math inline">\(\sqrt{s_1^2/n_1 + s_2^2/n}\)</span></li>
-<li>The standard deviation of the sampling distribution.</li>
-</ol>
-</section>
-<section id="q2" class="level3">
-<h3 class="anchored" data-anchor-id="q2">Q2</h3>
-<p>What is the standard deviation of the sampling distribution?</p>
-<ol type="1">
-<li>The standard deviation of the population divided by the square root of the sample size (<span class="math inline">\(\sigma/\sqrt{n}\)</span>).</li>
-<li>The standard deviation of the value of a sample statistic across all possible samples from the population.</li>
-<li>The same as the standard deviation of the population.</li>
-<li>The average distance to the mean of the population.</li>
-</ol>
-</section>
-<section id="q3" class="level3">
-<h3 class="anchored" data-anchor-id="q3">Q3</h3>
-<p>Why does the sampling distribution have a lower variance than the population?</p>
-<ol type="1">
-<li>Because the standard deviation is smaller than the variance.</li>
-<li>Because the population has a larger number of possible, so the variance is smaller.</li>
-<li>Because outliers are not as likely in a sample.</li>
-<li>Because we are summarising many observations from a sample into a single value.</li>
-</ol>
-</section>
-<section id="q4" class="level3">
-<h3 class="anchored" data-anchor-id="q4">Q4</h3>
-<p>After conducting a study, we found a p-value of 0.04. Did we find a statistically significant result?</p>
-<ol type="1">
-<li>Yes, since the p-value is less than 0.05</li>
-<li>No, since the p-value is less than 0.05</li>
-<li>We failed to set the significance lavel ahead of time, so we have to be very careful about concluding significance.</li>
-</ol>
-</section>
-<section id="q5" class="level3">
-<h3 class="anchored" data-anchor-id="q5">Q5</h3>
-<p>After conducting a study, we found a 95% confidence interval for <span class="math inline">\(\mu\)</span> from -0.1 to 1.9. What can we conclude?</p>
-<ol type="1">
-<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu \ne 0\)</span> would not be significant at the 5% level.</li>
-<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu &gt; 0\)</span> would not be significant at the 5% level.</li>
-<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu \ne 0\)</span> would not be significant at the 2.5% level.</li>
-<li>Since 0 is in the interval, a hypothesis test for <span class="math inline">\(\mu = 0\)</span> versus <span class="math inline">\(\mu &gt; 0\)</span> would not be significant at the 2.5% level.</li>
-</ol>
-</section>
-<section id="q6" class="level3">
-<h3 class="anchored" data-anchor-id="q6">Q6</h3>
-<p>Under which condition does the CLT <em>not</em> apply?</p>
-<ol type="1">
-<li>For <span class="math inline">\(\bar x\)</span>, the sample size is between 3 and 60 but a histogram of the sample appears normal.</li>
-<li>For <span class="math inline">\(\bar x\)</span>, the sample size is much larger than 60.</li>
-<li>For <span class="math inline">\(\hat p\)</span>, the sample size is much larger than 60.</li>
-<li>For <span class="math inline">\(\hat p\)</span>, we have checked <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span></li>
-</ol>
-</section>
-</section>
-<section id="self-study-questions" class="level2" data-number="14.6">
-<h2 data-number="14.6" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">14.6</span> Self-Study Questions</h2>
-<ol type="1">
-<li>Explain why: If the <span class="math inline">\(z_{obs}\)</span> test statistic is the same as the <span class="math inline">\(t_{obs}\)</span> test statistic, then the p-value for <span class="math inline">\(t_{obs}\)</span> will be wider.</li>
-<li>If a test is statistically signficant, does that mean there’s a large effect size? That is, does a hypothesis test tell you anything about the size of the effect?
-<ul>
-<li>Compare this to confidence intervals.</li>
-</ul></li>
-<li>Can we interpret a <span class="math inline">\(t\)</span> confidence interval as “all null hypothesis values that would not be rejected”?</li>
-<li>Re-do the ointment example, but using without - with.
-<ol type="a">
-<li>Draw a t distribution and mark the two test statistics, then fill in the area that corresponds to the p-value.</li>
-</ol></li>
-</ol>
+<p>Since the p-value is 0.4564, we do not reject the null hypothesis. There is no evidence to suggest that there are fewer males than females, which means that males do not appear to be predated at a higher rate.</p>
 
 
 </section>
@@ -745,13 +704,8 @@ mean of x
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Which is used in the caclulation of the Estimated Standard Error.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Like <code>pnorm()</code>, it always calculates the probability below the test statistic.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>We’ll learn about two-sample t-tests in the next lecture.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>And most likely a bandage on both.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>In other words, the healing times are the same for each subject<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>This is where it’s important to know that we did “with minus without”; we could have done without minus with, but then our alternate hypotheses would need to be “&gt;”.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>A p-value says <em>nothing</em> about the effect size, so we can’t say whether it’s <strong>practically significant</strong><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>This does <em>not</em> mean that 19 is the true value, we just don’t have evidence against this value. We don’t confirm the null; it’s set up in a such a way that we seek evidence <em>against</em> it, not for it.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Equal varince within groups<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1106,14 +1060,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L15-CI_for_Means.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></span>
+      <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L17-Two_Sample_hypothesis_Tests.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
