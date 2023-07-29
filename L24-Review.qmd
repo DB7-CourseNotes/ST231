@@ -247,4 +247,65 @@ prop.test(table(penguins$sex == "male"), p = 0.5, alternative = "less")
 
 Since the p-value is 0.4564, we do not reject the null hypothesis. There is no evidence to suggest that there are fewer males than females, which means that males do not appear to be predated at a higher rate. 
 
+### Two-Sample Test for Proportions
+
+- **Assumptions**: $n_1\hat p > 10$ and $n_1(1 - \hat p)>10$, similar $n_2$, so that the normal approximation applies. Indpedence/good sampling.
+    - For hypothesis tests, $\hat p$ is the pooled proportion. For confidence intervals, we require that $n_i\hat p_i>10$ and $n_i(1-\hat p_i)>10$ for $i=1$ and $i=2$.
+- **Hypotheses**: Generally, we're testing $p_1 = p_2$, which amounts to testing $p_{diff} = 0$, where $p_{diff} = p_2 - p_1$ of $p_1 - p_2$.
+    - It is also possible to test, e.g., whether $p_2$ is 10 percentages higher than $p_1$, which would be $H_0:p_{diff} = 0.1$.
+- **Test Statistic**: Since this is based on a normal approximation, this works almost exactly the same as the two-sample t-test approach.
+    - $z = \frac{\hat p_{diff} - p_{diff}}{SE(\hat p_{diff})}$.
+- **p-value**: See two-sample t-tests.
+- **CI**: See two-sample t-tests.
+
+**Example**: In the penguins data, penguins are sampled from three different islands: Biscoe, Dream, and Torgersen. For this example, suppose a researcher is interested in whether the islands Biscoe and Dream have the same proportion of males and females. We'll test this at the 10% level.
+
+We can treat the penguins from Biscoe as one sample, find the proportion of males, and do the same for Dream.
+
+```{r}
+# Code to specify the islands
+db <- penguins[penguins$island %in% c("Dream", "Biscoe"),]
+# Ensure that R ignores the third island)
+db$island <- factor(db$island)
+# Create a two-way table
+table(db$island, db$sex)
+```
+
+From the two-way table, I'm guessing that we won't reject the null! Those proportions look pretty close, and the sample size is pretty small.
+
+We can use `prop.test()` to do the calculations for us. If we don't specify the `alternative` hypothesis, it will assume two sided. This is appropriate, since we're just looking for a difference in proportions.
+
+```{r}
+prop.test(table(db$island, db$sex))
+```
+
+The p-value for the two-sided alternated hypothesis is 1! This is definitely larger than our significance level, so we absolutely cannot reject the null. We conclude that there is no evidence of a difference in the proportion of males to females.
+
+### Chi-Square for many Proportions
+
+
+
+**Example**: Instead of just looking at Dream and Biscoe, let's look at all three islands.
+
+```{r}
+table(penguins$island, penguins$sex)
+```
+
+```{r}
+chisq.test(table(penguins$island, penguins$sex))
+```
+
+As we might have expected, there's no evidence that there's a difference in the "sex" variable in different islands.
+
+<details>
+    <summary>**Second Example**</summary>
+
+    What about a difference in the "island" variable for different sexes?
+
+```{r}
+chisq.test(table(penguins$sex, penguins$island))
+```
+
+The p-value is identical! If one is independent of the other, then the other is independent of the one!
+</details>
 
