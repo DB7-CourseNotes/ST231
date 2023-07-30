@@ -310,6 +310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#one-sample-t-tests-and-cis-for-a-mean" id="toc-one-sample-t-tests-and-cis-for-a-mean" class="nav-link" data-scroll-target="#one-sample-t-tests-and-cis-for-a-mean">One-sample t-tests and CIs for a Mean</a></li>
   <li><a href="#matched-pairs-t-test-for-a-mean-difference" id="toc-matched-pairs-t-test-for-a-mean-difference" class="nav-link" data-scroll-target="#matched-pairs-t-test-for-a-mean-difference">Matched Pairs t-test for a Mean Difference</a></li>
+  <li><a href="#two-sample-t-tests" id="toc-two-sample-t-tests" class="nav-link" data-scroll-target="#two-sample-t-tests">Two-Sample t-tests</a></li>
   <li><a href="#anova-for-multiple-means" id="toc-anova-for-multiple-means" class="nav-link" data-scroll-target="#anova-for-multiple-means">ANOVA for Multiple Means</a></li>
   </ul></li>
   <li><a href="#proportions" id="toc-proportions" class="nav-link" data-scroll-target="#proportions"><span class="header-section-number">21.3</span> Proportions</a>
@@ -562,6 +563,69 @@ mean of x
 <p>A <strong>matched pairs</strong> study design is one where each subject is matched with another, only one of which gets the treatment and the other gets the control. See the oitment example from the class.</p>
 <p>A matched pairs test is actually just a one-sample t-test for the differences. In other words, we treat each difference as if it’s the value we’re calculating. The one-sample t-test assumptions and conclusions apply.</p>
 </section>
+<section id="two-sample-t-tests" class="level3">
+<h3 class="anchored" data-anchor-id="two-sample-t-tests">Two-Sample t-tests</h3>
+<ul>
+<li><strong>Assumptions</strong>: Both populations are normal, or both the samples are large enough for the CLT to apply. Independence among observations within and between groups.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li><strong>Null Hypothesis</strong>: Generally, we have the null hypothesis <span class="math inline">\(H_0:\mu_{diff} = 0\)</span>, where <span class="math inline">\(\mu_{diff}\)</span> is the difference in the means (either <span class="math inline">\(\mu-1 - \mu_2\)</span> or <span class="math inline">\(\mu_2 - \mu_1\)</span><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>).</li>
+<li><strong>Test Statistic</strong>: <span class="math inline">\(t_{obs} = \dfrac{\bar x_1 - \bar x_2}{SE}\)</span>
+<ul>
+<li><span class="math inline">\(SE\)</span> comes from the square root of the sum of their variances.
+<ul>
+<li><span class="math inline">\(SE = \sqrt{\frac{s_1^2}{n_1} + \frac{2_s^2}{n_2}}\)</span></li>
+</ul></li>
+</ul></li>
+<li><strong>p-value</strong>: Same as 1-sample, where we use a <span class="math inline">\(t\)</span>-distirbution.</li>
+<li><strong>CI</strong>: <span class="math inline">\(\bar x1 - \bar x_2 \pm t_{n-1}^*SE\)</span></li>
+</ul>
+<p><strong>Example</strong>: In the 1-sample procedure, I included a second example using a different sample of cars. The first example used a dataset called <code>mtcars</code>, which measured a sample of cars from 1973-1974, while the second used a data set called <code>mpg</code> which measures a sample of cars from 1999-2008. In this example, let’s test whether the fuel efficiency of cars has improved (i.e., the mpg has gone up).<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>In symbols, our hypotheses are <span class="math inline">\(H_0:\mu_{mtcars} - \mu_{mpg} = 0\)</span> versus <span class="math inline">\(H_A: \mu_{diff} &lt; 0\)</span>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L24-Review_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From these two plots, it looks like there is a possible slight difference.</p>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>We are assuming that both data sets are based on <em>good</em> samples, although this may not actually be appropriate and we should acknowledge this in our conclusions.</li>
+<li>It is clear that there is not dependence between these two data sets - they were collected completely separately!</li>
+</ul>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mtcars<span class="sc">$</span>mpg, mpg<span class="sc">$</span>overall, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  mtcars$mpg and mpg$overall
+t = 0.24252, df = 36.979, p-value = 0.5951
+alternative hypothesis: true difference in means is less than 0
+95 percent confidence interval:
+     -Inf 2.149167
+sample estimates:
+mean of x mean of y 
+ 20.09062  19.82051 </code></pre>
+</div>
+</div>
+<p>It looks like there is <em>not</em> a significant difference.</p>
+<p>I’m always a little bit skeptical when something is doing calculations for me, so I just want to double check whether R is doing <code>mtcars</code> minus <code>mpg</code> or the other way around.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg); <span class="fu">mean</span>(mpg<span class="sc">$</span>overall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.09062</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19.82051</code></pre>
+</div>
+</div>
+<p>So it looks like R is labelling “x” as <code>mtcars</code> and “y” as <code>mpg</code>, and doing mtcars minus mpg. This means that we’re correct in using “<code>alernative = "less"</code>.</p>
+<p>Now that we’ve double checked that the calculations were correct, we can make our conclusion. It does not appear that the two data sets have significantly different fuel efficiencies. However, this conclusion is highly sensitive to whether the data sets have “good” sampling strategies.</p>
+<p>The <code>mtcars</code> data were sample by Motor Trend Magazine based on what they thought their audience would like, whereas the <code>mpg</code> data were taken from the Environmental Protection Agency without any preference. It is very important to note that <em>neither</em> data set represents the average mpg of cars on the road. For instance, the <code>mpg</code> data contain one row for the manual Chevrolet Corvette and one row for the automatic Corvette, as well as one for the Honda Civic (automatic and manual). This is not representative of cars in general, as well as not representative of the actual cars on the road.</p>
+</section>
 <section id="anova-for-multiple-means" class="level3">
 <h3 class="anchored" data-anchor-id="anova-for-multiple-means">ANOVA for Multiple Means</h3>
 <ul>
@@ -584,11 +648,11 @@ mean of x
 <p>From the plot below, it looks like there will almost certainly be a difference!</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L24-Review_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="L24-Review_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
-<p>The table shows that one of the assumptions of ANOVA is not satisfied (guess which before looking at the footnote<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>), so we should be careful when interpreting the results.</p>
+<p>The table shows that one of the assumptions of ANOVA is not satisfied (guess which before looking at the footnote<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>), so we should be careful when interpreting the results.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -626,7 +690,7 @@ mean of x
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 factor(cyl)  2  824.8   412.4    39.7 4.98e-09 ***
@@ -664,20 +728,20 @@ H_0: p = 0.5\text{ vs. }p &lt; 0.05
 </div><div class="column" style="width:40%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L24-Review_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="L24-Review_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
 </div>
 <p>We can look at the data as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 FALSE  TRUE 
   165   168 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>), <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>), <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     1-sample proportions test with continuity correction
@@ -715,12 +779,12 @@ sample estimates:
 <p><strong>Example</strong>: In the penguins data, penguins are sampled from three different islands: Biscoe, Dream, and Torgersen. For this example, suppose a researcher is interested in whether the islands Biscoe and Dream have the same proportion of males and females. We’ll test this at the 10% level.</p>
 <p>We can treat the penguins from Biscoe as one sample, find the proportion of males, and do the same for Dream.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code to specify the islands</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> penguins[penguins<span class="sc">$</span>island <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Dream"</span>, <span class="st">"Biscoe"</span>),]</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that R ignores the third island)</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>island <span class="ot">&lt;-</span> <span class="fu">factor</span>(db<span class="sc">$</span>island)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a two-way table</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(db<span class="sc">$</span>island, db<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code to specify the islands</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> penguins[penguins<span class="sc">$</span>island <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Dream"</span>, <span class="st">"Biscoe"</span>),]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that R ignores the third island)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>island <span class="ot">&lt;-</span> <span class="fu">factor</span>(db<span class="sc">$</span>island)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a two-way table</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(db<span class="sc">$</span>island, db<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        
          female male
@@ -731,7 +795,7 @@ sample estimates:
 <p>From the two-way table, I’m guessing that we won’t reject the null! Those proportions look pretty close, and the sample size is pretty small.</p>
 <p>We can use <code>prop.test()</code> to do the calculations for us. If we don’t specify the <code>alternative</code> hypothesis, it will assume two sided. This is appropriate, since we’re just looking for a difference in proportions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(db<span class="sc">$</span>island, db<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(db<span class="sc">$</span>island, db<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -761,7 +825,7 @@ sample estimates:
 </ul>
 <p><strong>Example</strong>: Instead of just looking at Dream and Biscoe, let’s look at all three islands.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           
             female male
@@ -771,7 +835,7 @@ sample estimates:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -787,7 +851,7 @@ X-squared = 0.057599, df = 2, p-value = 0.9716</code></pre>
 </summary>
 <p>What about a difference in the “island” variable for different sexes?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>sex, penguins<span class="sc">$</span>island))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>sex, penguins<span class="sc">$</span>island))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -806,7 +870,11 @@ The p-value is identical! If one is independent of the other, then the other is 
 <hr>
 <ol>
 <li id="fn1"><p>This does <em>not</em> mean that 19 is the true value, we just don’t have evidence against this value. We don’t confirm the null; it’s set up in a such a way that we seek evidence <em>against</em> it, not for it.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Equal varince within groups<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>There is a version of the two-sample t-test that also assumes equality of variances in the two groups, but it’s generally best to avoid that assumption unless it’s abundantly clear that it holds.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Either is fine, but you must be careful about using right or left-sided p-values<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This example <em>cannot</em> be seen as a matched pairs procedure - there’s nothing to match!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Take a moment to ensure that these make sense to you!<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Equal varince within groups<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

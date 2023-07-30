@@ -155,6 +155,61 @@ A **matched pairs** study design is one where each subject is matched with anoth
 
 A matched pairs test is actually just a one-sample t-test for the differences. In other words, we treat each difference as if it's the value we're calculating. The one-sample t-test assumptions and conclusions apply.
 
+
+### Two-Sample t-tests
+
+- **Assumptions**: Both populations are normal, or both the samples are large enough for the CLT to apply. Independence among observations within and between groups.^[There is a version of the two-sample t-test that also assumes equality of variances in the two groups, but it's generally best to avoid that assumption unless it's abundantly clear that it holds.]
+- **Null Hypothesis**: Generally, we have the null hypothesis $H_0:\mu_{diff} = 0$, where $\mu_{diff}$ is the difference in the means (either $\mu-1 - \mu_2$ or $\mu_2 - \mu_1$^[Either is fine, but you must be careful about using right or left-sided p-values]).
+- **Test Statistic**: $t_{obs} = \dfrac{\bar x_1 - \bar x_2}{SE}$
+    - $SE$ comes from the square root of the sum of their variances.
+        - $SE = \sqrt{\frac{s_1^2}{n_1} + \frac{2_s^2}{n_2}}$
+- **p-value**: Same as 1-sample, where we use a $t$-distirbution.
+- **CI**: $\bar x1 - \bar x_2 \pm t_{n-1}^*SE$
+
+**Example**: In the 1-sample procedure, I included a second example using a different sample of cars. The first example used a dataset called `mtcars`, which measured a sample of cars from 1973-1974, while the second used a data set called `mpg` which measures a sample of cars from 1999-2008. In this example, let's test whether the fuel efficiency of cars has improved (i.e., the mpg has gone up).^[This example *cannot* be seen as a matched pairs procedure - there's nothing to match!]
+
+In symbols, our hypotheses are $H_0:\mu_{mtcars} - \mu_{mpg} = 0$ versus $H_A: \mu_{diff} < 0$.^[Take a moment to ensure that these make sense to you!]
+
+:::: {.columns}
+::: {.column width="50%"}
+
+```{r}
+#| echo: false
+boxplot(mtcars$mpg, mpg$overall,
+    main = "Boxplots for mtcars and mpg",
+    xaxt = "n", ylab = "Miles per Gallon", xlab = "Data Set")
+axis(side = 1, labels = c("1973-1974", "1999-2008"), at = 1:2)
+```
+
+From these two plots, it looks like there is a possible slight difference.
+
+:::
+::: {.column width="50%"}
+
+- We are assuming that both data sets are based on *good* samples, although this may not actually be appropriate and we should acknowledge this in our conclusions.
+- It is clear that there is not dependence between these two data sets - they were collected completely separately!
+
+:::
+::::
+
+```{r}
+t.test(mtcars$mpg, mpg$overall, alternative = "less")
+```
+
+It looks like there is *not* a significant difference.
+
+I'm always a little bit skeptical when something is doing calculations for me, so I just want to double check whether R is doing `mtcars` minus `mpg` or the other way around.
+
+```{r}
+mean(mtcars$mpg); mean(mpg$overall)
+```
+
+So it looks like R is labelling "x" as `mtcars` and "y" as `mpg`, and doing mtcars minus mpg. This means that we're correct in using "`alernative = "less"`.
+
+Now that we've double checked that the calculations were correct, we can make our conclusion. It does not appear that the two data sets have significantly different fuel efficiencies. However, this conclusion is highly sensitive to whether the data sets have "good" sampling strategies. 
+
+The `mtcars` data were sample by Motor Trend Magazine based on what they thought their audience would like, whereas the `mpg` data were taken from the Environmental Protection Agency without any preference. It is very important to note that *neither* data set represents the average mpg of cars on the road. For instance, the `mpg` data contain one row for the manual Chevrolet Corvette and one row for the automatic Corvette, as well as one for the Honda Civic (automatic and manual). This is not representative of cars in general, as well as not representative of the actual cars on the road.
+
 ### ANOVA for Multiple Means
 
 - **Assumptions**: The population is normal, or that the sample is large enough for the CLT to apply. Independence among observations. Independence between groups. Groups have the same variance.
