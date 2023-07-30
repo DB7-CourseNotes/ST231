@@ -8,7 +8,7 @@
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 
-<title>Statistics for Life Sciences - 22&nbsp; Post-Midterm Review</title>
+<title>Statistics for Life Sciences - 21&nbsp; Post-Midterm Review</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L19-Summary_of_Inference-Means_Proportions.html" rel="prev">
+<link href="./L23-ANOVA-oi.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -111,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L24-Review.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L24-Review.html"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -289,14 +289,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./L24-Review.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -311,16 +305,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-broad-topics" id="toc-the-broad-topics" class="nav-link active" data-scroll-target="#the-broad-topics"><span class="header-section-number">22.1</span> The Broad Topics</a></li>
-  <li><a href="#means" id="toc-means" class="nav-link" data-scroll-target="#means"><span class="header-section-number">22.2</span> Means</a>
+  <li><a href="#the-broad-topics" id="toc-the-broad-topics" class="nav-link active" data-scroll-target="#the-broad-topics"><span class="header-section-number">21.1</span> The Broad Topics</a></li>
+  <li><a href="#means" id="toc-means" class="nav-link" data-scroll-target="#means"><span class="header-section-number">21.2</span> Means</a>
   <ul class="collapse">
   <li><a href="#one-sample-t-tests-and-cis-for-a-mean" id="toc-one-sample-t-tests-and-cis-for-a-mean" class="nav-link" data-scroll-target="#one-sample-t-tests-and-cis-for-a-mean">One-sample t-tests and CIs for a Mean</a></li>
   <li><a href="#matched-pairs-t-test-for-a-mean-difference" id="toc-matched-pairs-t-test-for-a-mean-difference" class="nav-link" data-scroll-target="#matched-pairs-t-test-for-a-mean-difference">Matched Pairs t-test for a Mean Difference</a></li>
   <li><a href="#anova-for-multiple-means" id="toc-anova-for-multiple-means" class="nav-link" data-scroll-target="#anova-for-multiple-means">ANOVA for Multiple Means</a></li>
   </ul></li>
-  <li><a href="#proportions" id="toc-proportions" class="nav-link" data-scroll-target="#proportions"><span class="header-section-number">22.3</span> Proportions</a>
+  <li><a href="#proportions" id="toc-proportions" class="nav-link" data-scroll-target="#proportions"><span class="header-section-number">21.3</span> Proportions</a>
   <ul class="collapse">
   <li><a href="#one-sample-test-for-proportions" id="toc-one-sample-test-for-proportions" class="nav-link" data-scroll-target="#one-sample-test-for-proportions">One-Sample Test for Proportions</a></li>
+  <li><a href="#two-sample-test-for-proportions" id="toc-two-sample-test-for-proportions" class="nav-link" data-scroll-target="#two-sample-test-for-proportions">Two-Sample Test for Proportions</a></li>
+  <li><a href="#chi-square-test-for-two-way-tables" id="toc-chi-square-test-for-two-way-tables" class="nav-link" data-scroll-target="#chi-square-test-for-two-way-tables">Chi-Square Test for Two-Way Tables</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -330,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></h1>
+<h1 class="title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></h1>
 </div>
 
 
@@ -358,8 +354,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="the-broad-topics" class="level2" data-number="22.1">
-<h2 data-number="22.1" class="anchored" data-anchor-id="the-broad-topics"><span class="header-section-number">22.1</span> The Broad Topics</h2>
+<section id="the-broad-topics" class="level2" data-number="21.1">
+<h2 data-number="21.1" class="anchored" data-anchor-id="the-broad-topics"><span class="header-section-number">21.1</span> The Broad Topics</h2>
 <p>The following topics have applied to almost everything since the midterm.</p>
 <ul>
 <li><strong>Standard Errors</strong>
@@ -463,8 +459,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 </section>
-<section id="means" class="level2" data-number="22.2">
-<h2 data-number="22.2" class="anchored" data-anchor-id="means"><span class="header-section-number">22.2</span> Means</h2>
+<section id="means" class="level2" data-number="21.2">
+<h2 data-number="21.2" class="anchored" data-anchor-id="means"><span class="header-section-number">21.2</span> Means</h2>
 <section id="one-sample-t-tests-and-cis-for-a-mean" class="level3">
 <h3 class="anchored" data-anchor-id="one-sample-t-tests-and-cis-for-a-mean">One-sample t-tests and CIs for a Mean</h3>
 <ul>
@@ -641,8 +637,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </section>
 </section>
-<section id="proportions" class="level2" data-number="22.3">
-<h2 data-number="22.3" class="anchored" data-anchor-id="proportions"><span class="header-section-number">22.3</span> Proportions</h2>
+<section id="proportions" class="level2" data-number="21.3">
+<h2 data-number="21.3" class="anchored" data-anchor-id="proportions"><span class="header-section-number">21.3</span> Proportions</h2>
 <section id="one-sample-test-for-proportions" class="level3">
 <h3 class="anchored" data-anchor-id="one-sample-test-for-proportions">One-Sample Test for Proportions</h3>
 <ul>
@@ -697,6 +693,111 @@ sample estimates:
 </div>
 </div>
 <p>Since the p-value is 0.4564, we do not reject the null hypothesis. There is no evidence to suggest that there are fewer males than females, which means that males do not appear to be predated at a higher rate.</p>
+</section>
+<section id="two-sample-test-for-proportions" class="level3">
+<h3 class="anchored" data-anchor-id="two-sample-test-for-proportions">Two-Sample Test for Proportions</h3>
+<ul>
+<li><strong>Assumptions</strong>: <span class="math inline">\(n_1\hat p &gt; 10\)</span> and <span class="math inline">\(n_1(1 - \hat p)&gt;10\)</span>, similar <span class="math inline">\(n_2\)</span>, so that the normal approximation applies. Indpedence/good sampling.
+<ul>
+<li>For hypothesis tests, <span class="math inline">\(\hat p\)</span> is the pooled proportion. For confidence intervals, we require that <span class="math inline">\(n_i\hat p_i&gt;10\)</span> and <span class="math inline">\(n_i(1-\hat p_i)&gt;10\)</span> for <span class="math inline">\(i=1\)</span> and <span class="math inline">\(i=2\)</span>.</li>
+</ul></li>
+<li><strong>Hypotheses</strong>: Generally, we’re testing <span class="math inline">\(p_1 = p_2\)</span>, which amounts to testing <span class="math inline">\(p_{diff} = 0\)</span>, where <span class="math inline">\(p_{diff} = p_2 - p_1\)</span> of <span class="math inline">\(p_1 - p_2\)</span>.
+<ul>
+<li>It is also possible to test, e.g., whether <span class="math inline">\(p_2\)</span> is 10 percentages higher than <span class="math inline">\(p_1\)</span>, which would be <span class="math inline">\(H_0:p_{diff} = 0.1\)</span>.</li>
+</ul></li>
+<li><strong>Test Statistic</strong>: Since this is based on a normal approximation, this works almost exactly the same as the two-sample t-test approach.
+<ul>
+<li><span class="math inline">\(z = \frac{\hat p_{diff} - p_{diff}}{SE(\hat p_{diff})}\)</span>.</li>
+</ul></li>
+<li><strong>p-value</strong>: See two-sample t-tests.</li>
+<li><strong>CI</strong>: See two-sample t-tests.</li>
+</ul>
+<p><strong>Example</strong>: In the penguins data, penguins are sampled from three different islands: Biscoe, Dream, and Torgersen. For this example, suppose a researcher is interested in whether the islands Biscoe and Dream have the same proportion of males and females. We’ll test this at the 10% level.</p>
+<p>We can treat the penguins from Biscoe as one sample, find the proportion of males, and do the same for Dream.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code to specify the islands</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> penguins[penguins<span class="sc">$</span>island <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Dream"</span>, <span class="st">"Biscoe"</span>),]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that R ignores the third island)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>db<span class="sc">$</span>island <span class="ot">&lt;-</span> <span class="fu">factor</span>(db<span class="sc">$</span>island)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a two-way table</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(db<span class="sc">$</span>island, db<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        
+         female male
+  Biscoe     80   83
+  Dream      61   62</code></pre>
+</div>
+</div>
+<p>From the two-way table, I’m guessing that we won’t reject the null! Those proportions look pretty close, and the sample size is pretty small.</p>
+<p>We can use <code>prop.test()</code> to do the calculations for us. If we don’t specify the <code>alternative</code> hypothesis, it will assume two sided. This is appropriate, since we’re just looking for a difference in proportions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(db<span class="sc">$</span>island, db<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  table(db$island, db$sex)
+X-squared = 1.7776e-30, df = 1, p-value = 1
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.1273096  0.1170348
+sample estimates:
+   prop 1    prop 2 
+0.4907975 0.4959350 </code></pre>
+</div>
+</div>
+<p>The p-value for the two-sided alternated hypothesis is 1! This is definitely larger than our significance level, so we absolutely cannot reject the null. We conclude that there is no evidence of a difference in the proportion of males to females.</p>
+</section>
+<section id="chi-square-test-for-two-way-tables" class="level3">
+<h3 class="anchored" data-anchor-id="chi-square-test-for-two-way-tables">Chi-Square Test for Two-Way Tables</h3>
+<ul>
+<li><strong>Assumptions</strong>: Independence among individuals, large enough samples for the normal approximation to apply.</li>
+<li><strong>Hypotheses</strong>: The Column and the Row variable are independent.</li>
+<li><strong>Test Statistic</strong>: The squared difference between the observed count and the expected count.
+<ul>
+<li>The expected count is what we would get if the rows and columns were independent.</li>
+</ul></li>
+<li><strong>p-value</strong>: Always right-tailed, since the test stat is a squared difference.</li>
+</ul>
+<p><strong>Example</strong>: Instead of just looking at Dream and Biscoe, let’s look at all three islands.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           
+            female male
+  Biscoe        80   83
+  Dream         61   62
+  Torgersen     24   23</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table(penguins$island, penguins$sex)
+X-squared = 0.057599, df = 2, p-value = 0.9716</code></pre>
+</div>
+</div>
+<p>As we might have expected, there’s no evidence that there’s a difference in the “sex” variable in different islands.</p>
+<details>
+<summary>
+<strong>Second Example</strong>
+</summary>
+<p>What about a difference in the “island” variable for different sexes?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>sex, penguins<span class="sc">$</span>island))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table(penguins$sex, penguins$island)
+X-squared = 0.057599, df = 2, p-value = 0.9716</code></pre>
+</div>
+</div>
+The p-value is identical! If one is independent of the other, then the other is independent of the one!
+</details>
 
 
 </section>
@@ -1060,8 +1161,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span>
+      <a href="./L23-ANOVA-oi.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

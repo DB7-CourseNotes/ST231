@@ -281,8 +281,13 @@ prop.test(table(db$island, db$sex))
 
 The p-value for the two-sided alternated hypothesis is 1! This is definitely larger than our significance level, so we absolutely cannot reject the null. We conclude that there is no evidence of a difference in the proportion of males to females.
 
-### Chi-Square for many Proportions
+### Chi-Square Test for Two-Way Tables
 
+- **Assumptions**: Independence among individuals, large enough samples for the normal approximation to apply.
+- **Hypotheses**: The Column and the Row variable are independent. 
+- **Test Statistic**: The squared difference between the observed count and the expected count.
+    - The expected count is what we would get if the rows and columns were independent. 
+- **p-value**: Always right-tailed, since the test stat is a squared difference.
 
 
 **Example**: Instead of just looking at Dream and Biscoe, let's look at all three islands.

@@ -42,7 +42,6 @@ book:
         - L21-ChiSquare_Multiple_Proportions.qmd
         - L22-Inference_for_Regression.qmd
         - L23-ANOVA-oi.qmd
-        - L19-Summary_of_Inference-Means_Proportions.qmd
         - L24-Review.qmd
 
 execute: 
