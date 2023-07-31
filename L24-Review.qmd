@@ -239,7 +239,7 @@ boxplot(mpg ~ factor(cyl), data = mtcars,
 :::
 ::: {.column width="50%"}
 
-The table shows that one of the assumptions of ANOVA is not satisfied (guess which before looking at the footnote^[Equal varince within groups]), so we should be careful when interpreting the results.
+The table shows that one of the assumptions of ANOVA is not satisfied (guess which before looking at the footnote^[Equal variance within groups]), so we should be careful when interpreting the results.
 
 ```{r}
 #| echo: false
