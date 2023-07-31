@@ -369,3 +369,70 @@ chisq.test(table(penguins$sex, penguins$island))
 The p-value is identical! If one is independent of the other, then the other is independent of the one!
 </details>
 
+
+## Practice Problems
+
+### `famuss` Study
+
+In the famuss study, we focused on the `ndrm.ch`(non-dominant arm percent change after 12 weeks of strength training) and the `actn3.r577x` (genotype at a particular position on the genome). We used this for the lecture on Chi-Square test for proportions.
+
+Here are the other variables available in the data set:
+
+```{r}
+#| echo: true
+# install.packages(oibiostat) # Need to run *once*, then the other code will run.
+library(oibiostat)
+
+data(famuss)
+head(famuss)
+```
+
+
+These data are not necessarily a random sample of the population, so questions like "does weight change with age?" won't result in conclusions that apply to the general population. However, you can do a couple of tests just to practice your skills. I'll provide the code and the research question, you should provide justifications for using that test, check the assumptions and provide conclusions in the context of the problem. For each question, I've added som plots below.
+
+1. Are 50% of the people in this study female?
+    - `sum(famuss$sex == "Female")`
+    - `nrow(famuss)`
+    - `prop.test(sum(famuss$sex == "Female"), nrow(famuss), p = 0.5)`
+2. Is the change in dominant arm strength larger than 0?
+    - `mean(famuss$drm.ch)`
+    - `t.test(famuss$drm.ch, mu = 0, alternative = "greater")`
+3. The data contain a column for non-dominant and dominant arm strength. Are the means of these columns different?^[Justify why this is a **matched pairs** test.]
+    - `t.test(famuss$drm.ch - famuss$drm.ch, mu = 0, alternative = "two.sided")`
+    - Alternative question: is the mean of ndrm.ch larger than ndrm.ch by more 50? This is the same as asking if the dominant arm strength is 50 percentage points higher than the non-dominant by over 50% percentages.^[Technical note: we are *not* testing if it's double, e.g. $\mu_{dom} = 2*\mu_{non}$; we have not learned the machinery for this. in particular, there are some extra steps for the standard error.] This is a small change to the code, but it adds a lot to the interpretation!
+    - Interpret the confidence interval.
+4. Is there a difference between change in non-dominant arm strength for men and women in this study?
+    - `t.test(ndrm.ch ~ sex, data = famuss, alternative = "two.sided")`
+5. Is there an association between race and genotype?
+    - `table(famuss$race, famuss$actn3.r577x)`
+    - `chisq.test(table(famuss$race, famuss$actn3.r577x))`
+        - Interpreting the results here must be done carefully, but is important!
+    - If the results are significant, how might you figure out which races are different?
+6. Is the mean change in non-dominant arm strength the same across races?
+    - `anova(aov(ndrm.ch ~ race, data = famuss))`
+7. Is there a correlation between dominant and non-dominant arm strength?^[Definitely check the plots for this one!!!]
+    - `summary(lm(drm.ch ~ ndrm.ch, data = famuss))`
+    - Interpret the slope in the context of the problem, being careful to refer to any shortcomings of the problem.
+        - Also, did it matter which I used as the $y$ variable?
+    - Identify any potentially influential outliers.
+
+```{r}
+#| echo: false
+par(mfrow = c(2, 3))
+barplot(table(famuss$sex), main = "1. Biosex")
+hist(famuss$ndrm.ch, main = "2. and 3. Non-Dom. Arm Strength")
+hist(famuss$drm.ch, main = "3. Dominant Arm Strength")
+hist(famuss$drm.ch - famuss$ndrm.ch, main = "3. Dominant minus Non-dominant")
+boxplot(ndrm.ch ~ sex, data = famuss, main = "4. Non-Dom Strength v. Biosex", xlab = "Biosex")
+barplot(table(famuss$actn3.r577x, famuss$race), col = 2:4, beside = TRUE, horiz = TRUE, las = 1,
+    main = "5. Race v. Genotype")
+legend("topright", legend = levels(famuss$actn3.r577x), col = 2:4, lty = 1, lwd = 4)
+boxplot(ndrm.ch ~ race, data = famuss, main = "6. Non-Dom Strength v. Race", xlab = "Race")
+plot(drm.ch ~ ndrm.ch, data = famuss, main = "7. Dom. v. Non-Dom.")
+arm_lm <- lm(drm.ch ~ ndrm.ch, data = famuss)
+abline(arm_lm, col = 2)
+plot(arm_lm, which = 1, main = "7. Dom. v. Non-Dom.")
+plot(arm_lm, which = 2, main = "7. Dom. v. Non-Dom.")
+plot(arm_lm, which = 3, main = "7. Dom. v. Non-Dom.")
+plot(arm_lm, which = 5, main = "7. Dom. v. Non-Dom.")
+```
