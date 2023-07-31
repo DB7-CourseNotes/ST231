@@ -256,6 +256,49 @@ mtcars %>%
 summary(aov(mpg ~ factor(cyl), data = mtcars))
 ```
 
+
+## Regression
+
+- **Assumptions**: Independence, no patterns in the residual plots
+    - Residuals vs. Fitted should be a straight line with no patterns
+    - QQ plot should look like a line
+    - Scale-location should be a straight line
+    - Nothing outise the dotted lines in the Leverage plot.
+- **Hypothesis**: The slope is 0 (which implies that the correlation is 0)
+- **Test Statistic**: Like a test for a one-sample t-test, but with a more complicated standard error.
+    - R will give the standard error.
+    - Degrees of freedom is $n-2$. 
+- **p-value**: Generally two sided, but not always
+    - We may be asking about a positive association, e.g. $H_A:\beta > 0$.
+- **Confidence Intervals**: See one-sample t-test.
+
+**Example**: Is there a linear relationship between the fuel efficiency of the car and the car's weight? Test at the 5% level.
+
+To test the assumptions, we have to actually fit the model first! This is a good test of self control - the p-values are just sitting there waiting to be interpreted, but we've got a lot of work before we should even look at them!
+
+```{r}
+#| echo: true
+mtcars_lm <- lm(mpg ~ wt, data = mtcars)
+
+par(mfrow = c(2, 2)) # sets up plotting region for 4 plots
+plot(mtcars_lm)
+```
+
+- Residuals vs. Fitted: There's a slight "U"-shaped pattern. This is not good!
+- Normal Q-Q: Doesn't look too bad.
+- Scale-location: A bit of a pattern, but overall not too bad.
+- Residuals vs. Leverage: One point outside the "0.5" dotted line, which should be investigated but isn't too bad.
+
+So the assumptions are not really satisfied, mainly because of the "U"-shaped pattern in the first plot. 
+
+We'll look at the output just for practice, but the actual pattern might not be linear.
+
+```{r}
+summary(mtcars_lm)
+```
+
+According to the output, the slope *is* significant. There appears to be a significant correlation between mpg and weight of the car, but the actual pattern might not be linear.
+
 ## Proportions
 
 ### One-Sample Test for Proportions
