@@ -442,7 +442,7 @@ These data are not necessarily a random sample of the population, so questions l
 3. Explain why the test is appropriate for the data.
 4. Interpret the conclusions in the context of the problem.
 
-I've provided the research questions and the code to calculate the p-value, as well as some plots to help you address the assumptions.
+I've provided the research questions and the code to calculate the p-value, as well as some plots to help you address the assumptions. Try to run the code yourself so that you can play around with things (try different hypotheses, verify that values in a confidence interval will be rejected, etc.), but I've also included the output below.
 
 1. Are 50% of the people in this study female?
     - `sum(famuss$sex == "Female")`
@@ -489,4 +489,31 @@ plot(arm_lm, which = 1, main = "7. Dom. v. Non-Dom.")
 plot(arm_lm, which = 2, main = "7. Dom. v. Non-Dom.")
 plot(arm_lm, which = 3, main = "7. Dom. v. Non-Dom.")
 plot(arm_lm, which = 5, main = "7. Dom. v. Non-Dom.")
+```
+
+```{r}
+# 1. Are 50% of the people in this study female?
+sum(famuss$sex == "Female")
+nrow(famuss)
+prop.test(sum(famuss$sex == "Female"), nrow(famuss), p = 0.5)
+
+# 2. Is the change in dominant arm strength larger than 0?
+mean(famuss$drm.ch)
+t.test(famuss$drm.ch, mu = 0, alternative = "greater")
+
+# 3. Are the means of the non-dominant and dominant columns different?7
+t.test(famuss$drm.ch - famuss$drm.ch, mu = 0, alternative = "two.sided")
+
+# 4. Is there a difference between change in non-dominant arm strength for men and women in this study?
+t.test(ndrm.ch ~ sex, data = famuss, alternative = "two.sided")
+
+# 5. Is there an association between race and genotype?
+table(famuss$race, famuss$actn3.r577x)
+chisq.test(table(famuss$race, famuss$actn3.r577x))
+
+# 6. Is the mean change in non-dominant arm strength the same across races?
+anova(aov(ndrm.ch ~ race, data = famuss))
+
+# 7. Is there a correlation between dominant and non-dominant arm strength?
+summary(lm(drm.ch ~ ndrm.ch, data = famuss))
 ```

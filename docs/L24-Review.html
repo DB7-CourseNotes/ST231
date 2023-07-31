@@ -971,7 +971,7 @@ The p-value is identical! If one is independent of the other, then the other is 
 <li>Explain why the test is appropriate for the data.</li>
 <li>Interpret the conclusions in the context of the problem.</li>
 </ol>
-<p>I’ve provided the research questions and the code to calculate the p-value, as well as some plots to help you address the assumptions.</p>
+<p>I’ve provided the research questions and the code to calculate the p-value, as well as some plots to help you address the assumptions. Try to run the code yourself so that you can play around with things (try different hypotheses, verify that values in a confidence interval will be rejected, etc.), but I’ve also included the output below.</p>
 <ol type="1">
 <li>Are 50% of the people in this study female?
 <ul>
@@ -1023,6 +1023,133 @@ The p-value is identical! If one is independent of the other, then the other is 
 </div>
 <div class="cell-output-display">
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Are 50% of the people in this study female?</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(famuss<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 353</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(famuss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 595</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">sum</span>(famuss<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span>), <span class="fu">nrow</span>(famuss), <span class="at">p =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1-sample proportions test with continuity correction
+
+data:  sum(famuss$sex == "Female") out of nrow(famuss), null probability 0.5
+X-squared = 20.336, df = 1, p-value = 6.496e-06
+alternative hypothesis: true p is not equal to 0.5
+95 percent confidence interval:
+ 0.5524836 0.6328489
+sample estimates:
+        p 
+0.5932773 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Is the change in dominant arm strength larger than 0?</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(famuss<span class="sc">$</span>drm.ch)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.35025</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(famuss<span class="sc">$</span>drm.ch, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  famuss$drm.ch
+t = 13.995, df = 594, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is greater than 0
+95 percent confidence interval:
+ 9.131896      Inf
+sample estimates:
+mean of x 
+ 10.35025 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Are the means of the non-dominant and dominant columns different?7</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(famuss<span class="sc">$</span>drm.ch <span class="sc">-</span> famuss<span class="sc">$</span>drm.ch, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  famuss$drm.ch - famuss$drm.ch
+t = NaN, df = 594, p-value = NA
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ NaN NaN
+sample estimates:
+mean of x 
+        0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Is there a difference between change in non-dominant arm strength for men and women in this study?</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ndrm.ch <span class="sc">~</span> sex, <span class="at">data =</span> famuss, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  ndrm.ch by sex
+t = 10.073, df = 574.01, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group Female and group Male is not equal to 0
+95 percent confidence interval:
+ 19.07240 28.31175
+sample estimates:
+mean in group Female   mean in group Male 
+            62.92720             39.23512 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Is there an association between race and genotype?</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(famuss<span class="sc">$</span>race, famuss<span class="sc">$</span>actn3.r577x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            
+              CC  CT  TT
+  African Am  16   6   5
+  Asian       21  18  16
+  Caucasian  125 216 126
+  Hispanic     4  10   9
+  Other        7  11   5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(famuss<span class="sc">$</span>race, famuss<span class="sc">$</span>actn3.r577x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  table(famuss$race, famuss$actn3.r577x)
+X-squared = 19.4, df = 8, p-value = 0.01286</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Is the mean change in non-dominant arm strength the same across races?</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">aov</span>(ndrm.ch <span class="sc">~</span> race, <span class="at">data =</span> famuss))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: ndrm.ch
+           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+race        4  11524  2881.1  2.6526 0.03233 *
+Residuals 590 640812  1086.1                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. Is there a correlation between dominant and non-dominant arm strength?</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(drm.ch <span class="sc">~</span> ndrm.ch, <span class="at">data =</span> famuss))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = drm.ch ~ ndrm.ch, data = famuss)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-53.004  -9.691  -1.391   7.953  86.965 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.32170    1.30415  -0.247    0.805    
+ndrm.ch      0.20026    0.02079   9.634   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 16.79 on 593 degrees of freedom
+Multiple R-squared:  0.1353,    Adjusted R-squared:  0.1339 
+F-statistic: 92.81 on 1 and 593 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 
