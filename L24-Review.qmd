@@ -388,7 +388,18 @@ head(famuss)
 ```
 
 
-These data are not necessarily a random sample of the population, so questions like "does weight change with age?" won't result in conclusions that apply to the general population. However, you can do a couple of tests just to practice your skills. I'll provide the code and the research question, you should provide justifications for using that test, check the assumptions and provide conclusions in the context of the problem. For each question, I've added som plots below.
+These data are not necessarily a random sample of the population, so questions like "does weight change with age?" won't result in conclusions that apply to the general population. However, you can do a couple of tests just to practice your skills. 
+
+ For each example below, answer all of these questions:
+
+1. Test yourself on the assumptions we're making.
+    - Are they satisfied in the example?
+2. Write the hypotheses in the appropriate symbols.
+    - Do the statements in the examples make sense?
+3. Explain why the test is appropriate for the data.
+4. Interpret the conclusions in the context of the problem.
+
+I've provided the research questions and the code to calculate the p-value, as well as some plots to help you address the assumptions.
 
 1. Are 50% of the people in this study female?
     - `sum(famuss$sex == "Female")`
