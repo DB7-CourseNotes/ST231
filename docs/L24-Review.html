@@ -305,7 +305,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-broad-topics" id="toc-the-broad-topics" class="nav-link active" data-scroll-target="#the-broad-topics"><span class="header-section-number">21.1</span> The Broad Topics</a></li>
+  <li><a href="#the-broad-topics" id="toc-the-broad-topics" class="nav-link active" data-scroll-target="#the-broad-topics"><span class="header-section-number">21.1</span> The Broad Topics</a>
+  <ul class="collapse">
+  <li><a href="#standard-errors" id="toc-standard-errors" class="nav-link" data-scroll-target="#standard-errors">Standard Errors</a></li>
+  <li><a href="#assumption-checking" id="toc-assumption-checking" class="nav-link" data-scroll-target="#assumption-checking">Assumption Checking</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals">Confidence Intervals</a></li>
+  <li><a href="#conclusion-in-the-context-of-the-problem" id="toc-conclusion-in-the-context-of-the-problem" class="nav-link" data-scroll-target="#conclusion-in-the-context-of-the-problem">Conclusion in the context of the problem</a></li>
+  <li><a href="#type-1-and-2-error" id="toc-type-1-and-2-error" class="nav-link" data-scroll-target="#type-1-and-2-error">Type 1 and 2 Error</a></li>
+  <li><a href="#multiple-comparisons-problem" id="toc-multiple-comparisons-problem" class="nav-link" data-scroll-target="#multiple-comparisons-problem">Multiple Comparisons Problem</a></li>
+  </ul></li>
   <li><a href="#means" id="toc-means" class="nav-link" data-scroll-target="#means"><span class="header-section-number">21.2</span> Means</a>
   <ul class="collapse">
   <li><a href="#one-sample-t-tests-and-cis-for-a-mean" id="toc-one-sample-t-tests-and-cis-for-a-mean" class="nav-link" data-scroll-target="#one-sample-t-tests-and-cis-for-a-mean">One-sample t-tests and CIs for a Mean</a></li>
@@ -323,6 +332,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#practice-problems" id="toc-practice-problems" class="nav-link" data-scroll-target="#practice-problems"><span class="header-section-number">21.5</span> Practice Problems</a>
   <ul class="collapse">
   <li><a href="#famuss-study" id="toc-famuss-study" class="nav-link" data-scroll-target="#famuss-study"><code>famuss</code> Study</a></li>
+  <li><a href="#relevant-plots" id="toc-relevant-plots" class="nav-link" data-scroll-target="#relevant-plots">Relevant Plots</a></li>
+  <li><a href="#output-of-code" id="toc-output-of-code" class="nav-link" data-scroll-target="#output-of-code">Output of Code</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -363,8 +374,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-broad-topics" class="level2" data-number="21.1">
 <h2 data-number="21.1" class="anchored" data-anchor-id="the-broad-topics"><span class="header-section-number">21.1</span> The Broad Topics</h2>
 <p>The following topics have applied to almost everything since the midterm.</p>
-<ul>
-<li><strong>Standard Errors</strong>
+<section id="standard-errors" class="level3">
+<h3 class="anchored" data-anchor-id="standard-errors">Standard Errors</h3>
 <ul>
 <li>Since our sample was random, we could have gotten different data. With different data, we’d get a different mean and sd.</li>
 <li>The standard error of the mean represents uncertainty around the mean. With more data, we are more certain about the value.
@@ -376,8 +387,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>For example, could you explain why test statistics and p-values have a standard error (even though you don’t know the formula for it)?</li>
 </ul></li>
-</ul></li>
-<li><strong>Assumption Checking</strong>
+</ul>
+</section>
+<section id="assumption-checking" class="level3">
+<h3 class="anchored" data-anchor-id="assumption-checking">Assumption Checking</h3>
 <ul>
 <li>All of the methods we use require assumptions about the population.</li>
 <li>There’s always some sort of independence assumption, which can be satisfied by having a good sampling strategy.</li>
@@ -391,8 +404,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>For example, linear regression requires that the plot looks linear!</li>
 </ul></li>
+<li>On the exam, there will be questions that ask you to interpret the results of a study. You <strong>must</strong> check the assumptions before making a conclusion, regardless of whether you’re explicitly told to!
+<ul>
+<li>In a job, your boss might just ask for the results, but they’ll expect you to make sure the results are valid before sharing them!</li>
 </ul></li>
-<li><strong>Hypothesis Testing</strong>
+</ul>
+</section>
+<section id="hypothesis-testing" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h3>
 <ul>
 <li>Null and Alternative hypotheses: Convert the word problem into math.
 <ul>
@@ -413,8 +432,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>A small p-value is strong evidence. If <span class="math inline">\(p &lt; \alpha\)</span>, we reject the null and claim that our result is “statistically significant”.</li>
 <li>A small p-value does <em>not</em> mean that there’s a large difference in the observed and hypothesized! It’s a large difference <em>relative to the standard error</em>, which decreases with better study designs and larger sample sizes. For example, a 0.01% increase in cancer risk is not something that a person really needs to worry about, but a large enough sample might find a statistically significant result!</li>
 </ul></li>
-</ul></li>
-<li><strong>Confidence Intervals</strong>
+</ul>
+</section>
+<section id="confidence-intervals" class="level3">
+<h3 class="anchored" data-anchor-id="confidence-intervals">Confidence Intervals</h3>
 <ul>
 <li>If we were to repeat the exact same study many, many times with new samples each time, <span class="math inline">\((1-\alpha)\)</span>% of the intervals we create will contain the true population parameter.</li>
 <li>Generally, a CI has the form “point estimate <span class="math inline">\(\pm\)</span> critical value * standard error”
@@ -428,12 +449,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>In other words, we use the standard error to determine an interval that we hope covers the middle 95% of all possible mean values.</li>
 </ul></li>
 <li>For a 95% CI, we want the middle 95%. This means we want 2.5% on either side, which is why we see <span class="math inline">\(\alpha/2\)</span> a lot when dealing with confidence intervals.</li>
-</ul></li>
-<li><strong>Conclusion in the context of the problem</strong>
-<ul>
-<li>The beauty of stats is that it’s rigorous math with applications to the real world - always remember that the data come from somewhere and the results might be meaningful to real people!</li>
-</ul></li>
-<li><strong>Type 1 and 2 Error</strong>
+</ul>
+</section>
+<section id="conclusion-in-the-context-of-the-problem" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-in-the-context-of-the-problem">Conclusion in the context of the problem</h3>
+<p>The beauty of stats is that it’s rigorous math with applications to the real world - always remember that the data come from somewhere and the results might be meaningful to real people!</p>
+</section>
+<section id="type-1-and-2-error" class="level3">
+<h3 class="anchored" data-anchor-id="type-1-and-2-error">Type 1 and 2 Error</h3>
 <ul>
 <li>Type 1 Error: rejecting a null when it’s true.
 <ul>
@@ -456,14 +479,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>A study with low power might have p-values larger than <span class="math inline">\(\alpha\)</span>, but the authors would not be able to say whether the null is false.</li>
 </ul></li>
-</ul></li>
-<li><strong>Multiple Comparisons Problem</strong>
+</ul>
+</section>
+<section id="multiple-comparisons-problem" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-comparisons-problem">Multiple Comparisons Problem</h3>
 <ul>
 <li>Suppose the null is true. We still have a 5% chance of rejecting a true null, and therefore a 95% chance of correctly not rejecting it.</li>
 <li>If we have two nulls, both of which are true, then the probability that we correctly don’t reject either is 0.95*0.95 = 0.9025. This means we have a 9.75% chance of rejecting at least one of them, even though they’re both true.</li>
 <li>The multiple comparisons problem states that, when we check a lot of p-values, the Type 1 Error increases.</li>
-</ul></li>
 </ul>
+</section>
 </section>
 <section id="means" class="level2" data-number="21.2">
 <h2 data-number="21.2" class="anchored" data-anchor-id="means"><span class="header-section-number">21.2</span> Means</h2>
@@ -1017,6 +1042,9 @@ The p-value is identical! If one is independent of the other, then the other is 
 <li>Identify any potentially influential outliers.</li>
 </ul></li>
 </ol>
+</section>
+<section id="relevant-plots" class="level3">
+<h3 class="anchored" data-anchor-id="relevant-plots">Relevant Plots</h3>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
@@ -1025,6 +1053,10 @@ The p-value is identical! If one is independent of the other, then the other is 
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-22-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="output-of-code" class="level3">
+<h3 class="anchored" data-anchor-id="output-of-code">Output of Code</h3>
+<p>Try these youself, changing the alternative hypothesis and hypothesized values!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Are 50% of the people in this study female?</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(famuss<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

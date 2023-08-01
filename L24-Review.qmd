@@ -11,61 +11,77 @@ set.seed(2112)
 
 The following topics have applied to almost everything since the midterm.
 
-- **Standard Errors**
-    - Since our sample was random, we could have gotten different data. With different data, we'd get a different mean and sd. 
-    - The standard error of the mean represents uncertainty around the mean. With more data, we are more certain about the value.
-        - Effects of outliers diminish, and the overall variation "averages out".
-        - The same thing happens to the sd, but it's not a normal distribution.
-    - Be ready to explain how standard errors relate to various concepts.
-        - For example, could you explain why test statistics and p-values have a standard error (even though you don't know the formula for it)?
-- **Assumption Checking**
-    - All of the methods we use require assumptions about the population.
-    - There's always some sort of independence assumption, which can be satisfied by having a good sampling strategy.
-    - There's usually either an assumption of normality, or some conditions for which the normal approximation applies.
-        - For means, we need a big enough sample for the Central Limit Theorem to apply ($n > 30$ or $n>60$ or something like that). This applies to all of the groups for t-tests and ANOVA.
-        - For proportions, we need some form of $np>10$ and $n(1-p)>10$ so that the normal approximation applies. Be careful whether you need the observed proportion, hypothesized proportion, or pooled proportion!
-        - For regression, we assume that the residuals are normal, and we can assess this with the QQ Plot. 
-    - There are other assumptions that may be method-specific.
-        - For example, linear regression requires that the plot looks linear!
-- **Hypothesis Testing**
-    - Null and Alternative hypotheses: Convert the word problem into math.
-        - Null: Nothing is going on. Very often, this means $\mu = 0$ or $p = 0.5$ or $\mu_1 - \mu_0 = 0$. However, we could also test things like $p_1 - p_2 = 0.1$, i.e., whether $p_1$ is 10 percentage points higher than $p_2$. 
-        - Alternative: generally involves a $\ne$, $>$, or $<$. The wording of the statement will indicate whether it's a two sided ($\ne$), right-tailed ($>$), or left-tailed ($<$) p-value.
-    - Set the significance level.
-        - This determines how "strong" the evidence must be in order for us to reject the null. $\alpha = 0.1$ means we'll accept weak evidence, whereas $\alpha = 0.001$ means we need to be very sure of our results before the null is rejected.
-    - Test statistic: measures the distance between our observed data and the hypothesized value, *relative to the standard error*.
-        - Relies on the value from the null hypothesis, as well as the sample size!
-    - p-value: **ASSUMING THE NULL HYPOTHESIS IS TRUE**, the p-value measures the probability of getting data at least as extreme as the data we got.
-        - "At least as extreme" = this far away from the null values or further. The direction is determined by the alternative hypothesis.
-        - A small p-value is strong evidence. If $p < \alpha$, we reject the null and claim that our result is "statistically significant". 
-        - A small p-value does *not* mean that there's a large difference in the observed and hypothesized! It's a large difference *relative to the standard error*, which decreases with better study designs and larger sample sizes. For example, a 0.01% increase in cancer risk is not something that a person really needs to worry about, but a large enough sample might find a statistically significant result!
-- **Confidence Intervals** 
-    - If we were to repeat the exact same study many, many times with new samples each time, $(1-\alpha)$\% of the intervals we create will contain the true population parameter. 
-    - Generally, a CI has the form "point estimate $\pm$ critical value * standard error"
-        - Point estimate: the mean, for example.
-        - Critical value: the value from the relevant distribution that makes it a $(1-\alpha)$\% interval. Essentially, this controls the width of the interval so that the interval actually does contain the true parameter as often as we claim that it does.
-        - Standard error: see above.
-    - A 95% CI is essentially the middle 95% of the **sampling distribution**, if it were centered on the observed sample mean. 
-        - In other words, we use the standard error to determine an interval that we hope covers the middle 95% of all possible mean values.
-    - For a 95% CI, we want the middle 95%. This means we want 2.5% on either side, which is why we see $\alpha/2$ a lot when dealing with confidence intervals.
-- **Conclusion in the context of the problem**
-    - The beauty of stats is that it's rigorous math with applications to the real world - always remember that the data come from somewhere and the results might be meaningful to real people!
-- **Type 1 and 2 Error**
-    - Type 1 Error: rejecting a null when it's true.
-        - We reject if $p < \alpha$ because our p-value is "too unlikely" under the null. However, unlikely things still happen! 
-        - If $\alpha=0.05$, then we reject anything with a p-value less than 5%. However, things with a p-value of 5% still happen 5% of the time.
-        - P(Type 1 Error) = $\alpha$.
-            - In other words, we control P(Type 1 Error) when we choose a significance level.
-    - Type 2 Error: Fail to reject the null when it's false
-        - Even when the null is actually false, we may not have strong enough evidence to reject it.
-            - Better evidence comes from either a better study design or a larger sample size.
-        - **Power**: 1 - P(Type 2 Error), which is generally difficult to calculate.
-            - It is *not* $1-\alpha$.
-        - A study with low power might have p-values larger than $\alpha$, but the authors would not be able to say whether the null is false.
-- **Multiple Comparisons Problem**
-    - Suppose the null is true. We still have a 5% chance of rejecting a true null, and therefore a 95\% chance of correctly not rejecting it.
-    - If we have two nulls, both of which are true, then the probability that we correctly don't reject either is 0.95*0.95 = 0.9025. This means we have a 9.75% chance of rejecting at least one of them, even though they're both true.
-    - The multiple comparisons problem states that, when we check a lot of p-values, the Type 1 Error increases.
+### Standard Errors
+
+- Since our sample was random, we could have gotten different data. With different data, we'd get a different mean and sd. 
+- The standard error of the mean represents uncertainty around the mean. With more data, we are more certain about the value.
+    - Effects of outliers diminish, and the overall variation "averages out".
+    - The same thing happens to the sd, but it's not a normal distribution.
+- Be ready to explain how standard errors relate to various concepts.
+    - For example, could you explain why test statistics and p-values have a standard error (even though you don't know the formula for it)?
+
+### Assumption Checking
+
+- All of the methods we use require assumptions about the population.
+- There's always some sort of independence assumption, which can be satisfied by having a good sampling strategy.
+- There's usually either an assumption of normality, or some conditions for which the normal approximation applies.
+    - For means, we need a big enough sample for the Central Limit Theorem to apply ($n > 30$ or $n>60$ or something like that). This applies to all of the groups for t-tests and ANOVA.
+    - For proportions, we need some form of $np>10$ and $n(1-p)>10$ so that the normal approximation applies. Be careful whether you need the observed proportion, hypothesized proportion, or pooled proportion!
+    - For regression, we assume that the residuals are normal, and we can assess this with the QQ Plot. 
+- There are other assumptions that may be method-specific.
+    - For example, linear regression requires that the plot looks linear!
+- On the exam, there will be questions that ask you to interpret the results of a study. You **must** check the assumptions before making a conclusion, regardless of whether you're explicitly told to!
+    - In a job, your boss might just ask for the results, but they'll expect you to make sure the results are valid before sharing them!
+
+### Hypothesis Testing
+
+- Null and Alternative hypotheses: Convert the word problem into math.
+    - Null: Nothing is going on. Very often, this means $\mu = 0$ or $p = 0.5$ or $\mu_1 - \mu_0 = 0$. However, we could also test things like $p_1 - p_2 = 0.1$, i.e., whether $p_1$ is 10 percentage points higher than $p_2$. 
+    - Alternative: generally involves a $\ne$, $>$, or $<$. The wording of the statement will indicate whether it's a two sided ($\ne$), right-tailed ($>$), or left-tailed ($<$) p-value.
+- Set the significance level.
+    - This determines how "strong" the evidence must be in order for us to reject the null. $\alpha = 0.1$ means we'll accept weak evidence, whereas $\alpha = 0.001$ means we need to be very sure of our results before the null is rejected.
+- Test statistic: measures the distance between our observed data and the hypothesized value, *relative to the standard error*.
+    - Relies on the value from the null hypothesis, as well as the sample size!
+- p-value: **ASSUMING THE NULL HYPOTHESIS IS TRUE**, the p-value measures the probability of getting data at least as extreme as the data we got.
+    - "At least as extreme" = this far away from the null values or further. The direction is determined by the alternative hypothesis.
+    - A small p-value is strong evidence. If $p < \alpha$, we reject the null and claim that our result is "statistically significant". 
+    - A small p-value does *not* mean that there's a large difference in the observed and hypothesized! It's a large difference *relative to the standard error*, which decreases with better study designs and larger sample sizes. For example, a 0.01% increase in cancer risk is not something that a person really needs to worry about, but a large enough sample might find a statistically significant result!
+
+
+### Confidence Intervals
+
+- If we were to repeat the exact same study many, many times with new samples each time, $(1-\alpha)$\% of the intervals we create will contain the true population parameter. 
+- Generally, a CI has the form "point estimate $\pm$ critical value * standard error"
+    - Point estimate: the mean, for example.
+    - Critical value: the value from the relevant distribution that makes it a $(1-\alpha)$\% interval. Essentially, this controls the width of the interval so that the interval actually does contain the true parameter as often as we claim that it does.
+    - Standard error: see above.
+- A 95% CI is essentially the middle 95% of the **sampling distribution**, if it were centered on the observed sample mean. 
+    - In other words, we use the standard error to determine an interval that we hope covers the middle 95% of all possible mean values.
+- For a 95% CI, we want the middle 95%. This means we want 2.5% on either side, which is why we see $\alpha/2$ a lot when dealing with confidence intervals.
+
+### Conclusion in the context of the problem
+
+The beauty of stats is that it's rigorous math with applications to the real world - always remember that the data come from somewhere and the results might be meaningful to real people!
+
+### Type 1 and 2 Error
+
+- Type 1 Error: rejecting a null when it's true.
+    - We reject if $p < \alpha$ because our p-value is "too unlikely" under the null. However, unlikely things still happen! 
+    - If $\alpha=0.05$, then we reject anything with a p-value less than 5%. However, things with a p-value of 5% still happen 5% of the time.
+    - P(Type 1 Error) = $\alpha$.
+        - In other words, we control P(Type 1 Error) when we choose a significance level.
+- Type 2 Error: Fail to reject the null when it's false
+    - Even when the null is actually false, we may not have strong enough evidence to reject it.
+        - Better evidence comes from either a better study design or a larger sample size.
+    - **Power**: 1 - P(Type 2 Error), which is generally difficult to calculate.
+        - It is *not* $1-\alpha$.
+    - A study with low power might have p-values larger than $\alpha$, but the authors would not be able to say whether the null is false.
+
+### Multiple Comparisons Problem
+
+- Suppose the null is true. We still have a 5% chance of rejecting a true null, and therefore a 95\% chance of correctly not rejecting it.
+- If we have two nulls, both of which are true, then the probability that we correctly don't reject either is 0.95*0.95 = 0.9025. This means we have a 9.75% chance of rejecting at least one of them, even though they're both true.
+- The multiple comparisons problem states that, when we check a lot of p-values, the Type 1 Error increases.
 
 
 ## Means
@@ -470,6 +486,8 @@ I've provided the research questions and the code to calculate the p-value, as w
         - Also, did it matter which I used as the $y$ variable?
     - Identify any potentially influential outliers.
 
+### Relevant Plots
+
 ```{r}
 #| echo: false
 par(mfrow = c(2, 3))
@@ -490,6 +508,10 @@ plot(arm_lm, which = 2, main = "7. Dom. v. Non-Dom.")
 plot(arm_lm, which = 3, main = "7. Dom. v. Non-Dom.")
 plot(arm_lm, which = 5, main = "7. Dom. v. Non-Dom.")
 ```
+
+### Output of Code
+
+Try these youself, changing the alternative hypothesis and hypothesized values!
 
 ```{r}
 # 1. Are 50% of the people in this study female?
