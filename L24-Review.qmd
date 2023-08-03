@@ -438,8 +438,15 @@ In the famuss study, we focused on the `ndrm.ch`(non-dominant arm percent change
 Here are the other variables available in the data set:
 
 ```{r}
+#| eval: false
 #| echo: true
-# install.packages(oibiostat) # Need to run *once*, then the other code will run.
+# Only need to run these lines of code *once*!
+install.packages("devtools")
+devtools::install_github("OI-Biostat/oi_biostat_data")
+```
+
+```{r}
+#| echo: true
 library(oibiostat)
 
 data(famuss)
