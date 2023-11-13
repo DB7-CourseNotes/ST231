@@ -18,9 +18,9 @@ My definition: Statistics is the study of **variance** (or uncertainty).
     - 1 vs. 100 atoms in an apple? No.
 
 :::notes
-Many definitions of "statistics" are something along the lines of "methods for dealing with data". This completely misses out on theoretical statistics, and makes it seem like statistics is a collection of recipes stating "if you have this data, use this method". I think a better definition of statistics is that it's the study of variance, whether that means studying the theoretical properties of variance or trying to explain variance in a particular data set. 
+Many people think of "statistics" as something along the lines of "methods for dealing with data". This completely misses out on theoretical statistics, and makes it seem like statistics is a collection of recipes stating "if you have this data, use this method". I think a better definition of statistics is that it's the study of variance, whether that means studying the theoretical properties of variance or trying to "explain" variance^[We'll talk about what "explaining variance" means, along with exact ways to calculate it, in a later lecture.] in a particular data set. 
 
-I like to ask the question: "is 1 statistically different from 100". It may seem like they are obviously different numbers, but we can't know that without the context. If you're comparing numbers of apples, then yes, one apple is very different from 100 apples. However, if we're looking at numbers of of atoms per apple, then one and 100 are both imperceptible numbers of atoms and thus we might say they're practically the same. The difference in these two examples is the scale, and variance is a fantastic way to measure the scales of things. In my opinion, the main thing we will learn in this course is how to tell whether to numbers are different, *given the scale of those two numbers.* Another popular definition for statistics is "putting numbers in context", and by "in context" they mean "relative to their variance". 
+I like to ask the question: "is 1 statistically different from 100". It may seem like they are obviously different numbers, but we can't know that without the context. If you're comparing numbers of apples, then yes, one apple is very different from 100 apples. However, if we're looking at numbers of atoms per apple, then one and 100 are both imperceptible numbers of atoms and thus we might say the the two apples are basically the same size. The difference in these two examples is the scale, and the variance is a fantastic way to measure the scales of things. In my opinion, the main thing we will learn in this course is how to tell whether two numbers are different *given the scale of those two numbers.* Another popular definition for statistics is "putting numbers in context", and by "in context" they mean "relative to their variance". 
 
 In my lecture notes, I use **bold font** for anything that you will be expected to be able to explain or define. You won't necessarily see a full definition the first time you see a word in bold, but by the midterm/final it is something I expect you to know. A good way to study in this course is to keep a glossary of all of the words I've put in bold, with a definition file/note that you update as we learn more about that concept. And, of course, write a description as if you're teaching someone else!
 :::
@@ -30,15 +30,19 @@ In my lecture notes, I use **bold font** for anything that you will be expected 
 - Give context to different numbers.
     - The size of the difference depends on the context.
 - We need to know *how* and *why* we were wrong.
-    - *How*: What is the magnitude of the difference?
+    - *How*: What is the magnitude/direction of the difference?
     - *Why*: Are we missing relationships? Bad sampling? Fundamental randomness?
 
 Variance is information!
 
 :::notes
-Variance comes from many sources. We might just be doing something wrong and missing out on important feature of our data, we might be collecting the data in a biased or incorrect way, or there might be some fundamental part of the problem that we will never be able to measure perfectly, and so the variance that we calculated may already be the smallest possible variance for this problem. 
+Variance comes from many sources. We might just be doing something wrong and missing out on important feature of our data, we might be collecting the data in a biased or incorrect way, or there might be some fundamental part of the problem that we will never be able to measure perfectly, and so the variance that we calculated may actually be the smallest possible variance for this problem. 
 
-I like to say that variance is information. Suppose we're trying to figure out the heights of undergraduate students. We can calculate an average height, but it is entirely possible that nobody in our data set has a height that is exactly equally to the average height. We would want to quantify how much variation there is around that average height. If our sample includes a basketball team, then, this is variation due to some thing that we could have measured. In other words, the variation in our data can be explained by including another perspective. Once we have that perspective and we were included in our analysis are variance should be smaller, and therefore we have extracted more information. As we gain more information about our data, the variance in our estimate goes down - this is why I say that variance is information! Or, rather, variance is hiding information.
+Suppose we're trying to figure out the heights of undergraduate students. We can calculate the average height, but I don't expect anyone in the data to actually have this exact height. Exactly how far away from this average do we expect the other heights to be? The measurement of the expected distance to the mean is called the **variance**.[The **variance** is a measure of the "usual" distance to the mean - we'll have a formula for this later.]{.aside}
+
+If our sample consisted of people walking out of the gym, and out of 50 people sampled we had 20 people who were on the basketball team, we might know a little bit more about our variance. Specifically, we'll get some students who may or may not be representative of the population as well as some students who are unusually tall. These two groups are fundamentally different, so including both in the same sample will increase our variance. Put another way, the different groups in our data **explain some of the variance** in our data.[Different subgroups within a sample can help **explain** why the variance is as large as it is.]{.aside}
+
+This is why I say that the variance is information! More specifically, the difference between a single value and the mean of the data is due to some unexplained phenomena, and learning more about the problem will reduce the variance.
 :::
 
 ### Descriptive Versus Inferential Statistics
@@ -52,11 +56,11 @@ I like to say that variance is information. Suppose we're trying to figure out t
         - **how different**
 
 ::: notes
-In this course, we will learn about two classes of statistics. Descriptive statistics are the ones that we used to describe the sample that we obtained. This can include things like the mean/median/mode, the variance or the interquartile range, as well as bar charts, histograms box, plots, etc.
+In this course, we will learn about two classes of statistics. **Descriptive statistics** are the ones that we used to describe the sample that we obtained. This can include things like the mean/median/mode, the variance or the interquartile range, as well as bar charts, histograms box, plots, etc. [**Descriptive Statistics** describe the data that were acquired.]{.aside}
 
-Inferential statistics are numbers that we calculate because we think have a relationship to the population. For instance, if we calculate the mean of our data, and we trust that our sample is good, then we expect this sample mean to be somewhat close to the population mean. Any time in this course I talk about the difference between two things, I will always mean "with reference to a measure of variance". In this example, we have a sample mean as well as some measure of its variance, and this variance tells us how similar we expect the sample mean to be to the population mean. If we have a small sample variance, it means that we have a lot of information about the population mean. Variance contains information that we haven't learned yet!^[It is worth noting that there is also variance that isn't information, and there's information that we'll never have access to. Variance is an opportunity to learn, but there's almost always a limit to how much we can learn.]
+**Inferential statistics** are numbers that we calculate because we think they have a relationship to the population. For instance, if we calculate the mean of our data and we trust that our sample is good, then we expect this sample mean to be somewhat close to the population mean. Any time in this course I talk about the difference between two things, I will always mean "with reference to a measure of variance". In this example, we have a sample mean as well as some measure of its variance, and this variance tells us how similar we expect the sample mean to be to the population mean. If we have a small sample variance, it means that we have a lot of information about the population mean. Variance contains information that we haven't learned yet!^[It is worth noting that there is also variance that isn't information, and there's information that we'll never have access to. Variance is an opportunity to learn, but there's almost always a limit to how much we can learn.][**Inferential Statistics** attempt to describe the population based on the data acquired. This requires a *good* sample, and it's why Statistics is such a useful field of study.]{.aside}
 
-In this course, we're going to start by talking about descriptive statistics and work our way to inferential statistics. 
+In this course, we're going to start by talking about descriptive statistics and work our way to inferential statistics (with a detour through probability to show why inferential statistics work so well). 
 ::: 
 
 ## Descriptive Statistics: Plots and Graphs
@@ -75,7 +79,10 @@ head(as.data.frame(penguins))
 - Sex can be male or female^[A note on gender/sexuality/biology: penguins, especially Chinstrap and Gentoo penguins, don't have particularly strong gender roles, and [often form same-sex couples](https://sites.tufts.edu/museumstudents/2021/02/22/whats-with-all-the-gay-penguins/). In this course, I will use the term "sex" to mean "biosex", rather than "gender", to indicate that we're looking at morphological differences due to XX and XY chromosomes.]
 - Bill Length is measured in millimetres
 - Body Mass is measured in grams
-- Not shown: Island (one of three), bill depth (mm), flipper length (mm), year. 
+- Island (one of three)
+- Bill depth (mm)
+- Flipper length (mm)
+- Year that the penguin was observed.
 
 
 These data are really nice for teaching statistics because we can look at what factors contribute to body mass (since it's easier to measure the length of a beak than it is to weigh a live penguin), or we can try to determine biosex using these measurements (since penguins normally have no external genitalia, but have other morphological differences). We can also fit a model to determine the species of each penguin so that we can get a full picture of what makes each species unique! All of these are examples of statistical analyses that we will cover in this course.
@@ -83,16 +90,12 @@ These data are really nice for teaching statistics because we can look at what f
 
 ### Types of Variables
 
-:::: {.columns}
-::: {.column width="50%"}
 ```{r}
 penguins[, c("species", "sex", "body_mass_g")] |>
     head() |>
     knitr::kable()
 ```
 
-:::
-::: {.column width="50%"}
 - Species is **categorical**
     - Mutually exclusive categories.
 - Sex is **binary**^[Possibly categorical if there are any penguins with chromosomal abnormalities.]
@@ -100,21 +103,20 @@ penguins[, c("species", "sex", "body_mass_g")] |>
     - Special case of categorical with 2 possibilities
 - Body mass is **quantitative**
     - It's a number (quantity)
-:::
-::::
+
 
 :::notes
 The type of variable is extremely important for choosing the right summary of the data. 
 
-**Categorical variables** consist of two or more mutually exclusive categories, that is, each observation has a label and nothing has more than one label. Categorical variables may be **ordered** (such as "low", "medium", and "high") or **unordered** (such as names or student numbers; putting names in alphabetical order is not usually meaningful for summarising the data or doing the analysis).
+**Categorical variables** consist of two or more mutually exclusive categories, that is, each observation has a label and nothing has more than one label. Categorical variables may be **ordered** (such as "low", "medium", and "high") or **unordered** (such as names or student numbers; putting names in alphabetical order is not usually meaningful for summarising the data or doing the analysis).[**Categorical variables** are categories. Be careful - some categories are *encoded* as numbers, such as "group 1" and "group 2", etc.]{.aside}
 
-This distinction of "**ordered**" versus "**unordered**" matters to determine what visualization or model you might want to use to compare data within categories. For instance, we might want to see the change in response to a "low" treatment compared to a "medium" or "high" treatment, where we fully expect the response to the treatment to be lower for "low" treatment and higher for "high". In contrast, suppose we knew the patients' occupations. We have no expectation that the treatment reponse in the "electrician" group is lower or higher than any other group, because there's no logical ordering to occupation.^[We may, however, know that factory workers have more exposure to a pathogen than those who work from home, but we would likely want to measure this directly rather than measuring it by proxy with occupation.]
+This distinction of "**ordered**" versus "**unordered**" matters to determine what visualization or model you might want to use to compare data within categories. For instance, we might want to see the change in response to a "low" treatment compared to a "medium" or "high" treatment, where we fully expect the response to the treatment to be lower for "low" treatment and higher for "high". In contrast, suppose we knew the patients' occupations. We have no expectation that the treatment reponse in the "electrician" group is lower or higher than any other group, because there's no logical ordering to occupation.^[We may, however, know that factory workers have more exposure to a pathogen than those who work from home, but we would likely want to measure this directly rather than measuring it by proxy with occupation.][**Ordered** and **unordered** categorical variables.]{.aside}
 
-**Binary variables** are a special case of **categorical variables**, which only have two categories. In this case, the ordering is rarely important, and thus we don't really make the distinction between ordered binary and unordered binary. It's a single difference either way, so we can just look at the differences within the categories.^[We often encode on of the categories as 0 and the other as 1, but this is usually either clear (0 = no treatment, 1 = treatment) or completely arbitrary (0 = femala, 1 = male) and this arbitrariness is acknowledged. Neither of these cases affect the way we make plots or run analyses that are based on binary variables.]
+**Binary variables** are a special case of **categorical variables**, which only have two categories. In this case, the ordering is rarely important, and thus we don't really make the distinction between ordered binary and unordered binary. It's a single difference either way, so we can just look at the differences within the categories.^[We often encode on of the categories as 0 and the other as 1, but this is usually either clear (0 = no treatment, 1 = treatment) or completely arbitrary (0 = femala, 1 = male) and this arbitrariness is acknowledged. Neither of these cases affect the way we make plots or run analyses that are based on binary variables.][**Binary** variables.]{.aside}
 
-**Quantitative variables** are those that are measured with numbers. Unlike "low" to "medium" versus "medium" to "high", we know how big a step it is from 0 to 1 and then 1 to 2. Unlike categorical variables, quantitative variables have a concept of "in-between"; we have nothing between "medium" and "high", but there are infinite numbers between 1 and 2.
+**Quantitative variables** are those that are measured with numbers. Unlike "low" to "medium" versus "medium" to "high", we know how big a step it is from 0 to 1 and then 1 to 2. Unlike categorical variables, quantitative variables have a concept of "in-between"; we have nothing between "medium" and "high", but there are infinite numbers between 1 and 2.[**Quantitative variables** are numbers.]{.aside}
 
-There are, however, cases where there *aren't* possible measurements between 1 and 2. These are called "**discrete**"^[Not discreet.] For instance, the number of children that some has is either 0, 1, 2, etc. **Discrete** variables are somewhere in between categorical and **continuous variables** (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would *not* want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.^[There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.] 
+There are, however, cases where there *aren't* possible measurements between 1 and 2. These are called "**discrete**"^[Not discreet.] For instance, the number of children that some has is either 0, 1, 2, etc. **Discrete** variables are somewhere in between categorical and **continuous variables** (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would *not* want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.^[There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.][**Discrete** variables only allow for some numbers, such as the numbers of children per family.]{.aside} [**Continuous** variables can take any value in a range. If there you look at any two possible numbers, then there's another possible number in between them.]{.aside}
 
 The distinction between categorical and quantitative isn't always this obvious, but can be very helpful for choosing the right kind of plot or numerical summary.
 :::
@@ -153,6 +155,7 @@ Monthly measurements of CO$_2$ - the months are the individuals?
 
 - Spousal pairs - the pairs are the individuals?
 - Before/after (e.g., weight loss) - people are individuals.
+    - This is the same idea as spousal pairs!
 :::
 
 :::notes
