@@ -1,7 +1,7 @@
 ---
 title: "Picturing Distributions with Graphs"
 institute: "Jam: *Penguins* by Lyle Lovett"
-date: "May 8, 2023"
+date: "Nov 13, 2023"
 execute:
     code-fold: true
 ---
@@ -138,16 +138,14 @@ There are a couple gray areas when talking about variable types. The distinction
 
 ### Individuals (Subjects)
 
-**Individual:** the unit of study.
-
-In the Palmer Penguins data set, a penguin is an individual.
+An individual is the thing we are making measurements on. For example, in the Palmer Penguins data set, a penguin is an individual and we measure their flipper length, bill length, the island they were observed on, etc. In other data sets, we may measure the GDP of countries (countries are the individuals) or the cuteness of dogs.[**Individual:** the unit of study. We make measurements on individuals]{.aside}
 
 
 
 ::: {.callout-warning}
 ### CO$_2$ Measurements
 
-Monthly measurements of CO$_2$ - the months are the individuals?
+If we measure the C0$_2$ at a given location each month, then do the months count as the individuals? This describes *time series* data, which we won't cover in this course. However, visualizations of data that are measured over time can reveal a lot of information!^[Of course, by "information", I mean variance. If we don't know the date that an observation was observed, we just have a collection of different numbers. If we see that there's a pattern over time, we know a little more about why each number is different from the others!]
 :::
 
 ::: {.callout-warning}
@@ -188,7 +186,6 @@ mtcars[1:6, 1:5]
 - The wedges must sum to 1.
     - If "Adelie" makes up 44% of the data, it should be 44% of the pie chart.
     - All penguins are either Adelie, Gentoo, or Chinstrap; no penguins have more than one species.
-        - In contrast, 
 - Mainly good for *emphasizing* one wedge
     - *Emphasizing* can easily mean *misrepresenting*, whether accidentally or on purpose!
 
@@ -232,11 +229,11 @@ Bar charts are primarily used to compare categories. The most common use of a ba
 
 The code required to create the bar chart can be shown by clicking the ">Code" icon. The data set is built into our so we don't need to load anything to put this data. We do need to load in the `ggplot` library, though. In my lecture notes, you'll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here's a quick breakdown of the functions I used:
 
-- The ggplot function tells R what data we will be using.
+- The `ggplot()` function tells R what data we will be using.
 - The `aes()` function sets up the plot "aesthetics", such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points, etc.
 - `geom_bar()` actually draws the bar plot using the data set that `ggplot()` set up and the aesthetics, that `aes()` set up.
     - Try running the code without this line and see what happens!^[It will still create a plot with the correct x and y axes, but won't draw the bars.]
-- The `labs()` function simply adds `lab`els to the plot to make it look nicer.
+- The `labs()` function simply adds `lab`el`s` to the plot to make it look nicer.
 
 
 **Exercises**
@@ -276,6 +273,7 @@ d. What can you conclude from these findings?
 Whether the categorical variable is ordered or unordered affects the way we make the plot:
 
 - Ordered: put the bars in order
+    - For example, if we have data from 2020, 2021, and 2022, then we would have the bars in that order!
 - Unordered: put it in an arbitrary order
     - Alternative: order according to largest to smallest.
 
@@ -321,7 +319,7 @@ What type of variable is "dose level", defined as either no dose, half dose, or 
 :::notes
 Quantitative variables are split into discrete and continuous variables. Discrete variables are generally represented by whole numbers, for example, the number of students in a given classroom. 
 
-In contrast, continuous numbers could be anything! I like to think of them as numbers that could've been measured with more precision if we had better tools. For example, peoples Heights could be measured to infinite precision if we had perfect tools, whereas we don't need better tools to measure the number of children and family more precisely.
+In contrast, continuous numbers could be anything! I like to think of them as numbers that could've been measured with more precision if we had better tools. For example, peoples Heights could be measured to infinite precision if we had perfect tools, whereas we don't need better tools to measure the number of children in a family more precisely.
 
 Of course, as with all things, there is a gray area here. Many studies will choose to give their subjects either no dose, a half dose or a full dose. These are obviously numbers and it is very likely that the response for a 0.75 dose is somewhere in between the half dose and the full dose. However, we chose these numbers and thus there are only three possible numbers. No amount of measuring is going to give us something other than a half dose (any deviation in administration of the dose can hopefully be ignored for the purpose of the study). In the definitions we've used it is neither a whole number, nor cannot be measured with higher precision. For the purposes of visualization, we might actually want to use a bar chart as if this were a categorical variable. If the dose had more categories and we expected the response to have a smooth trend across different dose levels, then we might use visualizations meant for discrete data. If the dose could have been any number between zero and one then we might use visualization meant for continuous data.
 
@@ -339,8 +337,9 @@ Here are the lengths of sharks:
 17.6 17.8 17.8 18.2 18.3 18.6 18.7 18.7 19.1 19.7 22.8
 ```
 
-- We could have measured more precisely!
+- Even though we only know the data to one decimal point, we could have measured more precisely!
     - This is a continuous variable.
+    - Note that there are ties in these data, and thus we could make bar charts with bars that are more than one unit tall. However, if we measured more precisely, these ties would go away.
 - Can't just draw a bar chart with all sharks that were 9.4, all that were 12.1, ...
 
 :::notes
