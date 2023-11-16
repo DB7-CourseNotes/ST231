@@ -161,14 +161,14 @@ All of the variables we just talked about are measured on individuals. That is t
 
 There are some gray areas to this as well, though. For example, if we're measuring carbon dioxide every month, then we're actually measuring carbon dioxide as the variable and months as the individuals, and we can measure other things on those individuals if needed. 
 
-We will also encounter pared observations in this course, which are measurements on two things at once. For example, we might be looking at spousal pairs, perhaps measuring the difference in height per pair. The variable we are measuring is the *difference*, and so we only have one observation per individual, which means that the individuals must be the pairs of people. A slightly more obvious example is something like a weight loss study were observing a change in weight for a certain person, even though we have two observations the individual is still the person who we're measuring.
+We will also encounter **paired observations** in this course, which are measurements on two things at once. For example, we might be looking at spousal pairs, perhaps measuring the difference in height per pair. The variable we are measuring is the *difference*, and so we only have one observation per individual, which means that the individuals must be the pairs of people. A slightly more obvious example is something like a weight loss study were observing a change in weight for a certain person, even though we have two observations the individual is still the person who we're measuring.[**Paired Observations**: a special type of data where the difference (subtraction) of two values is what we are studying.]{.aside}
 :::
 
 ### Example: What are the Individuals? What are Variables?
 
 ```{r}
 #| echo: true
-mtcars[1:6, 1:5]
+mtcars[1:6, c("wt", "mpg", "cyl", "am")]
 ```
 
 :::notes
@@ -217,7 +217,21 @@ ggplot(mtcars) +
         y = "Count")
 ```
 
-Compare this to the output of `table(mtcars$am)`:
+The code required to create the bar chart can be shown by clicking the ">Code" icon. 
+
+<details>
+<summary>**Code Explanation**</summary>
+
+The data set is built into our so we don't need to load anything to put this data. We do need to load in the `ggplot` library, though. In my lecture notes, you'll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here's a quick breakdown of the functions I used:
+
+- The `ggplot()` function tells R what data we will be using.
+- The `aes()` function sets up the plot "aesthetics", such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points, etc.
+- `geom_bar()` actually draws the bar plot using the data set that `ggplot()` set up and the aesthetics, that `aes()` set up.
+    - Try running the code without this line and see what happens!^[It will still create a plot with the correct x and y axes, but won't draw the bars.]
+- The `labs()` function simply adds `lab`el`s` to the plot to make it look nicer.
+</details>
+
+Compare this to the following table:
 
 ```{r}
 #| code-fold: false
@@ -225,20 +239,74 @@ table(mtcars$am)
 ```
 
 :::notes
-Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 22 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it's easy to compare these two categories.
-
-The code required to create the bar chart can be shown by clicking the ">Code" icon. The data set is built into our so we don't need to load anything to put this data. We do need to load in the `ggplot` library, though. In my lecture notes, you'll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here's a quick breakdown of the functions I used:
-
-- The `ggplot()` function tells R what data we will be using.
-- The `aes()` function sets up the plot "aesthetics", such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points, etc.
-- `geom_bar()` actually draws the bar plot using the data set that `ggplot()` set up and the aesthetics, that `aes()` set up.
-    - Try running the code without this line and see what happens!^[It will still create a plot with the correct x and y axes, but won't draw the bars.]
-- The `labs()` function simply adds `lab`el`s` to the plot to make it look nicer.
+Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 19 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it's easy to compare these two categories.
 
 
 **Exercises**
 
-The following exercises are based on the exercises in Chapter 1 of Baldi \& Moore, 4th ed.
+The following exercises are based on the exercises in the (optional) OpenIntro biostats textbook. They are based on the **F**unctional polymorphisms **A**ssociated with human **Mu**scle **S**ize and **S**trength, or `famuss`, data set.^[The "FAMUSS" acronym is a bit of a stretch, but just go with it.]
+
+The data are available in the `oibiostat` pacjage in R, which is a package based on the OpenIntro Biostat textbook. Don't worry if you don't know what any of that means - it's not important for this portion of the course.
+
+```{r}
+library(oibiostat)
+data(famuss)
+head(famuss)
+```
+
+The columns are a little difficult to understand, so here's a brief overview.
+
+| variable | description |
+|----------|-------------|
+| `sex` | Biological sex of the patient |
+| `age` | Age (years) |
+| `race` | Self-reported race |
+| `height` | Subject's height in inches |
+| `weight` | Subject's weight in pounds |
+| `bmi` | Subject's body mass index (weight divided by height$^2$) |
+| `actn3.r577x` | I think it's obvious what this column is |
+| `drm.ch` | Again, this is obvious. |
+| `ndrm.ch` | No need to explain this one. |
+
+Okay, so some of the columns need some explaining. The study was interested in whether a particular genotype affected the ability of subjects to build muscle. The genotype is at the genome position r557x in the ACTN3 gene, which is a fancy way of saying that the `actn3.r577x` tells us something about the subject's genetic code. The genotype can be either `TT`, `TC`, `CT`, or `CC`, and the researchers believed that these genes determine how easily people build muscle. 
+
+The way the study was carried out is as follows. The researchers asked each subject to perform a test of strength using each arm. Subjects were then asked to follow a muscle strengthening exercise, but *only* on their non-dominant side (if they're right handed, they were asked to strengthen their left arm). After the strengthening, they repeated the test of strength. The columns labelled `drm.ch` and `ndrm.ch` are the percentage change in their strength for their dominant arm and their non-dominant arm (the dominant arm was measured to see whether the patients gained or lost strength for reasons other than the prescribed strength training exercise). 
+
+1. Based on the R output, what type of variable is each column?
+2. Which of the following plots would be appropriate for the `bmi` column?
+
+<details>
+<summary>**Bar chart**</summary>
+
+What do you think? Does the plot below give you any useful information about the data?
+
+```{r}
+#| echo: false
+ggplot(famuss) +
+    aes(x = factor(bmi)) +
+    geom_bar()
+```
+</details>
+
+<details>
+<summary>**Pie Chart**</summary>
+No. I'm not even going to try in this case.
+</details>
+
+<details>
+<summary>**Histogram**</summary>
+
+Correct! The plot below tells us where most of the subjects' BMI lie. We can see that most of the subjects are between 15 and 30, with a few between 30 and 35 and few above 35.
+
+This is the whole reason we categorize variables as quantitative or categorical: knowing the type of the variable tells us which plots will give us useful information!
+
+```{r}
+#| echo: false
+ggplot(famuss) +
+    aes(x = bmi) +
+    geom_histogram(bins = 30, colour = "black", fill = "lightgrey")
+```
+</details>
 
 1. Children’s food choices. Does the presence of popular cartoon characters on food packages influence children’s food choices? A study asked 40 young children (ages four to six) to taste two small pieces of Graham Crackers coming from a package with and a package without a popular cartoon character, and to indicate whether the two foods tasted the same or one tasted better. Unknown to the children, the crackers were the same both times. Here are the findings:
 

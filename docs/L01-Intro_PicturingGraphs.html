@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-05-08">
+<meta name="dcterms.date" content="2023-11-13">
 
 <title>Statistics for Life Sciences - 1&nbsp; Picturing Distributions with Graphs</title>
 <style>
@@ -104,7 +104,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -350,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-05-08</p>
+      <p class="date">2023-11-13</p>
     </div>
   </div>
   
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="1.1">
+<section id="introduction" class="level2 page-columns page-full" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1.1</span> Introduction</h2>
 <section id="defining-statistics" class="level3">
 <h3 class="anchored" data-anchor-id="defining-statistics">Defining “Statistics”</h3>
@@ -401,12 +401,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul>
 <div class="notes">
-<p>Many definitions of “statistics” are something along the lines of “methods for dealing with data”. This completely misses out on theoretical statistics, and makes it seem like statistics is a collection of recipes stating “if you have this data, use this method”. I think a better definition of statistics is that it’s the study of variance, whether that means studying the theoretical properties of variance or trying to explain variance in a particular data set.</p>
-<p>I like to ask the question: “is 1 statistically different from 100”. It may seem like they are obviously different numbers, but we can’t know that without the context. If you’re comparing numbers of apples, then yes, one apple is very different from 100 apples. However, if we’re looking at numbers of of atoms per apple, then one and 100 are both imperceptible numbers of atoms and thus we might say they’re practically the same. The difference in these two examples is the scale, and variance is a fantastic way to measure the scales of things. In my opinion, the main thing we will learn in this course is how to tell whether to numbers are different, <em>given the scale of those two numbers.</em> Another popular definition for statistics is “putting numbers in context”, and by “in context” they mean “relative to their variance”.</p>
+<p>Many people think of “statistics” as something along the lines of “methods for dealing with data”. This completely misses out on theoretical statistics, and makes it seem like statistics is a collection of recipes stating “if you have this data, use this method”. I think a better definition of statistics is that it’s the study of variance, whether that means studying the theoretical properties of variance or trying to “explain” variance<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> in a particular data set.</p>
+<p>I like to ask the question: “is 1 statistically different from 100”. It may seem like they are obviously different numbers, but we can’t know that without the context. If you’re comparing numbers of apples, then yes, one apple is very different from 100 apples. However, if we’re looking at numbers of atoms per apple, then one and 100 are both imperceptible numbers of atoms and thus we might say the the two apples are basically the same size. The difference in these two examples is the scale, and the variance is a fantastic way to measure the scales of things. In my opinion, the main thing we will learn in this course is how to tell whether two numbers are different <em>given the scale of those two numbers.</em> Another popular definition for statistics is “putting numbers in context”, and by “in context” they mean “relative to their variance”.</p>
 <p>In my lecture notes, I use <strong>bold font</strong> for anything that you will be expected to be able to explain or define. You won’t necessarily see a full definition the first time you see a word in bold, but by the midterm/final it is something I expect you to know. A good way to study in this course is to keep a glossary of all of the words I’ve put in bold, with a definition file/note that you update as we learn more about that concept. And, of course, write a description as if you’re teaching someone else!</p>
 </div>
 </section>
-<section id="why-study-variance" class="level3">
+<section id="why-study-variance" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="why-study-variance">Why study variance?</h3>
 <ul>
 <li>Give context to different numbers.
@@ -415,17 +415,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>We need to know <em>how</em> and <em>why</em> we were wrong.
 <ul>
-<li><em>How</em>: What is the magnitude of the difference?</li>
+<li><em>How</em>: What is the magnitude/direction of the difference?</li>
 <li><em>Why</em>: Are we missing relationships? Bad sampling? Fundamental randomness?</li>
 </ul></li>
 </ul>
 <p>Variance is information!</p>
-<div class="notes">
-<p>Variance comes from many sources. We might just be doing something wrong and missing out on important feature of our data, we might be collecting the data in a biased or incorrect way, or there might be some fundamental part of the problem that we will never be able to measure perfectly, and so the variance that we calculated may already be the smallest possible variance for this problem.</p>
-<p>I like to say that variance is information. Suppose we’re trying to figure out the heights of undergraduate students. We can calculate an average height, but it is entirely possible that nobody in our data set has a height that is exactly equally to the average height. We would want to quantify how much variation there is around that average height. If our sample includes a basketball team, then, this is variation due to some thing that we could have measured. In other words, the variation in our data can be explained by including another perspective. Once we have that perspective and we were included in our analysis are variance should be smaller, and therefore we have extracted more information. As we gain more information about our data, the variance in our estimate goes down - this is why I say that variance is information! Or, rather, variance is hiding information.</p>
+<div class="notes page-columns page-full">
+<p>Variance comes from many sources. We might just be doing something wrong and missing out on important feature of our data, we might be collecting the data in a biased or incorrect way, or there might be some fundamental part of the problem that we will never be able to measure perfectly, and so the variance that we calculated may actually be the smallest possible variance for this problem.</p>
+<div class="page-columns page-full"><p>Suppose we’re trying to figure out the heights of undergraduate students. We can calculate the average height, but I don’t expect anyone in the data to actually have this exact height. Exactly how far away from this average do we expect the other heights to be? The measurement of the expected distance to the mean is called the <strong>variance</strong>.</p><div class="no-row-height column-margin column-container"><span class="">The <strong>variance</strong> is a measure of the “usual” distance to the mean - we’ll have a formula for this later.</span></div></div>
+<div class="page-columns page-full"><p>If our sample consisted of people walking out of the gym, and out of 50 people sampled we had 20 people who were on the basketball team, we might know a little bit more about our variance. Specifically, we’ll get some students who may or may not be representative of the population as well as some students who are unusually tall. These two groups are fundamentally different, so including both in the same sample will increase our variance. Put another way, the different groups in our data <strong>explain some of the variance</strong> in our data.</p><div class="no-row-height column-margin column-container"><span class="">Different subgroups within a sample can help <strong>explain</strong> why the variance is as large as it is.</span></div></div>
+<p>This is why I say that the variance is information! More specifically, the difference between a single value and the mean of the data is due to some unexplained phenomena, and learning more about the problem will reduce the variance.</p>
 </div>
 </section>
-<section id="descriptive-versus-inferential-statistics" class="level3">
+<section id="descriptive-versus-inferential-statistics" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="descriptive-versus-inferential-statistics">Descriptive Versus Inferential Statistics</h3>
 <ul>
 <li><strong>Descriptive statistics</strong> are used to explore the data.
@@ -442,14 +444,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 </ul></li>
 </ul>
-<div class="notes">
-<p>In this course, we will learn about two classes of statistics. Descriptive statistics are the ones that we used to describe the sample that we obtained. This can include things like the mean/median/mode, the variance or the interquartile range, as well as bar charts, histograms box, plots, etc.</p>
-<p>Inferential statistics are numbers that we calculate because we think have a relationship to the population. For instance, if we calculate the mean of our data, and we trust that our sample is good, then we expect this sample mean to be somewhat close to the population mean. Any time in this course I talk about the difference between two things, I will always mean “with reference to a measure of variance”. In this example, we have a sample mean as well as some measure of its variance, and this variance tells us how similar we expect the sample mean to be to the population mean. If we have a small sample variance, it means that we have a lot of information about the population mean. Variance contains information that we haven’t learned yet!<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>In this course, we’re going to start by talking about descriptive statistics and work our way to inferential statistics.</p>
+<div class="notes page-columns page-full">
+<div class="page-columns page-full"><p>In this course, we will learn about two classes of statistics. <strong>Descriptive statistics</strong> are the ones that we used to describe the sample that we obtained. This can include things like the mean/median/mode, the variance or the interquartile range, as well as bar charts, histograms box, plots, etc. </p><div class="no-row-height column-margin column-container"><span class=""><strong>Descriptive Statistics</strong> describe the data that were acquired.</span></div></div>
+<div class="page-columns page-full"><p><strong>Inferential statistics</strong> are numbers that we calculate because we think they have a relationship to the population. For instance, if we calculate the mean of our data and we trust that our sample is good, then we expect this sample mean to be somewhat close to the population mean. Any time in this course I talk about the difference between two things, I will always mean “with reference to a measure of variance”. In this example, we have a sample mean as well as some measure of its variance, and this variance tells us how similar we expect the sample mean to be to the population mean. If we have a small sample variance, it means that we have a lot of information about the population mean. Variance contains information that we haven’t learned yet!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p><div class="no-row-height column-margin column-container"><span class=""><strong>Inferential Statistics</strong> attempt to describe the population based on the data acquired. This requires a <em>good</em> sample, and it’s why Statistics is such a useful field of study.</span></div></div>
+<p>In this course, we’re going to start by talking about descriptive statistics and work our way to inferential statistics (with a detour through probability to show why inferential statistics work so well).</p>
 </div>
 </section>
 </section>
-<section id="descriptive-statistics-plots-and-graphs" class="level2" data-number="1.2">
+<section id="descriptive-statistics-plots-and-graphs" class="level2 page-columns page-full" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="descriptive-statistics-plots-and-graphs"><span class="header-section-number">1.2</span> Descriptive Statistics: Plots and Graphs</h2>
 <section id="the-palmer-penguins-data" class="level3">
 <h3 class="anchored" data-anchor-id="the-palmer-penguins-data">The Palmer Penguins Data</h3>
@@ -476,17 +478,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <ul>
 <li>Species can be Adelie, Gentoo, or Chinstrap</li>
-<li>Sex can be male or female<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>Sex can be male or female<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
 <li>Bill Length is measured in millimetres</li>
 <li>Body Mass is measured in grams</li>
-<li>Not shown: Island (one of three), bill depth (mm), flipper length (mm), year.</li>
+<li>Island (one of three)</li>
+<li>Bill depth (mm)</li>
+<li>Flipper length (mm)</li>
+<li>Year that the penguin was observed.</li>
 </ul>
 <p>These data are really nice for teaching statistics because we can look at what factors contribute to body mass (since it’s easier to measure the length of a beak than it is to weigh a live penguin), or we can try to determine biosex using these measurements (since penguins normally have no external genitalia, but have other morphological differences). We can also fit a model to determine the species of each penguin so that we can get a full picture of what makes each species unique! All of these are examples of statistical analyses that we will cover in this course.</p>
 </section>
-<section id="types-of-variables" class="level3">
+<section id="types-of-variables" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="types-of-variables">Types of Variables</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins[, <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"body_mass_g"</span>)] <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>() <span class="sc">|&gt;</span></span>
@@ -535,13 +538,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
 <ul>
 <li>Species is <strong>categorical</strong>
 <ul>
 <li>Mutually exclusive categories.</li>
 </ul></li>
-<li>Sex is <strong>binary</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>
+<li>Sex is <strong>binary</strong><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>
 <ul>
 <li>One or the other</li>
 <li>Special case of categorical with 2 possibilities</li>
@@ -551,15 +553,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It’s a number (quantity)</li>
 </ul></li>
 </ul>
-</div>
-</div>
-<div class="notes">
+<div class="notes page-columns page-full">
 <p>The type of variable is extremely important for choosing the right summary of the data.</p>
-<p><strong>Categorical variables</strong> consist of two or more mutually exclusive categories, that is, each observation has a label and nothing has more than one label. Categorical variables may be <strong>ordered</strong> (such as “low”, “medium”, and “high”) or <strong>unordered</strong> (such as names or student numbers; putting names in alphabetical order is not usually meaningful for summarising the data or doing the analysis).</p>
-<p>This distinction of “<strong>ordered</strong>” versus “<strong>unordered</strong>” matters to determine what visualization or model you might want to use to compare data within categories. For instance, we might want to see the change in response to a “low” treatment compared to a “medium” or “high” treatment, where we fully expect the response to the treatment to be lower for “low” treatment and higher for “high”. In contrast, suppose we knew the patients’ occupations. We have no expectation that the treatment reponse in the “electrician” group is lower or higher than any other group, because there’s no logical ordering to occupation.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
-<p><strong>Binary variables</strong> are a special case of <strong>categorical variables</strong>, which only have two categories. In this case, the ordering is rarely important, and thus we don’t really make the distinction between ordered binary and unordered binary. It’s a single difference either way, so we can just look at the differences within the categories.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<p><strong>Quantitative variables</strong> are those that are measured with numbers. Unlike “low” to “medium” versus “medium” to “high”, we know how big a step it is from 0 to 1 and then 1 to 2. Unlike categorical variables, quantitative variables have a concept of “in-between”; we have nothing between “medium” and “high”, but there are infinite numbers between 1 and 2.</p>
-<p>There are, however, cases where there <em>aren’t</em> possible measurements between 1 and 2. These are called “<strong>discrete</strong>”<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> For instance, the number of children that some has is either 0, 1, 2, etc. <strong>Discrete</strong> variables are somewhere in between categorical and <strong>continuous variables</strong> (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would <em>not</em> want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<div class="page-columns page-full"><p><strong>Categorical variables</strong> consist of two or more mutually exclusive categories, that is, each observation has a label and nothing has more than one label. Categorical variables may be <strong>ordered</strong> (such as “low”, “medium”, and “high”) or <strong>unordered</strong> (such as names or student numbers; putting names in alphabetical order is not usually meaningful for summarising the data or doing the analysis).</p><div class="no-row-height column-margin column-container"><span class=""><strong>Categorical variables</strong> are categories. Be careful - some categories are <em>encoded</em> as numbers, such as “group 1” and “group 2”, etc.</span></div></div>
+<div class="page-columns page-full"><p>This distinction of “<strong>ordered</strong>” versus “<strong>unordered</strong>” matters to determine what visualization or model you might want to use to compare data within categories. For instance, we might want to see the change in response to a “low” treatment compared to a “medium” or “high” treatment, where we fully expect the response to the treatment to be lower for “low” treatment and higher for “high”. In contrast, suppose we knew the patients’ occupations. We have no expectation that the treatment reponse in the “electrician” group is lower or higher than any other group, because there’s no logical ordering to occupation.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p><div class="no-row-height column-margin column-container"><span class=""><strong>Ordered</strong> and <strong>unordered</strong> categorical variables.</span></div></div>
+<div class="page-columns page-full"><p><strong>Binary variables</strong> are a special case of <strong>categorical variables</strong>, which only have two categories. In this case, the ordering is rarely important, and thus we don’t really make the distinction between ordered binary and unordered binary. It’s a single difference either way, so we can just look at the differences within the categories.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p><div class="no-row-height column-margin column-container"><span class=""><strong>Binary</strong> variables.</span></div></div>
+<div class="page-columns page-full"><p><strong>Quantitative variables</strong> are those that are measured with numbers. Unlike “low” to “medium” versus “medium” to “high”, we know how big a step it is from 0 to 1 and then 1 to 2. Unlike categorical variables, quantitative variables have a concept of “in-between”; we have nothing between “medium” and “high”, but there are infinite numbers between 1 and 2.</p><div class="no-row-height column-margin column-container"><span class=""><strong>Quantitative variables</strong> are numbers.</span></div></div>
+<div class="page-columns page-full"><p>There are, however, cases where there <em>aren’t</em> possible measurements between 1 and 2. These are called “<strong>discrete</strong>”<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> For instance, the number of children that some has is either 0, 1, 2, etc. <strong>Discrete</strong> variables are somewhere in between categorical and <strong>continuous variables</strong> (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would <em>not</em> want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> </p><div class="no-row-height column-margin column-container"><span class=""><strong>Discrete</strong> variables only allow for some numbers, such as the numbers of children per family.</span><span class=""><strong>Continuous</strong> variables can take any value in a range. If there you look at any two possible numbers, then there’s another possible number in between them.</span></div></div>
 <p>The distinction between categorical and quantitative isn’t always this obvious, but can be very helpful for choosing the right kind of plot or numerical summary.</p>
 </div>
 </section>
@@ -582,10 +582,9 @@ Student Numbers
 <p>There are a couple gray areas when talking about variable types. The distinction between categorical and quantitative isn’t always perfectly clear. For example, student numbers are names, but they are completely made up of numbers. However, you wouldn’t treat these numbers as if one student number comes after another in the same way that you wouldn’t put students in an order based on their names. You technically can do this if you do it alphabetically or order the student numbers in order, but this isn’t a meaningful ordering. It’s not like one student number is larger than another student number, and taking the meaning of student numbers wouldn’t make any sense.</p>
 </div>
 </section>
-<section id="individuals-subjects" class="level3">
+<section id="individuals-subjects" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="individuals-subjects">Individuals (Subjects)</h3>
-<p><strong>Individual:</strong> the unit of study.</p>
-<p>In the Palmer Penguins data set, a penguin is an individual.</p>
+<div class="page-columns page-full"><p>An individual is the thing we are making measurements on. For example, in the Palmer Penguins data set, a penguin is an individual and we measure their flipper length, bill length, the island they were observed on, etc. In other data sets, we may measure the GDP of countries (countries are the individuals) or the cuteness of dogs.</p><div class="no-row-height column-margin column-container"><span class=""><strong>Individual:</strong> the unit of study. We make measurements on individuals</span></div></div>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -596,7 +595,7 @@ CO<span class="math inline">\(_2\)</span> Measurements
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Monthly measurements of CO<span class="math inline">\(_2\)</span> - the months are the individuals?</p>
+<p>If we measure the C0<span class="math inline">\(_2\)</span> at a given location each month, then do the months count as the individuals? This describes <em>time series</em> data, which we won’t cover in this course. However, visualizations of data that are measured over time can reveal a lot of information!<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -611,28 +610,31 @@ Paired Observations
 <div class="callout-body-container callout-body">
 <ul>
 <li>Spousal pairs - the pairs are the individuals?</li>
-<li>Before/after (e.g., weight loss) - people are individuals.</li>
+<li>Before/after (e.g., weight loss) - people are individuals.
+<ul>
+<li>This is the same idea as spousal pairs!</li>
+</ul></li>
 </ul>
 </div>
 </div>
-<div class="notes">
+<div class="notes page-columns page-full">
 <p>All of the variables we just talked about are measured on individuals. That is to say, an individual is what you are measuring when collecting data. This can take the form of a single penguin, in which case it’s obvious that this body mass belongs to this penguin; we have measured this body mass on this.</p>
 <p>There are some gray areas to this as well, though. For example, if we’re measuring carbon dioxide every month, then we’re actually measuring carbon dioxide as the variable and months as the individuals, and we can measure other things on those individuals if needed.</p>
-<p>We will also encounter pared observations in this course, which are measurements on two things at once. For example, we might be looking at spousal pairs, perhaps measuring the difference in height per pair. The variable we are measuring is the <em>difference</em>, and so we only have one observation per individual, which means that the individuals must be the pairs of people. A slightly more obvious example is something like a weight loss study were observing a change in weight for a certain person, even though we have two observations the individual is still the person who we’re measuring.</p>
+<div class="page-columns page-full"><p>We will also encounter <strong>paired observations</strong> in this course, which are measurements on two things at once. For example, we might be looking at spousal pairs, perhaps measuring the difference in height per pair. The variable we are measuring is the <em>difference</em>, and so we only have one observation per individual, which means that the individuals must be the pairs of people. A slightly more obvious example is something like a weight loss study were observing a change in weight for a certain person, even though we have two observations the individual is still the person who we’re measuring.</p><div class="no-row-height column-margin column-container"><span class=""><strong>Paired Observations</strong>: a special type of data where the difference (subtraction) of two values is what we are studying.</span></div></div>
 </div>
 </section>
 <section id="example-what-are-the-individuals-what-are-variables" class="level3">
 <h3 class="anchored" data-anchor-id="example-what-are-the-individuals-what-are-variables">Example: What are the Individuals? What are Variables?</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="fu">c</span>(<span class="st">"wt"</span>, <span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"am"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   mpg cyl disp  hp drat
-Mazda RX4         21.0   6  160 110 3.90
-Mazda RX4 Wag     21.0   6  160 110 3.90
-Datsun 710        22.8   4  108  93 3.85
-Hornet 4 Drive    21.4   6  258 110 3.08
-Hornet Sportabout 18.7   8  360 175 3.15
-Valiant           18.1   6  225 105 2.76</code></pre>
+<pre><code>                     wt  mpg cyl am
+Mazda RX4         2.620 21.0   6  1
+Mazda RX4 Wag     2.875 21.0   6  1
+Datsun 710        2.320 22.8   4  1
+Hornet 4 Drive    3.215 21.4   6  0
+Hornet Sportabout 3.440 18.7   8  0
+Valiant           3.460 18.1   6  0</code></pre>
 </div>
 </div>
 <div class="notes">
@@ -656,10 +658,7 @@ Valiant           18.1   6  225 105 2.76</code></pre>
 <li>The wedges must sum to 1.
 <ul>
 <li>If “Adelie” makes up 44% of the data, it should be 44% of the pie chart.</li>
-<li>All penguins are either Adelie, Gentoo, or Chinstrap; no penguins have more than one species.
-<ul>
-<li>In contrast,</li>
-</ul></li>
+<li>All penguins are either Adelie, Gentoo, or Chinstrap; no penguins have more than one species.</li>
 </ul></li>
 <li>Mainly good for <em>emphasizing</em> one wedge
 <ul>
@@ -691,7 +690,23 @@ Valiant           18.1   6  225 105 2.76</code></pre>
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Compare this to the output of <code>table(mtcars$am)</code>:</p>
+<p>The code required to create the bar chart can be shown by clicking the “&gt;Code” icon.</p>
+<details>
+<summary>
+<strong>Code Explanation</strong>
+</summary>
+<p>The data set is built into our so we don’t need to load anything to put this data. We do need to load in the <code>ggplot</code> library, though. In my lecture notes, you’ll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here’s a quick breakdown of the functions I used:</p>
+<ul>
+<li>The <code>ggplot()</code> function tells R what data we will be using.</li>
+<li>The <code>aes()</code> function sets up the plot “aesthetics”, such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points, etc.</li>
+<li><code>geom_bar()</code> actually draws the bar plot using the data set that <code>ggplot()</code> set up and the aesthetics, that <code>aes()</code> set up.
+<ul>
+<li>Try running the code without this line and see what happens!<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></li>
+</ul></li>
+<li>The <code>labs()</code> function simply adds <code>lab</code>el<code>s</code> to the plot to make it look nicer.</li>
+</ul>
+</details>
+<p>Compare this to the following table:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mtcars<span class="sc">$</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -701,19 +716,106 @@ Valiant           18.1   6  225 105 2.76</code></pre>
 </div>
 </div>
 <div class="notes">
-<p>Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 22 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it’s easy to compare these two categories.</p>
-<p>The code required to create the bar chart can be shown by clicking the “&gt;Code” icon. The data set is built into our so we don’t need to load anything to put this data. We do need to load in the <code>ggplot</code> library, though. In my lecture notes, you’ll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here’s a quick breakdown of the functions I used:</p>
-<ul>
-<li>The ggplot function tells R what data we will be using.</li>
-<li>The <code>aes()</code> function sets up the plot “aesthetics”, such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points, etc.</li>
-<li><code>geom_bar()</code> actually draws the bar plot using the data set that <code>ggplot()</code> set up and the aesthetics, that <code>aes()</code> set up.
-<ul>
-<li>Try running the code without this line and see what happens!<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></li>
-</ul></li>
-<li>The <code>labs()</code> function simply adds <code>lab</code>els to the plot to make it look nicer.</li>
-</ul>
+<p>Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 19 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it’s easy to compare these two categories.</p>
 <p><strong>Exercises</strong></p>
-<p>The following exercises are based on the exercises in Chapter 1 of Baldi &amp; Moore, 4th ed.</p>
+<p>The following exercises are based on the exercises in the (optional) OpenIntro biostats textbook. They are based on the <strong>F</strong>unctional polymorphisms <strong>A</strong>ssociated with human <strong>Mu</strong>scle <strong>S</strong>ize and <strong>S</strong>trength, or <code>famuss</code>, data set.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<p>The data are available in the <code>oibiostat</code> pacjage in R, which is a package based on the OpenIntro Biostat textbook. Don’t worry if you don’t know what any of that means - it’s not important for this portion of the course.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(oibiostat)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(famuss)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(famuss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ndrm.ch drm.ch    sex age      race height weight actn3.r577x    bmi
+1      40     40 Female  27 Caucasian   65.0    199          CC 33.112
+2      25      0   Male  36 Caucasian   71.7    189          CT 25.845
+3      40      0 Female  24 Caucasian   65.0    134          CT 22.296
+4     125      0 Female  40 Caucasian   68.0    171          CT 25.998
+5      40     20 Female  32 Caucasian   61.0    118          CC 22.293
+6      75      0 Female  24  Hispanic   62.2    120          CT 21.805</code></pre>
+</div>
+</div>
+<p>The columns are a little difficult to understand, so here’s a brief overview.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>variable</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sex</code></td>
+<td>Biological sex of the patient</td>
+</tr>
+<tr class="even">
+<td><code>age</code></td>
+<td>Age (years)</td>
+</tr>
+<tr class="odd">
+<td><code>race</code></td>
+<td>Self-reported race</td>
+</tr>
+<tr class="even">
+<td><code>height</code></td>
+<td>Subject’s height in inches</td>
+</tr>
+<tr class="odd">
+<td><code>weight</code></td>
+<td>Subject’s weight in pounds</td>
+</tr>
+<tr class="even">
+<td><code>bmi</code></td>
+<td>Subject’s body mass index (weight divided by height<span class="math inline">\(^2\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><code>actn3.r577x</code></td>
+<td>I think it’s obvious what this column is</td>
+</tr>
+<tr class="even">
+<td><code>drm.ch</code></td>
+<td>Again, this is obvious.</td>
+</tr>
+<tr class="odd">
+<td><code>ndrm.ch</code></td>
+<td>No need to explain this one.</td>
+</tr>
+</tbody>
+</table>
+<p>Okay, so some of the columns need some explaining. The study was interested in whether a particular genotype affected the ability of subjects to build muscle. The genotype is at the genome position r557x in the ACTN3 gene, which is a fancy way of saying that the <code>actn3.r577x</code> tells us something about the subject’s genetic code. The genotype can be either <code>TT</code>, <code>TC</code>, <code>CT</code>, or <code>CC</code>, and the researchers believed that these genes determine how easily people build muscle.</p>
+<p>The way the study was carried out is as follows. The researchers asked each subject to perform a test of strength using each arm. Subjects were then asked to follow a muscle strengthening exercise, but <em>only</em> on their non-dominant side (if they’re right handed, they were asked to strengthen their left arm). After the strengthening, they repeated the test of strength. The columns labelled <code>drm.ch</code> and <code>ndrm.ch</code> are the percentage change in their strength for their dominant arm and their non-dominant arm (the dominant arm was measured to see whether the patients gained or lost strength for reasons other than the prescribed strength training exercise).</p>
+<ol type="1">
+<li>Based on the R output, what type of variable is each column?</li>
+<li>Which of the following plots would be appropriate for the <code>bmi</code> column?</li>
+</ol>
+<details>
+<summary>
+<strong>Bar chart</strong>
+</summary>
+<p>What do you think? Does the plot below give you any useful information about the data?</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</details>
+<details>
+<summary>
+<strong>Pie Chart</strong>
+</summary>
+No.&nbsp;I’m not even going to try in this case.
+</details>
+<details>
+<summary>
+<strong>Histogram</strong>
+</summary>
+<p>Correct! The plot below tells us where most of the subjects’ BMI lie. We can see that most of the subjects are between 15 and 30, with a few between 30 and 35 and few above 35.</p>
+<p>This is the whole reason we categorize variables as quantitative or categorical: knowing the type of the variable tells us which plots will give us useful information!</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</details>
 <ol type="1">
 <li>Children’s food choices. Does the presence of popular cartoon characters on food packages influence children’s food choices? A study asked 40 young children (ages four to six) to taste two small pieces of Graham Crackers coming from a package with and a package without a popular cartoon character, and to indicate whether the two foods tasted the same or one tasted better. Unknown to the children, the crackers were the same both times. Here are the findings:</li>
 </ol>
@@ -795,7 +897,10 @@ Valiant           18.1   6  225 105 2.76</code></pre>
 <h3 class="anchored" data-anchor-id="ordered-and-unordered">Ordered and Unordered</h3>
 <p>Whether the categorical variable is ordered or unordered affects the way we make the plot:</p>
 <ul>
-<li>Ordered: put the bars in order</li>
+<li>Ordered: put the bars in order
+<ul>
+<li>For example, if we have data from 2020, 2021, and 2022, then we would have the bars in that order!</li>
+</ul></li>
 <li>Unordered: put it in an arbitrary order
 <ul>
 <li>Alternative: order according to largest to smallest.</li>
@@ -804,29 +909,29 @@ Valiant           18.1   6  225 105 2.76</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> species) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Unordered Categories"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> species) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Unordered Categories"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats) <span class="co"># For rearranging "factors", aka. categorical variables</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(species)) <span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Unordered Categories, Ordered by Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats) <span class="co"># For rearranging "factors", aka. categorical variables</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(species)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">title =</span> <span class="st">"Unordered Categories, Ordered by Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The bar chart is the de-facto standard for categorical variables, whether binary or otherwise. For quantitative, variables, we need other options.</p>
@@ -859,7 +964,7 @@ Grey Area
 </div>
 <div class="notes">
 <p>Quantitative variables are split into discrete and continuous variables. Discrete variables are generally represented by whole numbers, for example, the number of students in a given classroom.</p>
-<p>In contrast, continuous numbers could be anything! I like to think of them as numbers that could’ve been measured with more precision if we had better tools. For example, peoples Heights could be measured to infinite precision if we had perfect tools, whereas we don’t need better tools to measure the number of children and family more precisely.</p>
+<p>In contrast, continuous numbers could be anything! I like to think of them as numbers that could’ve been measured with more precision if we had better tools. For example, peoples Heights could be measured to infinite precision if we had perfect tools, whereas we don’t need better tools to measure the number of children in a family more precisely.</p>
 <p>Of course, as with all things, there is a gray area here. Many studies will choose to give their subjects either no dose, a half dose or a full dose. These are obviously numbers and it is very likely that the response for a 0.75 dose is somewhere in between the half dose and the full dose. However, we chose these numbers and thus there are only three possible numbers. No amount of measuring is going to give us something other than a half dose (any deviation in administration of the dose can hopefully be ignored for the purpose of the study). In the definitions we’ve used it is neither a whole number, nor cannot be measured with higher precision. For the purposes of visualization, we might actually want to use a bar chart as if this were a categorical variable. If the dose had more categories and we expected the response to have a smooth trend across different dose levels, then we might use visualizations meant for discrete data. If the dose could have been any number between zero and one then we might use visualization meant for continuous data.</p>
 </div>
 </section>
@@ -871,9 +976,10 @@ Grey Area
 15.8 15.8 16.1 16.2 16.2 16.4 16.4 16.6 16.7 16.8 16.8
 17.6 17.8 17.8 18.2 18.3 18.6 18.7 18.7 19.1 19.7 22.8</code></pre>
 <ul>
-<li>We could have measured more precisely!
+<li>Even though we only know the data to one decimal point, we could have measured more precisely!
 <ul>
 <li>This is a continuous variable.</li>
+<li>Note that there are ties in these data, and thus we could make bar charts with bars that are more than one unit tall. However, if we measured more precisely, these ties would go away.</li>
 </ul></li>
 <li>Can’t just draw a bar chart with all sharks that were 9.4, all that were 12.1, …</li>
 </ul>
@@ -886,17 +992,17 @@ Grey Area
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sharks <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="fl">9.4</span>, <span class="fl">12.1</span>, <span class="fl">12.2</span>, <span class="fl">12.3</span>, <span class="fl">12.4</span>, <span class="fl">12.6</span>, <span class="fl">13.2</span>, <span class="fl">13.2</span>, <span class="fl">13.2</span>, <span class="fl">13.2</span>, <span class="fl">13.5</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fl">13.6</span>, <span class="fl">13.6</span>, <span class="fl">13.8</span>, <span class="fl">14.3</span>, <span class="fl">14.6</span>, <span class="fl">14.7</span>, <span class="fl">14.9</span>, <span class="fl">15.2</span>, <span class="fl">15.3</span>, <span class="fl">15.7</span>, <span class="fl">15.7</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fl">15.8</span>, <span class="fl">15.8</span>, <span class="fl">16.1</span>, <span class="fl">16.2</span>, <span class="fl">16.2</span>, <span class="fl">16.4</span>, <span class="fl">16.4</span>, <span class="fl">16.6</span>, <span class="fl">16.7</span>, <span class="fl">16.8</span>, <span class="fl">16.8</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fl">17.6</span>, <span class="fl">17.8</span>, <span class="fl">17.8</span>, <span class="fl">18.2</span>, <span class="fl">18.3</span>, <span class="fl">18.6</span>, <span class="fl">18.7</span>, <span class="fl">18.7</span>, <span class="fl">19.1</span>, <span class="fl">19.7</span>, <span class="fl">22.8</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span> <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sharks <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="fl">9.4</span>, <span class="fl">12.1</span>, <span class="fl">12.2</span>, <span class="fl">12.3</span>, <span class="fl">12.4</span>, <span class="fl">12.6</span>, <span class="fl">13.2</span>, <span class="fl">13.2</span>, <span class="fl">13.2</span>, <span class="fl">13.2</span>, <span class="fl">13.5</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fl">13.6</span>, <span class="fl">13.6</span>, <span class="fl">13.8</span>, <span class="fl">14.3</span>, <span class="fl">14.6</span>, <span class="fl">14.7</span>, <span class="fl">14.9</span>, <span class="fl">15.2</span>, <span class="fl">15.3</span>, <span class="fl">15.7</span>, <span class="fl">15.7</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fl">15.8</span>, <span class="fl">15.8</span>, <span class="fl">16.1</span>, <span class="fl">16.2</span>, <span class="fl">16.2</span>, <span class="fl">16.4</span>, <span class="fl">16.4</span>, <span class="fl">16.6</span>, <span class="fl">16.7</span>, <span class="fl">16.8</span>, <span class="fl">16.8</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fl">17.6</span>, <span class="fl">17.8</span>, <span class="fl">17.8</span>, <span class="fl">18.2</span>, <span class="fl">18.3</span>, <span class="fl">18.6</span>, <span class="fl">18.7</span>, <span class="fl">18.7</span>, <span class="fl">19.1</span>, <span class="fl">19.7</span>, <span class="fl">22.8</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span> <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="notes">
@@ -923,16 +1029,16 @@ Grey Area
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that I've manually chosen the bin widths and centers.</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>, </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">center =</span> <span class="dv">0</span>, <span class="co"># Only need to specify the center of one bin</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Shark Length"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that I've manually chosen the bin widths and centers.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">center =</span> <span class="dv">0</span>, <span class="co"># Only need to specify the center of one bin</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Shark Length"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="480"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
 <p>In this histogram, the bins are (-1, 1], (1,3], (3,5]…</p>
@@ -950,30 +1056,30 @@ Grey Area
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>, </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">center =</span> <span class="dv">0</span>, <span class="co"># Only need to specify the center of one bin</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Shark Length"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="dv">2</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">center =</span> <span class="dv">0</span>, <span class="co"># Only need to specify the center of one bin</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Shark Length"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div><div class="column" style="width:48%;">
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="fl">1.5</span>, </span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">center =</span> <span class="fl">0.75</span>, <span class="co"># Only need to specify the center of one bin</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Shark Length"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="fl">1.5</span>, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">center =</span> <span class="fl">0.75</span>, <span class="co"># Only need to specify the center of one bin</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"lightgrey"</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Shark Length"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -983,17 +1089,17 @@ Grey Area
 <p>With histograms the bins that you choose are extremely important. Most software have default values that are generally reasonable, But it’s always always always worth investigating other bins.</p>
 <p>A simple version of the plot can be made as follows, where <code>ggplot</code> chooses the bins automatically. Note that this is rarely desireable, and you should almost always choose the bins yourself.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Below is an app to visualize the difference that the binwidth can make!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/DensHist"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/DensHist"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>
@@ -1028,7 +1134,7 @@ Grey Area
 <h3 class="anchored" data-anchor-id="example-what-is-the-shape">Example: What is the Shape?</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="notes">
@@ -1039,7 +1145,7 @@ Grey Area
 <h3 class="anchored" data-anchor-id="example-what-is-the-shape-1">Example: What is the Shape?</h3>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="notes">
@@ -1070,18 +1176,18 @@ Grey Area
 </div><div class="column" style="width:50%;">
 <p><strong>Sideways Histogram</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">43</span>, <span class="dv">12</span>, <span class="dv">32</span>, <span class="dv">53</span>, <span class="dv">66</span>, <span class="dv">78</span>, <span class="dv">25</span>, <span class="dv">36</span>, <span class="dv">12</span>, <span class="dv">26</span>,</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">34</span>, <span class="dv">98</span>, <span class="dv">39</span>, <span class="dv">44</span>, <span class="dv">23</span>, <span class="dv">15</span>, <span class="dv">67</span>, <span class="dv">1</span>,  <span class="dv">4</span>,  <span class="dv">54</span>, <span class="dv">21</span>)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> mydata) <span class="sc">+</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">center =</span> <span class="dv">5</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"lightgrey"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)<span class="sc">*</span><span class="dv">10</span>, <span class="at">trans =</span> <span class="st">"reverse"</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">43</span>, <span class="dv">12</span>, <span class="dv">32</span>, <span class="dv">53</span>, <span class="dv">66</span>, <span class="dv">78</span>, <span class="dv">25</span>, <span class="dv">36</span>, <span class="dv">12</span>, <span class="dv">26</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">34</span>, <span class="dv">98</span>, <span class="dv">39</span>, <span class="dv">44</span>, <span class="dv">23</span>, <span class="dv">15</span>, <span class="dv">67</span>, <span class="dv">1</span>,  <span class="dv">4</span>,  <span class="dv">54</span>, <span class="dv">21</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> mydata) <span class="sc">+</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">10</span>, <span class="at">center =</span> <span class="dv">5</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"lightgrey"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)<span class="sc">*</span><span class="dv">10</span>, <span class="at">trans =</span> <span class="st">"reverse"</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Value"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -1142,7 +1248,7 @@ Grey Area
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -1192,7 +1298,7 @@ Grey Area
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="480"></p>
+<p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="480"></p>
 </div>
 </div>
 </div>
@@ -1266,14 +1372,17 @@ Grey Area
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>It is worth noting that there is also variance that isn’t information, and there’s information that we’ll never have access to. Variance is an opportunity to learn, but there’s almost always a limit to how much we can learn.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>A note on gender/sexuality/biology: penguins, especially Chinstrap and Gentoo penguins, don’t have particularly strong gender roles, and <a href="https://sites.tufts.edu/museumstudents/2021/02/22/whats-with-all-the-gay-penguins/">often form same-sex couples</a>. In this course, I will use the term “sex” to mean “biosex”, rather than “gender”, to indicate that we’re looking at morphological differences due to XX and XY chromosomes.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Possibly categorical if there are any penguins with chromosomal abnormalities.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>We may, however, know that factory workers have more exposure to a pathogen than those who work from home, but we would likely want to measure this directly rather than measuring it by proxy with occupation.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>We often encode on of the categories as 0 and the other as 1, but this is usually either clear (0 = no treatment, 1 = treatment) or completely arbitrary (0 = femala, 1 = male) and this arbitrariness is acknowledged. Neither of these cases affect the way we make plots or run analyses that are based on binary variables.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>Not discreet.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>It will still create a plot with the correct x and y axes, but won’t draw the bars.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>We’ll talk about what “explaining variance” means, along with exact ways to calculate it, in a later lecture.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>It is worth noting that there is also variance that isn’t information, and there’s information that we’ll never have access to. Variance is an opportunity to learn, but there’s almost always a limit to how much we can learn.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A note on gender/sexuality/biology: penguins, especially Chinstrap and Gentoo penguins, don’t have particularly strong gender roles, and <a href="https://sites.tufts.edu/museumstudents/2021/02/22/whats-with-all-the-gay-penguins/">often form same-sex couples</a>. In this course, I will use the term “sex” to mean “biosex”, rather than “gender”, to indicate that we’re looking at morphological differences due to XX and XY chromosomes.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Possibly categorical if there are any penguins with chromosomal abnormalities.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>We may, however, know that factory workers have more exposure to a pathogen than those who work from home, but we would likely want to measure this directly rather than measuring it by proxy with occupation.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>We often encode on of the categories as 0 and the other as 1, but this is usually either clear (0 = no treatment, 1 = treatment) or completely arbitrary (0 = femala, 1 = male) and this arbitrariness is acknowledged. Neither of these cases affect the way we make plots or run analyses that are based on binary variables.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Not discreet.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Of course, by “information”, I mean variance. If we don’t know the date that an observation was observed, we just have a collection of different numbers. If we see that there’s a pattern over time, we know a little more about why each number is different from the others!<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>It will still create a plot with the correct x and y axes, but won’t draw the bars.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>The “FAMUSS” acronym is a bit of a stretch, but just go with it.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
