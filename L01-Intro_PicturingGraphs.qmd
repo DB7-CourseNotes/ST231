@@ -217,7 +217,7 @@ ggplot(mtcars) +
         y = "Count")
 ```
 
-The code required to create the bar chart can be shown by clicking the ">Code" icon. 
+The code required to create the bar chart can be shown by clicking the ">Code" icon. An explanation of the code is below (but this will *not* be tested).
 
 <details>
 <summary>**Code Explanation**</summary>
@@ -238,7 +238,7 @@ Compare this to the following table:
 table(mtcars$am)
 ```
 
-:::notes
+
 Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 19 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it's easy to compare these two categories.
 
 
@@ -273,67 +273,12 @@ Okay, so some of the columns need some explaining. The study was interested in w
 The way the study was carried out is as follows. The researchers asked each subject to perform a test of strength using each arm. Subjects were then asked to follow a muscle strengthening exercise, but *only* on their non-dominant side (if they're right handed, they were asked to strengthen their left arm). After the strengthening, they repeated the test of strength. The columns labelled `drm.ch` and `ndrm.ch` are the percentage change in their strength for their dominant arm and their non-dominant arm (the dominant arm was measured to see whether the patients gained or lost strength for reasons other than the prescribed strength training exercise). 
 
 1. Based on the R output, what type of variable is each column?
-2. Which of the following plots would be appropriate for the `bmi` column?
+2. What counts as an individual in this study?
+    a. Each person
+    b. Each pair of people
+    c. Each arm (two per person in the study)
+    d. Each column in the data
 
-<details>
-<summary>**Bar chart**</summary>
-
-What do you think? Does the plot below give you any useful information about the data?
-
-```{r}
-#| echo: false
-ggplot(famuss) +
-    aes(x = factor(bmi)) +
-    geom_bar()
-```
-</details>
-
-<details>
-<summary>**Pie Chart**</summary>
-No. I'm not even going to try in this case.
-</details>
-
-<details>
-<summary>**Histogram**</summary>
-
-Correct! The plot below tells us where most of the subjects' BMI lie. We can see that most of the subjects are between 15 and 30, with a few between 30 and 35 and few above 35.
-
-This is the whole reason we categorize variables as quantitative or categorical: knowing the type of the variable tells us which plots will give us useful information!
-
-```{r}
-#| echo: false
-ggplot(famuss) +
-    aes(x = bmi) +
-    geom_histogram(bins = 30, colour = "black", fill = "lightgrey")
-```
-</details>
-
-1. Children’s food choices. Does the presence of popular cartoon characters on food packages influence children’s food choices? A study asked 40 young children (ages four to six) to taste two small pieces of Graham Crackers coming from a package with and a package without a popular cartoon character, and to indicate whether the two foods tasted the same or one tasted better. Unknown to the children, the crackers were the same both times. Here are the findings:
-
-| Taste Preference | Number of Children | Percent |
-|---|---|---|
-| Tastes better without character | 3 | |
-| Taste the same | 15 | |
-| Tastes better with character | 22 | |
-
-a. Identify the individuals and the variable or variables in the study.
-b. Present these data in a well-labeled bar graph.
-c. Would it also be correct to present these data in a single pie chart? Explain your reasoning.
-d. What do the data suggest about the influence of cartoon characters on Graham Cracker preference in young children
-
-2. The study in Exercise 1 also asked the 40 children to taste small pieces of gummy fruit snacks and baby carrots presented in packages with and in packages without a popular cartoon character. For each food type, the children indicated which of the two options they would prefer to eat for a snack. (Note that this is a different question from the one asked in Exercise 1) The number and percent of children choosing the version with a cartoon on the package are displayed in the following table:
-
-| Food Item | Number of children choosing the cartooon version | Percent choosing the cartoon |
-|---|---|---|
-| Graham Crackers | 35 | |
-| Gummy and fruit snacks | 34 | |
-| Baby carrots | 29 | |
-
-a. Identify the individuals and the variable or variables in the study.
-b. Make a well-labeled bar graph of the data.
-c. Would it be correct to present these data in a single pie chart? Explain your reasoning.
-d. What can you conclude from these findings?
-:::
 
 
 ### Ordered and Unordered
@@ -654,6 +599,47 @@ Note that the shape of the distribution can be seen from the stem and leaf plot.
     - **Bins matter**.
     - Must interpret **shape**.
 
+
+## Exercises
+
+1. Which of the following plots would be appropriate for the `bmi` column?
+
+<details>
+<summary>**Bar chart**</summary>
+
+What do you think? Does the plot below give you any useful information about the data?
+
+```{r}
+#| echo: false
+ggplot(famuss) +
+    aes(x = factor(bmi)) +
+    geom_bar()
+```
+</details>
+
+<details>
+<summary>**Pie Chart**</summary>
+No. I'm not even going to try in this case.
+</details>
+
+<details>
+<summary>**Histogram**</summary>
+
+Correct! The plot below tells us where most of the subjects' BMI lie. We can see that most of the subjects are between 15 and 30, with a few between 30 and 35 and few above 35.
+
+This is the whole reason we categorize variables as quantitative or categorical: knowing the type of the variable tells us which plots will give us useful information!
+
+```{r}
+#| echo: false
+ggplot(famuss) +
+    aes(x = bmi) +
+    geom_histogram(bins = 30, colour = "black", fill = "lightgrey")
+```
+</details>
+
+2. 
+
+<!---
 ## Participation Questions
 
 ### Q1
@@ -751,8 +737,8 @@ ggplot() + aes(x = myd) + geom_histogram(center = 0.5, binwidth = 1, fill = "lig
 ::::
 
 Answers: 334133
+--->
 
-**Exercises**
 
 1. **Prescriptions of opioid pain relievers.** Opioid pain relievers are prescribed at a higher rate in the United States than in any other nation, even though abuse of these medications can result in addiction and fatal overdoses. The CDC examined opioid pain reliever prescriptions in each state to find out how variable prescription rates are across the nation. Here are the 2012 state prescription rates, in number of prescriptions per 100 people, listed in increasing order: 
 
