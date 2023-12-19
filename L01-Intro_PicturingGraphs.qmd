@@ -1,7 +1,7 @@
 ---
 title: "Picturing Distributions with Graphs"
 institute: "Jam: *Penguins* by Lyle Lovett"
-date: "Nov 13, 2023"
+date: "last-modified"
 execute:
     code-fold: true
 ---
@@ -116,7 +116,7 @@ This distinction of "**ordered**" versus "**unordered**" matters to determine wh
 
 **Quantitative variables** are those that are measured with numbers. Unlike "low" to "medium" versus "medium" to "high", we know how big a step it is from 0 to 1 and then 1 to 2. Unlike categorical variables, quantitative variables have a concept of "in-between"; we have nothing between "medium" and "high", but there are infinite numbers between 1 and 2.[**Quantitative variables** are numbers.]{.aside}
 
-There are, however, cases where there *aren't* possible measurements between 1 and 2. These are called "**discrete**"^[Not discreet.] For instance, the number of children that some has is either 0, 1, 2, etc. **Discrete** variables are somewhere in between categorical and **continuous variables** (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would *not* want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.^[There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.][**Discrete** variables only allow for some numbers, such as the numbers of children per family.]{.aside} [**Continuous** variables can take any value in a range. If there you look at any two possible numbers, then there's another possible number in between them.]{.aside}
+There are, however, cases where there *aren't* possible measurements between 1 and 2. These are called "**discrete**"^[Not discreet.] For instance, the number of children that some has is either 0, 1, 2, etc. **Discrete** variables are somewhere in between categorical and **continuous variables** (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would *not* want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.^[There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.][**Discrete** variables only allow for some numbers, such as the numbers of children per family.]{.aside} [**Continuous** variables can take any value in a range. For any two possible numbers, there's another possible number in between them. Alternatively, they can be defined as "any measurement you make could have been more precise."]{.aside}
 
 The distinction between categorical and quantitative isn't always this obvious, but can be very helpful for choosing the right kind of plot or numerical summary.
 :::
@@ -138,9 +138,32 @@ There are a couple gray areas when talking about variable types. The distinction
 
 ### Individuals (Subjects)
 
-An individual is the thing we are making measurements on. For example, in the Palmer Penguins data set, a penguin is an individual and we measure their flipper length, bill length, the island they were observed on, etc. In other data sets, we may measure the GDP of countries (countries are the individuals) or the cuteness of dogs.[**Individual:** the unit of study. We make measurements on individuals]{.aside}
+An individual is the thing we are making measurements on. For example, in the Palmer Penguins data set, a penguin is an individual and we measure their flipper length, bill length, the island they were observed on, etc. In other data sets, we may measure the GDP of countries (countries are the individuals) or the cuteness of dogs.[**Individual:** the unit of study. We make measurements on individuals.]{.aside}
 
 
+### Challenge: What are the individuals?
+
+The following data are from the "Titanic" dataset.
+
+Each number defines the count of children who survived the Titanic's sinking.
+
+|     | Male | Female |
+|-----------|----|----|
+| 1st class | 5  | 1  |
+| 2nd class | 11 | 13 |
+| 3rd class | 13 | 14 |
+| Crew      | 0  | 0  |
+
+:::notes
+There are a couple of ways to interpret this.
+
+- People: We measured whether an individual survived (one measurement per person).
+- Class: We have two measurements per class - one for male children, one for female children.
+- Sex: We have four observations (class 1, 2, 3, or crew).
+- Finally, we could say we have one observation per class/sex combination.
+
+There isn't one "correct" definition of individual here. However, the way we define individual affects how we might visualize these data!
+:::
 
 ::: {.callout-warning}
 ### CO$_2$ Measurements
@@ -242,6 +265,54 @@ table(mtcars$am)
 Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 19 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it's easy to compare these two categories.
 
 
+
+### Titanic Example
+
+The following example demonstrates why it's important to be clear about what an "individual" is. Depending on how we define an individual, we might choose to make a different plot!
+
+If we're measuring things about different Sexes ("sexes" are "individuals"), we're doing a different study than if we consider ourselves to be making measurements about different Classes.
+
+:::: {.columns}
+::: {.column width="45%"}
+Based on this plot, we might be asking how "Sex" varies by "Class".
+
+```{r}
+#| echo: false
+suppressPackageStartupMessages({
+    library(ggplot2)
+    theme_set(theme_bw())
+})
+ggplot(as.data.frame(Titanic[,,1,2])) +
+    aes(x = Class, y = Freq, fill = Sex) +
+    geom_bar(stat = "identity", position = "dodge") +
+    labs(title = "Surviving Children on the Titanic") +
+    theme(legend.position = "bottom")
+```
+
+:::
+::: {.column width="9%"}
+:::
+::: {.column width="45%"}
+Based on this plot, we might be asking how "Class" varies by "Sex".
+
+```{r}
+#| echo: false
+suppressPackageStartupMessages({
+    library(ggplot2)
+    theme_set(theme_bw())
+})
+ggplot(as.data.frame(Titanic[,,1,2])) +
+    aes(x = Sex, y = Freq, fill = Class) +
+    geom_bar(stat = "identity", position = "dodge") +
+    labs(title = "Surviving Children on the Titanic") +
+    theme(legend.position = "bottom")
+```
+
+
+:::
+::::
+
+
 **Exercises**
 
 The following exercises are based on the exercises in the (optional) OpenIntro biostats textbook. They are based on the **F**unctional polymorphisms **A**ssociated with human **Mu**scle **S**ize and **S**trength, or `famuss`, data set.^[The "FAMUSS" acronym is a bit of a stretch, but just go with it.]
@@ -278,7 +349,7 @@ The way the study was carried out is as follows. The researchers asked each subj
     b. Each pair of people
     c. Each arm (two per person in the study)
     d. Each column in the data
-
+3. Explain why either a bar chart or a pie chart would be appropriate for the `actn3.r577x` column. Be extremely precise.
 
 
 ### Ordered and Unordered
@@ -539,9 +610,9 @@ Consider the data
 ```
 
 :::: {.columns}
-::: {.column width="30%"}
-:::
 ::: {.column width="20%"}
+:::
+::: {.column width="30%"}
 **Stem-and-Leaf**
 ```
 0  | 14
@@ -561,7 +632,8 @@ Consider the data
 **Sideways Histogram**
 
 ```{r}
-#| fig-height: 4.6
+#| fig-height: 5.75
+#| echo: false
 mydata <- c(12, 43, 12, 32, 53, 66, 78, 25, 36, 12, 26,
     34, 98, 39, 44, 23, 15, 67, 1,  4,  54, 21)
 
@@ -577,13 +649,13 @@ ggplot() + theme_minimal() +
 ::::
 
 :::notes
-This visualization technique is shown purely for pedagogical reasons. A stem and leaf plot is like a histogram where the bins are all powers of 10. It isisplayed using the stem, which is the first digit and the leaf which is the second digit. For example, the number 78 has a 7 in the tens place (and were using the tens place as the stem) and an 8 in the ones place (and we using the ones place as the leaf). In the stem and leaf plot, 78 goes on the stem labelled 70 and it gets a leaf of eight. Going the other way, we can see a stem labelled 90 and a leaf labelled eight which corresponds to the number 98. For the stem labelled zero we have the numbers one and four, for the stem label 10 we have the numbers 12, 12, 12, and 15, and so on.
+This visualization technique is shown purely for pedagogical reasons. A stem and leaf plot is like a histogram where the bins are all powers of 10. It is displayed using the stem which is the first digit, and the leaf which is the second digit. For example, the number 78 has a 7 in the tens place (the tens place is the stem) and an 8 in the ones place (and we're using the ones place as the leaf). In the stem and leaf plot, 78 goes on the stem labelled 70 and it gets a leaf of eight. Going the other way, we can see a stem labelled 90 and a leaf labelled eight which corresponds to the number 98. For the stem labelled zero we have the numbers one and four, for the stem label 10 we have the numbers 12, 12, 12, and 15.
 
-Essentially, this is just a histogram. We're instead of drawing a bar that corresponds to the number of observations in that bin, we are just listing the observations in that bin. Compare the stem and leaf plot to the sideways histogram on the right: in the first bin from 0 to 10 (not including 10) there are two numbers, one and four, and the length of the bin is two. For the stem label 20, we have the numbers 21, 23, 25 and 26, and this is displayed as a bar with link for in the histogram.
+Essentially, this is just a histogram. Instead of drawing a bar that corresponds to the number of observations in that bin, we are just listing the observations in that bin. Compare the stem and leaf plot to the sideways histogram on the right: in the first bin from 0 to 10 (not including 10) there are two numbers, one and four, and the length of the bin is two. For the stem label 20, we have the numbers 21, 23, 25 and 26, and this is displayed as a bar with length four in the histogram.
 
-The main reason for showing this visualization technique is that it can be very useful for tests and quizzes, because it allows you to create a histogram without software. It also allows easy computation of the median since all of the leaves are in order. These are not used in practice, because in practice, you will have software to create histograms *and* find the median!
+The main reason for showing this visualization technique is that it can be very useful for tests and quizzes, because it allows you to create a histogram without software. It also allows easy computation of the median since all of the leaves are in order. These are not used in practice because in practice you will have software to create histograms *and* find the median!^[That software is R!]
 
-Note that the shape of the distribution can be seen from the stem and leaf plot. It is a unimodal distribution that is right skewed and likely does not have an outlier (there is one point that appears to be separate from the others, but this is most likely due to bin choice).
+Note that the shape of the distribution can be seen from the stem and leaf plot. It is a unimodal distribution that is right skewed and likely does not have any clear outliers (there is one point that appears to be separate from the others, but this might be due to bin choice).
 :::
 
 ### Summary
@@ -637,7 +709,6 @@ ggplot(famuss) +
 ```
 </details>
 
-2. 
 
 <!---
 ## Participation Questions
@@ -740,7 +811,9 @@ Answers: 334133
 --->
 
 
-1. **Prescriptions of opioid pain relievers.** Opioid pain relievers are prescribed at a higher rate in the United States than in any other nation, even though abuse of these medications can result in addiction and fatal overdoses. The CDC examined opioid pain reliever prescriptions in each state to find out how variable prescription rates are across the nation. Here are the 2012 state prescription rates, in number of prescriptions per 100 people, listed in increasing order: 
+
+
+2. **Prescriptions of opioid pain relievers.** Opioid pain relievers are prescribed at a higher rate in the United States than in any other nation, even though abuse of these medications can result in addiction and fatal overdoses. The CDC examined opioid pain reliever prescriptions in each state to find out how variable prescription rates are across the nation. Here are the 2012 state prescription rates, in number of prescriptions per 100 people, listed in increasing order: 
 
 `opiods <- c(52.0, 57.0, 59.5, 61.6, 62.9, 65.1, 66.5, 67.4, 67.9, 69.6, 70.8, 71.2, 71.7, 72.4, 72.7, 72.8, 73.8, 74.3, 74.3, 74.7, 76.1, 77.3, 77.5, 79.4, 82.0, 82.4, 85.1, 85.6, 85.8, 88.2, 89.2, 89.6, 90.7, 90.8, 93.8, 94.1, 94.8, 96.6, 100.1, 101.8, 107.0, 109.1, 115.8, 118.0, 120.3, 127.8, 128.4, 137.6, 142.8, 142.9)`
 
@@ -759,13 +832,13 @@ The Statistical Abstract of the United States, prepared by the Census Bureau, pr
 | Pancreas | 350 |
 | Intestine | 151 |
 
-2. (1.14 in BM) The data on single-organ transplants can be displayed in
+3. The data on single-organ transplants can be displayed in
 
 a. a pie chart but not a bar graph.
 b. a bar graph but not a pie chart.
 c. either a pie chart or a bar graph.
 
-3. (1.15 in BM) Kidney transplants represented what percent of single-
+4. Kidney transplants represented what percent of single-
 organ transplants in 2010?
 a. Nearly 61%.
 b. One-sixth (nearly 17%).
