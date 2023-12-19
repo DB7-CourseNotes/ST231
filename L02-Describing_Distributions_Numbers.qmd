@@ -1,13 +1,13 @@
 ---
 title: "Describing Distributions with Numbers"
-date: "2023-05-10"
+date: "last-modified"
 ---
 
-### Quantitative Variables
+## Quantitative Variables
 
 ### Parameters Versus Statistics
 
-- Numerical summaries are called parameters when they describe an entire population, and statistics when they describe a sample
+- Numerical summaries are called parameters when they describe an entire population, and statistics when they describe a sample.
 - Since we typically will not collect data on the entire population, we use (sample) statistics to make statements (with some uncertainty) about what the (population) parameter is.
 - Categorical variables are summarized by the count or proportion (percent) of the data in each category.
 - Quantitative variables are summarized by the centre and spread of the data
@@ -18,8 +18,6 @@ date: "2023-05-10"
 We assume there's some "true" population mean.
 
 - This will change if, say, a new baby is born.
-
-
 
 We cannot know the population parameter!
 
