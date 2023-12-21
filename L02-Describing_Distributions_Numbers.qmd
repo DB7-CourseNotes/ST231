@@ -1,13 +1,13 @@
 ---
 title: "Describing Distributions with Numbers"
-date: "2023-05-10"
+date: "last-modified"
 ---
 
-### Quantitative Variables
+## Quantitative Variables
 
 ### Parameters Versus Statistics
 
-- Numerical summaries are called parameters when they describe an entire population, and statistics when they describe a sample
+- Numerical summaries are called parameters when they describe an entire population, and statistics when they describe a sample.
 - Since we typically will not collect data on the entire population, we use (sample) statistics to make statements (with some uncertainty) about what the (population) parameter is.
 - Categorical variables are summarized by the count or proportion (percent) of the data in each category.
 - Quantitative variables are summarized by the centre and spread of the data
@@ -41,7 +41,9 @@ We want to **summarize** the data using a few words/numbers.
 I prefer the second description here - if I were to make a prediction, I want my predicted value to be close to the actual value. For example, I might want to design something that fits the average person's height. I must make a prediction about the height of the people that will use it. My prediction is chosen to minimize how far off I would be, which means that I want to be near the "centre".
 ### Centre 1: The Median
 
-The **median** ($M$) is the midpoint of a distribution: half the observations are smaller and the other half are larger than it. To find the median:
+The **median** ($M$) is the midpoint of a distribution: half the observations are smaller and the other half are larger than it. To find the median:[**Median**: The middle number after you've put all the values in order.]{.aside}
+
+
 1. Arrange all observations in order of size, from smallest to largest.
 2. If the number of observations ($n$) is odd, the median $M$ is the centre observation in the ordered list. Find the location of the median by counting $(n + 1)/2$ observations up from the smallest observation.
 3. If n is even, the median $M$ halfway between the two centre observations in the ordered list. The location of the median is again $(n + 1)/2$, counting from the smallest observation in the list. 
@@ -90,12 +92,14 @@ All three have the same median!
 Do the "centres" make sense? Do they provide a good summary?
 
 :::notes
-These three data sets demonstrate that the median only depends on the middle two numbers when $n$ is odd. For the first two data sets, the median does seem to describe centre of the data well. The last data set is a little bit different from the others and the median might not be enough information.
+These three data sets demonstrate that the median only depends on the middle two numbers when $n$ is odd. For the first two data sets, the median does seem to describe centre of the data well. 
+
+The last data set is a little bit different from the others and the median might not be enough information. This will come up again and again: if your data set is "nice" (unimodal and no clear outliers), then summary statistics work well; a simple number can describe a simple data set. A complex data set needs more complicated numbers.^[If your data requires complex numbers ($\sqrt{-1}$), then you have a **very** interesting data set!]
 :::
 
 ### The Mean
 
-The **mean** is defined as:
+The **mean** is defined as:[**Mean**: Add all the numbers, divide by how many numbers you added.]{.aside}
 
 $$
 \bar x = \frac{1}{n}(x_1 + x_2 + ... + x_n)= \frac{1}{n}\sum_{i=1}^nx_i
@@ -142,7 +146,7 @@ Set 2: 1, 2, 3, 4, 5, 60
 Which do you think is the correct measure of the centre?
 
 :::notes
-Unlike the median, which only depends on the middle value, the mean uses information from all of the values. This means that if there's an outlier or a misrecorded point, the mean will reflect this. Sometimes this is what we want and sometimes it is not. 
+Unlike the median, which only depends on the middle value, the mean uses information from all of the values. This means that if there's an outlier or a misrecorded point, the mean will reflect this. The median will not change, though, which is why we call it **robust**. Sometimes this is what we want and sometimes it is not. [**Robust**: A statistic is robust if a small change to the data, such as adding/removing an outlier, does not affect that statistic.]{.aside}
 
 A common example of when the mean is not what we want is income. The lowest possible income is zero, but there is no maximum income, so incomes tend to be right skewed. The right skew affects the mean a lot more than that affects the median, and so, in this case the median is a better measure of the most common levels of income.
 :::

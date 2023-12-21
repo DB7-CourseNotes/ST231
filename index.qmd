@@ -1,5 +1,10 @@
 # Introduction {.unnumbered}
 
+These course notes are self-contained and provided as an Open Educational Resources. In doing so, I will also borrow from OpenIntro Statistics for the Biomedical and Life Sciences, with attribution. As such, these resources have the same license (see the end of this page), except for those elements that are still present from Baldi & Moore (mainly exercises, which are being removed as I go).
+
+## Alternate Textbooks for Extra Instruction
+
+- Alternate free text:
 These course notes structured to coincide with Baldi and Moore's The Basic Practice of Statistics in the Life Sciences, 4th edition. However, I am working towards making them self-contained in order to provide these notes as an Open Educational Resources. In doing so, I will also borrow from OpenIntro Statistics for the Biomedical and Life Sciences, with attribution. As such, these resources have the same license (see the end of this page), except for those elements that are still present from Baldi & Moore (mainly exercises, which are being removed as I go).
 
 
@@ -10,6 +15,10 @@ These course notes structured to coincide with Baldi and Moore's The Basic Pract
     - Copy available in the library. Old versions work fine.\lspace
 - Alternate (free) text (trialing):
     - [OpenIntro Statistics for Life Sciences](https://www.openintro.org/book/biostat/)
+    - Note that there are some issues with this text which will be discussed in class.
+- Alternate paid text: Bald \& Moore: The practice of statistics in the life sciences.
+    - Not required.
+    - Copy available in the library. Old versions work fine.
 
 
 ## Learning Outcomes

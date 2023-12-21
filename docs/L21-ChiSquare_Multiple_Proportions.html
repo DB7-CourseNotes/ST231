@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L19-Summary_of_Inference-Means_Proportions.html" rel="next">
+<link href="./L22-Inference_for_Regression.html" rel="next">
 <link href="./L20-Two_Proportions.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -278,8 +278,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span></a>
+  <a href="./L22-Inference_for_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23-ANOVA-oi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -403,7 +415,7 @@ P(A\text{ and }B) \stackrel{indep}{=}P(A)P(B),
 P(\text{mammogram and died}) = P(\text{mammogram})P(\text{died}) = \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) \approx 0.5662
 \]</span> Where did these numbers come from? <span class="math inline">\(P(\text{mammogram})\)</span> is the number of people in the mammogram row divided by the total number of people. That is, this is the proportion of people who were screened via mammogram, regardless of whether they survived. Similarly, 10005 is the number of people who did not survive, regardless of whether they were screened via mammogram.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Note that this the probability of mammogram <em>and</em> died, not the probability of death <em>given that they</em> were screened via mammogram.</p>
 <p>This is the proportion of patients, so the expected count is just <span class="math inline">\(np\)</span>, the sample size times the proportion. Notice what happens to the calculation when we include this number: <span class="math display">\[
-88935 * P(\text{mammogram and died}) = 88935 \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) = \frac{1005*44295}{88830} = 502.6
+88935 * P(\text{mammogram and died}) = 88935 \left(\frac{44925}{89835}\right)\left(\frac{1005}{89835}\right) = \frac{1005*44295}{89835} = 502.6
 \]</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -497,9 +509,9 @@ df = (r-1)(c-1)
 \]</span> where <span class="math inline">\(r\)</span> is the number of rows and <span class="math inline">\(c\)</span> is the number of columns.</p>
 <p>We can calculate the right-tailed p-value as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">qchisq</span>(<span class="fl">0.02</span>, <span class="at">df =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="fl">0.02</span>, <span class="at">df =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9993715</code></pre>
+<pre><code>[1] 0.8875371</code></pre>
 </div>
 </div>
 <p>That’s nearly 1, so there’s no reasonable significance level for which this test would be significant. We conclude that it’s reasonable to think that the rows and columns are independent<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, and so we can say that there’s no difference in outcome across different methods of screening.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
@@ -1013,8 +1025,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L19-Summary_of_Inference-Means_Proportions.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference: Overview, R Code, and Special Topics</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L22-Inference_for_Regression.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

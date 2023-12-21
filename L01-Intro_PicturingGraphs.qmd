@@ -1,7 +1,7 @@
 ---
 title: "Picturing Distributions with Graphs"
 institute: "Jam: *Penguins* by Lyle Lovett"
-date: "May 8, 2023"
+date: "last-modified"
 execute:
     code-fold: true
 ---
@@ -18,9 +18,9 @@ My definition: Statistics is the study of **variance** (or uncertainty).
     - 1 vs. 100 atoms in an apple? No.
 
 :::notes
-Many definitions of "statistics" are something along the lines of "methods for dealing with data". This completely misses out on theoretical statistics, and makes it seem like statistics is a collection of recipes stating "if you have this data, use this method". I think a better definition of statistics is that it's the study of variance, whether that means studying the theoretical properties of variance or trying to explain variance in a particular data set. 
+Many people think of "statistics" as something along the lines of "methods for dealing with data". This completely misses out on theoretical statistics, and makes it seem like statistics is a collection of recipes stating "if you have this data, use this method". I think a better definition of statistics is that it's the study of variance, whether that means studying the theoretical properties of variance or trying to "explain" variance^[We'll talk about what "explaining variance" means, along with exact ways to calculate it, in a later lecture.] in a particular data set. 
 
-I like to ask the question: "is 1 statistically different from 100". It may seem like they are obviously different numbers, but we can't know that without the context. If you're comparing numbers of apples, then yes, one apple is very different from 100 apples. However, if we're looking at numbers of of atoms per apple, then one and 100 are both imperceptible numbers of atoms and thus we might say they're practically the same. The difference in these two examples is the scale, and variance is a fantastic way to measure the scales of things. In my opinion, the main thing we will learn in this course is how to tell whether to numbers are different, *given the scale of those two numbers.* Another popular definition for statistics is "putting numbers in context", and by "in context" they mean "relative to their variance". 
+I like to ask the question: "is 1 statistically different from 100". It may seem like they are obviously different numbers, but we can't know that without the context. If you're comparing numbers of apples, then yes, one apple is very different from 100 apples. However, if we're looking at numbers of atoms per apple, then one and 100 are both imperceptible numbers of atoms and thus we might say the the two apples are basically the same size. The difference in these two examples is the scale, and the variance is a fantastic way to measure the scales of things. In my opinion, the main thing we will learn in this course is how to tell whether two numbers are different *given the scale of those two numbers.* Another popular definition for statistics is "putting numbers in context", and by "in context" they mean "relative to their variance". 
 
 In my lecture notes, I use **bold font** for anything that you will be expected to be able to explain or define. You won't necessarily see a full definition the first time you see a word in bold, but by the midterm/final it is something I expect you to know. A good way to study in this course is to keep a glossary of all of the words I've put in bold, with a definition file/note that you update as we learn more about that concept. And, of course, write a description as if you're teaching someone else!
 :::
@@ -30,15 +30,19 @@ In my lecture notes, I use **bold font** for anything that you will be expected 
 - Give context to different numbers.
     - The size of the difference depends on the context.
 - We need to know *how* and *why* we were wrong.
-    - *How*: What is the magnitude of the difference?
+    - *How*: What is the magnitude/direction of the difference?
     - *Why*: Are we missing relationships? Bad sampling? Fundamental randomness?
 
 Variance is information!
 
 :::notes
-Variance comes from many sources. We might just be doing something wrong and missing out on important feature of our data, we might be collecting the data in a biased or incorrect way, or there might be some fundamental part of the problem that we will never be able to measure perfectly, and so the variance that we calculated may already be the smallest possible variance for this problem. 
+Variance comes from many sources. We might just be doing something wrong and missing out on important feature of our data, we might be collecting the data in a biased or incorrect way, or there might be some fundamental part of the problem that we will never be able to measure perfectly, and so the variance that we calculated may actually be the smallest possible variance for this problem. 
 
-I like to say that variance is information. Suppose we're trying to figure out the heights of undergraduate students. We can calculate an average height, but it is entirely possible that nobody in our data set has a height that is exactly equally to the average height. We would want to quantify how much variation there is around that average height. If our sample includes a basketball team, then, this is variation due to some thing that we could have measured. In other words, the variation in our data can be explained by including another perspective. Once we have that perspective and we were included in our analysis are variance should be smaller, and therefore we have extracted more information. As we gain more information about our data, the variance in our estimate goes down - this is why I say that variance is information! Or, rather, variance is hiding information.
+Suppose we're trying to figure out the heights of undergraduate students. We can calculate the average height, but I don't expect anyone in the data to actually have this exact height. Exactly how far away from this average do we expect the other heights to be? The measurement of the expected distance to the mean is called the **variance**.[The **variance** is a measure of the "usual" distance to the mean - we'll have a formula for this later.]{.aside}
+
+If our sample consisted of people walking out of the gym, and out of 50 people sampled we had 20 people who were on the basketball team, we might know a little bit more about our variance. Specifically, we'll get some students who may or may not be representative of the population as well as some students who are unusually tall. These two groups are fundamentally different, so including both in the same sample will increase our variance. Put another way, the different groups in our data **explain some of the variance** in our data.[Different subgroups within a sample can help **explain** why the variance is as large as it is.]{.aside}
+
+This is why I say that the variance is information! More specifically, the difference between a single value and the mean of the data is due to some unexplained phenomena, and learning more about the problem will reduce the variance.
 :::
 
 ### Descriptive Versus Inferential Statistics
@@ -52,11 +56,11 @@ I like to say that variance is information. Suppose we're trying to figure out t
         - **how different**
 
 ::: notes
-In this course, we will learn about two classes of statistics. Descriptive statistics are the ones that we used to describe the sample that we obtained. This can include things like the mean/median/mode, the variance or the interquartile range, as well as bar charts, histograms box, plots, etc.
+In this course, we will learn about two classes of statistics. **Descriptive statistics** are the ones that we used to describe the sample that we obtained. This can include things like the mean/median/mode, the variance or the interquartile range, as well as bar charts, histograms box, plots, etc. [**Descriptive Statistics** describe the data that were acquired.]{.aside}
 
-Inferential statistics are numbers that we calculate because we think have a relationship to the population. For instance, if we calculate the mean of our data, and we trust that our sample is good, then we expect this sample mean to be somewhat close to the population mean. Any time in this course I talk about the difference between two things, I will always mean "with reference to a measure of variance". In this example, we have a sample mean as well as some measure of its variance, and this variance tells us how similar we expect the sample mean to be to the population mean. If we have a small sample variance, it means that we have a lot of information about the population mean. Variance contains information that we haven't learned yet!^[It is worth noting that there is also variance that isn't information, and there's information that we'll never have access to. Variance is an opportunity to learn, but there's almost always a limit to how much we can learn.]
+**Inferential statistics** are numbers that we calculate because we think they have a relationship to the population. For instance, if we calculate the mean of our data and we trust that our sample is good, then we expect this sample mean to be somewhat close to the population mean. Any time in this course I talk about the difference between two things, I will always mean "with reference to a measure of variance". In this example, we have a sample mean as well as some measure of its variance, and this variance tells us how similar we expect the sample mean to be to the population mean. If we have a small sample variance, it means that we have a lot of information about the population mean. Variance contains information that we haven't learned yet!^[It is worth noting that there is also variance that isn't information, and there's information that we'll never have access to. Variance is an opportunity to learn, but there's almost always a limit to how much we can learn.][**Inferential Statistics** attempt to describe the population based on the data acquired. This requires a *good* sample, and it's why Statistics is such a useful field of study.]{.aside}
 
-In this course, we're going to start by talking about descriptive statistics and work our way to inferential statistics. 
+In this course, we're going to start by talking about descriptive statistics and work our way to inferential statistics (with a detour through probability to show why inferential statistics work so well). 
 ::: 
 
 ## Descriptive Statistics: Plots and Graphs
@@ -75,7 +79,10 @@ head(as.data.frame(penguins))
 - Sex can be male or female^[A note on gender/sexuality/biology: penguins, especially Chinstrap and Gentoo penguins, don't have particularly strong gender roles, and [often form same-sex couples](https://sites.tufts.edu/museumstudents/2021/02/22/whats-with-all-the-gay-penguins/). In this course, I will use the term "sex" to mean "biosex", rather than "gender", to indicate that we're looking at morphological differences due to XX and XY chromosomes.]
 - Bill Length is measured in millimetres
 - Body Mass is measured in grams
-- Not shown: Island (one of three), bill depth (mm), flipper length (mm), year. 
+- Island (one of three)
+- Bill depth (mm)
+- Flipper length (mm)
+- Year that the penguin was observed.
 
 
 These data are really nice for teaching statistics because we can look at what factors contribute to body mass (since it's easier to measure the length of a beak than it is to weigh a live penguin), or we can try to determine biosex using these measurements (since penguins normally have no external genitalia, but have other morphological differences). We can also fit a model to determine the species of each penguin so that we can get a full picture of what makes each species unique! All of these are examples of statistical analyses that we will cover in this course.
@@ -83,16 +90,12 @@ These data are really nice for teaching statistics because we can look at what f
 
 ### Types of Variables
 
-:::: {.columns}
-::: {.column width="50%"}
 ```{r}
 penguins[, c("species", "sex", "body_mass_g")] |>
     head() |>
     knitr::kable()
 ```
 
-:::
-::: {.column width="50%"}
 - Species is **categorical**
     - Mutually exclusive categories.
 - Sex is **binary**^[Possibly categorical if there are any penguins with chromosomal abnormalities.]
@@ -100,21 +103,20 @@ penguins[, c("species", "sex", "body_mass_g")] |>
     - Special case of categorical with 2 possibilities
 - Body mass is **quantitative**
     - It's a number (quantity)
-:::
-::::
+
 
 :::notes
 The type of variable is extremely important for choosing the right summary of the data. 
 
-**Categorical variables** consist of two or more mutually exclusive categories, that is, each observation has a label and nothing has more than one label. Categorical variables may be **ordered** (such as "low", "medium", and "high") or **unordered** (such as names or student numbers; putting names in alphabetical order is not usually meaningful for summarising the data or doing the analysis).
+**Categorical variables** consist of two or more mutually exclusive categories, that is, each observation has a label and nothing has more than one label. Categorical variables may be **ordered** (such as "low", "medium", and "high") or **unordered** (such as names or student numbers; putting names in alphabetical order is not usually meaningful for summarising the data or doing the analysis).[**Categorical variables** are categories. Be careful - some categories are *encoded* as numbers, such as "group 1" and "group 2", etc.]{.aside}
 
-This distinction of "**ordered**" versus "**unordered**" matters to determine what visualization or model you might want to use to compare data within categories. For instance, we might want to see the change in response to a "low" treatment compared to a "medium" or "high" treatment, where we fully expect the response to the treatment to be lower for "low" treatment and higher for "high". In contrast, suppose we knew the patients' occupations. We have no expectation that the treatment reponse in the "electrician" group is lower or higher than any other group, because there's no logical ordering to occupation.^[We may, however, know that factory workers have more exposure to a pathogen than those who work from home, but we would likely want to measure this directly rather than measuring it by proxy with occupation.]
+This distinction of "**ordered**" versus "**unordered**" matters to determine what visualization or model you might want to use to compare data within categories. For instance, we might want to see the change in response to a "low" treatment compared to a "medium" or "high" treatment, where we fully expect the response to the treatment to be lower for "low" treatment and higher for "high". In contrast, suppose we knew the patients' occupations. We have no expectation that the treatment reponse in the "electrician" group is lower or higher than any other group, because there's no logical ordering to occupation.^[We may, however, know that factory workers have more exposure to a pathogen than those who work from home, but we would likely want to measure this directly rather than measuring it by proxy with occupation.][**Ordered** and **unordered** categorical variables.]{.aside}
 
-**Binary variables** are a special case of **categorical variables**, which only have two categories. In this case, the ordering is rarely important, and thus we don't really make the distinction between ordered binary and unordered binary. It's a single difference either way, so we can just look at the differences within the categories.^[We often encode on of the categories as 0 and the other as 1, but this is usually either clear (0 = no treatment, 1 = treatment) or completely arbitrary (0 = femala, 1 = male) and this arbitrariness is acknowledged. Neither of these cases affect the way we make plots or run analyses that are based on binary variables.]
+**Binary variables** are a special case of **categorical variables**, which only have two categories. In this case, the ordering is rarely important, and thus we don't really make the distinction between ordered binary and unordered binary. It's a single difference either way, so we can just look at the differences within the categories.^[We often encode on of the categories as 0 and the other as 1, but this is usually either clear (0 = no treatment, 1 = treatment) or completely arbitrary (0 = femala, 1 = male) and this arbitrariness is acknowledged. Neither of these cases affect the way we make plots or run analyses that are based on binary variables.][**Binary** variables.]{.aside}
 
-**Quantitative variables** are those that are measured with numbers. Unlike "low" to "medium" versus "medium" to "high", we know how big a step it is from 0 to 1 and then 1 to 2. Unlike categorical variables, quantitative variables have a concept of "in-between"; we have nothing between "medium" and "high", but there are infinite numbers between 1 and 2.
+**Quantitative variables** are those that are measured with numbers. Unlike "low" to "medium" versus "medium" to "high", we know how big a step it is from 0 to 1 and then 1 to 2. Unlike categorical variables, quantitative variables have a concept of "in-between"; we have nothing between "medium" and "high", but there are infinite numbers between 1 and 2.[**Quantitative variables** are numbers.]{.aside}
 
-There are, however, cases where there *aren't* possible measurements between 1 and 2. These are called "**discrete**"^[Not discreet.] For instance, the number of children that some has is either 0, 1, 2, etc. **Discrete** variables are somewhere in between categorical and **continuous variables** (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would *not* want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.^[There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.] 
+There are, however, cases where there *aren't* possible measurements between 1 and 2. These are called "**discrete**"^[Not discreet.] For instance, the number of children that some has is either 0, 1, 2, etc. **Discrete** variables are somewhere in between categorical and **continuous variables** (variables that can take be number). Consider the following two examples of discrete variables: the number of children that someone has, and the number of cents in their bank account. In a study, we might want to look at everyone who has no children, everyone who has 1 child, everyone who has 2, etc. However, we would *not* want to compare everyon who has 0 cents in their bank account, everyone who has 1 cent in their account, 2 cents, 3, cents, etc. In terms of modelling and visualization, we will sometimes treat discrete variables as categorical and sometimes as continuous.^[There are methods/visualizations that are specific to discrete variables, but they only apply in very specific circumstances and will not be taught in this course.][**Discrete** variables only allow for some numbers, such as the numbers of children per family.]{.aside} [**Continuous** variables can take any value in a range. For any two possible numbers, there's another possible number in between them. Alternatively, they can be defined as "any measurement you make could have been more precise."]{.aside}
 
 The distinction between categorical and quantitative isn't always this obvious, but can be very helpful for choosing the right kind of plot or numerical summary.
 :::
@@ -136,16 +138,37 @@ There are a couple gray areas when talking about variable types. The distinction
 
 ### Individuals (Subjects)
 
-**Individual:** the unit of study.
-
-In the Palmer Penguins data set, a penguin is an individual.
+An individual is the thing we are making measurements on. For example, in the Palmer Penguins data set, a penguin is an individual and we measure their flipper length, bill length, the island they were observed on, etc. In other data sets, we may measure the GDP of countries (countries are the individuals) or the cuteness of dogs.[**Individual:** the unit of study. We make measurements on individuals.]{.aside}
 
 
+### Challenge: What are the individuals?
+
+The following data are from the "Titanic" dataset.
+
+Each number defines the count of children who survived the Titanic's sinking.
+
+|     | Male | Female |
+|-----------|----|----|
+| 1st class | 5  | 1  |
+| 2nd class | 11 | 13 |
+| 3rd class | 13 | 14 |
+| Crew      | 0  | 0  |
+
+:::notes
+There are a couple of ways to interpret this.
+
+- People: We measured whether an individual survived (one measurement per person).
+- Class: We have two measurements per class - one for male children, one for female children.
+- Sex: We have four observations (class 1, 2, 3, or crew).
+- Finally, we could say we have one observation per class/sex combination.
+
+There isn't one "correct" definition of individual here. However, the way we define individual affects how we might visualize these data!
+:::
 
 ::: {.callout-warning}
 ### CO$_2$ Measurements
 
-Monthly measurements of CO$_2$ - the months are the individuals?
+If we measure the C0$_2$ at a given location each month, then do the months count as the individuals? This describes *time series* data, which we won't cover in this course. However, visualizations of data that are measured over time can reveal a lot of information!^[Of course, by "information", I mean variance. If we don't know the date that an observation was observed, we just have a collection of different numbers. If we see that there's a pattern over time, we know a little more about why each number is different from the others!]
 :::
 
 ::: {.callout-warning}
@@ -153,6 +176,7 @@ Monthly measurements of CO$_2$ - the months are the individuals?
 
 - Spousal pairs - the pairs are the individuals?
 - Before/after (e.g., weight loss) - people are individuals.
+    - This is the same idea as spousal pairs!
 :::
 
 :::notes
@@ -160,14 +184,14 @@ All of the variables we just talked about are measured on individuals. That is t
 
 There are some gray areas to this as well, though. For example, if we're measuring carbon dioxide every month, then we're actually measuring carbon dioxide as the variable and months as the individuals, and we can measure other things on those individuals if needed. 
 
-We will also encounter pared observations in this course, which are measurements on two things at once. For example, we might be looking at spousal pairs, perhaps measuring the difference in height per pair. The variable we are measuring is the *difference*, and so we only have one observation per individual, which means that the individuals must be the pairs of people. A slightly more obvious example is something like a weight loss study were observing a change in weight for a certain person, even though we have two observations the individual is still the person who we're measuring.
+We will also encounter **paired observations** in this course, which are measurements on two things at once. For example, we might be looking at spousal pairs, perhaps measuring the difference in height per pair. The variable we are measuring is the *difference*, and so we only have one observation per individual, which means that the individuals must be the pairs of people. A slightly more obvious example is something like a weight loss study were observing a change in weight for a certain person, even though we have two observations the individual is still the person who we're measuring.[**Paired Observations**: a special type of data where the difference (subtraction) of two values is what we are studying.]{.aside}
 :::
 
 ### Example: What are the Individuals? What are Variables?
 
 ```{r}
 #| echo: true
-mtcars[1:6, 1:5]
+mtcars[1:6, c("wt", "mpg", "cyl", "am")]
 ```
 
 :::notes
@@ -185,7 +209,6 @@ mtcars[1:6, 1:5]
 - The wedges must sum to 1.
     - If "Adelie" makes up 44% of the data, it should be 44% of the pie chart.
     - All penguins are either Adelie, Gentoo, or Chinstrap; no penguins have more than one species.
-        - In contrast, 
 - Mainly good for *emphasizing* one wedge
     - *Emphasizing* can easily mean *misrepresenting*, whether accidentally or on purpose!
 
@@ -217,55 +240,116 @@ ggplot(mtcars) +
         y = "Count")
 ```
 
-Compare this to the output of `table(mtcars$am)`:
+The code required to create the bar chart can be shown by clicking the ">Code" icon. An explanation of the code is below (but this will *not* be tested).
+
+<details>
+<summary>**Code Explanation**</summary>
+
+The data set is built into our so we don't need to load anything to put this data. We do need to load in the `ggplot` library, though. In my lecture notes, you'll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here's a quick breakdown of the functions I used:
+
+- The `ggplot()` function tells R what data we will be using.
+- The `aes()` function sets up the plot "aesthetics", such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points, etc.
+- `geom_bar()` actually draws the bar plot using the data set that `ggplot()` set up and the aesthetics, that `aes()` set up.
+    - Try running the code without this line and see what happens!^[It will still create a plot with the correct x and y axes, but won't draw the bars.]
+- The `labs()` function simply adds `lab`el`s` to the plot to make it look nicer.
+</details>
+
+Compare this to the following table:
 
 ```{r}
 #| code-fold: false
 table(mtcars$am)
 ```
 
-:::notes
-Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 22 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it's easy to compare these two categories.
 
-The code required to create the bar chart can be shown by clicking the ">Code" icon. The data set is built into our so we don't need to load anything to put this data. We do need to load in the `ggplot` library, though. In my lecture notes, you'll see lots of code that looks like this, but you will not be tested on your ability to re-create this code. For those interested, here's a quick breakdown of the functions I used:
+Bar charts are primarily used to compare categories. The most common use of a bar chart is to count the number of observations in each category, and create a bar with a corresponding height. In this example, we see, automatic and manual transmissions, with automatic labelled as zero and manual labelled as one. We can see that approximately 19 cars are automatic and 13 cars are manual. Unlike a pie chart, we can read these numbers off of the plot and it's easy to compare these two categories.
 
-- The ggplot function tells R what data we will be using.
-- The `aes()` function sets up the plot "aesthetics", such as what variable goes on the x-axis, what variable goes on the y-axis, what variable is assigned to a colour, what variable determines the shapes of points, etc.
-- `geom_bar()` actually draws the bar plot using the data set that `ggplot()` set up and the aesthetics, that `aes()` set up.
-    - Try running the code without this line and see what happens!^[It will still create a plot with the correct x and y axes, but won't draw the bars.]
-- The `labs()` function simply adds `lab`els to the plot to make it look nicer.
+
+
+### Titanic Example
+
+The following example demonstrates why it's important to be clear about what an "individual" is. Depending on how we define an individual, we might choose to make a different plot!
+
+If we're measuring things about different Sexes ("sexes" are "individuals"), we're doing a different study than if we consider ourselves to be making measurements about different Classes.
+
+:::: {.columns}
+::: {.column width="45%"}
+Based on this plot, we might be asking how "Sex" varies by "Class".
+
+```{r}
+#| echo: false
+suppressPackageStartupMessages({
+    library(ggplot2)
+    theme_set(theme_bw())
+})
+ggplot(as.data.frame(Titanic[,,1,2])) +
+    aes(x = Class, y = Freq, fill = Sex) +
+    geom_bar(stat = "identity", position = "dodge") +
+    labs(title = "Surviving Children on the Titanic") +
+    theme(legend.position = "bottom")
+```
+
+:::
+::: {.column width="9%"}
+:::
+::: {.column width="45%"}
+Based on this plot, we might be asking how "Class" varies by "Sex".
+
+```{r}
+#| echo: false
+suppressPackageStartupMessages({
+    library(ggplot2)
+    theme_set(theme_bw())
+})
+ggplot(as.data.frame(Titanic[,,1,2])) +
+    aes(x = Sex, y = Freq, fill = Class) +
+    geom_bar(stat = "identity", position = "dodge") +
+    labs(title = "Surviving Children on the Titanic") +
+    theme(legend.position = "bottom")
+```
+
+
+:::
+::::
 
 
 **Exercises**
 
-The following exercises are based on the exercises in Chapter 1 of Baldi \& Moore, 4th ed.
+The following exercises are based on the exercises in the (optional) OpenIntro biostats textbook. They are based on the **F**unctional polymorphisms **A**ssociated with human **Mu**scle **S**ize and **S**trength, or `famuss`, data set.^[The "FAMUSS" acronym is a bit of a stretch, but just go with it.]
 
-1. Children’s food choices. Does the presence of popular cartoon characters on food packages influence children’s food choices? A study asked 40 young children (ages four to six) to taste two small pieces of Graham Crackers coming from a package with and a package without a popular cartoon character, and to indicate whether the two foods tasted the same or one tasted better. Unknown to the children, the crackers were the same both times. Here are the findings:
+The data are available in the `oibiostat` pacjage in R, which is a package based on the OpenIntro Biostat textbook. Don't worry if you don't know what any of that means - it's not important for this portion of the course.
 
-| Taste Preference | Number of Children | Percent |
-|---|---|---|
-| Tastes better without character | 3 | |
-| Taste the same | 15 | |
-| Tastes better with character | 22 | |
+```{r}
+library(oibiostat)
+data(famuss)
+head(famuss)
+```
 
-a. Identify the individuals and the variable or variables in the study.
-b. Present these data in a well-labeled bar graph.
-c. Would it also be correct to present these data in a single pie chart? Explain your reasoning.
-d. What do the data suggest about the influence of cartoon characters on Graham Cracker preference in young children
+The columns are a little difficult to understand, so here's a brief overview.
 
-2. The study in Exercise 1 also asked the 40 children to taste small pieces of gummy fruit snacks and baby carrots presented in packages with and in packages without a popular cartoon character. For each food type, the children indicated which of the two options they would prefer to eat for a snack. (Note that this is a different question from the one asked in Exercise 1) The number and percent of children choosing the version with a cartoon on the package are displayed in the following table:
+| variable | description |
+|----------|-------------|
+| `sex` | Biological sex of the patient |
+| `age` | Age (years) |
+| `race` | Self-reported race |
+| `height` | Subject's height in inches |
+| `weight` | Subject's weight in pounds |
+| `bmi` | Subject's body mass index (weight divided by height$^2$) |
+| `actn3.r577x` | I think it's obvious what this column is |
+| `drm.ch` | Again, this is obvious. |
+| `ndrm.ch` | No need to explain this one. |
 
-| Food Item | Number of children choosing the cartooon version | Percent choosing the cartoon |
-|---|---|---|
-| Graham Crackers | 35 | |
-| Gummy and fruit snacks | 34 | |
-| Baby carrots | 29 | |
+Okay, so some of the columns need some explaining. The study was interested in whether a particular genotype affected the ability of subjects to build muscle. The genotype is at the genome position r557x in the ACTN3 gene, which is a fancy way of saying that the `actn3.r577x` tells us something about the subject's genetic code. The genotype can be either `TT`, `TC`, `CT`, or `CC`, and the researchers believed that these genes determine how easily people build muscle. 
 
-a. Identify the individuals and the variable or variables in the study.
-b. Make a well-labeled bar graph of the data.
-c. Would it be correct to present these data in a single pie chart? Explain your reasoning.
-d. What can you conclude from these findings?
-:::
+The way the study was carried out is as follows. The researchers asked each subject to perform a test of strength using each arm. Subjects were then asked to follow a muscle strengthening exercise, but *only* on their non-dominant side (if they're right handed, they were asked to strengthen their left arm). After the strengthening, they repeated the test of strength. The columns labelled `drm.ch` and `ndrm.ch` are the percentage change in their strength for their dominant arm and their non-dominant arm (the dominant arm was measured to see whether the patients gained or lost strength for reasons other than the prescribed strength training exercise). 
+
+1. Based on the R output, what type of variable is each column?
+2. What counts as an individual in this study?
+    a. Each person
+    b. Each pair of people
+    c. Each arm (two per person in the study)
+    d. Each column in the data
+3. Explain why either a bar chart or a pie chart would be appropriate for the `actn3.r577x` column. Be extremely precise.
 
 
 ### Ordered and Unordered
@@ -273,6 +357,7 @@ d. What can you conclude from these findings?
 Whether the categorical variable is ordered or unordered affects the way we make the plot:
 
 - Ordered: put the bars in order
+    - For example, if we have data from 2020, 2021, and 2022, then we would have the bars in that order!
 - Unordered: put it in an arbitrary order
     - Alternative: order according to largest to smallest.
 
@@ -318,7 +403,7 @@ What type of variable is "dose level", defined as either no dose, half dose, or 
 :::notes
 Quantitative variables are split into discrete and continuous variables. Discrete variables are generally represented by whole numbers, for example, the number of students in a given classroom. 
 
-In contrast, continuous numbers could be anything! I like to think of them as numbers that could've been measured with more precision if we had better tools. For example, peoples Heights could be measured to infinite precision if we had perfect tools, whereas we don't need better tools to measure the number of children and family more precisely.
+In contrast, continuous numbers could be anything! I like to think of them as numbers that could've been measured with more precision if we had better tools. For example, peoples Heights could be measured to infinite precision if we had perfect tools, whereas we don't need better tools to measure the number of children in a family more precisely.
 
 Of course, as with all things, there is a gray area here. Many studies will choose to give their subjects either no dose, a half dose or a full dose. These are obviously numbers and it is very likely that the response for a 0.75 dose is somewhere in between the half dose and the full dose. However, we chose these numbers and thus there are only three possible numbers. No amount of measuring is going to give us something other than a half dose (any deviation in administration of the dose can hopefully be ignored for the purpose of the study). In the definitions we've used it is neither a whole number, nor cannot be measured with higher precision. For the purposes of visualization, we might actually want to use a bar chart as if this were a categorical variable. If the dose had more categories and we expected the response to have a smooth trend across different dose levels, then we might use visualizations meant for discrete data. If the dose could have been any number between zero and one then we might use visualization meant for continuous data.
 
@@ -336,8 +421,9 @@ Here are the lengths of sharks:
 17.6 17.8 17.8 18.2 18.3 18.6 18.7 18.7 19.1 19.7 22.8
 ```
 
-- We could have measured more precisely!
+- Even though we only know the data to one decimal point, we could have measured more precisely!
     - This is a continuous variable.
+    - Note that there are ties in these data, and thus we could make bar charts with bars that are more than one unit tall. However, if we measured more precisely, these ties would go away.
 - Can't just draw a bar chart with all sharks that were 9.4, all that were 12.1, ...
 
 :::notes
@@ -524,9 +610,9 @@ Consider the data
 ```
 
 :::: {.columns}
-::: {.column width="30%"}
-:::
 ::: {.column width="20%"}
+:::
+::: {.column width="30%"}
 **Stem-and-Leaf**
 ```
 0  | 14
@@ -546,7 +632,8 @@ Consider the data
 **Sideways Histogram**
 
 ```{r}
-#| fig-height: 4.6
+#| fig-height: 5.75
+#| echo: false
 mydata <- c(12, 43, 12, 32, 53, 66, 78, 25, 36, 12, 26,
     34, 98, 39, 44, 23, 15, 67, 1,  4,  54, 21)
 
@@ -562,13 +649,13 @@ ggplot() + theme_minimal() +
 ::::
 
 :::notes
-This visualization technique is shown purely for pedagogical reasons. A stem and leaf plot is like a histogram where the bins are all powers of 10. It isisplayed using the stem, which is the first digit and the leaf which is the second digit. For example, the number 78 has a 7 in the tens place (and were using the tens place as the stem) and an 8 in the ones place (and we using the ones place as the leaf). In the stem and leaf plot, 78 goes on the stem labelled 70 and it gets a leaf of eight. Going the other way, we can see a stem labelled 90 and a leaf labelled eight which corresponds to the number 98. For the stem labelled zero we have the numbers one and four, for the stem label 10 we have the numbers 12, 12, 12, and 15, and so on.
+This visualization technique is shown purely for pedagogical reasons. A stem and leaf plot is like a histogram where the bins are all powers of 10. It is displayed using the stem which is the first digit, and the leaf which is the second digit. For example, the number 78 has a 7 in the tens place (the tens place is the stem) and an 8 in the ones place (and we're using the ones place as the leaf). In the stem and leaf plot, 78 goes on the stem labelled 70 and it gets a leaf of eight. Going the other way, we can see a stem labelled 90 and a leaf labelled eight which corresponds to the number 98. For the stem labelled zero we have the numbers one and four, for the stem label 10 we have the numbers 12, 12, 12, and 15.
 
-Essentially, this is just a histogram. We're instead of drawing a bar that corresponds to the number of observations in that bin, we are just listing the observations in that bin. Compare the stem and leaf plot to the sideways histogram on the right: in the first bin from 0 to 10 (not including 10) there are two numbers, one and four, and the length of the bin is two. For the stem label 20, we have the numbers 21, 23, 25 and 26, and this is displayed as a bar with link for in the histogram.
+Essentially, this is just a histogram. Instead of drawing a bar that corresponds to the number of observations in that bin, we are just listing the observations in that bin. Compare the stem and leaf plot to the sideways histogram on the right: in the first bin from 0 to 10 (not including 10) there are two numbers, one and four, and the length of the bin is two. For the stem label 20, we have the numbers 21, 23, 25 and 26, and this is displayed as a bar with length four in the histogram.
 
-The main reason for showing this visualization technique is that it can be very useful for tests and quizzes, because it allows you to create a histogram without software. It also allows easy computation of the median since all of the leaves are in order. These are not used in practice, because in practice, you will have software to create histograms *and* find the median!
+The main reason for showing this visualization technique is that it can be very useful for tests and quizzes, because it allows you to create a histogram without software. It also allows easy computation of the median since all of the leaves are in order. These are not used in practice because in practice you will have software to create histograms *and* find the median!^[That software is R!]
 
-Note that the shape of the distribution can be seen from the stem and leaf plot. It is a unimodal distribution that is right skewed and likely does not have an outlier (there is one point that appears to be separate from the others, but this is most likely due to bin choice).
+Note that the shape of the distribution can be seen from the stem and leaf plot. It is a unimodal distribution that is right skewed and likely does not have any clear outliers (there is one point that appears to be separate from the others, but this might be due to bin choice).
 :::
 
 ### Summary
@@ -584,6 +671,46 @@ Note that the shape of the distribution can be seen from the stem and leaf plot.
     - **Bins matter**.
     - Must interpret **shape**.
 
+
+## Exercises
+
+1. Which of the following plots would be appropriate for the `bmi` column?
+
+<details>
+<summary>**Bar chart**</summary>
+
+What do you think? Does the plot below give you any useful information about the data?
+
+```{r}
+#| echo: false
+ggplot(famuss) +
+    aes(x = factor(bmi)) +
+    geom_bar()
+```
+</details>
+
+<details>
+<summary>**Pie Chart**</summary>
+No. I'm not even going to try in this case.
+</details>
+
+<details>
+<summary>**Histogram**</summary>
+
+Correct! The plot below tells us where most of the subjects' BMI lie. We can see that most of the subjects are between 15 and 30, with a few between 30 and 35 and few above 35.
+
+This is the whole reason we categorize variables as quantitative or categorical: knowing the type of the variable tells us which plots will give us useful information!
+
+```{r}
+#| echo: false
+ggplot(famuss) +
+    aes(x = bmi) +
+    geom_histogram(bins = 30, colour = "black", fill = "lightgrey")
+```
+</details>
+
+
+<!---
 ## Participation Questions
 
 ### Q1
@@ -681,10 +808,12 @@ ggplot() + aes(x = myd) + geom_histogram(center = 0.5, binwidth = 1, fill = "lig
 ::::
 
 Answers: 334133
+--->
 
-**Exercises**
 
-1. **Prescriptions of opioid pain relievers.** Opioid pain relievers are prescribed at a higher rate in the United States than in any other nation, even though abuse of these medications can result in addiction and fatal overdoses. The CDC examined opioid pain reliever prescriptions in each state to find out how variable prescription rates are across the nation. Here are the 2012 state prescription rates, in number of prescriptions per 100 people, listed in increasing order: 
+
+
+2. **Prescriptions of opioid pain relievers.** Opioid pain relievers are prescribed at a higher rate in the United States than in any other nation, even though abuse of these medications can result in addiction and fatal overdoses. The CDC examined opioid pain reliever prescriptions in each state to find out how variable prescription rates are across the nation. Here are the 2012 state prescription rates, in number of prescriptions per 100 people, listed in increasing order: 
 
 `opiods <- c(52.0, 57.0, 59.5, 61.6, 62.9, 65.1, 66.5, 67.4, 67.9, 69.6, 70.8, 71.2, 71.7, 72.4, 72.7, 72.8, 73.8, 74.3, 74.3, 74.7, 76.1, 77.3, 77.5, 79.4, 82.0, 82.4, 85.1, 85.6, 85.8, 88.2, 89.2, 89.6, 90.7, 90.8, 93.8, 94.1, 94.8, 96.6, 100.1, 101.8, 107.0, 109.1, 115.8, 118.0, 120.3, 127.8, 128.4, 137.6, 142.8, 142.9)`
 
@@ -703,13 +832,13 @@ The Statistical Abstract of the United States, prepared by the Census Bureau, pr
 | Pancreas | 350 |
 | Intestine | 151 |
 
-2. (1.14 in BM) The data on single-organ transplants can be displayed in
+3. The data on single-organ transplants can be displayed in
 
 a. a pie chart but not a bar graph.
 b. a bar graph but not a pie chart.
 c. either a pie chart or a bar graph.
 
-3. (1.15 in BM) Kidney transplants represented what percent of single-
+4. Kidney transplants represented what percent of single-
 organ transplants in 2010?
 a. Nearly 61%.
 b. One-sixth (nearly 17%).

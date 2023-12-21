@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+<meta name="dcterms.date" content="2023-07-24">
+
+<title>Statistics for Life Sciences - 19&nbsp; Inference for Regression</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./L23-ANOVA-oi.html" rel="next">
+<link href="./L21-ChiSquare_Multiple_Proportions.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L22-Inference_for_Regression.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistics for Life Sciences</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Pre-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Post-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14-Inference_Cautions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics in Inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15-CI_for_Means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16-Hypothesis_Tests_for_Means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17-Two_Sample_hypothesis_Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-CI_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20-Two_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21-ChiSquare_Multiple_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chi-Square Test for Multiple Proportions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22-Inference_for_Regression.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23-ANOVA-oi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#return-to-regression" id="toc-return-to-regression" class="nav-link active" data-scroll-target="#return-to-regression"><span class="header-section-number">19.1</span> Return to Regression</a></li>
+  <li><a href="#regression-recap" id="toc-regression-recap" class="nav-link" data-scroll-target="#regression-recap"><span class="header-section-number">19.2</span> Regression Recap</a></li>
+  <li><a href="#inference-for-the-slope-parameter" id="toc-inference-for-the-slope-parameter" class="nav-link" data-scroll-target="#inference-for-the-slope-parameter"><span class="header-section-number">19.3</span> Inference for the Slope Parameter</a>
+  <ul class="collapse">
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
+  </ul></li>
+  <li><a href="#regression-in-r" id="toc-regression-in-r" class="nav-link" data-scroll-target="#regression-in-r"><span class="header-section-number">19.4</span> Regression in R</a></li>
+  <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">19.5</span> Confidence Intervals</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">19.6</span> Conclusion</a></li>
+  <li><a href="#appendix---leverage" id="toc-appendix---leverage" class="nav-link" data-scroll-target="#appendix---leverage"><span class="header-section-number">19.7</span> Appendix - Leverage</a></li>
+  <li><a href="#appendix---interpreting-qq-norm" id="toc-appendix---interpreting-qq-norm" class="nav-link" data-scroll-target="#appendix---interpreting-qq-norm"><span class="header-section-number">19.8</span> Appendix - Interpreting QQ norm</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2023-07-24</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="return-to-regression" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="return-to-regression"><span class="header-section-number">19.1</span> Return to Regression</h2>
+<p>In the lessons on regression, there was a recurrent theme: if the correlation was 0, then the slope was 0 (and <em>vice-versa</em>, since <span class="math inline">\(b = rs_y/s_x\)</span>). However, in real data the correlation is never exactly 0. How do we know if it’s “close enough” to 0 to say that there’s no correlation between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>? By comparing it to a <strong>standard error</strong>, of course!</p>
+<p>After the previous lesson (the Chi-Square test), this lesson is a return to form. We’re going back to t-tests! Hooray! But first, let’s do a quick recap on regression.</p>
+</section>
+<section id="regression-recap" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="regression-recap"><span class="header-section-number">19.2</span> Regression Recap</h2>
+<p>In regression, we’re trying to find parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> in the equation <span class="math inline">\(y = a + bx\)</span> to make sure that the fitted line is as “close” to the observed data as possible.</p>
+<p>To find the line of best fit, we minimize the sum of squared errors, <span class="math inline">\(\sum(y_i - \hat y_i)^2\)</span>, where <span class="math inline">\(\hat y_i\)</span> is the height of the line that we get if we plug the <span class="math inline">\(x\)</span> value into the model. The fact that we minimize the squares is not important, but it is important that it’s based on the quantity <span class="math inline">\(y_i - \hat y_i\)</span>, called the <em>residuals</em>.</p>
+<p>For example, consider the penguins data that we looked at earlier. In these data, we’re trying to predict the body mass of a penguin based on their flipper length. This is useful to field researchers, since measuring flipper length is much easier than weighing a penguin and still gives them some idea of how much that penguin might weigh.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The blue line is the line of best fit, which was estimated as: <span class="math display">\[
+body\_mass_i = -6787.28 + 54.62*flipper\_length_i
+\]</span></p>
+<p>The slope is 54.62, meaning that the weight of the penguin increases, on average, by 54.62 grams for each 1mm increase in the flipper length. In other words, if we look at all pairs of penguins that had flipper lengths that were 1mm apart, the average difference in their body masses would be something like 54.62.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The slope was calculated using our formulas from before. The correlation between flipper length and body mass is 0.7027, the standard deviation of flipper length is 6.4850, and the sd of body mass is 504.1162. Putting these together, the slope is <span class="math inline">\(0.7072 * 504.1162 / 6.4850 = 54.9747\)</span>. This is slightly off because of rounding - I calculated this one by hand, but the slope in the equation above was calculated with R.</p>
+<p>The intercept of this model is -6787.28, which could be interpreted as saying that a penguin with a flipper length of 0 should have a body mass of about -7kg, but this isn’t how we should interpret this value.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> This intercept simply exists to shift the line up or down in order to best fit the cloud of points.</p>
+<p>This interpretation of the intercept as a “nuisance” parameter<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> can be seen in the way we calculate it. The calculation is <span class="math inline">\(a = \bar y - b\bar x\)</span>, i.e., the intercept is calculated to ensure we have a line with slope <span class="math inline">\(b\)</span> that goes through the point <span class="math inline">\((\bar x, \bar y)\)</span> on the plot.</p>
+<p>The red line represents the residual for one of the penguins. This particular penguin had a flipper length of 207, leading to a predicted body mass of <span class="math inline">\(-6787.28 + 54.62*207 = 4519.06\)</span>. This particular penguin had an actual body mass of 5050, giving a residual of <span class="math inline">\(5050 - 4519.06 = 530.94\)</span>.</p>
+</section>
+<section id="inference-for-the-slope-parameter" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="inference-for-the-slope-parameter"><span class="header-section-number">19.3</span> Inference for the Slope Parameter</h2>
+<p>You may have noticed a word show up several times in that recap: “average”. The intercept passes through the average of x and the average of y, and the slope is the average increase in <span class="math inline">\(y\)</span> for a one-unit increase in <span class="math inline">\(x\)</span>. Linear regression is essentially just a 2 dimensional average!</p>
+<p>As you might guess from this fact, we’re going back to t-tests! We still have the exact same test statistic: <span class="math display">\[
+t_{obs} = \frac{\text{Observed} - \text{Hypothesized}}{\text{Standard Error}}
+\]</span> We just have to decide on the hypotheses and calculate the standard error!</p>
+<p>As noted above,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, the slope is 0 when the correlation is 0. In general, we are checking the hypotheses: <span class="math display">\[\begin{align*}
+H_0: \beta = 0\text{ vs. }H_a: \beta\ne 0\\
+\end{align*}\]</span> We are now equipped to fill out the test statistic: <span class="math display">\[
+t_{obs} = \frac{b - 0}{\text{Standard Error}}
+\]</span> We can just plug that into a calculator and get a result, right? Wait, something might be missing.</p>
+<p>In this class, we won’t even write out the equation of the standard error. This is the sort of thing software was designed to do for you. By now, you should be able to explain the concept of the standard error to a grandparent; it’s a central part of everything we’ve done since the midterm. You should also know why it decreases with a larger sample size, <em>and how this affects the test statistic and p-value</em>! However, it’s fine to skip over the actual value for now and simply trust that statisticians are smart.</p>
+<p>With the Standard Error being calculated by software, this hypothesis test works exactly the same as the test for a mean.</p>
+<section id="assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
+<p>As always, statistics is built on making some assumptions about the population that allow us to make inferences from a sample. The assumptions should be pretty obvious.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Linear Regression Assumptions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>There is some true relationship <span class="math inline">\(y = \alpha + \beta x\)</span>
+<ul>
+<li>That is, the model is actually a straight line relationship with no curves.</li>
+</ul></li>
+<li>The deviations above and below this line are <em>normally distributed</em>.
+<ul>
+<li>That is, the height of the line at a given <span class="math inline">\(x\)</span> value is normal, with the mean being the height of the line.</li>
+<li>Put another way: The residuals are normal.</li>
+</ul></li>
+<li>The individuals are independent of each other.</li>
+<li>The variance above and below the line doesn’t depend on the <span class="math inline">\(x\)</span> value.</li>
+</ol>
+</div>
+</div>
+<section id="violating-assumption-1" class="level4">
+<h4 class="anchored" data-anchor-id="violating-assumption-1">Violating Assumption 1</h4>
+<p>There is one way for a line to be straight, and an infinite number of curved lines. Basically, the plot of <span class="math inline">\(y\)</span> against <span class="math inline">\(x\)</span> should look linear.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In the plot above, there is clearly not a linear relationship. The math works out just fine and we can calculate a straight line that minimizes the sum of squared error, but it doesn’t tell us anything about the population.</p>
+</section>
+<section id="violating-assumptions-2---4" class="level4">
+<h4 class="anchored" data-anchor-id="violating-assumptions-2---4">Violating Assumptions 2 - 4</h4>
+<p>Again, there are many ways to violate these assumption. A good example might be the stock price of Apple Computers (or any stock).</p>
+<ul>
+<li>The price on one day is going to be close to the price the day before.
+<ul>
+<li>Not independent!</li>
+</ul></li>
+<li>When Apple holds a press conference, there will be a lot more variability in the stock price depending on what they announce.
+<ul>
+<li>The variance depends on the <span class="math inline">\(x\)</span> value!</li>
+<li>This also violates the assumption of normality. Large stock price changes are to be expected, but the normal distribution doesn’t allow for this!</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="regression-in-r" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="regression-in-r"><span class="header-section-number">19.4</span> Regression in R</h2>
+<p>Calculating things by hand helps you conceptualize what’s going on, but it’s impractical for actual practice. As a “Statistical Programming Language”, R has so many useful functions built in.</p>
+<p>For this example, we’ll use the <code>mtcars</code> data that is built into R, so we don’t have to worry about loading in new data. These data include various measurements of a sample of cars in the 1970s. For our purposes, we’re going to determine the relationship between fuel efficiency (<span class="math inline">\(y\)</span>) as measured in miles per gallon (mpg), and weight (<span class="math inline">\(x\)</span>) measured in units of 1,000 lbs.</p>
+<p>We’ll start by checking a plot. I sometimes use “base R” plotting, and sometimes use “<code>ggplot</code>”. Neither will be tested on the final exam, but I like pointing out the distinction. Base R plotting has notation that matches the syntax of linear modelling, so it’s useful to include here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="co"># built-in data in R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Base R plot: y ~ x, data = ...</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Linear Model (lm): y ~ x, data = ...</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>mylm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the line to the existing plot</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As always: check assumptions first!</p>
+<ol type="1">
+<li>The plot above looks pretty linear.
+<ul>
+<li>There might be a slight curve to the line, though. The points at the left and right are mostly above the line, but the points in the middle are mostly below the line. This doesn’t appear to be a strong pattern, but it’s something to note when making a conclusion.
+<ul>
+<li>Extrapolation is definitely not possible, but a linear model might explain the data in this range.</li>
+</ul></li>
+</ul></li>
+<li>There aren’t any obvious outliers, but we’ll need to look at a different plot to really check this assumption.</li>
+<li>From the sampling strategy, I feel comfortable saying that the observations are independent.
+<ul>
+<li>There’s no possible test for this, it’s all about having a good sampling strategy!</li>
+</ul></li>
+<li>This is probably fine, but again we should check other plots before we make a conclusion.</li>
+</ol>
+<p>There are two assumptions that we were not able to test by looking at a plot of mpg against weight. R has some built-in plotting methods that help us with these assumptions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plotting space with 2 rows and 2 columns</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "mfrow" = Multiple Figures, filled in ROW-wise</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The basic plot function for the output of lm</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># makes 4 different plots.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Some notes on these plots:</p>
+<ol type="1">
+<li><strong>Residuals versus Fitted</strong>: This is usually better to look at than the <span class="math inline">\(y\)</span> versus <span class="math inline">\(x\)</span>. When you get into more than one <span class="math inline">\(x\)</span> variable, it can be difficult to look at all of the plots, and this tells us more information anyway.
+<ul>
+<li>For this example, we can see the pattern again: points above the line on the left and right, and below the line in the middle. The red line helps highlight this.</li>
+</ul></li>
+<li><strong>Normal Q-Q</strong>: This plot checks whether the residuals are normal. We’ll skip the details of how this plot is made, but it’s useful to have an intuition about these plots. Essentially, if the residuals are normal then everything should fall exactly on the dotted line. Due to random sampling it won’t, so we’re mainly looking for systematic deviations from the line. I’ve added some code at the end of this lesson for you to check this.
+<ul>
+<li>These data look okay, but not perfect. The residuals are possibly heavy tailed.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
+</ul></li>
+<li><strong>Scale-Location</strong>: This is essentially the absolute value of the residuals, which shows whether the variance is the same for all values of <span class="math inline">\(x\)</span>. We want this to look like there is no pattern.
+<ul>
+<li>The red line wiggles a bit, but this is to be expected. It looks pretty good to me!</li>
+</ul></li>
+<li><strong>Residuals versus Leverage</strong>: This plot is awkward to read, but shows us if any of the points are affecting the line by a lot. Essentially, we’re looking for any points on the wrong side of the dotted lines (“Cook’s Distance”). Above the 0.5 dotted line is something to look into, and something above 1 is bad for the model. Again, I’ve added an appendix about “leverage”.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>
+<ul>
+<li>Nothing outside of that 0.5 dotted line, so this should be good!</li>
+</ul></li>
+</ol>
+<p>Now that we’ve looked at the plots to check our assumptions<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>, we can look at our estimates and our p-values.</p>
+<p>The output of the <code>lm()</code> function isn’t very user-friendly, but the <code>summary()</code> function makes it nicer.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = mpg ~ wt, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.5432 -2.3647 -0.1252  1.4096  6.8727 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.046 on 30 degrees of freedom
+Multiple R-squared:  0.7528,    Adjusted R-squared:  0.7446 
+F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+</div>
+</div>
+<p>Let’s walk through this output!</p>
+<ul>
+<li>The <code>Call:</code> is the R code we used to make this model.</li>
+<li>The <code>Residuals</code> show the five number summary for the residuals. If they’re normal with a mean of 0 as we assume, then they should have a minimum that is the negative of the maximum, a Q1 that is the negative of the Q3, and a median of 0.
+<ul>
+<li>This is a quick check to see whether the residuals are symmetric.</li>
+<li>For this example, these results aren’t ideal but we also have a small data set so we can be a little forgiving.</li>
+</ul></li>
+<li>The <code>Coefficients</code> table is where the magic happens.
+<ul>
+<li><code>(Intercept)</code> is our estimate of <span class="math inline">\(a\)</span>. Again, this is a nuisance parameter that we’re not super interested in right now.</li>
+<li><code>wt</code> corresponds to our estimate of <span class="math inline">\(b\)</span>. The slope is estimated as <span class="math inline">\(b=-5.3445\)</span>, and it provides the standard error and the t test statistic for us!
+<ul>
+<li>The p-value is <code>(Estimate - 0)/Std. Error</code>, where the “<code>- 0</code>” comes from the null hypothesis that <span class="math inline">\(\beta = 0\)</span>.</li>
+<li>The three stars at the end of the line show significance level. <code>***</code> means significant at the 0.1% level, <code>**</code> is significant at the 1% level, <code>*</code> is 5%, and <code>.</code> is 10%. You should always set your significance level <em>before</em> looking at this table, but it gives a nice quick visual check for significance.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></li>
+</ul></li>
+</ul></li>
+<li>The last block of text shows some important quantities.
+<ul>
+<li>The “Multiple R-squared” value is what we learned previously, whereas the “Adjusted R-squared” is something you will need to learn about when moving into multiple linear regression. For practice, try to figure out which (if any) is equal to the square of the correlation between <code>mpg</code> and <code>wt</code>!</li>
+<li>The <code>F-statistic</code> row is also going to be very important when you move into multiple linear regression.</li>
+</ul></li>
+</ul>
+<p>Looking at this output, we can see that the slope parameter associated with <code>wt</code>, the weight of the car, is significantly different from 0. This means that there is statistically significant correlation between the fuel efficiency of a car and it’s weight. This isn’t surprising, but it’s always nice to have a scientific confirmation of what we hypothesized to be true.</p>
+</section>
+<section id="confidence-intervals" class="level2" data-number="19.5">
+<h2 data-number="19.5" class="anchored" data-anchor-id="confidence-intervals"><span class="header-section-number">19.5</span> Confidence Intervals</h2>
+<p>Since we know it’s a t-test, we’re still looking at confidence intervals of the form: <span class="math display">\[
+\text{point estimate}\pm\text{critical value}*\text{standard error}
+\]</span> where we use the SE given in the table. <em>However</em>, we have changed the degrees of freedom! Recall that the df can be seen as the number of parameters we can estimate from the data<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, and we need to estimate the intercept. For this reason, we’ve lost another degree of freedom, so the <span class="math inline">\(t\)</span> critical value is based on <span class="math inline">\(n-2\)</span> degrees of freedom.</p>
+<p>A 95% CI for the slope in the <code>mtcars</code> example can be calculated as follows. We know:</p>
+<ul>
+<li>The point estimate is -5.3445.</li>
+<li>We’re finding a 95% CI, so we use <code>qt((1 - 0.95)/2)</code>.</li>
+<li>The SE is given from the R output as 0.5591
+<ul>
+<li>We just use this value - we don’t have to divide by <span class="math inline">\(\sqrt{n}\)</span> or anything like that!</li>
+</ul></li>
+</ul>
+<p>The following R code uses <code>+ c(1, -1)</code> to add and subtract (<span class="math inline">\(\pm\)</span>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">5.3445</span> <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">32</span> <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fl">0.5591</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -6.486335 -4.202665</code></pre>
+</div>
+</div>
+<p>So a 95% CI for the slope is (-6.49, -4.20). This has the usual<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> interpretation that, if we repeated this study many many times, then 95% of the intervals that we construct this way would contain the true population slope.</p>
+<p>Unlike the tests for proportions, this CI is back to having the interpretation of “contains every hypothesized value that would <em>not</em> be rejected by a two-sided hypothesis test”. We already did a test for <span class="math inline">\(H_0:\beta = 0\)</span> versus <span class="math inline">\(H_a:\beta \ne 0\)</span> in which the null was rejected, and indeed 0 is <em>not</em> in this interval.</p>
+</section>
+<section id="conclusion" class="level2" data-number="19.6">
+<h2 data-number="19.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">19.6</span> Conclusion</h2>
+<p>So that’s it! It’s a t-test based on a standard error that we’re not going to calculate by hand. Other than the interpretation of the slope and one less degree of freedom, this is basically inference for a single mean!</p>
+<p>You will still need to keep all of the assumptions of regression in mind. We need a linear relationship, independence, normality of the residuals, and constant variance across values of <span class="math inline">\(x\)</span> for this test to be valid. We must check these assumptions by looking at some plots and critiquing the data collection.</p>
+<p>For the exam, you’ll be expected to know:</p>
+<ul>
+<li>The assumptions, and how to check them.
+<ul>
+<li>Including interpreting QQ plots to say whether they’re good or bad, and interpreting whether a point looks like it might be high leverage. (In other words, the Appendices in this chapter are <em>not</em> just optional bonus topics.)</li>
+</ul></li>
+<li>The interpretation of the hypothesis test and the CI
+<ul>
+<li>Stated in the context of the problem.</li>
+</ul></li>
+</ul>
+<p>A nice exam question might show you the results of <code>plot(mylm)</code> and <code>summary(mylm)</code> and ask you to make a conclusion in the context of the study.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+</section>
+<section id="appendix---leverage" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="appendix---leverage"><span class="header-section-number">19.7</span> Appendix - Leverage</h2>
+<p>The word “leverage” comes from the word “lever”, which is intentional. If you think of the line of best fit as a see-saw, a high leverage point is a point that either pushes the see-saw down or pulls it up.</p>
+<p>An outlier is a point that doesn’t really fit into the pattern. There isn’t a single way to define what an “outlier” is in 2 dimensions<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, so we have to be smart about it. Usually, we refer to an outlier as a point that’s far from the mean of x and y.</p>
+<p>Not all outliers are high leverage, though! The following plots demonstrate this idea. Both plots show the same data, but with an extra outlier. The first plot has an outlier at an x value of <span class="math inline">\(\bar x - 6\)</span> and a y value at <span class="math inline">\(\bar y + 15\)</span>. The second plot has an outlier with the same <span class="math inline">\(x\)</span> value, but the <span class="math inline">\(y\)</span> value is <span class="math inline">\(\bar y - 15\)</span>.</p>
+<p>These two potential outliers are the exact same distance from the mean of <span class="math inline">\(x\)</span> and the mean of <span class="math inline">\(y\)</span>, but have very different effects on the line! Including the red point changes the line a little, while the green point changes the line a lot! Even though they’re the same distance from the mean, the green point has higher leverage.</p>
+<p>The definition of leverage is much more well-defined than the definition of an outlier. The <strong>leverage</strong> of a point is a measure of how much the line of best fit would change if that point were not in the data.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> It is possible to have outliers with low leverage. Outliers are points that are far from your data; leverage provides a measure of how well a point fits into the pattern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="fu">mean</span>(x) <span class="sc">-</span> <span class="dv">6</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(y, <span class="fu">mean</span>(y) <span class="sc">+</span> <span class="dv">15</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y1 <span class="sc">~</span> x1)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="fu">mean</span>(x) <span class="sc">-</span> <span class="dv">6</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>y2 <span class="ot">&lt;-</span> <span class="fu">c</span>(y, <span class="fu">mean</span>(y) <span class="sc">-</span> <span class="dv">15</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y2 <span class="sc">~</span> x2)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>n1s <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, n)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x1, y1, <span class="at">col =</span> <span class="fu">c</span>(n1s, <span class="dv">2</span>), </span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fu">c</span>(n1s, <span class="dv">2</span>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(x), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">mean</span>(y), <span class="at">labels =</span> <span class="fu">expression</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">mean</span>(x), <span class="at">labels =</span> <span class="fu">expression</span>(<span class="fu">bar</span>(x)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm0)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm1, <span class="at">col =</span> <span class="dv">2</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Without Outlier"</span>, <span class="st">"With Outlier"</span>), <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x2, y2, <span class="at">col =</span> <span class="fu">c</span>(n1s, <span class="dv">3</span>), </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">cex =</span> <span class="fu">c</span>(n1s, <span class="dv">2</span>))</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(y), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(x), <span class="at">col =</span> <span class="st">"grey"</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">mean</span>(y), <span class="at">labels =</span> <span class="fu">expression</span>(<span class="fu">bar</span>(y)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">mean</span>(x), <span class="at">labels =</span> <span class="fu">expression</span>(<span class="fu">bar</span>(x)), <span class="at">las =</span> <span class="dv">1</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm0)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm2, <span class="at">col =</span> <span class="dv">3</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Without Outlier"</span>, <span class="st">"With Outlier"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="appendix---interpreting-qq-norm" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="appendix---interpreting-qq-norm"><span class="header-section-number">19.8</span> Appendix - Interpreting QQ norm</h2>
+<p>Copy the following code and past it into RStudio. Run it over and over again to get a feel for QQ plots. Change <code>n</code> as indicated.</p>
+<p>Some things you might notice:</p>
+<ul>
+<li>Truly normal data is never perfectly on the line!
+<ul>
+<li>When interpreting QQ, it’s okay to allow for a little bit of variance!</li>
+<li>Most methods are fairly <strong>robust</strong> to deviations from normality.</li>
+</ul></li>
+<li>Heavy tailed data (e.g., more variance than expected by the normal distribution) result in one kind of shape, right tailed data result in a different shape.
+<ul>
+<li>What do you expect left tailed data to look like?</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change this to 20, 100, 500, and 10000 to see how much changes</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>normal_sample1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>normal_sample2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>t_sample <span class="ot">&lt;-</span> <span class="fu">rt</span>(n, <span class="at">df =</span> <span class="dv">5</span>) <span class="co"># Low df to highlight difference from normal</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>chisq_sample <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(n, <span class="at">df =</span> <span class="dv">5</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(normal_sample1, <span class="at">main =</span> <span class="st">"Normal Data 1"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(normal_sample1)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(normal_sample2, <span class="at">main =</span> <span class="st">"Normal Data 2"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(normal_sample2)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(t_sample, <span class="at">main =</span> <span class="st">"t Data - Heavy Tailed"</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(t_sample)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(chisq_sample, <span class="at">main =</span> <span class="st">"Chi Square - Right-Tailed"</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(chisq_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This isn’t exactly how it works, but it’s a useful analogy.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Evaluating the height of the line at an x-value that is outside the range of our observations is called <strong>extrapolation</strong>, and should generally be avoided.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>A nuisance parameter is something we must calculate in order for the model to work but something we’re not planning on interpreting.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>And many times in previous lectures.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>You’re not expected to be able to guess this on the exam.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>This concept will be on the exam, but not the calculations.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Notice how we have to fit the model before we can check the assumptions. The p-values are already calculated, but you should be very careful not to think about them before you’ve checked the assumptions!<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Bad statisticians who violate the issues in the “Inference Cautions” lecture are accused of “chasing stars”.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>With one data point, we can estimate the mean but not sd. With two, we can calculate the mean which we need for the sd. And so on.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Highly specific, and wrong if you miss any part of it.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Possibly with one of the assumptions violated, which you’ll have to catch on your own!<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>There’s no way to do Q1 - 1.5IQR in both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>There is an exact calculation, but we’re just concerned with the concept for now.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L21-ChiSquare_Multiple_Proportions.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chi-Square Test for Multiple Proportions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./L23-ANOVA-oi.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

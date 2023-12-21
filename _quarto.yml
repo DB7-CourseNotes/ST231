@@ -4,7 +4,6 @@ project:
 
 
 date-format: iso
-institute: "Wilfrid Laurier University"
 number-depth: 2
 author: "Dr. Devan Becker"
 
@@ -40,7 +39,9 @@ book:
         - L19-CI_for_Proportions.qmd
         - L20-Two_Proportions.qmd
         - L21-ChiSquare_Multiple_Proportions.qmd
-        - L19-Summary_of_Inference-Means_Proportions.qmd
+        - L22-Inference_for_Regression.qmd
+        - L23-ANOVA-oi.qmd
+        - L24-Review.qmd
 
 execute: 
   warning: false
@@ -55,8 +56,6 @@ format:
         code-fold: true
         code-summary: "Show the code"
         warning: false
-  pdf:
-    include-in-header: defs_pdf.tex
 
 
 

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Devan Becker">
+
+<title>Statistics for Life Sciences - 20&nbsp; Comparing means with ANOVA</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./L24-Review.html" rel="next">
+<link href="./L22-Inference_for_Regression.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12-Intro_to_Inference-CI-pvals.html">Post-Midterm</a></li><li class="breadcrumb-item"><a href="./L23-ANOVA-oi.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistics for Life Sciences</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Pre-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Post-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14-Inference_Cautions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics in Inference</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15-CI_for_Means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16-Hypothesis_Tests_for_Means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17-Two_Sample_hypothesis_Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19-CI_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20-Two_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21-ChiSquare_Multiple_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chi-Square Test for Multiple Proportions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22-Inference_for_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23-ANOVA-oi.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#example-5.19" id="toc-example-5.19" class="nav-link active" data-scroll-target="#example-5.19">Example 5.19</a></li>
+  <li><a href="#analysis-of-variance-anova-and-the-f-test" id="toc-analysis-of-variance-anova-and-the-f-test" class="nav-link" data-scroll-target="#analysis-of-variance-anova-and-the-f-test"><span class="header-section-number">20.1</span> Analysis of variance (ANOVA) and the <span class="math inline">\(F\)</span>-test</a>
+  <ul class="collapse">
+  <li><a href="#hypotheses" id="toc-hypotheses" class="nav-link" data-scroll-target="#hypotheses">Hypotheses</a></li>
+  <li><a href="#assumption-checking" id="toc-assumption-checking" class="nav-link" data-scroll-target="#assumption-checking">Assumption Checking</a></li>
+  <li><a href="#difference-in-means" id="toc-difference-in-means" class="nav-link" data-scroll-target="#difference-in-means">Difference in Means</a></li>
+  <li><a href="#mean-squared-error---within-and-between" id="toc-mean-squared-error---within-and-between" class="nav-link" data-scroll-target="#mean-squared-error---within-and-between">Mean Squared Error - Within and Between</a></li>
+  <li><a href="#calculating-the-f-statistic" id="toc-calculating-the-f-statistic" class="nav-link" data-scroll-target="#calculating-the-f-statistic">Calculating the <span class="math inline">\(F\)</span>-statistic</a></li>
+  <li><a href="#p-values" id="toc-p-values" class="nav-link" data-scroll-target="#p-values">p-values</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  <li><a href="#multiple-comparisons-and-controlling-type-1-error-rate" id="toc-multiple-comparisons-and-controlling-type-1-error-rate" class="nav-link" data-scroll-target="#multiple-comparisons-and-controlling-type-1-error-rate"><span class="header-section-number">20.2</span> Multiple comparisons and controlling Type 1 Error rate</a>
+  <ul class="collapse">
+  <li><a href="#but-which-group-is-different" id="toc-but-which-group-is-different" class="nav-link" data-scroll-target="#but-which-group-is-different">But which group is different?</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">20.3</span> Summary</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Dr.&nbsp;Devan Becker </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Wilfrid Laurier University
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This is a derivative work of Section 5.5 in Introductory Statistics for the Life and Biomedical Sciences, First Edition by Julie Vu and David Harrington. The initial git commit represents a copy-and-paste of the textbook into Quarto format, and subsequent edits represent my modfications.</p>
+<hr>
+<p>In some settings, it is useful to compare means across several groups. It might be tempting to do pairwise comparisons between groups; for example, if there are three groups (<span class="math inline">\(A, B, C\)</span>), why not conduct three separate <span class="math inline">\(t\)</span>-tests (<span class="math inline">\(A\)</span> vs.&nbsp;<span class="math inline">\(B\)</span>, <span class="math inline">\(A\)</span> vs.&nbsp;<span class="math inline">\(C\)</span>, and <span class="math inline">\(B\)</span> vs.&nbsp;<span class="math inline">\(C\)</span>)? As we saw in the lecture on Cautions for Inference, we inflate the Type 1 error when we do many hypothesis tests. Even at a 5% level, at three hypothesis tests there is about a <span class="math inline">\(1 - (1 - 0.05)^3 = 14.2625%\)</span> chance<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> that one of them is significant <em>assuming that the null hypothesis is true</em>!</p>
+<p>Instead, the methodology behind a <span class="math inline">\(t\)</span>-test can be generalized to a procedure called <strong>ANalysis Of VAriance (ANOVA)</strong>, which uses a single hypothesis test to assess whether all means across several groups are equal. Strong evidence favouring the alternative hypothesis in ANOVA is described by unusually large differences among the group means.</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: The mean outcome is the same across all <span class="math inline">\(k\)</span> groups. In statistical notation, <span class="math inline">\(\mu_1 = \mu_2 = \cdots = \mu_k\)</span> where <span class="math inline">\(\mu_i\)</span> represents the mean of the outcome for observations in category <span class="math inline">\(i\)</span>.</li>
+<li><span class="math inline">\(H_A\)</span>: At least one mean is different.</li>
+</ul>
+<p>There are three assumptions that must be checked before performing ANOVA:</p>
+<ol type="1">
+<li>Observations are independent within and across groups.
+<ul>
+<li>All individuals in the study are independent of all other individuals.</li>
+</ul></li>
+<li>The data within each group are “nearly” normal.</li>
+<li>the variability across the groups is about equal.</li>
+</ol>
+<section id="example-5.19" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.19">Example 5.19</h3>
+<p>Examine Figure 5.22. Compare groups I, II, and III. Is it possible to visually determine if the differences in the group centers is due to chance or not? Now compare groups IV, V, and VI. Do the differences in these group centers appear to be due to chance?<br>
+It is difficult to discern a difference in the centers of groups I, II, and III, because the data within each group are quite variable relative to any differences in the average outcome. However, there appear to be differences in the centers of groups IV, V, and VI. For instance, group V appears to have a higher mean than that of the other two groups. The differences in centers for groups IV, V, and VI are noticeable because those differences are large relative to the variability in the individual observations within each group.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L23-ANOVA-oi_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure 5.22: Side-by-side dotplots for the outcomes in six groups.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="analysis-of-variance-anova-and-the-f-test" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="analysis-of-variance-anova-and-the-f-test"><span class="header-section-number">20.1</span> Analysis of variance (ANOVA) and the <span class="math inline">\(F\)</span>-test</h2>
+<p>The <code>famuss</code> dataset was introduced in Chapter 1, Section 1.2.2. In the FAMuSS study, researchers examined the relationship between muscle strength and genotype at a location on the ACTN3 gene. The measure for muscle strength is percent change in strength in the non-dominant arm (). Is there a difference in muscle strength across the three genotype categories (<code>CC</code>, <code>CT</code>, <code>TT</code>)?</p>
+<section id="hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="hypotheses">Hypotheses</h3>
+<p>The null hypothesis under consideration is the following: <span class="math inline">\(\mu_{\texttt{CC}} = \mu_{\texttt{CT}} = \mu_{\texttt{TT}}\)</span>. Write the null and corresponding alternative hypotheses in plain language.</p>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<span class="math inline">\(H_0\)</span>: The average percent change in non-dominant arm strength is equal across the three genotypes. <span class="math inline">\(H_A\)</span>: The average percent change in non-dominant arm strength varies across some (or all) groups.]
+</details>
+</section>
+<section id="assumption-checking" class="level3">
+<h3 class="anchored" data-anchor-id="assumption-checking">Assumption Checking</h3>
+<p>The table below provides summary statistics for each group. A side-by-side boxplot for the change in non-dominant arm strength is shown in Figure 5.24; Figure 5.25 shows the Q-Q plots by each genotype.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<ol type="1">
+<li>It is reasonable to assume that the observations are independent within and across groups; it is unlikely that participants in the study were related, or that data collection was carried out in a way that one participant’s change in arm strength could influence another’s.</li>
+<li>Based on the Q-Q plots, there is evidence of moderate right skew; the data do not follow a normal distribution very closely, but could be considered to ‘loosely’ follow a normal distribution.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
+<li>Notice from the table that the variability appears to be approximately constant across groups; nearly constant variance across groups is an important assumption that must be satisfied for using ANOVA.</li>
+</ol>
+<table class="table">
+<thead>
+<tr class="header">
+<th></th>
+<th><code>CC</code></th>
+<th><code>CT</code></th>
+<th><code>TT</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sample size (<span class="math inline">\(n_i\)</span>)</td>
+<td>173</td>
+<td>261</td>
+<td>161</td>
+</tr>
+<tr class="even">
+<td>Sample mean (<span class="math inline">\(\bar{x}_i\)</span>)</td>
+<td>48.89</td>
+<td>53.25</td>
+<td>58.08</td>
+</tr>
+<tr class="odd">
+<td>Sample SD (<span class="math inline">\(s_i\)</span>)</td>
+<td>29.96</td>
+<td>33.23</td>
+<td>35.69</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L23-ANOVA-oi_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure 2.24: Side-by-side box plot of the change in non-dominant arm strength for 595 participants across three groups.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="L23-ANOVA-oi_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure 5.25: Q-Q plots of the change in non-dominant arm strength for 595 participants across three groups.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="difference-in-means" class="level3">
+<h3 class="anchored" data-anchor-id="difference-in-means">Difference in Means</h3>
+<p>The largest difference between the sample means is between the and groups. Consider again the original hypotheses:</p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_{\texttt{CC}} = \mu_{\texttt{CT}} = \mu_{\texttt{TT}}\)</span></li>
+<li><span class="math inline">\(H_A\)</span>: The average percent change in non-dominant arm strength (<span class="math inline">\(\mu_i\)</span>) varies across some (or all) groups.</li>
+</ul>
+<p>Why might it be inappropriate to run the test by simply estimating whether the difference of <span class="math inline">\(\mu_{\texttt{CC}}\)</span> and <span class="math inline">\(\mu_{\texttt{TT}}\)</span> is statistically significant at a 0.05 significance level?</p>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+It is inappropriate to informally examine the data and decide which groups to formally test. This is a form of **data fishing*; choosing the groups with the largest differences for the formal test will lead to an increased chance of incorrectly rejecting the null hypothesis (i.e., an inflation in the Type~I error rate). Instead, all the groups should be tested using a single hypothesis test.
+</details>
+</section>
+<section id="mean-squared-error---within-and-between" class="level3">
+<h3 class="anchored" data-anchor-id="mean-squared-error---within-and-between">Mean Squared Error - Within and Between</h3>
+<p>Analysis of variance focuses on answering one question: is the variability in the sample means large enough that it seems unlikely to be from chance alone? The variation between groups is referred to as the <strong>mean square between groups (<span class="math inline">\(MSG\)</span>)</strong>; the <span class="math inline">\(MSG\)</span> is a measure of how much each group mean varies from the overall mean. Let:</p>
+<ul>
+<li><span class="math inline">\(\overline{x}\)</span> represent the mean of outcomes across all groups
+<ul>
+<li>In other words, it’s the mean of the data when it’s <em>not</em> split into groups.</li>
+</ul></li>
+<li><span class="math inline">\(\overline{x}_i\)</span> is the mean of outcomes in a particular group <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(n_i\)</span> is the sample size of group <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>The mean square between groups is: <span class="math display">\[
+MSG = \frac{1}{k-1}\sum_{i=1}^{k} n_{i}\left(\overline{x}_{i} - \overline{x}\right)^{2} = \frac{1}{df_{G}}SSG,
+\]</span> where <span class="math inline">\(SSG\)</span> is the sum of squares between groups, <span class="math inline">\(\sum_{i=1}^{k} n_{i}\left(\overline{x}_{i} - \overline{x}\right)^{2}\)</span>, and <span class="math inline">\(df_{G}=k-1\)</span> is the degrees of freedom associated with the <span class="math inline">\(MSG\)</span> when there are <span class="math inline">\(k\)</span> groups.</p>
+<p>Notice what’s happening here: <span class="math inline">\(MSG\)</span> is kind of like a variance, but not the variance of individual values.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+MSG is the variance <em>of the means</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Instead of individual data, we’re looking at the mean of each group. With 3 groups, we have 3 different means. The <span class="math inline">\(MSG\)</span> is like calculating the variance based on these 3 values (disregarding the variation within each group).</p>
+</div>
+</div>
+<p>Under the null hypothesis, there is no real difference between the groups. In other words, the null hypothesis assumes that the groupings are non-informative, such that all observations can be thought of as belonging to a single group. If the null is true, then it the variability between the group means should be equal to the variability observed within a single group. <strong>The mean square error (<span class="math inline">\(MSE\)</span>)</strong> is a pooled variance estimate with associated degrees of freedom <span class="math inline">\(df_E=n-k\)</span> that provides a measure of variability within the groups. The mean square error is computed as: <span class="math display">\[
+MSE = \frac{1}{n-k}\sum_{i=1}^{k} (n_i-1)s_i^{2} = \frac{1}{df_{E}}SSE,
+\]</span> where the <span class="math inline">\(SSE\)</span> is the <strong>sum of squared errors</strong>, <span class="math inline">\(n_i\)</span> is the sample size of group <span class="math inline">\(i\)</span>, and <span class="math inline">\(s_i\)</span> is the standard deviation of group <span class="math inline">\(i\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The MSE is the variance <em>as if there are no groups</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The MSE is almost the same as the variance of the data, assuming we lumped everything together and forgot about the groupings. The only difference is the degrees of freedom!</p>
+</div>
+</div>
+<p>Under the null hypothesis that all the group means are equal, any differences among the sample means are only due to chance; thus, the <span class="math inline">\(MSG\)</span> and <span class="math inline">\(MSE\)</span> should also be equal. ANOVA is based on comparing the <span class="math inline">\(MSG\)</span> and <span class="math inline">\(MSE\)</span>. The test statistic for ANOVA, the <strong>F-statistic</strong>, is the ratio of the between-group variability to the within-group variability: <span class="math display">\[
+F = \frac{MSG}{MSE}
+\]</span></p>
+<p>This is a new distribution that we’re not going to talk about too much. The main thing to note is that i’s similar to the Chi-Square distribution: The test statistic is based on adding squared things, so we’re only interested in a <em>right-tailed</em> test.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The <span class="math inline">\(F\)</span>-Statistic
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The F-statistic can be seen as the ratio of the variance <em>between</em> groups and the variance <em>within</em> groups. A large <span class="math inline">\(F\)</span>-stat means that there’s a lot of variance between groups compared to the variance of the data.</p>
+<p>Put another way, the data tells us how much variance to expect so that we have context for the variance of the group means.</p>
+</div>
+</div>
+</section>
+<section id="calculating-the-f-statistic" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-the-f-statistic">Calculating the <span class="math inline">\(F\)</span>-statistic</h3>
+<p>Calculate the <span class="math inline">\(F\)</span>-statistic for the <code>famuss</code> data summarized in Figure 5.23. The overall mean <span class="math inline">\(\overline{x}\)</span> across all observations is 53.29.</p>
+<details>
+<summary>
+<strong>Solution</strong>: By hand
+</summary>
+<p>First, calculate the <span class="math inline">\(MSG\)</span> and <span class="math inline">\(MSE\)</span>. <span class="math display">\[\begin{align*}
+MSG =&amp; \frac{1}{k-1}\sum_{i=1}^{k} n_{i}\left(\bar{x}_{i} - \bar{x}\right)^{2} \\
+=&amp; \frac{1}{3-1} [(173)(48.89 - 53.29)^{2} \\&amp;+ (261)(53.25 - 53.29)^{2} + (161)(58.08 - 53.29)^{2} ]\\
+=&amp; 3521.69
+\end{align*}\]</span></p>
+<p>Notice how the MSG is essentially the variance of three observations.</p>
+<p><span class="math display">\[\begin{align*}
+MSE =&amp; \frac{1}{n-k}\sum_{i=1}^{k} (n_i-1)s_i^{2} \\
+=&amp; \frac{1}{595-3}[(173-1)(29.96^2) + (261-1)(33.23^2) \\&amp;+ (161-1)(35.69^2)] \\
+=&amp; 1090.02
+\end{align*}\]</span></p>
+<p>The MSE is almost the same as the variance of all observations if we were to ignore which group they were in!</p>
+The <span class="math inline">\(F\)</span>-statistic is the ratio: <span class="math display">\[
+dfrac{MSG}{MSE} = dfrac{3521.69}{1090.02} = 3.23
+\]</span>
+</details>
+<details>
+<summary>
+<strong>Solution</strong>: R
+</summary>
+<p>The following R code will save us many calculations.</p>
+<p>As in the linear regression section, I use the <code>summary()</code> function to get nicer output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(oibiostat)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(famuss)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># The data have uninformative names.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ndrm.ch is percentage change in non-dominant arm strength</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># actn3.r577x is the grouping variable (genotype)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(ndrm.ch <span class="sc">~</span> actn3.r577x, <span class="at">data =</span> famuss))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)  
+actn3.r577x   2   7043    3522   3.231 0.0402 *
+Residuals   592 645293    1090                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Notice how the R output givus us - <span class="math inline">\(df_G = 592\)</span>, <span class="math inline">\(MSG = 3522\)</span> (rounded from 3521.69) - <span class="math inline">\(df_E = 2\)</span>, <span class="math inline">\(MSE = 1090\)</span> (rounded from 1090.02) - <span class="math inline">\(MSG / MSE = 3.231\)</span></p>
+<p>I will not expect you to do the calculations by hand on any test or assignment.</p>
+</details>
+</section>
+<section id="p-values" class="level3">
+<h3 class="anchored" data-anchor-id="p-values">p-values</h3>
+<p>A <span class="math inline">\(p\)</span>-value can be computed from the <span class="math inline">\(F\)</span>-statistic using an <span class="math inline">\(F\)</span>-distribution, which has two associated parameters: <span class="math inline">\(df_{1}\)</span> and <span class="math inline">\(df_{2}\)</span>. For the <span class="math inline">\(F\)</span>-statistic in ANOVA, <span class="math inline">\(df_{1} = df_{G}\)</span> and <span class="math inline">\(df_{2}= df_{E}\)</span>. An <span class="math inline">\(F\)</span> distribution with 2 and 592 degrees of freedom corresponds to the <span class="math inline">\(F\)</span>-statistic for the genotype and muscle strength hypothesis test,.</p>
+<p>The larger the observed variability in the sample means (<span class="math inline">\(MSG\)</span>) relative to the within-group variability (<span class="math inline">\(MSE\)</span>), the larger <span class="math inline">\(F\)</span> will be. Larger values of <span class="math inline">\(F\)</span> represent stronger evidence against the null hypothesis. The upper tail of the distribution is used to compute a <span class="math inline">\(p\)</span>-value, which is typically done using statistical software.</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>From the R output, the <span class="math inline">\(p\)</span>-value corresponding to the test statistic is equal to about 0.04. Does this provide strong evidence against the null hypothesis at significance level <span class="math inline">\(\alpha = 0.05\)</span>?</p>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+The <span class="math inline">\(p\)</span>-value is smaller than 0.05, indicating the evidence is strong enough to reject the null hypothesis at a significance level of 0.05. The data suggest that average change in strength in the non-dominant arm varies by participant genotype.
+</details>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The <span class="math inline">\(F\)</span>-statistic and the <span class="math inline">\(F\)</span>-test
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Analysis of variance (ANOVA) is used to test whether the mean outcome differs across two or more groups. ANOVA uses a test statistic <span class="math inline">\(F\)</span>, which represents a standardized ratio of variability in the sample means relative to the variability within the groups. If <span class="math inline">\(H_0\)</span> is true and the model assumptions are satisfied, the statistic <span class="math inline">\(F\)</span> follows an <span class="math inline">\(F\)</span> distribution with parameters <span class="math inline">\(df_{1}=k-1\)</span> and <span class="math inline">\(df_{2}=n-k\)</span>. The upper tail of the <span class="math inline">\(F\)</span>-distribution is used to calculate the <span class="math inline">\(p\)</span>-value.</p>
+<p>The null hypothesis is false if at least of the means is sufficiently different from the others, relative to the variance in the data.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="multiple-comparisons-and-controlling-type-1-error-rate" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="multiple-comparisons-and-controlling-type-1-error-rate"><span class="header-section-number">20.2</span> Multiple comparisons and controlling Type 1 Error rate</h2>
+<p>Rejecting the null hypothesis in an ANOVA analysis only allows for a conclusion that there is evidence for a difference in group means. In order to identify the groups with different means, it is necessary to perform further testing. For example, in the <code>famuss</code> analysis, there are three comparisons to make: <span class="math inline">\(\texttt{CC}\)</span> to <span class="math inline">\(\texttt{CT}\)</span>, <span class="math inline">\(\texttt{CC}\)</span> to <span class="math inline">\(\texttt{TT}\)</span>, and <span class="math inline">\(\texttt{CT}\)</span> to <span class="math inline">\(\texttt{TT}\)</span>. While these comparisons can be made using two sample <span class="math inline">\(t\)</span>-tests, it is important to control the Type 1 error rate. One of the simplest ways to reduce the overall probability of identifying a significant difference by chance in a multiple comparisons setting is to use the Bonferroni correction procedure.</p>
+<p>In the Bonferroni correction procedure, the <span class="math inline">\(p\)</span>-value from a two-sample <span class="math inline">\(t\)</span>-test is compared to a modified significance level, <span class="math inline">\(\alpha^\star\)</span>; <span class="math inline">\(\alpha^\star = \alpha/K\)</span>, where <span class="math inline">\(K\)</span> is the total number of comparisons being considered. For <span class="math inline">\(k\)</span> groups, <span class="math inline">\(K=\frac{k(k-1)}{2}\)</span>. When calculating the <span class="math inline">\(t\)</span>-statistic, use the pooled estimate of standard deviation between groups (which equals <span class="math inline">\(\sqrt{MSE}\)</span>); to calculate the <span class="math inline">\(p\)</span>-value, use a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(df_2\)</span>. It is typically more convenient to do these calculations using software.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Bonferroni correction
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <strong>Bonferroni correction</strong> suggests that a more stringent significance level is appropriate when conducting multiple tests: <span class="math display">\[\begin{align*}
+\alpha^\star = \alpha / K
+\end{align*}\]</span> where <span class="math inline">\(K\)</span> is the number of comparisons being considered. For <span class="math inline">\(k\)</span> groups, <span class="math inline">\(K=\frac{k(k-1)}{2}\)</span>.</p>
+</div>
+</div>
+<section id="but-which-group-is-different" class="level3">
+<h3 class="anchored" data-anchor-id="but-which-group-is-different">But which group is different?</h3>
+<p>The ANOVA conducted on the <code>famuss</code> dataset showed strong evidence of differences in the mean strength change in the non-dominant arm between the three genotypes. Complete the three possible pairwise comparisons using the Bonferroni correction and report any differences.</p>
+<p>Use a modified significance level of <span class="math inline">\(\alpha^\star = 0.05/3 = 0.0167\)</span>. The pooled estimate of the standard deviation is <span class="math inline">\(\sqrt{MSE} = \sqrt{1090.02} = 33.02\)</span>.</p>
+<p>Genotype <code>CC</code> versus Genotype <code>CT</code>: <span class="math display">\[
+t = \frac{\overline{x}_1 - \overline{x}_2}{s_{\text{pooled}}\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
+= dfrac{48.89 - 53.25}{33.02 \sqrt{\frac{1}{173} + \frac{1}{261}}} = -1.35
+\]</span> This results in a <span class="math inline">\(p\)</span>-value of 0.18 on <span class="math inline">\(df =592\)</span>. This <span class="math inline">\(p\)</span>-value is larger than <span class="math inline">\(\alpha^\star = 0.0167\)</span>, so there is not evidence of a difference in the means of genotypes <code>CC</code> and <code>CT</code>.</p>
+<p>Genotype <code>CC</code> versus Genotype <code>TT</code>: <span class="math display">\[
+t = \frac{\overline{x}_1 - \overline{x}_2}{s_{\text{pooled}}\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
+= dfrac{48.89 - 58.08}{33.02 \sqrt{\frac{1}{173} + \frac{1}{161}}} = -2.54.
+\]</span></p>
+<p>This results in a <span class="math inline">\(p\)</span>-value of 0.01 on <span class="math inline">\(df =592\)</span>. This <span class="math inline">\(p\)</span>-value is smaller than <span class="math inline">\(\alpha^\star = 0.0167\)</span>, so there is evidence of a difference in the means of genotypes <code>CC</code> and <code>TT</code>.</p>
+<p>Genotype <code>CT</code> versus Genotype <code>TT</code>:<br>
+<span class="math display">\[
+t = \frac{\overline{x}_1 - \overline{x}_2}{s_{\text{pooled}}\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}
+= dfrac{53.25 - 58.08}{33.02 \sqrt{\frac{1}{261} + \frac{1}{161}}} = -1.46
+\]</span></p>
+<p>This results in a <span class="math inline">\(p\)</span>-value of 0.14 on <span class="math inline">\(df =592\)</span>. This <span class="math inline">\(p\)</span>-value is larger than <span class="math inline">\(\alpha^\star = 0.0167\)</span>, so there is not evidence of a difference in the means of genotypes <code>CT</code> and <code>TT</code>.</p>
+<p>In R, these can be calculated using the <code>pairwise.t.test()</code> function as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise.t.test</span>(famuss<span class="sc">$</span>ndrm.ch, famuss<span class="sc">$</span>actn3.r577x,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pairwise comparisons using t tests with pooled SD 
+
+data:  famuss$ndrm.ch and famuss$actn3.r577x 
+
+   CC    CT   
+CT 0.537 -    
+TT 0.034 0.433
+
+P value adjustment method: bonferroni </code></pre>
+</div>
+</div>
+<p>As you can guess from the command and its output:</p>
+<ul>
+<li>There is more than one way of adjusting p-values! There is some debate about the best way, but the important thing is to recognize when they’re necessary and use them!</li>
+<li>This test is using a <strong>pooled standard deviation</strong>. Thast is, it calculates the sd as if all of the data have the same variance.
+<ul>
+<li>For the t-test, it’s easy enough to use different variances for each group. For multiple comparisons, using the pooled variance makes a little bit more sense because it will tend to be larger, and therefore we’re adding extra variance and not being overconfident in our results.</li>
+</ul></li>
+</ul>
+<p>From these results, we can see that CC and TT are significantly different from each other. CC and CT are not, and neither are CT and TT.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+</section>
+<section id="summary" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">20.3</span> Summary</h2>
+<p>In summary, the mean percent strength change in the non-dominant arm for genotype <code>CT</code> individuals is not statistically distinguishable from those of genotype <code>CC</code> and <code>TT</code> individuals. However, there is evidence that mean percent strength change in the non-dominant arm differs between individuals of genotype <code>CC</code> and <code>TT</code> are different.</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This is 1 minus the probability of no significant results in three tests. The probability of a result that is <em>not</em> significant is <span class="math inline">\(1-0.05\)</span>, so we do this three times and then do 1 minus the result. This is similar to the probability of <em>not</em> getting a 6 in 3 dice rolls.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The previous lesson has some code to help you interpret Q-Q plots.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>In a more advanced course, it can be shown that the ANOVA procedure still holds with deviations from normality when sample sizes are moderately large. Additionally, a more advanced course would discuss appropriate transformations to induce normality.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Note that this is not transitive! CC and CT are not, CT and TT are not, but CC and TT are different!<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./L22-Inference_for_Regression.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./L24-Review.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
