@@ -11,15 +11,11 @@ date: "2023-05-10"
 - Since we typically will not collect data on the entire population, we use (sample) statistics to make statements (with some uncertainty) about what the (population) parameter is.
 - Categorical variables are summarized by the count or proportion (percent) of the data in each category.
 - Quantitative variables are summarized by the centre and spread of the data
-
-
 ### Parameters Versus Statistics: """Truth"""
 
 We assume there's some "true" population mean.
 
 - This will change if, say, a new baby is born.
-
-
 
 We cannot know the population parameter!
 
@@ -40,20 +36,12 @@ The "centre" is a strange concept.
 - Where are "most" of the data?
 - If we took an individual at random, what's the "best guess" of their height?
 
-
-
 We want to **summarize** the data using a few words/numbers.
 
-:::notes
 I prefer the second description here - if I were to make a prediction, I want my predicted value to be close to the actual value. For example, I might want to design something that fits the average person's height. I must make a prediction about the height of the people that will use it. My prediction is chosen to minimize how far off I would be, which means that I want to be near the "centre".
-
-:::
-
 ### Centre 1: The Median
 
 The **median** ($M$) is the midpoint of a distribution: half the observations are smaller and the other half are larger than it. To find the median:
-
-
 1. Arrange all observations in order of size, from smallest to largest.
 2. If the number of observations ($n$) is odd, the median $M$ is the centre observation in the ordered list. Find the location of the median by counting $(n + 1)/2$ observations up from the smallest observation.
 3. If n is even, the median $M$ halfway between the two centre observations in the ordered list. The location of the median is again $(n + 1)/2$, counting from the smallest observation in the list. 
@@ -61,6 +49,16 @@ The **median** ($M$) is the midpoint of a distribution: half the observations ar
 :::notes
 Basically, the median is the middle value. With odd $n$, the middle value is one of the observations, but when $n$ is even we have to go in between two values.
 :::
+
+- 1
+    - The median is 1.
+- 1 2
+    - The median is 1.5, which occurs at the $(n+1)/2$ position.
+- 1 2 3
+    - The median is 2.
+- 1 2 3 4
+    - The median is 2.5
+- Continue the pattern on your own!
 
 ### Example 1: Odd $n$
 
@@ -79,8 +77,6 @@ We also have the lengths (in cm) of 18 needles from trees of the noticeably diff
 21.20 21.60 21.70 23.10 23.70 24.20 24.20 25.50 26.60
 26.80 28.90 29.00 29.70 29.70 30.20 32.50 33.70 33.70
 ```
-
-
 ### Example 3: Robustness
 
 ```
@@ -91,8 +87,6 @@ Set 3: -2000 -1000 3 4 5000 60000000
 
 All three have the same median!
 
-
-
 Do the "centres" make sense? Do they provide a good summary?
 
 :::notes
@@ -101,7 +95,7 @@ These three data sets demonstrate that the median only depends on the middle two
 
 ### The Mean
 
-The mean is defined as:
+The **mean** is defined as:
 
 $$
 \bar x = \frac{1}{n}(x_1 + x_2 + ... + x_n)= \frac{1}{n}\sum_{i=1}^nx_i
@@ -113,7 +107,10 @@ $$
 $$
 (this also happens to be the median!)
 
-:::notes
+The mean has a few interesting interpretations:
+
+- If we had a metre stick and put a 1kg weight on each of the values, the mean is where the metre stick would balance.
+- If someone pulled one of the observed values out of a hat and we were punished based on how wrong our guess was, the mean would be least overall punishment.
 This formula for the mean may look a little bit scary, but all it means is that we add up all of the values that we have and divide by the number of values. 
 
 Create a couple examples yourself and find the mean! If you create a list of values, you can use R to check your work as follows:
@@ -129,8 +126,7 @@ mean(my_values)
     - We create it using the `c()` function, which means "concatenate", or "put together".
 - The mean function takes a vector and calculates the mean for you.
 
-To run this code, go to \url{wlu.syzygy.ca} and create a new R notebook. Insert an "R cell", and copy/paste the code above into that cell. Either hit the "play" button, or Alt+Enter (Option+Enter on a Mac). 
-:::
+To run this code, go to \url{wlu.syzygy.ca} and create a new R notebook. Insert an "R cell", and copy/paste the code above into that cell. Either hit the "play" button, or Alt+Enter (Option+Enter on a Mac). Alternatively, you can open up an R script in RStudio if you have it installed on your computer.
 
 ### The mean is *not* robust
 
@@ -140,13 +136,8 @@ Consider the following sets of data:
 Set 1: 1, 2, 3, 4, 5, 6
 Set 2: 1, 2, 3, 4, 5, 60
 ```
-
-
-
 - Both have the same median.
 - Mean of 3.5 and 12.5, respectively.
-
-
 
 Which do you think is the correct measure of the centre?
 
@@ -178,8 +169,6 @@ Set 1: 1 1 1 5 5 5
 Set 2: 1 2 3 3 4 5
 Set 3: 1 3 3 3 3 5
 ```
-
-
 
 - All have the same **range** (max - min).
 
@@ -223,13 +212,9 @@ $$
 s^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)^2
 $$
 
-
-
 We use $n-1$ because of math reasons.
 :::
 ::: {.column width="50%"}
-
-
 The easiest way to calculate this is to put it in a table:
 
 | $i$ | $x_i$ | $x_i - \bar x$ | $(x_i - \bar x)^2$ |
@@ -267,8 +252,6 @@ var(my_values)
 ```
 
 :::
-
-
 ### The Variance and the Standard Deviation
 
 $$
@@ -302,8 +285,6 @@ Set 1: 1 1 1 5 5 5
 Set 2: 1 2 3 3 4 5
 Set 3: 1 3 3 3 3 5
 ```
-
-
 
 1. Draw out bar plots.
 2. Set up the table and find the variance.
@@ -351,8 +332,6 @@ The median of these data is 5; 50\% of the data are to the left of this point.
     - Q1 is the median of everything to the left of the median. 
     - In this case, 1 2 3 4 are the numbers to the left of the median, and so Q1 is 2.5.
 3. By a similar argument, Q3 is 6.5.
-
-
 :::notes
 Q0 is where 0\% of the data are to the left. In other words, it's the minimum value in the data! Similarly, Q4 is the maximum value in the data.
 
@@ -361,8 +340,6 @@ The algorithm we just used for computing the quartiles is not the only one! In R
 :::
 
 :::
-
-
 ### The five number summary
 
 Let's use the folowing example:
@@ -380,8 +357,6 @@ The five number summary just shows all five of the quartiles. Note that there ar
 
 For practice, make sure you can calculate the median, and then the median of all the values to the left of it!
 :::
-
-
 ### Visualizing the five number summary: the boxplot
 
 :::: {.columns}
@@ -390,15 +365,11 @@ For practice, make sure you can calculate the median, and then the median of all
 
 The plot on the right shows the body masses for the Palmer Penguins.
 
-
-
 - The lowest point is Q0
 - The left of the box is Q1
 - The thick line in the box is Q2 (the median)
 - The right of the box is Q3
 - The highest point is Q4
-
-
 :::
 ::: {.column width="50%"}
 
@@ -429,13 +400,9 @@ The boxplot and the histogram both demonstrate the right skew of the data, but t
 
 Take a moment to compare the two plots and make sure you can explain the skewness. Remember that 25\% of the data are in each interval shown in the box plot!
 :::
-
-
 ### Measure 2: The Inter-Quartile Range (IQR)
 
 The IQR is defined as: Q3 - Q1.
-
-
 
 - Same units as the original data
 - Robust to outliers (unlike the sd)!
@@ -474,8 +441,6 @@ The idea is that the IQR gives a measure of spread, and the median gives the mea
 
 Most of the rest of this course will be spent looking at something similar for the mean. We will still use this idea of the centre plus or minus some measure of the spread, but will incorporate information about the sample and assumptions about the population that allow us to make much stronger conclusions beyond simply checking if something is an outlier.
 :::
-
-
 
 ### Summary
 
@@ -519,8 +484,6 @@ silk_stress <- c(164.00, 173.00, 176.10, 236.10, 251.30, 270.50, 270.50,
     332.10, 351.70, 358.20, 362.00, 448.90, 478.70, 740.20)
 hist(silk_stress, breaks = 10)
 ```
-
-
 2. **Deep-sea sediments.** Phytopigments are markers of the amount of organic matter that settles in sediments on the ocean floor. Phytopigment concentrations in deep-sea sediments collected worldwide showed a very strong right-skew. Of two summary statistics, 0.015 and 0.009 gram per square meter of bottom surface, which one is the mean and which one is the median? Explain your reasoning.
 
 3. **Glucose levels.** People with diabetes must monitor and control their blood glucose level. The goal is to maintain a “fasting plasma glucose” between approximately 90 and 130 milligrams per deciliter (mg/dl). The data tables below give the fasting plasma glucose levels for two groups of diabetics five months after they received either group instruction or individual instruction on glucose control.
@@ -539,7 +502,5 @@ b. Make side-by-side boxplots comparing the two groups. What can you say from th
 c. Obtain the mean and standard deviation for each sample. Does this information give any clue about the shape of the two distributions?
 d. Add to the historgrams a symbol representing the mean of each group and error bars representing one standard deviation above and below the mean. (You can do this by hand.) Compare this graphical summary with the boxplot display you also created.
 e. Use the 1.5 × IQR rule to identify any suspected outliers. Then look at the raw data to determine if unusually high or low values in either data set actually are outliers.
-
-
 :::
 
