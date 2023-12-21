@@ -3,6 +3,7 @@ title: "Describing Distributions with Numbers"
 date: "last-modified"
 ---
 
+
 ## Quantitative Variables
 
 ### Parameters Versus Statistics
@@ -536,3 +537,6 @@ For example, Statistics Canada releases information of the average household inc
 
 :::
 
+## Categorical Variables
+
+These variables are much harder to quantify with a single summary statistic. Instead, we usually give a table of their counts or just draw a plot. There is no concept of "mean" that applies to all categorical variables, and there is especially no concept of "variance". The one exception is the **mode** (the most commonly observed category), but on it's own this gives us very little information about the "centre" or "spread" of the data.
