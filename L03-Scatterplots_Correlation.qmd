@@ -1,13 +1,20 @@
 ---
 title: "Scatterplots and Correlation"
 institute: "Jam: *Response* by Barcelona"
-date: May 15, 2023
 ---
 
 ```{r}
 #| echo: false
 #| eval: true
 set.seed(2112)
+set.seed(2112)
+suppressPackageStartupMessages({
+    library(palmerpenguins)
+    library(ggplot2)
+    library(dplyr)
+})
+
+p2 <- filter(penguins, sex == "male", species == "Chinstrap")
 ```
 
 ## Relationships
@@ -53,29 +60,48 @@ Height and weight are an example of how are the knowledge of one variable tells 
 
 ### Example
 
-<!---
 :::: {.columns}
-::: {.column width="30%"}
-![](figs/manatee1.png)
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+mypt <- c(p2$flipper_length_mm[2], p2$body_mass_g[2])
+head(p2, 3) |> knitr::kable()
+```
+
+- One penguin has a flipper length of `r mypt[1]`.
+    - That *same penguin* has a body mass of `r mypt[2]`.
+    - Both measurements were made on the **same individual**.
+        - Individual: thing we are making measurements on.\lspace
+- Each value on the x-axis is paired with a value on the y-axis.
+
 
 :::
 ::: {.column width="50%"}
-![](figs/manatee2.png)
-
+```{r}
+#| fig-height: 7
+#| fig-width: 7
+#| echo: false
+plot(body_mass_g ~ flipper_length_mm, data = p2,
+    xlab = "Flipper Length (mm)", ylab = "Body Mass (g)",
+    main = "Body Mass Increases with Flipper Length",
+    pch = 16, cex = 1.5)
+points(mypt[1], mypt[2], col = 2, cex = 3, pch = 16)
+lines(c(mypt[1], mypt[1]), c(0, mypt[2]), col = 2, lwd = 2)
+axis(at = mypt[1], labels = mypt[1], side = 1, col = 2)
+lines(c(0, mypt[1]), c(mypt[2], mypt[2]), col = 2, lwd = 2)
+axis(at = mypt[2], labels = mypt[2], side = 2, col = 2)
+```
 :::
 ::::
---->
-:::notes
-In the data frame above, we have an observation of the number of power boats registered in each year, as well as the number of manatees that died in a collision with a powerboat in that year. The table shown above is only a small part of the data.
 
-The rest of the data are shown in the plot. To create this plot, we put the number of powerboats registered on the X axis, and the number of manatee deaths on the Y axis. The annotation on the plot demonstrates how the points were added. One of the columns in the data is labelled 1977 and in that year they were to 755,000 powerboats registered and they were 54 manatee deaths that year. Because these two numbers are measured on the same individual (with the individual being the year in this example), we know that those two numbers go together. If we had a collection of peoples heights and a separate collection of peoples weights, but no knowledge of which individual each was collected on, then we would not be able to make a scatterplot. In order to make a scatterplot, we have to know which observation on the X axis is associated with which observation on the Y axis.
+
+:::notes
+In the plot above, each 
 :::
 
 ### What to look for
-
-:::: {.columns}
-::: {.column width="50%"}
-
 
 - **Overall pattern**
     - Linear, curved, etc.
@@ -85,12 +111,6 @@ The rest of the data are shown in the plot. To create this plot, we put the numb
     - E.g., linear only in a small range
 - **Outliers**
     - As before, discuss outliers separately from the pattern.
-
-:::
-::: {.column width="50%"}
-<!--- ![](figs/manatee2.png) --->
-:::
-::::
 
 :::notes
 In general for this course were looking for a linear pattern. There are other models out there that fit nonlinear patterns, but we do not cover them in this course. There's one way for things to be linear, and there are an infinite number of ways for things to be nonlinear. However, there are many common ways to account for non-linearity while still using a linear model.
@@ -113,6 +133,7 @@ What pattern is this?
 :::
 ::: {.column width="50%"}
 ```{r}
+#| echo: false
 library(palmerpenguins)
 library(ggplot2)
 theme_set(theme_bw())
@@ -149,6 +170,7 @@ We can encode that information with a colour!
 :::
 ::: {.column width="50%"}
 ```{r}
+#| echo: false
 library(palmerpenguins)
 library(ggplot2)
 theme_set(theme_bw())
@@ -170,6 +192,7 @@ From this plot, we can see that the three species in these data all have a simil
 ### The Importance of Plotting: Anscombe's Quartet
 
 ```{r}
+#| echo: false
 data.frame(
     variable = names(anscombe),
     mean = apply(anscombe, 2, mean),
@@ -186,7 +209,7 @@ In this lecture were introducing plots before we talk about numerical summaries 
 ```{r}
 #| fig-height: 4
 #| fig-width: 9
-#| echo: true
+#| echo: false
 par(mfrow = c(2,2), mar = c(3,3,2,1))
 plot(y1 ~ x1, data = anscombe)
 abline(lm(y1 ~ x1, data = anscombe))
@@ -239,6 +262,7 @@ It would be splendid if we could have a way to quantify this...
 ::: {.column width="50%"}
 
 ```{r}
+#| echo: false
 library(ggplot2)
 theme_set(theme_bw())
 library(patchwork)
@@ -400,7 +424,7 @@ c. Is this a strong or a weak relationship? Explain.
 
 :::
 ::: {.column width="50%"}
-<!--- ![](figs/non-linear.png) --->
+![](figs/non-linear.png)
 :::
 ::::
 
@@ -530,98 +554,6 @@ This is an example of something called **Simpson's Paradox**: If we don't accoun
     - A negative $r$ means a negative relationship (i.e. a line that goes down).
 - Everything on the "Comments" slide is fair game for test questions.
 
-## Participation Questions
-
-### Q01
-
-The correlation coefficient measures the strength of the correlation.
-
-1. True
-2. False
-
-### Q02
-
-If $r < 0$, there is a negative linear correlation.
-
-1. True
-2. False
-
-### Q03
-
-Which of the following represents the *strongest* correlation?
-
-1. 0.4
-2. 0.7
-3. -0.8
-4. 0
-
-### Q04
-
-:::: {.columns}
-::: {.column width="50%"}
-\vspace{1cm}
-
-What is the best description of the plot on the right?
-
-1. No correlation, has an outlier.
-2. Strong correlation, has an outlier
-3. Slight negative correlation
-4. Shapeless
-
-:::
-::: {.column width="50%"}
-
-```{r}
-#| fig-height: 5
-#| fig-width: 6
-x <- c(runif(99, 0, 10), 11)
-y <- c(rnorm(99), 20)
-
-ggplot() + aes(x = x, y = y) + geom_point() #+ 
-    #geom_smooth(method = "lm", formula = y~x, se = FALSE)
-
-```
-:::
-::::
-
-### Extra context: Fitting a Line
-
-:::: {.columns}
-::: {.column width="50%"}
-\vspace{1cm}
-
-A line would try and fit the outlier, which misleads us into thinking there might be a correlation!
-
-:::
-::: {.column width="50%"}
-
-```{r}
-#| fig-height: 5
-#| fig-width: 6
-ggplot() + aes(x = x, y = y) + geom_point() + 
-    geom_smooth(method = "lm", formula = y~x, se = FALSE)
-```
-:::
-::::
-
-
-### Q05
-
-Which statement is *true*.
-
-1. The explanatory variable causes the response.
-2. The response must be something measured *after* the explanatory variable.
-3. We use the explanatory variable to explain the response, without assuming causality.
-4. The correlation between the explanatory and response variable will be positive if the explanatory causes the response, negative if the response causes the explanatory.
-
-### Q06
-
-We can add colour to a plot using what type of variable?
-
-1. Categorical
-2. Quantitative
-
-
 
 :::notes
 **Exercises:**
@@ -639,11 +571,11 @@ cor(mtcars$mpg, mtcars$wt)
 
 2. The following figure comes from the article "Shared neural representations and temporal segmentation of political content predict ideological similarity" by De Brujin et al., published in 2023 ([link to aricle here](https://www.science.org/doi/10.1126/sciadv.abq5920)). The star on the plot indicates that they have found a statistically significant relationship (more on this next week). Is this a strong correlation?
 
-<!--- ![](figs/scatterbad.png) --->
+![](figs/scatterbad.png)
 
 3. The following figure comes from the article "Effect on Blood Pressure of Daily Lemon Ingestion and Walking" by Kato et al., published in 2013 ([link to article here](https://www.hindawi.com/journals/jnme/2014/912684/)). Comment on the shape of this relationship. Recall how we described a "strong" shape as a shape that remains even if some of the data points were removed.
 
-<!--- ![](figs/lemon.png) --->
+![](figs/lemon.png)
 
 **Exercises from OpenIntro Biotatistics textbook**
 
