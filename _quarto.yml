@@ -6,6 +6,7 @@ project:
 date-format: iso
 number-depth: 2
 author: "Dr. Devan Becker"
+date: last-modified
 
 book:
   title: "Statistics for Life Sciences"
