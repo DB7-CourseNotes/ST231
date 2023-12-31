@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.3.333">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-12-21">
+<meta name="dcterms.date" content="2023-12-31">
 
 <title>Statistics for Life Sciences - 3&nbsp; Scatterplots and Correlation</title>
 <style>
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -128,6 +99,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -136,11 +108,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L03-Scatterplots_Correlation.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -148,150 +125,174 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="sidebar-tool px-1"><i class="bi bi-file-pdf"></i></a>
-  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/DB7-CourseNotes/ST231_S23" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Pre-Midterm</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Pre-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></a>
+  <a href="./L01-Intro_PicturingGraphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Picturing Distributions with Graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></a>
+  <a href="./L02-Describing_Distributions_Numbers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Describing Distributions with Numbers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></a>
+  <a href="./L03-Scatterplots_Correlation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></a>
+  <a href="./L04-Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></a>
+  <a href="./L05-Probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></a>
+  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></a>
+  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></a>
+  <a href="./L10-Sampling_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Post-Midterm</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Post-Midterm</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></a>
+  <a href="./L12-Intro_to_Inference-CI-pvals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Welcome to Inference!</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></a>
+  <a href="./L13-p_vals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Tests of Significance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L14-Inference_Cautions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics in Inference</span></a>
+  <a href="./L14-Inference_Cautions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Special Topics in Inference</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L15-CI_for_Means.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></a>
+  <a href="./L15-CI_for_Means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Confidence Intervals in Practice</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L16-Hypothesis_Tests_for_Means.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></a>
+  <a href="./L16-Hypothesis_Tests_for_Means.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">t-Tests for a Mean</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L17-Two_Sample_hypothesis_Tests.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></a>
+  <a href="./L17-Two_Sample_hypothesis_Tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Two-Sample t-Tests</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></a>
+  <a href="./L18-Hypothesis_Tests_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Large sample test for a proportion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L19-CI_for_Proportions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></a>
+  <a href="./L19-CI_for_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Confidence Intervals for a Proportion</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L20-Two_Proportions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></a>
+  <a href="./L20-Two_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Inference for the Difference in Proportions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L21-ChiSquare_Multiple_Proportions.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chi-Square Test for Multiple Proportions</span></a>
+  <a href="./L21-ChiSquare_Multiple_Proportions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Chi-Square Test for Multiple Proportions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L22-Inference_for_Regression.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></a>
+  <a href="./L22-Inference_for_Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Inference for Regression</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L23-ANOVA-oi.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></a>
+  <a href="./L23-ANOVA-oi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Comparing means with ANOVA</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L24-Review.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></a>
+  <a href="./L24-Review.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Post-Midterm Review</span></span></a>
   </div>
 </li>
       </ul>
@@ -299,28 +300,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#relationships" id="toc-relationships" class="nav-link active" data-scroll-target="#relationships"><span class="toc-section-number">3.1</span>  Relationships</a>
+  <li><a href="#relationships" id="toc-relationships" class="nav-link active" data-scroll-target="#relationships"><span class="header-section-number">3.1</span> Relationships</a>
   <ul class="collapse">
   <li><a href="#explanatory-and-response-variables" id="toc-explanatory-and-response-variables" class="nav-link" data-scroll-target="#explanatory-and-response-variables">Explanatory and Response Variables</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul></li>
-  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots"><span class="toc-section-number">3.2</span>  Scatterplots</a>
+  <li><a href="#scatterplots" id="toc-scatterplots" class="nav-link" data-scroll-target="#scatterplots"><span class="header-section-number">3.2</span> Scatterplots</a>
   <ul class="collapse">
   <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
   <li><a href="#what-to-look-for" id="toc-what-to-look-for" class="nav-link" data-scroll-target="#what-to-look-for">What to look for</a></li>
   <li><a href="#penguins" id="toc-penguins" class="nav-link" data-scroll-target="#penguins">Penguins!</a></li>
   <li><a href="#adding-a-categorical-variable" id="toc-adding-a-categorical-variable" class="nav-link" data-scroll-target="#adding-a-categorical-variable">Adding a Categorical Variable</a></li>
   <li><a href="#the-importance-of-plotting-anscombes-quartet" id="toc-the-importance-of-plotting-anscombes-quartet" class="nav-link" data-scroll-target="#the-importance-of-plotting-anscombes-quartet">The Importance of Plotting: Anscombe’s Quartet</a></li>
-  <li><a href="#anscombes-quartet" id="toc-anscombes-quartet" class="nav-link" data-scroll-target="#anscombes-quartet">Anscombe’s Quartet</a></li>
   <li><a href="#summarizing-plots" id="toc-summarizing-plots" class="nav-link" data-scroll-target="#summarizing-plots">Summarizing Plots</a></li>
   </ul></li>
-  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="toc-section-number">3.3</span>  Correlation</a>
+  <li><a href="#summary-statistics-for-two-continuous-variables" id="toc-summary-statistics-for-two-continuous-variables" class="nav-link" data-scroll-target="#summary-statistics-for-two-continuous-variables"><span class="header-section-number">3.3</span> Summary Statistics for Two Continuous Variables</a>
   <ul class="collapse">
   <li><a href="#measuring-strength-of-linearity" id="toc-measuring-strength-of-linearity" class="nav-link" data-scroll-target="#measuring-strength-of-linearity">Measuring Strength of Linearity</a></li>
   <li><a href="#the-correlation-coefficient-r" id="toc-the-correlation-coefficient-r" class="nav-link" data-scroll-target="#the-correlation-coefficient-r">The correlation coefficient <span class="math inline">\(r\)</span></a></li>
@@ -340,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scatterplots and Correlation</span></h1>
 </div>
 
 
@@ -357,18 +358,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-12-21</p>
+      <p class="date">2023-12-31</p>
     </div>
   </div>
+  
     
   </div>
   
 
 </header>
 
-<div class="cell">
-
-</div>
 <section id="relationships" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="relationships"><span class="header-section-number">3.1</span> Relationships</h2>
 <section id="explanatory-and-response-variables" class="level3">
@@ -418,7 +417,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <colgroup>
 <col style="width: 11%">
 <col style="width: 8%">
@@ -496,7 +495,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="notes">
-<p>In the plot above, each</p>
+<p>In the plot above, each individual has multiple measurements recorded on them. Because of this, we can plot each pair as a point in the plot. Note that we need to know which x-value is associated with each y-value in order to make the plot!</p>
 </div>
 </section>
 <section id="what-to-look-for" class="level3">
@@ -521,7 +520,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In general for this course were looking for a linear pattern. There are other models out there that fit nonlinear patterns, but we do not cover them in this course. There’s one way for things to be linear, and there are an infinite number of ways for things to be nonlinear. However, there are many common ways to account for non-linearity while still using a linear model.</p>
 <p>Regardless of whether something is linear or has some sort of curve, we are very interested in how strong of a pattern there is. For a linear model this means we want the points to be very close to the line, whereas for non-linear models we want the pattern to be very clear. We generally want patterns to pass the “facial impact test”, were the pattern is so obvious that it might as well be slapping you in the face (this is not an official test).</p>
 <p>As with describing the shape of histograms, we treat outliers as something that are not part of the shape. We can have a clear linear pattern that happens to have an outlier.</p>
-<p>The plot of manatees versus powerboats above would be described as a strong linear pattern, perhaps with some extra variation at larger X values.</p>
 </div>
 </section>
 <section id="penguins" class="level3">
@@ -545,8 +543,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="adding-a-categorical-variable">Adding a Categorical Variable</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>Each point has an <span class="math inline">\(x\)</span> coordinate, <span class="math inline">\(y\)</span> coordinate, and some other information.</p>
-<p>We can encode that information with a colour!</p>
+<p>Each point has an <span class="math inline">\(x\)</span> coordinate, <span class="math inline">\(y\)</span> coordinate, and some other information. We can encode that information with a colour! Again, we have to have a <em>categorical</em> variable measured on the same individual as the x and y values.</p>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
@@ -557,13 +554,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="notes">
 <p>From this plot, we can see that the three species in these data all have a similar relationship, but still it might be worth separating out the groups and seeing what happens!</p>
+<p>Bonus question: the first plot of body mass versus flipper length only showed one species. Can you tell which species?</p>
 </div>
 </section>
 <section id="the-importance-of-plotting-anscombes-quartet" class="level3">
 <h3 class="anchored" data-anchor-id="the-importance-of-plotting-anscombes-quartet">The Importance of Plotting: Anscombe’s Quartet</h3>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table table-sm table-striped">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">variable</th>
@@ -617,11 +615,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="notes">
-<p>In this lecture were introducing plots before we talk about numerical summaries of two variables for a very good reason. The date is it displayed above is a well-known dataset called Anscombes quartet. Up to the first two decimal places, all of the variables in the data have the same mean and standard deviation. If this were all of the information you had, you might expect the plots to look similar.</p>
+<p>In this course we’re introducing plots before we talk about numerical summaries of two variables for a very good reason. The table above shows summary statistics from a well-known data set called Anscombes quartet. Up to the first two decimal places, all of the variables in the data have the same mean and standard deviation. If this were all of the information you had, you might expect the plots of y1 versus x1, y2 versus x2, y3 versus x3, and y4 versus x4 to look similar.</p>
+<p>Instead, they look like this:</p>
 </div>
-</section>
-<section id="anscombes-quartet" class="level3">
-<h3 class="anchored" data-anchor-id="anscombes-quartet">Anscombe’s Quartet</h3>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="864"></p>
@@ -636,6 +632,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The bottom right plot is a mess. If it weren’t for the outlier, the X values would all be identical! In this case, a scatterplot would not be appropriate. If I saw this while analysing my data, I would have assumed that X was supposed to be either constant (e.g., all X values should have been 8) or categorical. In both cases, a scatterplot would not be appropriate.</li>
 </ul>
 <p>Despite all of these wildly different shapes, all of these data sets have the same summary statistics.</p>
+<p>Plot. Your. Data.</p>
 </div>
 </section>
 <section id="summarizing-plots" class="level3">
@@ -654,8 +651,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </section>
 </section>
-<section id="correlation" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="correlation"><span class="header-section-number">3.3</span> Correlation</h2>
+<section id="summary-statistics-for-two-continuous-variables" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="summary-statistics-for-two-continuous-variables"><span class="header-section-number">3.3</span> Summary Statistics for Two Continuous Variables</h2>
 <section id="measuring-strength-of-linearity" class="level3">
 <h3 class="anchored" data-anchor-id="measuring-strength-of-linearity">Measuring Strength of Linearity</h3>
 <div class="columns">
@@ -684,7 +681,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 \]</span> where <span class="math inline">\(s_x\)</span> is the s.d. of <span class="math inline">\(x\)</span> and <span class="math inline">\(s_y\)</span> is the s.d. of <span class="math inline">\(y\)</span>.</p>
 <p>It’s like a variance for two variables at once!</p>
 <div class="notes">
-<p>This explanation might not stick for those of you who aren’t a fan of formulas, but I think this demonstrates an important aspect of the correlation coefficient. The formula for the standard deviation includes <span class="math inline">\((x_i - \bar x)(x_i - \bar x)\)</span>. If we replaced one of those with <span class="math inline">\(y\)</span>, we’d get <span class="math inline">\((x_i - \bar x)(y_i - \bar y)\)</span>, which is one step closer to the correlation coefficient. In other words, the correlation is a measure of how two (quantitative) variables vary together!</p>
+<p>This explanation might not stick for those of you who aren’t a fan of formulas, but I think this demonstrates an important aspect of the correlation coefficient. The formula for the standard deviation includes <span class="math inline">\((x_i - \bar x)(x_i - \bar x)\)</span>. If we replaced one of those with <span class="math inline">\(y\)</span>, we’d get <span class="math inline">\((x_i - \bar x)(y_i - \bar y)\)</span>, which is one step closer to the correlation coefficient. In other words, the correlation is a measure of how two (quantitative) variables vary together! Correlation is an extension of variance!</p>
 <p>Let’s try another approach. <span class="math inline">\(x\)</span> has variance. <span class="math inline">\(y\)</span> has variance. They also have variance <em>with each other</em>. This is measured by the correlation!</p>
 <p>If neither of these explanations make sense, don’t worry! We’ll see plenty of correlations and get an intuition for how correlations are different with different data.</p>
 </div>
@@ -698,13 +695,13 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <li><span class="math inline">\(s_x\)</span> and <span class="math inline">\(s_y\)</span> are positive</li>
 <li><span class="math inline">\(s_x &gt; \sum_{i=1}^n(x_i - \bar x)\)</span>, similar for <span class="math inline">\(s_y\)</span>
 <ul>
-<li>This can’t be larger than 1</li>
+<li>The correlation coefficient cannot be larger than 1</li>
 </ul></li>
 <li><span class="math inline">\(x_i - \bar x\)</span> <em>can</em> be negative (same with <span class="math inline">\((y_i-\bar y)\)</span>).</li>
 </ul>
-<p>The correlation coefficient can be anything from -1 to 1, with 0 representing no correlation and -1 and 1 representing perfect correlation.</p>
+<p>Together, this means that the correlation coefficient can be anything from -1 to 1, with 0 representing no correlation and -1 and 1 representing perfect correlation.</p>
 <div class="notes">
-<p>The fact that the correlation can be negative is important. A correlation coefficient of -1 looks like a perfect downward slope.</p>
+<p>The fact that the correlation can be negative is important. A correlation coefficient of -1 looks like a perfect downward slope. It’s still a strong relationship. In other words, the relationship is stronger if <span class="math inline">\(r\)</span> is <em>further away from 0</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 </div>
 </section>
 <section id="interpreting-correlation" class="level3">
@@ -718,12 +715,12 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/ScatterCorr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="notes">
-<p>The app above shows data that start uncorrelated, then are slowly transformed into perfect correlation. If you hav R installed on your computer it should run just fine (you may need to run <code>install.packages("shiny")</code> for the shiny package, and possibly <code>install.packages("ggplot2")</code> if you haven’t already).</p>
-<p>For more examples (and more info on the correlation coefficient in general), see the <a href="https://www.openintro.org/book/biostat/">OpenIntro Textbook</a> and let me know what you think of that textbook!</p>
+<p>The app above shows data that start uncorrelated, then are slowly transformed into perfect correlation. If you have R installed on your computer it should run just fine (you may need to run <code>install.packages("shiny")</code> for the shiny package, and possibly <code>install.packages("ggplot2")</code> if you haven’t already).</p>
+<p>For more examples (and more info on the correlation coefficient in general), see the <a href="https://www.openintro.org/book/biostat/">OpenIntro Textbook</a>!</p>
 </div>
 </section>
 <section id="comments-on-the-correlation" class="level3">
@@ -746,7 +743,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <li><em>Not</em> robust to outliers.</li>
 </ul>
 <div class="notes">
-<p>Let’s explore some of these points with code!</p>
+<p>Let’s explore some of these ideas with code!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1 <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -806,12 +803,16 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 </div>
 </div>
 <div class="notes">
-<p>Solutions:</p>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
 <ol type="a">
 <li>The relationship increases with an upward curve from temperatures of 300K to 340K, when it turns downward sharply and decreases to 355K.</li>
 <li>The association is different for different X values. This is <em>not</em> a linear relationship, which means we have to do extra work to make sure that we cover all the non-linearities.</li>
 <li>This is a very strong relationship. The pattern clearly passes the facial impact test that we discussed before. It is far from a linear relationship, but it’s clearly noticable.</li>
 </ol>
+</details>
 </div>
 </section>
 <section id="again-always-plot-your-data" class="level3">
@@ -840,8 +841,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 </div>
 </div>
 <div class="notes">
-<p>This is an example of something called <strong>Simpson’s Paradox</strong>: If we don’t account for the sub-groups, we get the opposite affect! As we can see in the plot, if we have all the groups together than it looks like a negative correlation, but once we separate groups each individual group has a positive correlation.</p>
-<p>(Note that I hid the code for this plot - the code I used to ensure the colours matched and I got the right layout is pretty advanced, and I also used some tricks along the way.)</p>
+<p>This is an example of something called <strong>Simpson’s Paradox</strong>: If we don’t account for the sub-groups, we get the opposite affect! As we can see in the plot, if we have all the groups together than it looks like a negative correlation (plot on the left), but once we separate groups each individual group has a positive correlation (plots on the right). In general, the conclusion that incorporates the most information is probably closest to the truth.</p>
 </div>
 </section>
 <section id="correlation-summary" class="level3">
@@ -897,6 +897,12 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 
 
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>It is <em>not</em> true that a “larger” <span class="math inline">\(r\)</span> means stronger relationship!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -1032,7 +1038,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   // Switch to dark mode if need be
   if (hasAlternateSentinel()) {
     toggleColorMode(true);
-  } 
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1040,9 +1048,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1054,7 +1076,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1090,24 +1129,128 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
