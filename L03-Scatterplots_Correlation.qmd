@@ -1,6 +1,5 @@
 ---
 title: "Scatterplots and Correlation"
-institute: "Jam: *Response* by Barcelona"
 ---
 
 ```{r}
@@ -27,8 +26,6 @@ p2 <- filter(penguins, sex == "male", species == "Chinstrap")
     - Also called **independent** variable.
 
 Knowledge about explanatory tells us about the response. 
-
-\pause
 
 - We are *not* assuming the explanatory causes the response. We will *not* be covering causality in this course.
 - We are discovering tendencies, *not* rules.
@@ -98,7 +95,7 @@ axis(at = mypt[2], labels = mypt[2], side = 2, col = 2)
 
 
 :::notes
-In the plot above, each 
+In the plot above, each individual has multiple measurements recorded on them. Because of this, we can plot each pair as a point in the plot. Note that we need to know which x-value is associated with each y-value in order to make the plot!
 :::
 
 ### What to look for
@@ -118,8 +115,6 @@ In general for this course were looking for a linear pattern. There are other mo
 Regardless of whether something is linear or has some sort of curve, we are very interested in how strong of a pattern there is. For a linear model this means we want the points to be very close to the line, whereas for non-linear models we want the pattern to be very clear. We generally want patterns to pass the "facial impact test", were the pattern is so obvious that it might as well be slapping you in the face (this is not an official test).
 
 As with describing the shape of histograms, we treat outliers as something that are not part of the shape. We can have a clear linear pattern that happens to have an outlier.
-
-The plot of manatees versus powerboats above would be described as a strong linear pattern, perhaps with some extra variation at larger X values.
 :::
 
 ### Penguins!
@@ -161,11 +156,7 @@ The plot above shows a clear linear pattern. There is still some variation above
 ::: {.column width="50%"}
 \vspace{1cm}
 
-Each point has an $x$ coordinate, $y$ coordinate, and some other information.
-
-
-
-We can encode that information with a colour!
+Each point has an $x$ coordinate, $y$ coordinate, and some other information. We can encode that information with a colour! Again, we have to have a *categorical* variable measured on the same individual as the x and y values. 
 
 :::
 ::: {.column width="50%"}
@@ -187,6 +178,8 @@ ggplot(penguins) +
 
 :::notes
 From this plot, we can see that the three species in these data all have a similar relationship, but still it might be worth separating out the groups and seeing what happens!
+
+Bonus question: the first plot of body mass versus flipper length only showed one species. Can you tell which species?
 :::
 
 ### The Importance of Plotting: Anscombe's Quartet
@@ -201,16 +194,17 @@ data.frame(
 ```
 
 :::notes
-In this lecture were introducing plots before we talk about numerical summaries of two variables for a very good reason. The date is it displayed above is a well-known dataset called Anscombes quartet. Up to the first two decimal places, all of the variables in the data have the same mean and standard deviation. If this were all of the information you had, you might expect the plots to look similar.
+In this course we're introducing plots before we talk about numerical summaries of two variables for a very good reason. The table above shows summary statistics from a well-known data set called Anscombes quartet. Up to the first two decimal places, all of the variables in the data have the same mean and standard deviation. If this were all of the information you had, you might expect the plots of y1 versus x1, y2 versus x2, y3 versus x3, and y4 versus x4 to look similar.
+
+Instead, they look like this:
 :::
 
-### Anscombe's Quartet
 
 ```{r}
-#| fig-height: 4
+#| fig-height: 6
 #| fig-width: 9
 #| echo: false
-par(mfrow = c(2,2), mar = c(3,3,2,1))
+par(mfrow = c(2,2), mar = c(3,3,2,1), pch = 16)
 plot(y1 ~ x1, data = anscombe)
 abline(lm(y1 ~ x1, data = anscombe))
 
@@ -233,6 +227,8 @@ Clearly, there's a very different pattern in each plot.
 - The bottom right plot is a mess. If it weren't for the outlier, the X values would all be identical! In this case, a scatterplot would not be appropriate. If I saw this while analysing my data, I would have assumed that X was supposed to be either constant (e.g., all X values should have been 8) or categorical. In both cases, a scatterplot would not be appropriate.
 
 Despite all of these wildly different shapes, all of these data sets have the same summary statistics.
+
+Plot. Your. Data.
 :::
 
 ### Summarizing Plots
@@ -244,7 +240,7 @@ Despite all of these wildly different shapes, all of these data sets have the sa
     - Outliers are noteworthy.
 - We can incorporate more information in a scatterplot, especially **categorical variables**.
 
-## Correlation
+## Summary Statistics for Two Continuous Variables
 
 ### Measuring Strength of Linearity
 
@@ -301,7 +297,7 @@ where $s_x$ is the s.d. of $x$ and $s_y$ is the s.d. of $y$.
 It's like a variance for two variables at once!
 
 :::notes
-This explanation might not stick for those of you who aren't a fan of formulas, but I think this demonstrates an important aspect of the correlation coefficient. The formula for the standard deviation includes $(x_i - \bar x)(x_i - \bar x)$. If we replaced one of those with $y$, we'd get $(x_i - \bar x)(y_i - \bar y)$, which is one step closer to the correlation coefficient. In other words, the correlation is a measure of how two (quantitative) variables vary together!
+This explanation might not stick for those of you who aren't a fan of formulas, but I think this demonstrates an important aspect of the correlation coefficient. The formula for the standard deviation includes $(x_i - \bar x)(x_i - \bar x)$. If we replaced one of those with $y$, we'd get $(x_i - \bar x)(y_i - \bar y)$, which is one step closer to the correlation coefficient. In other words, the correlation is a measure of how two (quantitative) variables vary together! Correlation is an extension of variance!
 
 Let's try another approach. $x$ has variance. $y$ has variance. They also have variance *with each other*. This is measured by the correlation!
 
@@ -315,15 +311,13 @@ $$
 
 - $s_x$ and $s_y$ are positive
 - $s_x > \sum_{i=1}^n(x_i - \bar x)$, similar for $s_y$
-    - This can't be larger than 1
+    - The correlation coefficient cannot be larger than 1
 - $x_i - \bar x$ *can* be negative (same with $(y_i-\bar y)$).
 
-
-
-The correlation coefficient can be anything from -1 to 1, with 0 representing no correlation and -1 and 1 representing perfect correlation.
+Together, this means that the correlation coefficient can be anything from -1 to 1, with 0 representing no correlation and -1 and 1 representing perfect correlation.
 
 :::notes
-The fact that the correlation can be negative is important. A correlation coefficient of -1 looks like a perfect downward slope. 
+The fact that the correlation can be negative is important. A correlation coefficient of -1 looks like a perfect downward slope. It's still a strong relationship. In other words, the relationship is stronger if $r$ is *further away from 0*^[It is *not* true that a "larger" $r$ means stronger relationship!].
 :::
 
 ### Interpreting correlation
@@ -338,15 +332,15 @@ The fact that the correlation can be negative is important. A correlation coeffi
 ```{r}
 #| echo: true
 #| eval: false
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
     subdir = "Apps/ScatterCorr")
 ```
 
 
 :::notes
-The app above shows data that start uncorrelated, then are slowly transformed into perfect correlation. If you hav R installed on your computer it should run just fine (you may need to run `install.packages("shiny")` for the shiny package, and possibly `install.packages("ggplot2")` if you haven't already).
+The app above shows data that start uncorrelated, then are slowly transformed into perfect correlation. If you have R installed on your computer it should run just fine (you may need to run `install.packages("shiny")` for the shiny package, and possibly `install.packages("ggplot2")` if you haven't already).
 
-For more examples (and more info on the correlation coefficient in general), see the [OpenIntro Textbook](https://www.openintro.org/book/biostat/) and let me know what you think of that textbook!
+For more examples (and more info on the correlation coefficient in general), see the [OpenIntro Textbook](https://www.openintro.org/book/biostat/)!
 :::
 
 ### Comments on the correlation
@@ -364,7 +358,7 @@ $$
 - *Not* robust to outliers. 
 
 :::notes
-Let's explore some of these points with code!
+Let's explore some of these ideas with code!
 
 ```{r}
 #| echo: true
@@ -429,11 +423,14 @@ c. Is this a strong or a weak relationship? Explain.
 ::::
 
 :::notes
-Solutions:
+
+<details>
+<summary>**Solution**</summary>
 
 a. The relationship increases with an upward curve from temperatures of 300K to 340K, when it turns downward sharply and decreases to 355K.
 b. The association is different for different X values. This is *not* a linear relationship, which means we have to do extra work to make sure that we cover all the non-linearities.
 c. This is a very strong relationship. The pattern clearly passes the facial impact test that we discussed before. It is far from a linear relationship, but it's clearly noticable. 
+</details>
 :::
 
 ### Again, always plot your data!!!
@@ -481,7 +478,7 @@ It's important to note that $r$ can always be calculated for numeric data. If we
 ```{r}
 #| echo: false
 #| fig-width: 8
-#| fig-height: 4
+#| fig-height: 7
 library(palmerpenguins)
 library(ggplot2)
 theme_set(theme_bw())
@@ -538,9 +535,7 @@ gall + (gadelie / ginstrap / gentoo)
 ```
 
 :::notes
-This is an example of something called **Simpson's Paradox**: If we don't account for the sub-groups, we get the opposite affect! As we can see in the plot, if we have all the groups together than it looks like a negative correlation, but once we separate groups each individual group has a positive correlation.
-
-(Note that I hid the code for this plot - the code I used to ensure the colours matched and I got the right layout is pretty advanced, and I also used some tricks along the way.)
+This is an example of something called **Simpson's Paradox**: If we don't account for the sub-groups, we get the opposite affect! As we can see in the plot, if we have all the groups together than it looks like a negative correlation (plot on the left), but once we separate groups each individual group has a positive correlation (plots on the right). In general, the conclusion that incorporates the most information is probably closest to the truth.
 :::
 
 ### Correlation Summary
