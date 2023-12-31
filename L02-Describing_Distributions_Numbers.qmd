@@ -12,6 +12,7 @@ date: "last-modified"
 - Since we typically will not collect data on the entire population, we use (sample) statistics to make statements (with some uncertainty) about what the (population) parameter is.
 - Categorical variables are summarized by the count or proportion (percent) of the data in each category.
 - Quantitative variables are summarized by the centre and spread of the data
+
 ### Parameters Versus Statistics: """Truth"""
 
 We assume there's some "true" population mean.
@@ -540,3 +541,34 @@ For example, Statistics Canada releases information of the average household inc
 ## Categorical Variables
 
 These variables are much harder to quantify with a single summary statistic. Instead, we usually give a table of their counts or just draw a plot. There is no concept of "mean" that applies to all categorical variables, and there is especially no concept of "variance". The one exception is the **mode** (the most commonly observed category), but on it's own this gives us very little information about the "centre" or "spread" of the data.
+
+Instead, we simply show as few numbers as we can while still displaying enough information:
+
+### Frequency Tables
+
+#### One-Way Table
+
+```{r}
+#| echo: false
+suppressPackageStartupMessages({
+    library(palmerpenguins)
+})
+
+table(penguins$sex)
+
+table(penguins$species)
+```
+
+- The number of penguins in each category.
+- From what's given,m we can't tell how many Chinstrap penguins were female.
+
+#### Two-Way Table
+
+```{r}
+#| echo: false
+
+table(penguins$sex, penguins$species) |> knitr::kable()
+```
+
+- The number of penguins in each *combination* of categories.
+- We can find that there were 165 female penguins by adding the entries in the row labelled `female`. 
