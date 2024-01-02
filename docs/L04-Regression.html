@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-06-28">
+<meta name="dcterms.date" content="2024-01-02">
 
 <title>Statistics for Life Sciences - 4&nbsp; Regression</title>
 <style>
@@ -316,6 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#extrapolation" id="toc-extrapolation" class="nav-link" data-scroll-target="#extrapolation">Extrapolation</a></li>
   <li><a href="#lurking-variables" id="toc-lurking-variables" class="nav-link" data-scroll-target="#lurking-variables">Lurking Variables</a></li>
   </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">5</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -328,27 +329,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Dr.&nbsp;Devan Becker </p>
-  </div>
-    <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Jam: by
-          </p>
-      </div>
-    </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Dr.&nbsp;Devan Becker </p>
+          </div>
+  </div>
+    
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-06-28</p>
+      <p class="date">2024-01-02</p>
     </div>
   </div>
   
@@ -360,7 +354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h2>
-<p>These notes are based on Chapter 4 of Baldi &amp; Moore and Chapter 6.1 to 6.3 in OpenIntro Biostats.</p>
+<p>These notes are based on Chapter 6.1 to 6.3 in OpenIntro Biostats.</p>
 <p>In linear modelling, we have a collection of pairs <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span>. We think that there’s some sort of relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and we think that a line is an adequate way to characterize that relationship<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Just like we assume that there’s a “true” population mean, there is also a “true” slope and intercept for the line that characterizes the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. In the plot below, the green line represents the “true” relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and the data are random values above and below that line<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <div class="cell">
@@ -368,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>In high school, you may have learned a line as <span class="math inline">\(y = mx + b\)</span>. In statistics, we often use latin letters for estimates and greek letters for population parameters<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The population line is thus:</p>
+<p>In high school, you may have learned a line as <span class="math inline">\(y = mx + b\)</span>. In statistics, we often use latin letters (a, b, c, d, …) for estimates and greek letters (<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\gamma\)</span>, and other lower case versions of letters you’ve seen on frat/sorority houses) for population parameters<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. The population line is labelled:</p>
 <p><span class="math display">\[
 y_i = \alpha + \beta x_i + \epsilon_i
 \]</span></p>
@@ -378,22 +372,22 @@ y_i = \alpha + \beta x_i + \epsilon_i
 <ul>
 <li>A 1 unit increase in <span class="math inline">\(x\)</span> corresponds to a <span class="math inline">\(\beta\)</span> increase in <span class="math inline">\(y\)</span>.</li>
 </ul></li>
-<li><span class="math inline">\(\epsilon_i\)</span> is random noise (<span class="math inline">\(N(0,\sigma)\)</span>).
+<li><span class="math inline">\(\epsilon_i\)</span> is random noise (<span class="math inline">\(N(0,\sigma)\)</span>, although you’re not expected to understand this notation yet).
 <ul>
 <li>Again, we think of <span class="math inline">\(x\)</span> as being fixed. The random noise is above and below the line, not side to side.</li>
 </ul></li>
-<li>The formula implies that <span class="math inline">\(y_i \sim N(\alpha + \beta x_i, \sigma)\)</span>, since <span class="math inline">\(y_i\)</span> is centered at <span class="math inline">\(\alpha + \beta x_i\)</span> but randomly varies above and below the line with variance <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>The formula implies that <span class="math inline">\(y_i\)</span> is centered at <span class="math inline">\(\alpha + \beta x_i\)</span> but randomly varies above and below the line with variance <span class="math inline">\(\sigma^2\)</span>.</li>
 </ul>
-<p>The word “regression” means to go backward. I like to think that we are “going backward” to the population numbers from the sample values<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Any situation where you are estimating a population parameter is technically a <strong>regression</strong>, but this terminology is not useful for this class.</p>
-<p>To regress, we <strong>estimate</strong> the parameters using sample statistics. For linear regression, we use regular old latin letters instead of the fancy greek ones. <span class="math inline">\(a\)</span> is the estimate for <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(b\)</span> for <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(e\)</span> for <span class="math inline">\(\epsilon\)</span>. In order to do find these sample statistics, we minimize the squared error between the line and the data:</p>
+<p>The word “regression” means to go backward. I like to think that we are “going backward” to the population numbers from the sample values<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Any situation where you are estimating a population parameter is technically a <strong>regression</strong>, but this terminology is not useful for this class.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>To regress, we <strong>estimate</strong> the parameters using sample statistics. <span class="math inline">\(a\)</span> is the estimate for <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(b\)</span> for <span class="math inline">\(\beta\)</span>, and <span class="math inline">\(e\)</span> for <span class="math inline">\(\epsilon\)</span>. In order to do find these sample statistics, we minimize the squared error between the line and the data:</p>
 <p><span class="math display">\[e_i^2 = (y_i - a - b x_i)^2\]</span></p>
-<p>In other words, we find <span class="math inline">\(a\)</span> (for <span class="math inline">\(\alpha\)</span>) and <span class="math inline">\(b\)</span> (for <span class="math inline">\(\beta\)</span>) that make the sum of the squared errors <span class="math inline">\(e_i\)</span> as small as possible. We use the squared errors for the same reason we use squared deviations in the forumla for the variance: so that positive and negative values do not cancel out<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>In other words, we find <span class="math inline">\(a\)</span> (for <span class="math inline">\(\alpha\)</span>) and <span class="math inline">\(b\)</span> (for <span class="math inline">\(\beta\)</span>) that make the sum of the squared errors <span class="math inline">\(e_i\)</span> as small as possible. We use the squared errors for the same reason we use squared deviations in the forumla for the variance: so that positive and negative values do not cancel out<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
 <p>The estimates <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are as follows:</p>
 <p><span class="math display">\[\begin{align*}
 b &amp;= rs_y/s_x\\
 a &amp;= \bar y - b\bar x
 \end{align*}\]</span></p>
-<p>These are called the <strong>least squares</strong> estimates<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. The equation for <span class="math inline">\(b\)</span> is especially important!</p>
+<p>These are called the <strong>least squares</strong> estimates<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. The equation for <span class="math inline">\(b\)</span> is especially important!</p>
 <p>In R, these can be calculated as follows. The <code>mtcars</code> data set is a collection of measurements made on various cars. In this example, we’ll regress the fuel efficiency (in miles per gallon, or mpg) against the weight of the car.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load a built-in data set</span></span>
@@ -438,7 +432,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </div>
 <p>From this line, we can make <strong>predictions</strong> about new points by simply plugging in the <span class="math inline">\(x\)</span> value. For example, let’s say we wanted to guess the mpg of a car that weighs 3,000 lbs. In the data, the units for weight are 1000 lbs, so this means plugging a value of <code>wt=3</code> into the data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b<span class="sc">*</span><span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b <span class="sc">*</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21.25171</code></pre>
 </div>
@@ -446,7 +440,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 <p>So we would guess that a 3 ton car would have a fuel efficiency of 21.25 miles per gallon. Let’s look at this on a plot:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">3</span>, a <span class="sc">+</span> b<span class="sc">*</span><span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">3</span>, a <span class="sc">+</span> b <span class="sc">*</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -464,7 +458,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </div>
 <p>We cal also see the values of <span class="math inline">\(e\)</span>, the residuals.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> (a <span class="sc">+</span> b<span class="sc">*</span>x)</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> (a <span class="sc">+</span> b<span class="sc">*</span>x) <span class="do">## Observed minus expected</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(e <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"Plot of the Residuals"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## abline can also draw a line with slope 0 (horizontal)</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"grey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -524,15 +518,15 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </section>
 <section id="percent-of-variation-explained" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="percent-of-variation-explained"><span class="header-section-number">4.3</span> Percent of Variation Explained</h2>
-<p>Because of some mathematical quirks, <span class="math inline">\(r^2\)</span>, the squared value of <span class="math inline">\(r\)</span>, can be interpreted as:</p>
+<p>Because of some mathematical magic, <span class="math inline">\(r^2\)</span>, the squared value of <span class="math inline">\(r\)</span>, can be interpreted as:</p>
 <blockquote class="blockquote">
-<p><strong>The percent of variation in <span class="math inline">\(y\)</span> that can be “explained” by the linear model</strong>.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<p><strong>The percent of variation in <span class="math inline">\(y\)</span> that can be “explained” by the linear model</strong>.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
 </blockquote>
 <p>The value of <span class="math inline">\(r^2\)</span> can be calculated as: <span class="math display">\[
-R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Variance of the observed }y\text{-values}}
+R^2 = r^2 \approx \frac{\text{Variance of the predicted }y\text{-values}}{\text{Variance of the observed }y\text{-values}}
 \]</span></p>
 <p>I’ll explain this in steps. The first plot below shows just the values in <span class="math inline">\(y\)</span>. This collection of values has a own mean and variance.</p>
-<p>The second plot shows the change in variance that the line “explains”. Instead of deviations above and below the mean, the variance can now be characterized as the deviations above and below the regression line. This variance will always be lower than the variance of <span class="math inline">\(y\)</span> without incorporating <span class="math inline">\(x\)</span><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
+<p>The second plot shows the change in variance that the line “explains”. Instead of deviations above and below the mean, the variance can now be characterized as the deviations above and below the regression line. This variance will always be lower than the variance of <span class="math inline">\(y\)</span> without incorporating <span class="math inline">\(x\)</span><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
 <p>The third plot shows where this variance went. <em>The line itself has variance</em>; there is deviation in the line above and below the mean of <span class="math inline">\(y\)</span>. This is the variance that gets explained by incorporating <span class="math inline">\(x\)</span>! If you consider one of the points in <span class="math inline">\(y\)</span>, say <span class="math inline">\(y_1\)</span>, the distance between <span class="math inline">\(y_1\)</span> and <span class="math inline">\(\bar y\)</span> can be split up into the difference between <span class="math inline">\(\bar y\)</span> and the regression line plus the distance between the regression line and <span class="math inline">\(y_1\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -540,7 +534,7 @@ R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Varian
 </div>
 </div>
 <p>The rest of the variance is left <strong>unexplianed</strong>. No regression will ever be perfect unless we are studing a very very simple .</p>
-<p>To see this a different way, consider what happens when <span class="math inline">\(r = 0\)</span><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>. This will just be a horizontal line, and none of the variance is explained. On the other had, if <span class="math inline">\(r = 1\)</span> then all of the points will be exactly on the line. All of the variance in <span class="math inline">\(y\)</span> has been explained by the regression against <span class="math inline">\(x\)</span> - there’s no variance left to be explained!<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<p>To see this a different way, consider what happens when <span class="math inline">\(r = 0\)</span><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>. This will just be a horizontal line, and none of the variance is explained. On the other had, if <span class="math inline">\(r = 1\)</span> then all of the points will be exactly on the line. All of the variance in <span class="math inline">\(y\)</span> has been explained by the regression against <span class="math inline">\(x\)</span> - there’s no variance left to be explained!<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
 <p>Notice how the R output includes</p>
 </section>
 <section id="extensions-and-cautions" class="level2" data-number="4.4">
@@ -548,12 +542,12 @@ R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Varian
 <section id="prediction" class="level3">
 <h3 class="anchored" data-anchor-id="prediction">Prediction</h3>
 <p>For a new <span class="math inline">\(x\)</span> value, <span class="math display">\[y = a + bx\]</span> is the <strong>predicted</strong> value of <span class="math inline">\(y\)</span>. That is, if we have an <span class="math inline">\(x\)</span> value, we can plug it into the equation and find out what value of <span class="math inline">\(y\)</span> we would expect.</p>
-<p>Note: There is still variance around this prediction! Our “expected” value will never be exactly equal to the truth - The value of <span class="math inline">\(y\)</span> at a given value of <span class="math inline">\(x\)</span> follows a normal distribution<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>, and the probability of a single point is 0!</p>
+<p>Note: There is still variance around this prediction! Our “expected” value will never be exactly equal to the truth - The value of <span class="math inline">\(y\)</span> at a given value of <span class="math inline">\(x\)</span> follows a normal distribution<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, and the probability of a single point is 0!</p>
 </section>
 <section id="extrapolation" class="level3">
 <h3 class="anchored" data-anchor-id="extrapolation">Extrapolation</h3>
 <p><strong>Extrapolation</strong> is what happens when prediction goes wrong. In particular, it’s what happens when we try to make a prediction at an <span class="math inline">\(x\)</span> value where we don’t have any data. Usually this means we’re predicting an <span class="math inline">\(x\)</span> value far above or far below the range of our data, but it can also happen if there’s a gap in the middle of our data.</p>
-<p>In the plot below, the black dots are the original data, and we’re trying to predict a new value at <span class="math inline">\(x = 25\)</span>. The red line is the true model that I generated the data from. The black line represents a linear model. This model fits the original data quite well<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, but predictions are completely inappropriate for values outside the data.</p>
+<p>In the plot below, the black dots are the original data, and we’re trying to predict a new value at <span class="math inline">\(x = 25\)</span>. The red line is the true model that I generated the data from. The black line represents a linear model. This model fits the original data quite well<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>, but predictions are completely inappropriate for values outside the data.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
@@ -562,7 +556,7 @@ R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Varian
 </section>
 <section id="lurking-variables" class="level3">
 <h3 class="anchored" data-anchor-id="lurking-variables">Lurking Variables</h3>
-<p>The black line in the plot below represents a regression where all of the data was lumped together. As we can see, this line does not seem to fit the data well. There is a hidden relationship in the the data - the green points and the red points should be considered separately<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>.</p>
+<p>The black line in the plot below represents a regression where all of the data was lumped together. As we can see, this line does not seem to fit the data well. There is a hidden relationship in the the data - the green points and the red points should be considered separately<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
@@ -574,26 +568,67 @@ R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Varian
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="exercises" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Exercises</h1>
+<p>1 Suppose <span class="math inline">\(r = 0.3\)</span>. What are the possible values for the slope? a. <span class="math inline">\(b &gt; 0\)</span> b. <span class="math inline">\(b \ge 0\)</span> c.&nbsp;The slope could still be any value.</p>
+<details>
+<summary>
+<strong>Solution</strong> (really think it through before revealing answer!)
+</summary>
+The slope and the correlation coefficient have the same sign (if the correlation is positive, then the slope must be positive). From the formula, <span class="math inline">\(b=0\)</span> only if <span class="math inline">\(r = 0\)</span> (and vice versa). Therefore the answer is a.
+</details>
+<ol start="2" type="1">
+<li>Suppose the coefficient of variation is 0.3. What are the possible values of the slope?
+<ol type="a">
+<li><span class="math inline">\(b &gt; 0\)</span></li>
+<li><span class="math inline">\(b \ge 0\)</span></li>
+<li>The slope could still be any value.</li>
+<li>The slope could still be any value (except 0).</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong> (really think it through before revealing answer)
+</summary>
+Since <span class="math inline">\(R^2\)</span> is a squared value, it’s positive whether the slope is positive or negative. However, the slope is still 0 whenever <span class="math inline">\(r\)</span> is 0, so the answer is d.
+</details>
+<ol start="3" type="1">
+<li>Which of the following might be modelled well by a linear relationship?
+<ol type="a">
+<li>Career points in a particular sport versus number of injuries.</li>
+<li>Hours of work required for a project and labour costs.</li>
+<li>The height of a ball over time after being thrown in the air.</li>
+<li>Hours spent studying and final grade.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+a, b, and d could all be argued to be linear, assuming that the data were collected well and as categorical variables. c is clearly not linear - a ball goes up and then goes down, which cannot be modelled by a line.
+</details>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn1"><p>Very few things are actually linear, but lines are fantastic approximations to many things.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>We assume that <span class="math inline">\(x\)</span> is fixed, but <span class="math inline">\(y\)</span> has random noise. In other words, <span class="math inline">\(x\)</span> is not a random variable but <span class="math inline">\(y\)</span> is.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Because we think it makes us fancy. Note that the Baldi &amp; Moore textbook uses <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(e\)</span> for everything.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Because we think it makes us sound smarter.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Actually, the word comes from “regressing to the mean”, which comes from how children are closer to average height than their parents - they go back toward the mean. This is not important.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Also, because the calculus works out so much better.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>There are other ways to estimate these parameters, but they’re outside the scope of this course. All regression lines that you see in the textbook and the notes will be least squares regression lines.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>Usually <span class="math inline">\(r^2\)</span> is labelled <span class="math inline">\(R^2\)</span> for historical reasons. Capitalization matters in math; it’s just coincidence that both lower case and upper case mean the same thing here.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Except when <span class="math inline">\(r=0\)</span>, can you explain why?<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Therefore the slope will also be 0.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>Statistics is <em>still</em> just the study of variance.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p>Our <strong>prediction</strong> is just us guessing the mean value of <span class="math inline">\(y\)</span> at different values of <span class="math inline">\(x\)</span>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12"><p>Even though it’s not the true relationship, it’s a reasonable approximation.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13"><p>Possibly as a blocking variable.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>I get very annoyed by the term “Regression Analysis” because there are practically infinite different types of regression. Linear regression is just one of them, albeit a a very very very popular one.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Also, because the calculus works out so much better.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>There are other ways to estimate these parameters, but they’re outside the scope of this course. For example, we could use the absolute value instead of the squared value. This works just as well for the calculation, but there are a lot of mathematical reasons why the square is nice. Mainly, it has a nice derivative and allows for easy equation manipulation.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Usually <span class="math inline">\(r^2\)</span> is labelled <span class="math inline">\(R^2\)</span> for historical reasons. Capitalization matters in math; it’s just coincidence that both lower case and upper case mean the same thing here.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Except when <span class="math inline">\(r=0\)</span>, can you explain why?<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Therefore the slope will also be 0.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Statistics is <em>still</em> just the study of variance.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Our <strong>prediction</strong> is just us guessing the mean value of <span class="math inline">\(y\)</span> at different values of <span class="math inline">\(x\)</span>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>Even though it’s not the true relationship, it’s a reasonable approximation.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Possibly as a blocking variable.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
