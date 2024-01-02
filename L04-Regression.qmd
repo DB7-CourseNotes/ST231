@@ -1,6 +1,5 @@
 ---
 title: "Regression"
-institute: "Jam:  by "
 ---
 
 ```{r}
@@ -11,7 +10,7 @@ set.seed(2112)
 
 ## Introduction
 
-These notes are based on Chapter 4 of Baldi \& Moore and Chapter 6.1 to 6.3 in OpenIntro Biostats.
+These notes are based on Chapter 6.1 to 6.3 in OpenIntro Biostats.
 
 In linear modelling, we have a collection of pairs $x_i$ and $y_i$. We think that there's some sort of relationship between $x$ and $y$, and we think that a line is an adequate way to characterize that relationship^[Very few things are actually linear, but lines are fantastic approximations to many things.].
 
@@ -28,7 +27,7 @@ legend("topleft", legend = c("True Line", "Observations with noise"),
 ```
 
 
-In high school, you may have learned a line as $y = mx + b$. In statistics, we often use latin letters for estimates and greek letters for population parameters^[Because we think it makes us fancy. Note that the Baldi \& Moore textbook uses $a$, $b$, and $e$ for everything.]. The population line is thus:
+In high school, you may have learned a line as $y = mx + b$. In statistics, we often use latin letters (a, b, c, d, ...) for estimates and greek letters ($\alpha$, $\beta$, $\gamma$, and other lower case versions of letters you've seen on frat/sorority houses) for population parameters^[Because we think it makes us sound smarter.]. The population line is labelled:
 
 $$
 y_i = \alpha + \beta x_i + \epsilon_i
@@ -37,13 +36,13 @@ $$
 - $\alpha$ is the **intercept**.
 - $\beta$ is the **slope**.
     - A 1 unit increase in $x$ corresponds to a $\beta$ increase in $y$.
-- $\epsilon_i$ is random noise ($N(0,\sigma)$).
+- $\epsilon_i$ is random noise ($N(0,\sigma)$, although you're not expected to understand this notation yet).
     - Again, we think of $x$ as being fixed. The random noise is above and below the line, not side to side.
-- The formula implies that $y_i \sim N(\alpha + \beta x_i, \sigma)$, since $y_i$ is centered at $\alpha + \beta x_i$ but randomly varies above and below the line with variance $\sigma^2$.
+- The formula implies that $y_i$ is centered at $\alpha + \beta x_i$ but randomly varies above and below the line with variance $\sigma^2$.
 
-The word "regression" means to go backward. I like to think that we are "going backward" to the population numbers from the sample values^[Actually, the word comes from "regressing to the mean", which comes from how children are closer to average height than their parents - they go back toward the mean. This is not important.]. Any situation where you are estimating a population parameter is technically a **regression**, but this terminology is not useful for this class. 
+The word "regression" means to go backward. I like to think that we are "going backward" to the population numbers from the sample values^[Actually, the word comes from "regressing to the mean", which comes from how children are closer to average height than their parents - they go back toward the mean. This is not important.]. Any situation where you are estimating a population parameter is technically a **regression**, but this terminology is not useful for this class.^[I get very annoyed by the term "Regression Analysis" because there are practically infinite different types of regression. Linear regression is just one of them, albeit a a very very very popular one.]
 
-To regress, we **estimate** the parameters using sample statistics. For linear regression, we use regular old latin letters instead of the fancy greek ones. $a$ is the estimate for $\alpha$, $b$ for $\beta$, and $e$ for $\epsilon$. In order to do find these sample statistics, we minimize the squared error between the line and the data:
+To regress, we **estimate** the parameters using sample statistics. $a$ is the estimate for $\alpha$, $b$ for $\beta$, and $e$ for $\epsilon$. In order to do find these sample statistics, we minimize the squared error between the line and the data:
 
 $$e_i^2 = (y_i - a - b x_i)^2$$
 
@@ -57,7 +56,7 @@ b &= rs_y/s_x\\
 a &= \bar y - b\bar x
 \end{align*}
 
-These are called the **least squares** estimates^[There are other ways to estimate these parameters, but they're outside the scope of this course. All regression lines that you see in the textbook and the notes will be least squares regression lines.]. The equation for $b$ is especially important!
+These are called the **least squares** estimates^[There are other ways to estimate these parameters, but they're outside the scope of this course. For example, we could use the absolute value instead of the squared value. This works just as well for the calculation, but there are a lot of mathematical reasons why the square is nice. Mainly, it has a nice derivative and allows for easy equation manipulation.]. The equation for $b$ is especially important!
 
 In R, these can be calculated as follows. The `mtcars` data set is a collection of measurements made on various cars. In this example, we'll regress the fuel efficiency (in miles per gallon, or mpg) against the weight of the car.
 
@@ -86,7 +85,7 @@ From this line, we can make **predictions** about new points by simply plugging 
 
 ```{r}
 #| echo: true
-a + b*3
+a + b * 3
 ```
 
 So we would guess that a 3 ton car would have a fuel efficiency of `r round(a + b*3, 2)` miles per gallon. Let's look at this on a plot:
@@ -94,7 +93,7 @@ So we would guess that a 3 ton car would have a fuel efficiency of `r round(a + 
 ```{r}
 #| echo: true
 plot(y ~ x)
-points(3, a + b*3, col = "red", pch = 16)
+points(3, a + b * 3, col = "red", pch = 16)
 ```
 
 It looks like this is somewhere around where we would expect.
@@ -113,7 +112,7 @@ We cal also see the values of $e$, the residuals.
 
 ```{r}
 #| echo: true
-e <- y - (a + b*x)
+e <- y - (a + b*x) ## Observed minus expected
 plot(e ~ x, main = "Plot of the Residuals")
 ## abline can also draw a line with slope 0 (horizontal)
 abline(h = 0, col = "grey")
@@ -153,13 +152,13 @@ sum(e)
 
 ## Percent of Variation Explained
 
-Because of some mathematical quirks, $r^2$, the squared value of $r$, can be interpreted as:
+Because of some mathematical magic, $r^2$, the squared value of $r$, can be interpreted as:
 
 > **The percent of variation in $y$ that can be "explained" by the linear model**.^[Usually $r^2$ is labelled $R^2$ for historical reasons. Capitalization matters in math; it's just coincidence that both lower case and upper case mean the same thing here.]
 
 The value of $r^2$ can be calculated as:
 $$
-R^2 = r^2 = \frac{\text{Variance of the predicted }y\text{-values}}{\text{Variance of the observed }y\text{-values}}
+R^2 = r^2 \approx \frac{\text{Variance of the predicted }y\text{-values}}{\text{Variance of the observed }y\text{-values}}
 $$
 
 I'll explain this in steps. The first plot below shows just the values in $y$. This collection of values has a own mean and variance.
@@ -325,4 +324,38 @@ gentoo <- with(subset(penguins, species == "Gentoo"),
 
 gall + (gadelie / ginstrap / gentoo)
 ```
+
+# Exercises
+
+1 Suppose $r = 0.3$. What are the possible values for the slope?
+    a. $b > 0$
+    b. $b \ge 0$
+    c. The slope could still be any value.
+
+<details>
+    <summary>**Solution** (really think it through before revealing answer!)</summary>
+The slope and the correlation coefficient have the same sign (if the correlation is positive, then the slope must be positive). From the formula, $b=0$ only if $r = 0$ (and vice versa). Therefore the answer is a.
+</details>
+
+2. Suppose the coefficient of variation is 0.3. What are the possible values of the slope?
+    a. $b > 0$
+    b. $b \ge 0$
+    c. The slope could still be any value.
+    d. The slope could still be any value (except 0).
+
+<details>
+    <summary>**Solution** (really think it through before revealing answer)</summary>
+Since $R^2$ is a squared value, it's positive whether the slope is positive or negative. However, the slope is still 0 whenever $r$ is 0, so the answer is d.
+</details>
+
+3. Which of the following might be modelled well by a linear relationship?
+    a. Career points in a particular sport versus number of injuries.
+    b. Hours of work required for a project and labour costs.
+    c. The height of a ball over time after being thrown in the air.
+    d. Hours spent studying and final grade.
+
+<details>
+    <summary>**Solution**</summary>
+a, b, and d could all be argued to be linear, assuming that the data were collected well and as categorical variables. c is clearly not linear - a ball goes up and then goes down, which cannot be modelled by a line. 
+</details>
 
