@@ -1,7 +1,7 @@
 ---
 title: "Binomial Probabilities"
 author: "Devan Becker"
-date: "2020-06-29"
+date: "last-modified"
 ---
 
 
