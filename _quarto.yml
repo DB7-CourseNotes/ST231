@@ -25,8 +25,8 @@ book:
         - L03-Scatterplots_Correlation.qmd
         - L04-Regression.qmd
         - L05-Probability.qmd
-        - L07-Normal_Distributions.qmd
-        - L09-Binomial_Probabilities.qmd
+        - L07-Binomial_Probabilities.qmd
+        - L08-Normal_Distributions.qmd
         - L10-Sampling_Distributions.qmd
     - part: Post-Midterm
       chapters:
