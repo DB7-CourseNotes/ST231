@@ -396,7 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td>2</td>
 <td>HHT, HTH, THH</td>
-<td>3/8</td>
+<td>1/8+1/8+1/8 = 3/8</td>
 </tr>
 <tr class="even">
 <td>3</td>
@@ -407,7 +407,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>Alright, let’s do 4 coins. How many ways are there to get, say, 2 heads out of four flips? You can bet that a smart mathemetician has figured out a way to do this without writing them all out again! This is called <em>combinatorics</em>, and includes a lot of things that are not relevant right now. We’ll focus on the <strong>choose</strong> function. For three coins, “3 choose 1” means “out of 3 options, choose 1 of them”. Sometimes this is shortened to “3C1”. As we saw in the table above, there’s 1 way to choose nothing (no heads), 3 ways to choose 1 thing, 3 ways to choose 2 things, and 1 way to choose 3 things.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> In R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">0</span>) <span class="co"># 3C0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This code will **not** be tested on exams or assignments.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It's just here to do calculations for us.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">0</span>) <span class="co"># 3C0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -431,8 +433,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>So for 4 coins, there is 4C2 = 6 ways to get two heads.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> What’s the probability of each of these 6 outcomes? Since there’s a 0.5 chance of heads and a 0.5 chance of tails, there’s a 0.5*0.5*0.5*0.5 = 0.5<span class="math inline">\(^4\)</span> = 0.0625 chance. That means that there’s a 6*0.0625 = 0.375 chance of getting two heads out of four flips.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
 <p>Just to be complete, let’s do this again for 5 coins. We’re already at the point where we <em>need</em> the choose function because there are too many outcomes to write out by hand. Let’s calculate some probabilities with R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of 4 heads out of 5 flips:</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">4</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Again, this code is not on the tests or assignments.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of 4 heads out of 5 flips:</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">4</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.15625</code></pre>
 </div>
@@ -458,17 +462,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="with-dice" class="level3">
 <h3 class="anchored" data-anchor-id="with-dice">With Dice</h3>
-<p>If I roll two dice, what’s the probability that exactly 1 of them is a 3? One way this can happen is if the first dice is a 3 and the second one is <em>not</em> a 3. This probability is P(first dice is 3)*P(second dice is not 3). We know that P(first dice is 3) is easily seen to be 1/6. On the other hand, P(second dice is not 3) can be calculated as 1 - P(second dice is 3)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> = 1 - 1/6 = 5/6. So the probability is (1/6)*(1 - 1/6).</p>
+<p>If I roll two dice, what’s the probability that exactly 1 of them is a 3? One way this can happen is if the first dice is a 3 and the second one is <em>not</em> a 3.</p>
+<p>The probability that the first dice is a 3 is clearly 1/6. The probability that the second dice is <em>not</em> a 3 is 5/6. Finding the probability that something <em>doesn’t</em> happen can be simplified: either something happens or it doesn’t. The probability has to add to 1, so P(happens) + P(doesn’t happen) = 1. Rearranging this equation, P(doesn’t happen) = 1 - P(happens). So P(not 3) = 1 - P(3). This will come up often in this lecture, so take a moment to explain it to your grandma<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
+<p>From this, and knowing that the two dice rolls are independent, we see that the probability is (1/6)*(1 - 1/6).</p>
 <p>We can also have exactly one 3 if the first dice is not 3 but the second dice is 3. This has the same probability as the other way around: (1 - 1/6)*(1/6).</p>
 <p>Notice how this is the second of two options. Again, we get to use the choose function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of exactly one 3 in two dice rolls</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">2</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)<span class="sc">*</span>(<span class="dv">1-1</span><span class="sc">/</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">2</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>) <span class="sc">*</span> (<span class="dv">1-1</span><span class="sc">/</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2777778</code></pre>
 </div>
 </div>
-<p>If we roll 18 dice, what’s the probability that exactly four of them are 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)<span class="math inline">\(^4\)</span>*(1 - 1/6)<span class="math inline">\(^{14}\)</span> = 0.000060098. That’s pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C5*(1/6)<sup>4*(1-1/6)</sup>14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 18 rolls!</p>
+<p>If we roll 18 dice, what’s the probability that exactly four of them show a 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)<span class="math inline">\(^4\)</span>*(1 - 1/6)<span class="math inline">\(^{14}\)</span> = 0.000060098. That’s pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C5*(1/6)<sup>4*(1-1/6)</sup>14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 14 rolls!</p>
 </section>
 </section>
 <section id="binomial-probabilities" class="level2" data-number="6.2">
@@ -491,19 +497,20 @@ X \sim B(n,p)
 <p>To summarise, saying that <span class="math inline">\(X \sim B(n,p)\)</span>, or that <span class="math inline">\(X\)</span> is distributed as a Binomial random variable with <span class="math inline">\(n\)</span> trials and probability of success <span class="math inline">\(p\)</span>, is the exact same as saying that <span class="math inline">\(P(x\text{ successes in }n\text{ trials})\)</span> can be found using the equation <span class="math inline">\(nCx*p^x*(1-p)^{n-x}\)</span>. This is what it means to have a <strong>probability distribution function.</strong></p>
 <p>To see all of these probabilities at once, we can plot this as a graph. To reduce coding, let’s look at <span class="math inline">\(X\sim B(3, 0.4)\)</span>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co"># X values</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">0</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">0</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">3</span>,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">1</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">2</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">2</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">1</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">3</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">0</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(x,y) # This will plot them, but it looks kinda bad</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Since X can only be 0, 1, 2, or 3, let's us a bar plot!</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(y, <span class="at">names =</span> x,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"pdf of B(3, 0.4)"</span>, <span class="at">xlab =</span> <span class="st">"x"</span>,</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"3Cx * p^x * (1-p)^(3-x)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We're still not going to have this on tests!</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co"># X values</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">0</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">0</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">3</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">1</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">2</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">1</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">choose</span>(<span class="dv">3</span>, <span class="dv">3</span>) <span class="sc">*</span> (<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">3</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">0</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(x,y) # This will plot them, but it looks kinda bad</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Since X can only be 0, 1, 2, or 3, let's us a bar plot!</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(y, <span class="at">names =</span> x,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"pdf of B(3, 0.4)"</span>, <span class="at">xlab =</span> <span class="st">"x"</span>,</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"3Cx * p^x * (1-p)^(3-x)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -547,7 +554,7 @@ X \sim B(n,p)
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3019899</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">8</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">8</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.8</span>) <span class="co"># This will be useful!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3019899</code></pre>
 </div>
@@ -573,11 +580,12 @@ X \sim B(n,p)
 <p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>This bar plot shows us a couple of things. We can see that eight heads is the most likely outcome with 30% of all sets of 10 flips having 8 heads, which makes sense because the probability of heads is 80%. Since we’re only flipping 10 times, we can’t have values above 10. Because of this, our plot is left skewed!</p>
 </section>
 </section>
 <section id="cumulative-binomial-probabilities" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="cumulative-binomial-probabilities"><span class="header-section-number">6.3</span> Cumulative Binomial Probabilities</h2>
-<p>A <strong>cumulative probability</strong> is the probability of observing <em>up to</em> <span class="math inline">\(x\)</span> successes in <span class="math inline">\(n\)</span> trials. In other words, this is <span class="math inline">\(P(X \le x)\)</span>: the probability that the <strong>random variable</strong> <span class="math inline">\(X\)</span> is smaller than or equal to some specific number <span class="math inline">\(x\)</span>. This is referred to as the <strong>Cumulative Distribution Function</strong>, or cdf. Unlike what we saw in the normal distribution, it really matters whether it’s <span class="math inline">\(P(X\le x)\)</span> or <span class="math inline">\(P(X&lt; x)\)</span>!</p>
+<p>A <strong>cumulative probability</strong> is the probability of observing <em>up to</em> <span class="math inline">\(x\)</span> successes in <span class="math inline">\(n\)</span> trials. In other words, this is <span class="math inline">\(P(X \le x)\)</span>: the probability that the <strong>random variable</strong> <span class="math inline">\(X\)</span> is smaller than or equal to some specific number <span class="math inline">\(x\)</span>. This is referred to as the <strong>Cumulative Distribution Function</strong>, or cdf. It really matters whether it’s <span class="math inline">\(P(X\le x)\)</span> or <span class="math inline">\(P(X&lt; x)\)</span>!</p>
 <p>What’s the probability that we get <em>at most</em> 4 heads in 10 flips? That’s the same as the probability of 0 heads plus the probability of 1 heads plus the probability of 2 heads plus…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: R evaluates the arguments *in order*</span></span>
@@ -628,7 +636,7 @@ X \sim B(n,p)
 </div>
 <section id="examples-1" class="level3">
 <h3 class="anchored" data-anchor-id="examples-1">Examples</h3>
-<p>What’s the probability of <em>at least</em> 40 heads in 100 flips? Be careful here: it matters whether I ask “at least” or “more than”. The cdf always calculates “less than or equal to”<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, and the <strong>complement</strong> of this is “strictly greater than.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> If I’m looking for”strictly greater than”, I need to be careful what I use!</p>
+<p>What’s the probability of <em>at least</em> 40 heads in 100 flips? Be careful here: it matters whether I ask “at least” or “more than”. The cdf always calculates “less than or equal to”<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, and the <strong>complement</strong> of this is “strictly greater than”.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> If I’m looking for “strictly greater than”, I need to be careful what I use!</p>
 <p>In this case, P(X <span class="math inline">\(\ge\)</span> 40) = P(X &gt; 39) = 1 - P(X <span class="math inline">\(\le\)</span> 39) = <code>1 - pbinom(39, 100, 0.5)</code></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">39</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -711,7 +719,7 @@ X \sim B(n,p)
 <li id="fn5"><p>And 0 ways to choose 4 things.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>Verify this by writing out all of the possibilities.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Don’t be afraid to re-read this paragraph several times, there’s a lot of math here.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>The dice is either 3 or it’s not 3, these probabilities must add to 1.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Call your grandma - she’ll appreciate it!<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>Notice how we’re using upper case for the <strong>random variable</strong>, and lower case for the actual values. This is important for future stats classes, but just something you’ll see me do for now.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>I usually use lower case so you don’t confuse it with the PDF file extension.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn11"><p>There’s a much more correct, much more technical definition, but it’s outside the scope of this course.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
