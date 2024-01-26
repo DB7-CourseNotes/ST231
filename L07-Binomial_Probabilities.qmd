@@ -23,13 +23,15 @@ Let's flip three coins. The outcomes are {HHH, HHT, HTH, THH, HTT, THT, TTH, TTT
 |----------|----------|-------------|
 | 0        | TTT      | 1/8         |
 | 1        | TTH, THT, HTT | 1/8+1/8+1/8 = 3/8    |
-| 2        | HHT, HTH, THH | 3/8    |
+| 2        | HHT, HTH, THH | 1/8+1/8+1/8 = 3/8    |
 | 3        | HHH      | 1/8         |
 
 Alright, let's do 4 coins. How many ways are there to get, say, 2 heads out of four flips? You can bet that a smart mathemetician has figured out a way to do this without writing them all out again! This is called *combinatorics*, and includes a lot of things that are not relevant right now. We'll focus on the **choose** function. For three coins, "3 choose 1" means "out of 3 options, choose 1 of them". Sometimes this is shortened to "3C1". As we saw in the table above, there's 1 way to choose nothing (no heads), 3 ways to choose 1 thing, 3 ways to choose 2 things, and 1 way to choose 3 things.^[And 0 ways to choose 4 things.] In R:
 
 ```{r}
 #| echo: true
+# This code will **not** be tested on exams or assignments.
+# It's just here to do calculations for us.
 choose(n = 3, k = 0) # 3C0
 choose(n = 3, k = 1) # 3C1
 choose(n = 3, k = 2) # 3C2
@@ -43,6 +45,8 @@ Just to be complete, let's do this again for 5 coins. We're already at the point
 
 ```{r}
 #| echo: true
+# Again, this code is not on the tests or assignments.
+
 ## Probability of 4 heads out of 5 flips:
 choose(5, 4) * 0.5^5
 
@@ -66,7 +70,11 @@ For completeness, let's make sure these all add up to 1:
 
 ### With Dice
 
-If I roll two dice, what's the probability that exactly 1 of them is a 3? One way this can happen is if the first dice is a 3 and the second one is *not* a 3. This probability is P(first dice is 3)\*P(second dice is not 3). We know that P(first dice is 3) is easily seen to be 1/6. On the other hand, P(second dice is not 3) can be calculated as 1 - P(second dice is 3)^[The dice is either 3 or it's not 3, these probabilities must add to 1.] = 1 - 1/6 = 5/6. So the probability is (1/6)\*(1 - 1/6).
+If I roll two dice, what's the probability that exactly 1 of them is a 3? One way this can happen is if the first dice is a 3 and the second one is *not* a 3. 
+
+The probability that the first dice is a 3 is clearly 1/6. The probability that the second dice is *not* a 3 is 5/6. Finding the probability that something *doesn't* happen can be simplified: either something happens or it doesn't. The probability has to add to 1, so P(happens) + P(doesn't happen) = 1. Rearranging this equation, P(doesn't happen) = 1 - P(happens). So P(not 3) = 1 - P(3). This will come up often in this lecture, so take a moment to explain it to your grandma^[Call your grandma - she'll appreciate it!].
+
+From this, and knowing that the two dice rolls are independent, we see that the probability is (1/6)\*(1 - 1/6).
 
 We can also have exactly one 3 if the first dice is not 3 but the second dice is 3. This has the same probability as the other way around: (1 - 1/6)\*(1/6).
 
@@ -75,10 +83,10 @@ Notice how this is the second of two options. Again, we get to use the choose fu
 ```{r}
 #| echo: true
 ## Probability of exactly one 3 in two dice rolls
-choose(2, 1) * (1/6)*(1-1/6)
+choose(2, 1) * (1/6) * (1-1/6)
 ```
 
-If we roll 18 dice, what's the probability that exactly four of them are 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)$^4$\*(1 - 1/6)$^{14}$ = 0.000060098. That's pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C5\*(1/6)^4\*(1-1/6)^14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 18 rolls!
+If we roll 18 dice, what's the probability that exactly four of them show a 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)$^4$\*(1 - 1/6)$^{14}$ = 0.000060098. That's pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C5\*(1/6)^4\*(1-1/6)^14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 14 rolls!
 
 ## Binomial Probabilities
 
@@ -112,6 +120,7 @@ To see all of these probabilities at once, we can plot this as a graph. To reduc
 
 ```{r}
 #| echo: true
+# We're still not going to have this on tests!
 x <- c(0, 1, 2, 3) # X values
 y <- c(
     choose(3, 0) * (0.4)^0 * (1 - 0.4)^3,
@@ -156,7 +165,7 @@ Typing out the whole formula is getting boring. Surely R, a *statistical* progra
 ```{r}
 #| echo: true
 choose(10, 8) * (0.8)^8 * (1 - 0.8)^2
-dbinom(x = 8, size = 10, prob = 0.8)
+dbinom(x = 8, size = 10, prob = 0.8) # This will be useful!
 ```
 
 The `dbinom()` function has exactly the arguments that you would expect. Lower case x is the specific value, size is the number of coin flips, prob is the probability of success. The `d` stands for "density", which for our purposes is the same as "distribution".
@@ -181,13 +190,13 @@ y <- dbinom(x = x, size = 10, prob = 0.8)
 barplot(height = y, names = x)
 ```
 
-
+This bar plot shows us a couple of things. We can see that eight heads is the most likely outcome with 30% of all sets of 10 flips having 8 heads, which makes sense because the probability of heads is 80%. Since we're only flipping 10 times, we can't have values above 10. Because of this, our plot is left skewed!
 
 
 
 ## Cumulative Binomial Probabilities
 
-A **cumulative probability** is the probability of observing *up to* $x$ successes in $n$ trials. In other words, this is $P(X \le x)$: the probability that the **random variable** $X$ is smaller than or equal to some specific number $x$. This is referred to as the **Cumulative Distribution Function**, or cdf. Unlike what we saw in the normal distribution, it really matters whether it's $P(X\le x)$ or $P(X< x)$!
+A **cumulative probability** is the probability of observing *up to* $x$ successes in $n$ trials. In other words, this is $P(X \le x)$: the probability that the **random variable** $X$ is smaller than or equal to some specific number $x$. This is referred to as the **Cumulative Distribution Function**, or cdf. It really matters whether it's $P(X\le x)$ or $P(X< x)$!
 
 What's the probability that we get *at most* 4 heads in 10 flips? That's the same as the probability of 0 heads plus the probability of 1 heads plus the probability of 2 heads plus...
 
@@ -243,7 +252,7 @@ barplot(height = y, names = x, col = mycols)
 
 ### Examples
 
-What's the probability of *at least* 40 heads in 100 flips? Be careful here: it matters whether I ask "at least" or "more than". The cdf always calculates "less than or equal to"^[P(X $\le$ x)], and the **complement** of this is "strictly greater than.^[P(X $\le$ x) = 1 - P(X > x)] If I'm looking for "strictly greater than", I need to be careful what I use!
+What's the probability of *at least* 40 heads in 100 flips? Be careful here: it matters whether I ask "at least" or "more than". The cdf always calculates "less than or equal to"^[P(X $\le$ x)], and the **complement** of this is "strictly greater than".^[P(X $\le$ x) = 1 - P(X > x)] If I'm looking for "strictly greater than", I need to be careful what I use!
 
 In this case, P(X $\ge$ 40) = P(X > 39) = 1 - P(X $\le$ 39) = `1 - pbinom(39, 100, 0.5)`
 
