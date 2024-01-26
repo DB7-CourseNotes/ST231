@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2020-06-29">
+<meta name="dcterms.date" content="2024-01-25">
 
-<title>Statistics for Life Sciences - 7&nbsp; Binomial Probabilities</title>
+<title>Statistics for Life Sciences - 6&nbsp; Binomial Probabilities</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L10-Sampling_Distributions.html" rel="next">
-<link href="./L07-Normal_Distributions.html" rel="prev">
+<link href="./L08-Normal_Distributions.html" rel="next">
+<link href="./L05-Probability.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L09-Binomial_Probabilities.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L07-Binomial_Probabilities.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,14 +190,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  <a href="./L07-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  <a href="./L08-Normal_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -307,29 +307,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> Introduction</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a>
   <ul class="collapse">
   <li><a href="#with-coins" id="toc-with-coins" class="nav-link" data-scroll-target="#with-coins">With Coins</a></li>
   <li><a href="#with-dice" id="toc-with-dice" class="nav-link" data-scroll-target="#with-dice">With Dice</a></li>
   </ul></li>
-  <li><a href="#binomial-probabilities" id="toc-binomial-probabilities" class="nav-link" data-scroll-target="#binomial-probabilities"><span class="header-section-number">7.2</span> Binomial Probabilities</a>
+  <li><a href="#binomial-probabilities" id="toc-binomial-probabilities" class="nav-link" data-scroll-target="#binomial-probabilities"><span class="header-section-number">6.2</span> Binomial Probabilities</a>
   <ul class="collapse">
   <li><a href="#confusing-but-useful-notation" id="toc-confusing-but-useful-notation" class="nav-link" data-scroll-target="#confusing-but-useful-notation">Confusing (but Useful) Notation</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#in-r" id="toc-in-r" class="nav-link" data-scroll-target="#in-r">In R</a></li>
   </ul></li>
-  <li><a href="#cumulative-binomial-probabilities" id="toc-cumulative-binomial-probabilities" class="nav-link" data-scroll-target="#cumulative-binomial-probabilities"><span class="header-section-number">7.3</span> Cumulative Binomial Probabilities</a>
+  <li><a href="#cumulative-binomial-probabilities" id="toc-cumulative-binomial-probabilities" class="nav-link" data-scroll-target="#cumulative-binomial-probabilities"><span class="header-section-number">6.3</span> Cumulative Binomial Probabilities</a>
   <ul class="collapse">
   <li><a href="#examples-1" id="toc-examples-1" class="nav-link" data-scroll-target="#examples-1">Examples</a></li>
   </ul></li>
-  <li><a href="#properties-of-the-binomial-distribution" id="toc-properties-of-the-binomial-distribution" class="nav-link" data-scroll-target="#properties-of-the-binomial-distribution"><span class="header-section-number">7.4</span> Properties of the Binomial Distribution</a>
+  <li><a href="#properties-of-the-binomial-distribution" id="toc-properties-of-the-binomial-distribution" class="nav-link" data-scroll-target="#properties-of-the-binomial-distribution"><span class="header-section-number">6.4</span> Properties of the Binomial Distribution</a>
   <ul class="collapse">
   <li><a href="#binomial-assumptions" id="toc-binomial-assumptions" class="nav-link" data-scroll-target="#binomial-assumptions">Binomial Assumptions</a></li>
   <li><a href="#side-note-probability-of-success-is-the-same" id="toc-side-note-probability-of-success-is-the-same" class="nav-link" data-scroll-target="#side-note-probability-of-success-is-the-same">Side note: “probability of success is the same”</a></li>
   <li><a href="#binomial-mean-and-variance" id="toc-binomial-mean-and-variance" class="nav-link" data-scroll-target="#binomial-mean-and-variance">Binomial Mean and Variance</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">7.5</span> Conclusion</a></li>
-  <li><a href="#self-test-questions" id="toc-self-test-questions" class="nav-link" data-scroll-target="#self-test-questions"><span class="header-section-number">7.6</span> Self-Test Questions</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6.5</span> Conclusion</a></li>
+  <li><a href="#self-test-questions" id="toc-self-test-questions" class="nav-link" data-scroll-target="#self-test-questions"><span class="header-section-number">6.6</span> Self-Test Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -338,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></h1>
 </div>
 
 
@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2020-06-29</p>
+      <p class="date">2024-01-25</p>
     </div>
   </div>
   
@@ -366,8 +366,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>Please pay attention to the margin notes.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> They often contain important information.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<section id="introduction" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
+<section id="introduction" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
 <p>Probability models are ways of laying out all possible events as well as the probability of each event. For things like coins and dice, everything has the same probability and things work out nicely. In Two-Way tables, we have all the probabilities laid out in front of us. The Binomomial distribution is our first foray into a formulaic approach to probabilities.</p>
 <section id="with-coins" class="level3">
 <h3 class="anchored" data-anchor-id="with-coins">With Coins</h3>
@@ -471,8 +471,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If we roll 18 dice, what’s the probability that exactly four of them are 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)<span class="math inline">\(^4\)</span>*(1 - 1/6)<span class="math inline">\(^{14}\)</span> = 0.000060098. That’s pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C5*(1/6)<sup>4*(1-1/6)</sup>14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 18 rolls!</p>
 </section>
 </section>
-<section id="binomial-probabilities" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="binomial-probabilities"><span class="header-section-number">7.2</span> Binomial Probabilities</h2>
+<section id="binomial-probabilities" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="binomial-probabilities"><span class="header-section-number">6.2</span> Binomial Probabilities</h2>
 <p>In general, if we have <span class="math inline">\(n\)</span> trials and the probability of the event of interest, a.k.a. <strong>success</strong>, is <span class="math inline">\(p\)</span>, then</p>
 <p><span class="math display">\[\begin{align*}
 P(x\text{ successes in }n\text{ trials}) = nCx*p^x*(1-p)^{n-x}
@@ -505,7 +505,7 @@ X \sim B(n,p)
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"pdf of B(3, 0.4)"</span>, <span class="at">xlab =</span> <span class="st">"x"</span>,</span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"3Cx * p^x * (1-p)^(3-x)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Notice how 1 is the most likely value, with 2 being much less likely. This makes sense - if the probability of heads is less than 0.5, we expect that more of the coin flips will be tails! If the probability of “heads” were 0.5, then we would expect 1 and 2 to be equally likely.</p>
@@ -570,13 +570,13 @@ X \sim B(n,p)
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="at">height =</span> y, <span class="at">names =</span> x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 </section>
-<section id="cumulative-binomial-probabilities" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="cumulative-binomial-probabilities"><span class="header-section-number">7.3</span> Cumulative Binomial Probabilities</h2>
+<section id="cumulative-binomial-probabilities" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="cumulative-binomial-probabilities"><span class="header-section-number">6.3</span> Cumulative Binomial Probabilities</h2>
 <p>A <strong>cumulative probability</strong> is the probability of observing <em>up to</em> <span class="math inline">\(x\)</span> successes in <span class="math inline">\(n\)</span> trials. In other words, this is <span class="math inline">\(P(X \le x)\)</span>: the probability that the <strong>random variable</strong> <span class="math inline">\(X\)</span> is smaller than or equal to some specific number <span class="math inline">\(x\)</span>. This is referred to as the <strong>Cumulative Distribution Function</strong>, or cdf. Unlike what we saw in the normal distribution, it really matters whether it’s <span class="math inline">\(P(X\le x)\)</span> or <span class="math inline">\(P(X&lt; x)\)</span>!</p>
 <p>What’s the probability that we get <em>at most</em> 4 heads in 10 flips? That’s the same as the probability of 0 heads plus the probability of 1 heads plus the probability of 2 heads plus…</p>
 <div class="cell">
@@ -623,7 +623,7 @@ X \sim B(n,p)
 <span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(x, <span class="dv">100</span>, <span class="fl">0.5</span>)</span>
 <span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="at">height =</span> y, <span class="at">names =</span> x, <span class="at">col =</span> mycols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="examples-1" class="level3">
@@ -638,8 +638,8 @@ X \sim B(n,p)
 </div>
 </section>
 </section>
-<section id="properties-of-the-binomial-distribution" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="properties-of-the-binomial-distribution"><span class="header-section-number">7.4</span> Properties of the Binomial Distribution</h2>
+<section id="properties-of-the-binomial-distribution" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="properties-of-the-binomial-distribution"><span class="header-section-number">6.4</span> Properties of the Binomial Distribution</h2>
 <p>I define “math” as the process of making up rules just to see what happens. The Binomial distribution isn’t just some abstract entity that we discovered - it’s a set of rules we created that seem to logically fit some situations.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> So first: what are the rules?</p>
 <section id="binomial-assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="binomial-assumptions">Binomial Assumptions</h3>
@@ -672,20 +672,20 @@ X \sim B(n,p)
 <p>So we’ve established this: At <span class="math inline">\(p=0\)</span> and <span class="math inline">\(p=1\)</span>, the variance is 0. The maximum value is at 0.5, and the variance should be the same if you’re 0.2 above 0.5 or 0.2 below (it’s symmetric around 0.5). The following plot, then, seems reasonable:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="L09-Binomial_Probabilities_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="288"></p>
+<p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="288"></p>
 </div>
 </div>
 <p>There’s a lot of math behind this, but the variance for Bin(1,p)<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> turns out to be p(1-p). You can see that it would be symmetric around 0.5 and would be 0 whenever p=0 or p=1.</p>
 <p><strong>In general, the variance of a B(n,p) distribution is <span class="math inline">\(\sigma^2\)</span> = np(1-p).</strong></p>
 </section>
 </section>
-<section id="conclusion" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">7.5</span> Conclusion</h2>
+<section id="conclusion" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.5</span> Conclusion</h2>
 <p>If you have a known number of repeated trials that are independent and are either a “success” or “falure”, then the Binomial distribution is your friend. Once these assumptions are met, you can calculate the probability of any number of successes using the pdf, you know what the mean number of successes in <span class="math inline">\(n\)</span> trials will be, and you know the variance!<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a></p>
 <p>As a rule, if you see the phrase “Not enough information for a valid answer” as an option in a multiple choice question, double check that the assumptions are all met. If the observations are not independent, you need to know all of the <strong>conditional probabilities</strong> in order to calculate the answer, which you probably don’t have, so you’re missing information. If the probability of success changes from trial to trial, you need to know how it changes.</p>
 </section>
-<section id="self-test-questions" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="self-test-questions"><span class="header-section-number">7.6</span> Self-Test Questions</h2>
+<section id="self-test-questions" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="self-test-questions"><span class="header-section-number">6.6</span> Self-Test Questions</h2>
 <ol type="1">
 <li>What happens when you put <code>x = 0.5</code> into <code>dbinom(x, 10, 0.5)</code>? Interpret this in terms of flipping coins.</li>
 <li>I debated whether to include a section on “shape”, but decided to let you figure it out for yourself. I’ve already given you the code to plot the pdf. For each of the values of n (size) and p (prob), plot the pdf and describe the shape. Note that x should (almost) always be <code>x &lt;- 0:n</code>.
@@ -1078,13 +1078,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L07-Normal_Distributions.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span>
+      <a href="./L05-Probability.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L10-Sampling_Distributions.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L08-Normal_Distributions.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

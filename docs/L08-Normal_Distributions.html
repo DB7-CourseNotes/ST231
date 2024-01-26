@@ -9,7 +9,7 @@
 <meta name="author" content="Dr.&nbsp;Devan Becker">
 <meta name="dcterms.date" content="2023-06-28">
 
-<title>Statistics for Life Sciences - 6&nbsp; The Normal Distributions</title>
+<title>Statistics for Life Sciences - 7&nbsp; The Normal Distributions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,8 +66,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./L09-Binomial_Probabilities.html" rel="next">
-<link href="./L05-Probability.html" rel="prev">
+<link href="./L10-Sampling_Distributions.html" rel="next">
+<link href="./L07-Binomial_Probabilities.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L07-Normal_Distributions.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L01-Intro_PicturingGraphs.html">Pre-Midterm</a></li><li class="breadcrumb-item"><a href="./L08-Normal_Distributions.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -190,14 +190,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L07-Normal_Distributions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
+  <a href="./L07-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./L09-Binomial_Probabilities.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span></a>
+  <a href="./L08-Normal_Distributions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -307,20 +307,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> Introduction</a>
   <ul class="collapse">
   <li><a href="#some-facts-about-distributions" id="toc-some-facts-about-distributions" class="nav-link" data-scroll-target="#some-facts-about-distributions">Some Facts about Distributions</a></li>
   </ul></li>
-  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="header-section-number">6.2</span> The Normal Distribution</a></li>
-  <li><a href="#calculating-normal-probabilities---part-1" id="toc-calculating-normal-probabilities---part-1" class="nav-link" data-scroll-target="#calculating-normal-probabilities---part-1"><span class="header-section-number">6.3</span> Calculating Normal Probabilities - Part 1</a>
+  <li><a href="#the-normal-distribution" id="toc-the-normal-distribution" class="nav-link" data-scroll-target="#the-normal-distribution"><span class="header-section-number">7.2</span> The Normal Distribution</a></li>
+  <li><a href="#calculating-normal-probabilities---part-1" id="toc-calculating-normal-probabilities---part-1" class="nav-link" data-scroll-target="#calculating-normal-probabilities---part-1"><span class="header-section-number">7.3</span> Calculating Normal Probabilities - Part 1</a>
   <ul class="collapse">
   <li><a href="#trickier-calculations" id="toc-trickier-calculations" class="nav-link" data-scroll-target="#trickier-calculations">Trickier calculations</a></li>
   </ul></li>
-  <li><a href="#the-standard-normal-distribution" id="toc-the-standard-normal-distribution" class="nav-link" data-scroll-target="#the-standard-normal-distribution"><span class="header-section-number">6.4</span> The Standard Normal Distribution</a>
+  <li><a href="#the-standard-normal-distribution" id="toc-the-standard-normal-distribution" class="nav-link" data-scroll-target="#the-standard-normal-distribution"><span class="header-section-number">7.4</span> The Standard Normal Distribution</a>
   <ul class="collapse">
   <li><a href="#standardizing-a-normal-distribution" id="toc-standardizing-a-normal-distribution" class="nav-link" data-scroll-target="#standardizing-a-normal-distribution">Standardizing a Normal Distribution</a></li>
   </ul></li>
-  <li><a href="#calculating-normal-probabilities---part-2" id="toc-calculating-normal-probabilities---part-2" class="nav-link" data-scroll-target="#calculating-normal-probabilities---part-2"><span class="header-section-number">6.5</span> Calculating Normal Probabilities - Part 2</a>
+  <li><a href="#calculating-normal-probabilities---part-2" id="toc-calculating-normal-probabilities---part-2" class="nav-link" data-scroll-target="#calculating-normal-probabilities---part-2"><span class="header-section-number">7.5</span> Calculating Normal Probabilities - Part 2</a>
   <ul class="collapse">
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   <li><a href="#ex1-px-x" id="toc-ex1-px-x" class="nav-link" data-scroll-target="#ex1-px-x">Ex1: P(X &lt; x)</a></li>
@@ -328,13 +328,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#pa-x-b" id="toc-pa-x-b" class="nav-link" data-scroll-target="#pa-x-b">P(a &lt; X &lt; b)</a></li>
   <li><a href="#going-backwards" id="toc-going-backwards" class="nav-link" data-scroll-target="#going-backwards">Going Backwards</a></li>
   </ul></li>
-  <li><a href="#problems-verifying-the-empirical-rule" id="toc-problems-verifying-the-empirical-rule" class="nav-link" data-scroll-target="#problems-verifying-the-empirical-rule"><span class="header-section-number">6.6</span> Problems: Verifying the Empirical Rule</a></li>
-  <li><a href="#problems-z-scores" id="toc-problems-z-scores" class="nav-link" data-scroll-target="#problems-z-scores"><span class="header-section-number">6.7</span> Problems: Z-scores</a></li>
-  <li><a href="#problems-standardizing" id="toc-problems-standardizing" class="nav-link" data-scroll-target="#problems-standardizing"><span class="header-section-number">6.8</span> Problems: Standardizing</a></li>
-  <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">6.9</span> Participation</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">6.10</span> Summary</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">6.11</span> Self-Study Questions</a></li>
-  <li><a href="#more-questions" id="toc-more-questions" class="nav-link" data-scroll-target="#more-questions"><span class="header-section-number">6.12</span> More Questions</a></li>
+  <li><a href="#problems-verifying-the-empirical-rule" id="toc-problems-verifying-the-empirical-rule" class="nav-link" data-scroll-target="#problems-verifying-the-empirical-rule"><span class="header-section-number">7.6</span> Problems: Verifying the Empirical Rule</a></li>
+  <li><a href="#problems-z-scores" id="toc-problems-z-scores" class="nav-link" data-scroll-target="#problems-z-scores"><span class="header-section-number">7.7</span> Problems: Z-scores</a></li>
+  <li><a href="#problems-standardizing" id="toc-problems-standardizing" class="nav-link" data-scroll-target="#problems-standardizing"><span class="header-section-number">7.8</span> Problems: Standardizing</a></li>
+  <li><a href="#participation" id="toc-participation" class="nav-link" data-scroll-target="#participation"><span class="header-section-number">7.9</span> Participation</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.10</span> Summary</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">7.11</span> Self-Study Questions</a></li>
+  <li><a href="#more-questions" id="toc-more-questions" class="nav-link" data-scroll-target="#more-questions"><span class="header-section-number">7.12</span> More Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231_S23/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The Normal Distributions</span></h1>
 </div>
 
 
@@ -377,8 +377,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
 <p>In this lecture we are looking at continuous distributions. Continuous distributions have an odd quirk. If a variable has a continuous distribution, then <span class="math inline">\(P(X = x) = 0\)</span>. That is, the probability of any specific value is infinitely small.</p>
 <p>Think of it this way: suppose that human heights go from <a href="https://en.wikipedia.org/wiki/List_of_the_verified_shortest_people">54 cm</a> to <a href="https://en.wikipedia.org/wiki/Robert_Wadlow">272 cm</a>. For now, suppose all of these heights are equally likely. If we record heights to the nearest centimeter, there are 219 possible heights, so the probability that you are one of those heights is 1/219. If we round to the nearest mm, there are 21,900 different heights. As we get a more and more accurate measuring instrument, the probability of any given height goes to 0. It’s not that these heights are impossible, it’s that you’re probably not going to ever guess my exact height when we measure it with infinite accuracy.</p>
 <p>So what do we do? How could we possibly calculate probabilities? Well, we measure ranges! You can’t guess my height exactly, but we can talk about the probability that my height is between 170 and 180 cm, or even the probability that my height would be 170, assuming we round to the nearest centimeter.</p>
@@ -401,8 +401,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The second point is the important one: The total probability for all events must be 1. For continuous distributions like the normal distribution, that means that the area under the curve is 1.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 </section>
 </section>
-<section id="the-normal-distribution" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="the-normal-distribution"><span class="header-section-number">6.2</span> The Normal Distribution</h2>
+<section id="the-normal-distribution" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="the-normal-distribution"><span class="header-section-number">7.2</span> The Normal Distribution</h2>
 <p>The normal distribution is a way to define the probability of something using a function, but the function is complicated.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Instead, we’ll jump right into how to use it and let software deal with the function.</p>
 <p>In the introduction, I used the example of people’s heights. I made the assumption that all heights were equally likely, but this is just a bonkers thing to say. Instead, some heights are more likely than other heights. Of course, this doesn’t mean that, say, 170 cm is very unlikely, but 175 is likely, then 176 is unlikely, then 177 is <em>very</em> unlikely, then 178 is suddenly really likely again; most people have heights close to the average and heights further from the average are less likely. This is exactly what the normal distribution is for! Here’s what the normal distribution looks like:</p>
 <div class="cell">
@@ -415,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Heights of Canadian Women"</span>,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Height (cm)"</span>, <span class="at">ylab =</span> <span class="st">"Prob. Density"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L07-Normal_Distributions_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<p><img src="L08-Normal_Distributions_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The plot above has the highest point occurs at exactly 162.3, which is the best number I could find for the actual average height of Canadian women. This is denoted <span class="math inline">\(\mu\)</span>. The width of the curve is a little trickier - how did I choose to make it go from 145 to 180? I could easily have stretched it out or squeezed it inwards in both directions. The width is defined by the standard deviation, which is denoted <span class="math inline">\(\sigma\)</span>. Because of the way the normal distribution is defined, there’s nothing else we can change about it - knowing <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> are enough to draw the entire curve.</p>
@@ -452,8 +452,8 @@ Warning
 <li>How much the prediction of a model differs from the truth</li>
 </ul>
 </section>
-<section id="calculating-normal-probabilities---part-1" class="level2" data-number="6.3">
-<h2 data-number="6.3" class="anchored" data-anchor-id="calculating-normal-probabilities---part-1"><span class="header-section-number">6.3</span> Calculating Normal Probabilities - Part 1</h2>
+<section id="calculating-normal-probabilities---part-1" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="calculating-normal-probabilities---part-1"><span class="header-section-number">7.3</span> Calculating Normal Probabilities - Part 1</h2>
 <p>The height and width of the normal distribution are determined by the <strong>mean</strong> (<span class="math inline">\(\mu\)</span>) and <strong>standard deviation</strong> (<span class="math inline">\(\sigma\)</span>), and <em>only</em> the mean and standard deviation. The mean just moves the curve left and right, the standard deviation squeezes or stretches it.</p>
 <p>To highlight this, we introduce something called the <strong>Empirical Rule</strong>, a.k.a. the 68-95-99.5 Rule. No matter what the mean of the distribution is, 68% of the probability is within 1 standard deviation of the mean. To say this another way, let’s extend our notation slightly. If <span class="math inline">\(X\sim N(\mu,\sigma)\)</span>, we can say that:</p>
 <p><span class="math display">\[\begin{align*}
@@ -512,8 +512,8 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </ol>
 </section>
 </section>
-<section id="the-standard-normal-distribution" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="the-standard-normal-distribution"><span class="header-section-number">6.4</span> The Standard Normal Distribution</h2>
+<section id="the-standard-normal-distribution" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="the-standard-normal-distribution"><span class="header-section-number">7.4</span> The Standard Normal Distribution</h2>
 <p>We use a special letter (Z, pronounced “zed” because we’re Canadian) to denote a standard normal distribution. In particular, <span class="math inline">\(Z\sim N(0, 1)\)</span> is a normal distribution with mean 0 and standard deviation 1. Many many many many textbooks have a table in the back of them that gives probabilities for the standard normal distribution, and they call them <span class="math inline">\(Z\)</span> tables.</p>
 <p>All normal distributions have the exact same shape. In order to change the mean and sd, we can simply re-write the numbers on the axes. If we want to shift the whole curve to the left by 2 units, we can re-label the numbers on the x axis. If we change the sd, the plot might get “taller” or “shorter”, but if we zoom in on the plot we can make it look exactly the same!<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 <section id="standardizing-a-normal-distribution" class="level3">
@@ -529,8 +529,8 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p>Now, what’s the probability that a randomly chosen woman is, say, shorter than 160 cm? This doesn’t fit nicely in the empirical rule, so we need another way to calculate probabilities. However, it’s worth stopping and trying to make a guess! The empirical rule tells us that 16% of women are below 155.19 cm, and we also know that 50% of women are shorter than the average of 162.3 cm (since the normal distribution is symmetric), so we expect that the answer is somewhere between 16% and 50%, probably closer to 50% since 160 cm is closer to 162.3 cm than it is to 155.19 cm.</p>
 </section>
 </section>
-<section id="calculating-normal-probabilities---part-2" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="calculating-normal-probabilities---part-2"><span class="header-section-number">6.5</span> Calculating Normal Probabilities - Part 2</h2>
+<section id="calculating-normal-probabilities---part-2" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="calculating-normal-probabilities---part-2"><span class="header-section-number">7.5</span> Calculating Normal Probabilities - Part 2</h2>
 <p>In general, we use the <strong>cumulative distribution function</strong> (CDF, or cdf) to calculate probabilities. As with the cumulative probability tables we saw in the probability lectures, the cumulative probability calculates the area to the <em>left</em> of a particular point.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Questions about the normal distribution generally come in three flavours:</p>
 <ol type="1">
 <li>Find <span class="math inline">\(P(X \le a)\)</span></li>
@@ -726,13 +726,13 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </div>
 </section>
 </section>
-<section id="problems-verifying-the-empirical-rule" class="level2" data-number="6.6">
-<h2 data-number="6.6" class="anchored" data-anchor-id="problems-verifying-the-empirical-rule"><span class="header-section-number">6.6</span> Problems: Verifying the Empirical Rule</h2>
+<section id="problems-verifying-the-empirical-rule" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="problems-verifying-the-empirical-rule"><span class="header-section-number">7.6</span> Problems: Verifying the Empirical Rule</h2>
 <hr>
 <p>68-95-99.7</p>
 </section>
-<section id="problems-z-scores" class="level2" data-number="6.7">
-<h2 data-number="6.7" class="anchored" data-anchor-id="problems-z-scores"><span class="header-section-number">6.7</span> Problems: Z-scores</h2>
+<section id="problems-z-scores" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="problems-z-scores"><span class="header-section-number">7.7</span> Problems: Z-scores</h2>
 <hr>
 <ul>
 <li><span class="math inline">\(P(z \le 2.25)\)</span></li>
@@ -758,8 +758,8 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </ul>
 <p>What is <span class="math inline">\(z\)</span>?</p>
 </section>
-<section id="problems-standardizing" class="level2" data-number="6.8">
-<h2 data-number="6.8" class="anchored" data-anchor-id="problems-standardizing"><span class="header-section-number">6.8</span> Problems: Standardizing</h2>
+<section id="problems-standardizing" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="problems-standardizing"><span class="header-section-number">7.8</span> Problems: Standardizing</h2>
 <hr>
 <p>The birthweights of cute widdle babies born at full-term is <span class="math inline">\(N(3350, 440)\)</span>.</p>
 <ul>
@@ -772,8 +772,8 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p>The paper later claims that there’s only a 10% chance of seeing fewer than 3 headaches in the control group.</p>
 <p>The paper never provided the sd. What is it?</p>
 </section>
-<section id="participation" class="level2" data-number="6.9">
-<h2 data-number="6.9" class="anchored" data-anchor-id="participation"><span class="header-section-number">6.9</span> Participation</h2>
+<section id="participation" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="participation"><span class="header-section-number">7.9</span> Participation</h2>
 <hr>
 <ol type="1">
 <li><span class="math inline">\(P(Z &lt; 1.5)\)</span></li>
@@ -784,8 +784,8 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <li><span class="math inline">\(X \sim N(2, 4)\)</span>. Find the IQR.</li>
 </ol>
 </section>
-<section id="summary" class="level2" data-number="6.10">
-<h2 data-number="6.10" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.10</span> Summary</h2>
+<section id="summary" class="level2" data-number="7.10">
+<h2 data-number="7.10" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.10</span> Summary</h2>
 <ul>
 <li>Most values are close to the mean, with fewer values as you get further away.</li>
 <li>The mean and sd are sufficient to draw the whole curve.</li>
@@ -820,8 +820,8 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </ul></li>
 </ul>
 </section>
-<section id="self-study-questions" class="level2" data-number="6.11">
-<h2 data-number="6.11" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">6.11</span> Self-Study Questions</h2>
+<section id="self-study-questions" class="level2" data-number="7.11">
+<h2 data-number="7.11" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">7.11</span> Self-Study Questions</h2>
 <ol type="1">
 <li>For each of the probability statements, draw the normal distribution and add shading for the probability. For example, P(Z &gt; 1) should be a normal distribution with everything under the curve and larger than 1 shaded in. This is a very good way to help internalize the fact that all probabilities are areas.</li>
 <li>In P(Z &lt; 1.32) = 0.9066, what do 1.32 and 0.9066 represent? Where are they on the Z table. If I were to give you one and not the other, could you find the missing number?</li>
@@ -830,8 +830,8 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <li>Explain why the standard deviation does <em>not</em> affect the shape of the normal distribution. Now, explain why it <em>does</em> affect the shape.<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a></li>
 </ol>
 </section>
-<section id="more-questions" class="level2" data-number="6.12">
-<h2 data-number="6.12" class="anchored" data-anchor-id="more-questions"><span class="header-section-number">6.12</span> More Questions</h2>
+<section id="more-questions" class="level2" data-number="7.12">
+<h2 data-number="7.12" class="anchored" data-anchor-id="more-questions"><span class="header-section-number">7.12</span> More Questions</h2>
 <p>If you have not calculated at least 50 or 60 different normal probabilities by the midterm, you have probably not done enough practice.</p>
 <p>For each of these questions, start by trying to use the empirical rule, then use the Z table, then confirm your answer with R. Answers with R are shown below, but you should only check these once you’re confident with your own answer.<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a></p>
 <ol type="1">
@@ -1342,13 +1342,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./L05-Probability.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Probability Background</span></span>
+      <a href="./L07-Binomial_Probabilities.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./L09-Binomial_Probabilities.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Binomial Probabilities</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./L10-Sampling_Distributions.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Sampling Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
