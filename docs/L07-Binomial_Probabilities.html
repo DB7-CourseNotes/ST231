@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2024-01-25">
+<meta name="dcterms.date" content="2024-01-28">
 
 <title>Statistics for Life Sciences - 6&nbsp; Binomial Probabilities</title>
 <style>
@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-01-25</p>
+      <p class="date">2024-01-28</p>
     </div>
   </div>
   
@@ -368,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Please pay attention to the margin notes.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> They often contain important information.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <section id="introduction" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
-<p>Probability models are ways of laying out all possible events as well as the probability of each event. For things like coins and dice, everything has the same probability and things work out nicely. In Two-Way tables, we have all the probabilities laid out in front of us. The Binomomial distribution is our first foray into a formulaic approach to probabilities.</p>
+<p>Probability models are ways of laying out all possible events as well as the probability of each event. For things like coins and dice, everything has the same probability and things work out nicely. In Two-Way tables, we have all the probabilities laid out in front of us. The Binomial distribution is our first foray into a formulaic approach to probabilities.</p>
 <section id="with-coins" class="level3">
 <h3 class="anchored" data-anchor-id="with-coins">With Coins</h3>
 <p>If we flip two coins, the outcomes are {HH, HT, TH, TT} and each of these are equally likely. Instead of looking at each event, what is the probability that there are 0 heads? 1 head? 2 heads?</p>
@@ -634,6 +634,7 @@ X \sim B(n,p)
 <p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Make sure this number makes sense to you! It’s always good to check the results against your intuition - can you see why this number is so close to 1 (use the plot above to inform your answer).</p>
 <section id="examples-1" class="level3">
 <h3 class="anchored" data-anchor-id="examples-1">Examples</h3>
 <p>What’s the probability of <em>at least</em> 40 heads in 100 flips? Be careful here: it matters whether I ask “at least” or “more than”. The cdf always calculates “less than or equal to”<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, and the <strong>complement</strong> of this is “strictly greater than”.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> If I’m looking for “strictly greater than”, I need to be careful what I use!</p>
@@ -695,6 +696,7 @@ X \sim B(n,p)
 <section id="self-test-questions" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="self-test-questions"><span class="header-section-number">6.6</span> Self-Test Questions</h2>
 <ol type="1">
+<li>Take a moment to explain what the <code>dbinom()</code> and <code>pbinom()</code> R functions do.</li>
 <li>What happens when you put <code>x = 0.5</code> into <code>dbinom(x, 10, 0.5)</code>? Interpret this in terms of flipping coins.</li>
 <li>I debated whether to include a section on “shape”, but decided to let you figure it out for yourself. I’ve already given you the code to plot the pdf. For each of the values of n (size) and p (prob), plot the pdf and describe the shape. Note that x should (almost) always be <code>x &lt;- 0:n</code>.
 <ol type="a">
