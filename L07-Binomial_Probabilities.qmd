@@ -9,7 +9,7 @@ Please pay attention to the margin notes.^[These things!] They often contain imp
 
 ## Introduction
 
-Probability models are ways of laying out all possible events as well as the probability of each event. For things like coins and dice, everything has the same probability and things work out nicely. In Two-Way tables, we have all the probabilities laid out in front of us. The Binomomial distribution is our first foray into a formulaic approach to probabilities.
+Probability models are ways of laying out all possible events as well as the probability of each event. For things like coins and dice, everything has the same probability and things work out nicely. In Two-Way tables, we have all the probabilities laid out in front of us. The Binomial distribution is our first foray into a formulaic approach to probabilities.
 
 ### With Coins
 
@@ -248,7 +248,7 @@ y <- dbinom(x, 100, 0.5)
 barplot(height = y, names = x, col = mycols)
 ```
 
-
+Make sure this number makes sense to you! It's always good to check the results against your intuition - can you see why this number is so close to 1 (use the plot above to inform your answer).
 
 ### Examples
 
@@ -335,11 +335,12 @@ As a rule, if you see the phrase "Not enough information for a valid answer" as 
 
 ## Self-Test Questions
 
-1. What happens when you put `x = 0.5` into `dbinom(x, 10, 0.5)`? Interpret this in terms of flipping coins.
-2. I debated whether to include a section on "shape", but decided to let you figure it out for yourself. I've already given you the code to plot the pdf. For each of the values of n (size) and p (prob), plot the pdf and describe the shape. Note that x should (almost) always be `x <- 0:n`.
+1. Take a moment to explain what the `dbinom()` and `pbinom()` R functions do.
+2. What happens when you put `x = 0.5` into `dbinom(x, 10, 0.5)`? Interpret this in terms of flipping coins.
+3. I debated whether to include a section on "shape", but decided to let you figure it out for yourself. I've already given you the code to plot the pdf. For each of the values of n (size) and p (prob), plot the pdf and describe the shape. Note that x should (almost) always be `x <- 0:n`.
     a) Bin(50, 0.5)
     b) Bin(50, 0.8)
     c) Bin(50, 0.2)
     c) Bin(50, 0.02)
     d) Bin(4, 0.25)
-3. For each of the assumptions, give an example of a situation that violates *only one* of them, not the others.
+4. For each of the assumptions, give an example of a situation that violates *only one* of them, not the others.
