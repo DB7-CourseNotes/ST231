@@ -126,7 +126,32 @@ sum(x > -3 & x < 3) # within 3
 
 Some variant of the following image appears in countless textbooks:
 
-<!--- ![](figs/emprirical.png) --->
+
+```{r echo=FALSE}
+xseq2 <- seq(-3,3,0.01)
+yseq2 <- dnorm(xseq2)
+plot(xseq2, yseq2, type = "l", xaxt = "n", xlab = "Possible Values", ylab = "Probability")
+xlab1 <- paste0((-3):3, bquote(sigma))
+axis(1, at = -3, labels = bquote(mu*"-3 "*sigma), cex.axis = 1.5)
+axis(1, at = -2, labels = bquote(mu*"-2"*sigma), cex.axis = 1.5)
+axis(1, at = -1, labels = bquote(mu*"-1"*sigma), cex.axis = 1.5)
+axis(1, at = 0, labels = bquote(mu), cex.axis = 1.5)
+axis(1, at = 1, labels = bquote(mu*"+1"*sigma), cex.axis = 1.5)
+axis(1, at = 2, labels = bquote(mu*"+2"*sigma), cex.axis = 1.5)
+axis(1, at = 3, labels = bquote(mu*"+3"*sigma), cex.axis = 1.5)
+lines(x = c(-1, 1), y = c(0.24, 0.24), lwd = 3)
+lines(x = c(-1, -1), y = c(0, 0.24), lty = 2)
+lines(x = c(1, 1), y = c(0, 0.24), lty = 2)
+text(x = 0, y = 0.24, labels = "68%", adj = c(0.5, -0.5))
+lines(x = c(-2, 2), y = c(0.055, 0.055), lwd = 3)
+lines(x = c(-2, -2), y = c(0, 0.055), lty = 2)
+lines(x = c(2, 2), y = c(0, 0.055), lty = 2)
+text(x = 0, y = 0.06, labels = "95%", adj = c(0.5, -0.5))
+lines(x = c(-3, 3), y = c(0.002, 0.002), lwd = 3)
+text(x = 0, y = 0.002, labels = "99.7%", adj = c(0.5, -0.5))
+```
+
+
 
 
 As a small side note, the image above uses the word "data". By this, it means that if this is the **population**, then 68% of all the data that it were possible to collect would be within one standard deviation of the mean. As we saw in the simulated data above, this number is almost never going to be perfect.
@@ -210,7 +235,7 @@ To calculate the probability that a randomly chosen value will be within a given
 
 Here's how we do it. If we only find $P(X\le-1)$, then we have taken too much of the distribution. Everything to the left of -2.5 was something that should not have been included. So why don't we just remove it? By this logic, we find $P(-2.5\le X \le  -1) = P(X\le -1) - P(X \le -2.5)$. This is shown graphically below:
 
-<!--- ![](figs/addgraphs.png) --->
+![](figs/addgraphs.jpg)
 
 Returning to the heights example, the probability of a randomly chosen woman being less than 160 cm can be calculated as:
 $$
