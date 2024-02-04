@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-01-28">
+<meta name="dcterms.date" content="2024-02-02">
 
 <title>Statistics for Life Sciences - 7&nbsp; The Normal Distributions</title>
 <style>
@@ -367,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-01-28</p>
+      <p class="date">2024-02-02</p>
     </div>
   </div>
   
@@ -575,11 +575,11 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </div>
 <p>For questions like <span class="math inline">\(P(X\ge x)\)</span>, we can simply use the fact that <span class="math inline">\(P(X \ge x) = 1 - P(X&lt;x)\)</span>. Since this is a continuous distribution and <span class="math inline">\(P(X = x)=0\)</span>, we also know that <span class="math inline">\(P(X\le x) = P(X&lt;x)\)</span> and we can just use the cdf. The last one is a little bit trickier.</p>
 <p>To calculate the probability that a randomly chosen value will be within a given range, there are a few steps. Let’s use the same example as the textbook: If <span class="math inline">\(X\sim N(-2, 1)\)</span> find <span class="math inline">\(P(-2.5\le X\le -1)\)</span>. If we want to use the cdf, we need to re-write this in terms of <span class="math inline">\(P(X\le x)\)</span>.</p>
-<p>Here’s how we do it. If we only find <span class="math inline">\(P(X\le-1)\)</span>, then we have taken too much of the distribution. Everything to the left of -2.5 was something that should not have been included. So why don’t we just remove it? By this logic, we find <span class="math inline">\(P(-2.5\le X \le -1) = P(X\le -1) - P(X \le -2.5)\)</span>. This is shown graphically below:</p>
+<p>Here’s how we do it. If we only find <span class="math inline">\(P(X\le-1)\)</span>, then we have taken too much of the distribution. Everything to the left of -2.5 was something that should not have been included. So why don’t we just remove it? By this logic, we can find <span class="math inline">\(P(-2.5\le X \le -1) = P(X\le -1) - P(X \le -2.5)\)</span>. This is shown graphically below:</p>
 <p><img src="figs/addgraphs.jpg" class="img-fluid"></p>
 <p>Returning to the heights example, the probability of a randomly chosen woman being less than 160 cm can be calculated as: <span class="math display">\[
 \frac{x - \mu}{\sigma} = \frac{160 - 162.3}{7.11} = -0.323488045
-\]</span> We can now look up -0.323 on the normal table. Try that out, and verify that you get the same value here:</p>
+\]</span> We can now look up -0.323 with the pnorm function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.323488045</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -593,10 +593,10 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <pre><code>[1] 0.3731628</code></pre>
 </div>
 </div>
-<p>I have created a shiny app that lets you explore these calculations<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. Feel free to use this to answer the questions in this lecture, and then double check the answers with the z-table.</p>
+<p>I have created a shiny app that lets you explore these calculations<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. Feel free to use this to answer the questions in this lecture, and then double check the answers with pnorm.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages("shiny") # Run this if you get an error about "package not found"</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="examples" class="level3">
@@ -689,7 +689,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </div>
 <p>I have made a shiny app for you to visualize this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="6" type="1">
@@ -974,7 +974,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <li id="fn5"><p>This is also the reason why the empirical rule works! If you change the labels on the plot, <span class="math inline">\(\mu+\sigma\)</span> stays in the same place so you can calculate the same probability.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>The negative is important!<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Recall that <span class="math inline">\(P(X=x) = 0\)</span> in continuous distributions, so we look at ranges.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>If you’re curious, yes I’ve made a lot of Shiny apps. You can find them all here: <a href="https://github.com/DBecker7/DB7_TeachingApps">https://github.com/DBecker7/DB7_TeachingApps</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>If you’re curious, yes I’ve made a lot of Shiny apps. You can find them all here: <a href="https://github.com/DB7-CourseNotes/TeachingApps">https://github.com/DB7-CourseNotes/TeachingApps</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>The rows are the digits before and after the decimal, the column is the second digit after the decimal.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>You need to trust your ability to use the Empirical Rule, though.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn11"><p>Quick maths - we’re just trying to get an okay guess, not the exact answer right now.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

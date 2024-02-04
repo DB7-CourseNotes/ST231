@@ -322,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#very-non-normal-the-binomial-distribution" id="toc-very-non-normal-the-binomial-distribution" class="nav-link" data-scroll-target="#very-non-normal-the-binomial-distribution"><span class="header-section-number">8.6</span> Very Non-Normal: The Binomial Distribution</a>
   <ul class="collapse">
   <li><a href="#aside-the-normal-approximation-to-binomial" id="toc-aside-the-normal-approximation-to-binomial" class="nav-link" data-scroll-target="#aside-the-normal-approximation-to-binomial">Aside: The normal approximation to Binomial</a></li>
-  <li><a href="#back-to-binomial" id="toc-back-to-binomial" class="nav-link" data-scroll-target="#back-to-binomial">Back to Binomial</a></li>
+  <li><a href="#binomial-more-like-binormial" id="toc-binomial-more-like-binormial" class="nav-link" data-scroll-target="#binomial-more-like-binormial">Binomial? More like Bi<em>norm</em>ial!</a></li>
   <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example</a></li>
   <li><a href="#exampling-distribution" id="toc-exampling-distribution" class="nav-link" data-scroll-target="#exampling-distribution">Exampling Distribution</a></li>
   </ul></li>
@@ -378,9 +378,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.2</span> Introduction</h2>
 <p>You take a sample. You find the <strong>sample mean</strong>. Is this mean <em>exactly</em> equal to the <strong>population mean</strong>?<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Probably not.</p>
-<p>Wait, did I just say <em>probably</em> not? How probably? We’ve done a few lectures on probability, so we can probably same describe the distribution somehow. What is the probability that the sample mean is within one standard deviation of the population mean? Two standard deviations?</p>
+<p>Wait, did I just say <em>probably</em> not? How probably? We’ve done a few lectures on probability, so we can probably describe the distribution somehow. What is the probability that the sample mean is within one standard deviation of the population mean? Two standard deviations?</p>
 <p>Because of random sampling error,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> every sample is going to have a different mean. We expect most of the sample means to be close to the population mean, with fewer samples resulting in sample means that are further away. In other words, the <strong>sample mean</strong> should be close to the <strong>population mean</strong>, but due to <strong>sampling error</strong> there will be a little bit of a difference.</p>
-<p>The variation within our sample should be similar to the variation within the population<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, and the variance in the poulation tells us the variance in the sample means. Variation is not something to be afraid of, and sampling errors are <em>not</em> sampling <em>mistakes</em>; we can harness the variability within a sample to draw conclusions about the population!</p>
+<p>The variation within our sample should be similar to the variation within the population<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, and the variance in the population tells us the variance in the sample means. Variation is not something to be afraid of, and sampling errors are <em>not</em> sampling <em>mistakes</em>; we can harness the variability within a sample to draw conclusions about the population!</p>
 </section>
 <section id="sampling-distribution-of-the-sample-mean" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="sampling-distribution-of-the-sample-mean"><span class="header-section-number">8.3</span> Sampling distribution of the sample mean</h2>
@@ -388,8 +388,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The app below<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> will take a random sample from the population (in this case, normal), then find the mean and add it to a histogram. As you collect more means, the histogram gets more and more data. This simulates taking many many different samples.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># if this fails, run install.packages("ggplot2")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/samplingDist"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/samplingDist"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Play around yourself! Start with <span class="math inline">\(n\)</span> equal to 2 or 3. The sample shows the individual values, but it also shows the sample mean. Notice how the mean is usually closer to the population mean than any of the individual sample values.</p>
 <p>Now, take another sample! Again, the sample mean is closer to the population mean than most of the sampled values. Take more samples. Take 1000 more samples. Notice how the distribution of sample means is bell-shaped, but slightly skinnier than the population.</p>
@@ -408,11 +408,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Suppose the population of heights of Canadian women is N(162.3, 7.11).<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> We’re going to try and build up some intuition for why the distribution of all means has a smaller variance than the distribution of the population.</p>
 <ol type="1">
 <li>The probability that a randomly chosen woman is taller than 170 cm is <span class="math inline">\(P(X &gt; 170)\)</span> = <code>1 - pnorm(q = 170, mean = 162.3, sd = 7.11)</code> = 0.139. So there’s about a 14% chance of finding a woman taller than 170 cm.</li>
-<li>(This is just for example - this question is not often important.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>) If we take a sample of n=2 women, what’s the probability that <em>both</em> of them are taller than 170cm? If it’s a truly random sample, then the heights of the two women should be independent and we can just multiply their probabilities.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> This means that there’s approximately 0.14% chance of this. Obviously, if one woman taller than 170 is unlikely, then both women taller than 170 is very unlikely.</li>
-<li>If we take a sample of n=2 women, what’s the probability that their average height is larger than 170? From above, we know that the <strong>distribution of the sample mean</strong> is <span class="math inline">\(N(162.3, 7.11/\sqrt{2})\)</span>, so we can calculate this probability as <span class="math inline">\(P(\bar X &gt; 170)\)</span> = <code>1 - pnorm(q = 170, mean = 162.3, sd = 7.11/sqrt(2))</code> = 0.06. This is somewhere in between <em>just</em> one of them being taller than 170cm and <em>both</em> of them being taller than 170.</li>
+<li>(This is just for example - this part is not often important.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>) If we take a sample of n=2 women, what’s the probability that <em>both</em> of them are taller than 170cm? If it’s a truly random sample, then the heights of the two women should be independent and we can just multiply their probabilities.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> This means that there’s approximately <span class="math inline">\(0.14*0.14 = 0.0193 = 1.93\%\)</span> chance of this. Obviously, if one woman taller than 170 is unlikely, then both women taller than 170 is very unlikely.</li>
+<li>If we take a sample of <span class="math inline">\(n=2\)</span> women, what’s the probability that their average height is larger than 170? From above, we know that the <strong>distribution of the sample mean</strong> is <span class="math inline">\(N(162.3, 7.11/\sqrt{2})\)</span>, so we can calculate this probability as <span class="math inline">\(P(\bar X &gt; 170)\)</span> = <code>1 - pnorm(q = 170, mean = 162.3, sd = 7.11/sqrt(2))</code> = 0.06. This is somewhere in between <em>just</em> one of them being taller than 170cm and <em>both</em> of them being taller than 170.</li>
 </ol>
 <p>When we took a sample of 2 women, one might have been taller than 170 but one might have been shorter, so the average ends up being less than 170. The sample mean is <em>less variable</em> than the individual values, so it’s less likely to be further away.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
-<p><strong>Summary:</strong> If you take two values from a normal distribution, the average of those two values is probably closer to the true mean than either of the individual values. If you found the average of 100 observations from a normal distribution, the mean is probably even closer to the true mean.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you take two values from a normal distribution, the average of those two values is probably closer to the true mean than either of the individual values. If you found the average of 100 observations from a normal distribution, the mean of all of those means is probably even closer to the true mean. If you took 200 observations, the mean of means will be even closer!</p>
+</div>
+</div>
 </section>
 </section>
 <section id="non-normal-populations-with-large-sample-size" class="level2" data-number="8.5">
@@ -420,8 +432,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the previous example, we saw that a normal population distribution will result in a distribution for all possible sample means that is also normal, but with a smaller variance. If the population <em>isn’t</em> normal, but you have a large enough sample size, the sampling distribution is still normal. It’s kind of amazing, but it seems to work in practice!</p>
 <p>The app below<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> will help you understand this relationship. I use an “Exponential distribution” for the population, but this isn’t a distribution you really need to worry about. All you need to know is that the population <em>clearly</em> isn’t normal.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/nLarge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/nLarge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Regardless of “lambda”<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>, as n increase, the sampling distribution becomes closer and closer to the normal distribution. By around n=30 or 40,<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> they’re basically the same!<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
 <p>Again,</p>
@@ -430,10 +442,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 \]</span></p>
 <p>where 60 is definitely “large”, 50 is probably “large”, 30 is debatably “large” (depending on what textbook you read), and anything less than 30 is definitely small. I will not test you on the grey areas here.</p>
 <p>This result has a very special name:</p>
-<p><strong>The Central Limit Theorem:</strong> Given a simple random sample of size <span class="math inline">\(n\)</span> (where <span class="math inline">\(n\)</span> is “large”) from <em>any</em> population with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>, the sampling distribution of the sample mean will follow a <span class="math inline">\(N(\mu, \sigma/\sqrt{n})\)</span> distribution.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+The Central Limit Theorem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Given a simple random sample of size <span class="math inline">\(n\)</span> (where <span class="math inline">\(n\)</span> is “large”) from <em>any</em> population with mean <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>, the sampling distribution of the sample mean will follow a <span class="math inline">\(N(\mu, \sigma/\sqrt{n})\)</span> distribution.</p>
+</div>
+</div>
 <p>For a perfectly normal population, this is true for any <span class="math inline">\(n\)</span>. For a population that just a little bit not normal, <span class="math inline">\(n\)</span> must be moderately large. For a very not normal population (e.g.&nbsp;Binomial with <span class="math inline">\(p\)</span> far from 0.5), we need <span class="math inline">\(n\)</span> even larger. Still, as long as the sd of the population is finite, the sampling distribution will be normal for sufficiently large <span class="math inline">\(n\)</span>!</p>
 <section id="examples" class="level3">
 <h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L10-Sampling_Distributions_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <ol type="a">
 <li>The angle of big toe deformation in 38 patients.
 <ul>
@@ -441,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>The number of servings of fruit per day for 74 adolescent girls.
 <ul>
-<li>The distribution is clearly (???) skewed<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>. This makes sense - the number of fruits can only be as low as 0 and there may be many people who don’t eat a lot of fruit, but there will be a few eating many fruits per day!</li>
+<li>The distribution is clearly (right or left???) skewed<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>. This makes sense - the number of fruits can only be as low as 0 and there may be many people who don’t eat a lot of fruit, but there will be a few eating many fruits per day!</li>
 <li>The skewness of the data implies skewness in the population (assuming this is a good sample). No worries, though, the sampling distribution will still be normal! We just might need a larger sample size in future studies.</li>
 </ul></li>
 <li>The lengths of 56 perch from a Swedish lake.
@@ -451,30 +480,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>In this case, we would want to find out why there are two subgroups before trying to say anything about the population distributions. If we actually have two types of fish, it’s better to study them separately!</li>
 </ul></li>
 </ol>
-<!--- ![](figs/sampling_dist_examples.png) --->
-<p>Source: Baldi &amp; Moore, 4th Edition.</p>
 </section>
 <section id="non-normal-population-with-small-sample-size" class="level3">
 <h3 class="anchored" data-anchor-id="non-normal-population-with-small-sample-size">Non-Normal Population with Small Sample Size</h3>
-<p>This is governed by the <span class="math inline">\(t\)</span>-distribution, which will be covered later.</p>
+<p>This is modelled with the <span class="math inline">\(t\)</span>-distribution, which will be covered later.</p>
 </section>
 </section>
 <section id="very-non-normal-the-binomial-distribution" class="level2" data-number="8.6">
 <h2 data-number="8.6" class="anchored" data-anchor-id="very-non-normal-the-binomial-distribution"><span class="header-section-number">8.6</span> Very Non-Normal: The Binomial Distribution</h2>
 <p>Here’s some mild deja-vu:</p>
 <p>You roll a dice. You find the <strong>sample proportion</strong> of heads, denoted <span class="math inline">\(\hat p\)</span>.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> Is this proportion <em>exactly</em> equal to the <strong>population proportion</strong>? Probably not.</p>
-<p>Wait, did I just say <em>probably</em> not? How probably? What is the probability that the sample proportion is within one standard deviation of the population proportion?</p>
+<p>Wait, did I just say <em>probably</em> not? How probably? What is the probability that the sample proportion is within one standard deviation of the population proportion? Yeah, we’re back on this again.</p>
 <section id="aside-the-normal-approximation-to-binomial" class="level3">
 <h3 class="anchored" data-anchor-id="aside-the-normal-approximation-to-binomial">Aside: The normal approximation to Binomial</h3>
 <p>Most textbooks provide the rule: if <em>both</em> np and n(1-p) are larger than 10<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a>, then the normal distribution is a good approximation to the binomial distribution. I prefer to let you see whether these rules make sense. The app below lets you change n and p, and shows a <span class="math inline">\(B(n, p)\)</span> and an <span class="math inline">\(N(np, \sqrt{np(1-p)})\)</span><a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a> distribution.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/normBinom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/normBinom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Set n = 20 and find p such that np &lt; 10. Also find p such that n(1-p) &lt; 10. What is the shape of the Binomial distribution in these cases? What do you notice about the normal distribution? Why do both np and n(1-p) need to be greater than 10?<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a></p>
 </section>
-<section id="back-to-binomial" class="level3">
-<h3 class="anchored" data-anchor-id="back-to-binomial">Back to Binomial</h3>
+<section id="binomial-more-like-binormial" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-more-like-binormial">Binomial? More like Bi<em>norm</em>ial!</h3>
 <p>It turns out that, with large <span class="math inline">\(n\)</span> the sampling distribution of <span class="math inline">\(p\)</span> also follows a normal distribution!<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a> Even though the population distribution isn’t even continuous,<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a> the normal distribution approximates it well when there are lots of samples.</p>
 <p>For each sample, the actual proportion that you calculate is variable. You might get 3 heads out of 10 flips one time, then 8 heads out of 10 flips the next. On average, though, you’ll get 5 heads out of 10 flips. Formally, the mean of the sampling distribution of the sample proportion is <span class="math inline">\(p\)</span>.<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a></p>
 <p>The variance is a little trickier. In the Binomial lecture notes, I said that the variance increases as n increases. However, when we calculate the proportion, we take the number of successes divided by n.&nbsp;According to some math that is not important for this course, this leads to a <strong>variance of the sampling distribution of the sample proportion</strong> of p(1-p)/n, which means that the <strong>standard deviation</strong><a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a> <strong>of the sampling distribution</strong> is <span class="math inline">\(\sqrt{p(1-p)/n}\)</span>.</p>
@@ -482,37 +509,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-1" class="level3">
 <h3 class="anchored" data-anchor-id="example-1">Example</h3>
-<p>Suppose I’m rolling a dice 5 times. The probability of exactly 2 ones is defined by the Binomial distribution: <code>dbinom(2, size = 5, prob = 1/6)</code> = 0.16.<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a> The variance in the number of ones in 5 rolls is np(1/p) = 5/36.</p>
-<p>The average number of ones in 5 rolls is np=5/6. The standard deviation of the number of ones in 5 rolls is <span class="math inline">\(\sqrt{np(1-p)} = \sqrt{5/36}\)</span>.</p>
+<p>Suppose I’m rolling a dice 5 times. The probability of exactly 1 one is defined by the Binomial distribution: <code>dbinom(1, size = 5, prob = 1/6)</code> = 0.4.<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a> The number of ones we expect after rolling many many dice is <span class="math inline">\(np = 5/6 =0.8333\)</span>. The variance in the number of ones in 5 rolls is <span class="math inline">\(np(1 - p) = 25/36 = 0.69444\)</span>, meaning the standard deviation of the number of ones in 5 rolls is <span class="math inline">\(\sqrt{np(1-p)} = \sqrt{5/36}\)</span>.</p>
+<p>Let’s use R to roll some dice for us!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rolling 1 dice</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The "r" version of functions givexs random values</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Not on midterm</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rolling 1000 dice</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Not on midterm</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dice_1000 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(dice_1000) <span class="co"># We expect this to be 0.8333</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.834</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(dice_1000) <span class="co"># We expect this to be 0.69444</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7111552</code></pre>
+</div>
+</div>
+<p>The results match! For 1000 rolls of the dice, we got close an average of 0.833 ones per sample (note that this is the number of ones, not a probability). The variance in the number of ones per roll for 1000 is close to the 0.69444 that we expected.</p>
+<p>This is the sampling distribution for the <em>number</em> of 1s out of five rolls. However, we generall deal with the <em>probability</em> of a 1 out of 5 rolls.</p>
 </section>
 <section id="exampling-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="exampling-distribution">Exampling Distribution</h3>
-<p>The following code is not testable - you are <em>not</em> expected to write anything like this. I’m taking repeated samples from a B(50, 0.4) distribution and calculating the proportion of successes for each sample.</p>
+<p>The following code is not testable - you are <em>not</em> expected to write anything like this. I’m taking repeated samples from a B(75, 0.4) distribution and calculating the proportion of successes for each sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">75</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>binom_proportions <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># empty vector, to be filled later</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){ <span class="co"># repeat this 1000 times:</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is confusing: I'm getting *one* sample of size n,</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># but R labels the number of samples as n</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    new_sample <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the proportion of successes to the vector</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    binom_proportions[i] <span class="ot">&lt;-</span> new_sample<span class="sc">/</span>n</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(binom_proportions, </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">10</span>, <span class="co"># what happens if you make this larger?</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq =</span> <span class="cn">FALSE</span>) <span class="co"># Divide the heights of bars by the number of obs.</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> p, <span class="at">sd =</span> <span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n)), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">75</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>binom_proportions <span class="ot">&lt;-</span> <span class="fu">c</span>() <span class="co"># empty vector, to be filled later</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){ <span class="co"># repeat this 1000 times:</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is confusing: I'm getting *one* sample of size n,</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># but R labels the number of samples as n</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    new_sample <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the proportion of successes to the vector</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    binom_proportions[i] <span class="ot">&lt;-</span> new_sample<span class="sc">/</span>n</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(binom_proportions, </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="dv">13</span>, <span class="co"># what happens if you make this larger?</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq =</span> <span class="cn">FALSE</span>) <span class="co"># Divide the heights of bars by the number of obs.</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> p, <span class="at">sd =</span> <span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n)), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="dv">3</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="L10-Sampling_Distributions_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="L10-Sampling_Distributions_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Copy and paste the code above into a script file and observe what happens when you increase the number of breaks. Why does this happen?<a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a></p>
+<p>Each sample has a 40% chance to be a success, and this is indeed shown in the sampling distribution. However, due to random sampling, we can get sample proprtions as low as 0.25 and has high as 0.55! Because of randomness, we’ll <em>very</em> rarely (if ever) get a sample value that perfectly matches the population value.</p>
+<p>The lesson is this: Even if the true population proportion is 0.4, a sample value of, say, 0.5 is still consistent with the true proportion. This is analogous to saying that the true population mean is 162.3, but our random sample had a mean of 165. The sample value is different from the population value, but still close enough (<strong>releative to the variance</strong>) to be reasonable.</p>
 </section>
 </section>
 <section id="conclusion-statistics-is-the-study-of-variance" class="level2" data-number="8.7">
@@ -538,7 +591,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li id="fn2"><p>Or silliness.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Recall: <strong>population</strong> refers to the population of interest. The <strong>population mean</strong> is the true mean of the population.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>In statistics, error does <em>not</em> mean mistake.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Assuming we have a <strong>good</strong> sample**.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Assuming we have a <strong>good</strong> sample.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>If you don’t have access to R right now, try <a href="http://onlinestatbook.com/stat_sim/sampling_dist/">this one.</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>You’ll probably see it in the next stats course you take.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>i.e.&nbsp;the sampling distribution of the sample mean<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -554,13 +607,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li id="fn18"><p>i.e.&nbsp;<span class="math inline">\(\hat p\)</span> = number of success divided by number of trials.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn19"><p>Or sometimes 15. Again, I won’t test you on the grey areas.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn20"><p>Recall that the mean and sd of a Binomial distribution are np and np(1-p), respectively.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn21"><p>Answers: Skewed; positive probability below 0 and above n; symmetric.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p>Answers: Skewed; positive probability below 0 or above n; symmetric.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn22"><p>Again, we use the rule of thumb that <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span>.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn23"><p>This is important.<a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn24"><p>Not n*p, since the proportion of heads is x/n.<a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn25"><p>Which is simply the square root of the variance.<a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn26"><p>Notice how they’re equal when n = 1. When n=1, we’re just taking individuals from the population and calling each individual a sample.<a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn27"><p>In other words, 2 successes in 5 trials, where a success is defined as “rolling a one”.<a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn27"><p>In other words, 1 successes in 5 trials, where a success is defined as “rolling a one”.<a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn28"><p>Hint: What are the possible values of <span class="math inline">\(\hat p\)</span>?<a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
