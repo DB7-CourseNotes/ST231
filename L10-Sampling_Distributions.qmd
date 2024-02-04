@@ -30,11 +30,11 @@ In the height example, the **population** was all Canadians. This isn't always h
 
 You take a sample. You find the **sample mean**. Is this mean *exactly* equal to the **population mean**?^[Recall: **population** refers to the population of interest. The **population mean** is the true mean of the population.] Probably not.
 
-Wait, did I just say *probably* not? How probably? We've done a few lectures on probability, so we can probably same describe the distribution somehow. What is the probability that the sample mean is within one standard deviation of the population mean? Two standard deviations?
+Wait, did I just say *probably* not? How probably? We've done a few lectures on probability, so we can probably describe the distribution somehow. What is the probability that the sample mean is within one standard deviation of the population mean? Two standard deviations?
 
 Because of random sampling error,^[In statistics, error does *not* mean mistake.] every sample is going to have a different mean. We expect most of the sample means to be close to the population mean, with fewer samples resulting in sample means that are further away. In other words, the **sample mean** should be close to the **population mean**, but due to **sampling error** there will be a little bit of a difference.
 
-The variation within our sample should be similar to the variation within the population^[Assuming we have a **good** sample**.], and the variance in the poulation tells us the variance in the sample means. Variation is not something to be afraid of, and sampling errors are *not* sampling *mistakes*; we can harness the variability within a sample to draw conclusions about the population!
+The variation within our sample should be similar to the variation within the population^[Assuming we have a **good** sample.], and the variance in the population tells us the variance in the sample means. Variation is not something to be afraid of, and sampling errors are *not* sampling *mistakes*; we can harness the variability within a sample to draw conclusions about the population!
 
 ## Sampling distribution of the sample mean
 
@@ -44,8 +44,8 @@ The app below^[If you don't have access to R right now, try <a href="http://onli
 
 ```{r eval = FALSE}
 library(ggplot2) # if this fails, run install.packages("ggplot2")
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
-    subdir = "Apps/samplingDist")
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
+    subdir = "Tools/samplingDist")
 ```
 
 Play around yourself! Start with $n$ equal to 2 or 3. The sample shows the individual values, but it also shows the sample mean. Notice how the mean is usually closer to the population mean than any of the individual sample values.
@@ -71,12 +71,16 @@ That is, the distribution of all possible sample means^[i.e. the sampling distri
 Suppose the population of heights of Canadian women is N(162.3, 7.11).^[Note: these numbers actually come from a sample, and we don't know that the population is normal. We're making some massive assumptions here.] We're going to try and build up some intuition for why the distribution of all means has a smaller variance than the distribution of the population.
 
 1. The probability that a randomly chosen woman is taller than 170 cm is $P(X > 170)$ = `1 - pnorm(q = 170, mean = 162.3, sd = 7.11)` = `r round(1 - pnorm(q = 170, mean = 162.3, sd = 7.11), 3)`. So there's about a 14\% chance of finding a woman taller than 170 cm.
-2. (This is just for example - this question is not often important.^[You will not need to do something like this on a test.]) If we take a sample of n=2 women, what's the probability that *both* of them are taller than 170cm? If it's a truly random sample, then the heights of the two women should be independent and we can just multiply their probabilities.^[Remember the most important fact from probability: Multiplying probabilities only works when they're independent.] This means that there's approximately 0.14\% chance of this. Obviously, if one woman taller than 170 is unlikely, then both women taller than 170 is very unlikely.
-3. If we take a sample of n=2 women, what's the probability that their average height is larger than 170? From above, we know that the **distribution of the sample mean** is $N(162.3, 7.11/\sqrt{2})$, so we can calculate this probability as $P(\bar X > 170)$ = `1 - pnorm(q = 170, mean = 162.3, sd = 7.11/sqrt(2))` = `r round(1 - pnorm(q = 170, mean = 162.3, sd = 7.11/sqrt(2)), 2)`. This is somewhere in between *just* one of them being taller than 170cm and *both* of them being taller than 170.
+2. (This is just for example - this part is not often important.^[You will not need to do something like this on a test.]) If we take a sample of n=2 women, what's the probability that *both* of them are taller than 170cm? If it's a truly random sample, then the heights of the two women should be independent and we can just multiply their probabilities.^[Remember the most important fact from probability: Multiplying probabilities only works when they're independent.] This means that there's approximately $0.14*0.14 = 0.0193 = 1.93\%$ chance of this. Obviously, if one woman taller than 170 is unlikely, then both women taller than 170 is very unlikely.
+3. If we take a sample of $n=2$ women, what's the probability that their average height is larger than 170? From above, we know that the **distribution of the sample mean** is $N(162.3, 7.11/\sqrt{2})$, so we can calculate this probability as $P(\bar X > 170)$ = `1 - pnorm(q = 170, mean = 162.3, sd = 7.11/sqrt(2))` = `r round(1 - pnorm(q = 170, mean = 162.3, sd = 7.11/sqrt(2)), 2)`. This is somewhere in between *just* one of them being taller than 170cm and *both* of them being taller than 170.
 
 When we took a sample of 2 women, one might have been taller than 170 but one might have been shorter, so the average ends up being less than 170. The sample mean is *less variable* than the individual values, so it's less likely to be further away.^[Take a moment and make sure you understand this relationship. Write out a description of it. Call a grandparent and try to explain it to them.]
 
-**Summary:** If you take two values from a normal distribution, the average of those two values is probably closer to the true mean than either of the individual values. If you found the average of 100 observations from a normal distribution, the mean is probably even closer to the true mean. 
+::: {.callout-note}
+### Summary
+
+If you take two values from a normal distribution, the average of those two values is probably closer to the true mean than either of the individual values. If you found the average of 100 observations from a normal distribution, the mean of all of those means is probably even closer to the true mean.  If you took 200 observations, the mean of means will be even closer!
+:::
 
 
 ## Non-Normal Populations with Large Sample Size
@@ -86,8 +90,8 @@ In the previous example, we saw that a normal population distribution will resul
 The app below^[Or the same app as before, with population set to Exponential.] will help you understand this relationship. I use an "Exponential distribution" for the population, but this isn't a distribution you really need to worry about. All you need to know is that the population *clearly* isn't normal.
 
 ```{r eval = FALSE}
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
-    subdir = "Apps/nLarge")
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
+    subdir = "Tools/nLarge")
 ```
 
 Regardless of "lambda"^[Which controls how skewed the population distribution is.], as n increase, the sampling distribution becomes closer and closer to the normal distribution. By around n=30 or 40,^[I will either ask you questions where n < 30 (non-normal sampling distr.) or n > 50 (normal sampling distr.), nothing in between.] they're basically the same!^[Although, in this case, the normal approximation is **biased**, but the bias decreases as n increases and you're not expected to know these details.]
@@ -102,30 +106,48 @@ where 60 is definitely "large", 50 is probably "large", 30 is debatably "large" 
 
 This result has a very special name:
 
-**The Central Limit Theorem:** Given a simple random sample of size $n$ (where $n$ is "large") from *any* population with mean $\mu$ and standard deviation $\sigma$, the sampling distribution of the sample mean will follow a $N(\mu, \sigma/\sqrt{n})$ distribution.
+::: {.callout-note}
+### The Central Limit Theorem
+
+Given a simple random sample of size $n$ (where $n$ is "large") from *any* population with mean $\mu$ and standard deviation $\sigma$, the sampling distribution of the sample mean will follow a $N(\mu, \sigma/\sqrt{n})$ distribution.
+:::
 
 For a perfectly normal population, this is true for any $n$. For a population that just a little bit not normal, $n$ must be moderately large. For a very not normal population (e.g. Binomial with $p$ far from 0.5), we need $n$ even larger. Still, as long as the sd of the population is finite, the sampling distribution will be normal for sufficiently large $n$!
 
 ### Examples
 
+```{r}
+#| echo: false
+set.seed(2113)
+par(mfrow = c(1,3))
+
+bigtoe <- c(rnorm(50, 0.2, 0.01), 0.27)
+hist(bigtoe, xlab = "Big Toe Deformation", ylab = "Count", breaks = 25,
+    main = NULL)
+
+fruit <- rpois(70, 4)
+hist(fruit, xlab = "Daily Fruit Servings", breaks = seq(0, max(fruit)),
+    main = NULL)
+
+fish <- c(rnorm(40, 20, 2), rnorm(60, 30, 3))
+hist(fish, xlab = "Length of Fish",
+    main = NULL)
+```
+
 a. The angle of big toe deformation in 38 patients.
     - There's an outlier, but the sampling distribution would still be normal even for relatively small $n$.
 b. The number of servings of fruit per day for 74 adolescent girls.
-    - The distribution is clearly (???) skewed^[Answer: right]. This makes sense - the number of fruits can only be as low as 0 and there may be many people who don't eat a lot of fruit, but there will be a few eating many fruits per day!
+    - The distribution is clearly (right or left???) skewed^[Answer: right]. This makes sense - the number of fruits can only be as low as 0 and there may be many people who don't eat a lot of fruit, but there will be a few eating many fruits per day!
     - The skewness of the data implies skewness in the population (assuming this is a good sample). No worries, though, the sampling distribution will still be normal! We just might need a larger sample size in future studies.
 c. The lengths of 56 perch from a Swedish lake.
     - This is clearly a bimodal distribution, indicating that there might be two subgroups in these data.
     - The sampling distribution will still be normal (unimodal), but the mean of this sampling distribution will probably be somewhere in between the two peaks. In other words, it won't be describing either of the apparent subgroups! No amount of beautiful theorems will ever fix errors in sampling. 
     - In this case, we would want to find out why there are two subgroups before trying to say anything about the population distributions. If we actually have two types of fish, it's better to study them separately!
 
-<!--- ![](figs/sampling_dist_examples.png) --->
-
-Source: Baldi \& Moore, 4th Edition.
-
 
 ### Non-Normal Population with Small Sample Size
 
-This is governed by the $t$-distribution, which will be covered later. 
+This is modelled with the $t$-distribution, which will be covered later. 
 
 ## Very Non-Normal: The Binomial Distribution
 
@@ -133,20 +155,20 @@ Here's some mild deja-vu:
 
 You roll a dice. You find the **sample proportion** of heads, denoted $\hat p$.^[i.e. $\hat p$ = number of success divided by number of trials.] Is this proportion *exactly* equal to the **population proportion**? Probably not.
 
-Wait, did I just say *probably* not? How probably? What is the probability that the sample proportion is within one standard deviation of the population proportion? 
+Wait, did I just say *probably* not? How probably? What is the probability that the sample proportion is within one standard deviation of the population proportion? Yeah, we're back on this again.
 
 ### Aside: The normal approximation to Binomial
 
 Most textbooks provide the rule: if *both* np and n(1-p) are larger than 10^[Or sometimes 15. Again, I won't test you on the grey areas.], then the normal distribution is a good approximation to the binomial distribution. I prefer to let you see whether these rules make sense. The app below lets you change n and p, and shows a $B(n, p)$ and an $N(np, \sqrt{np(1-p)})$^[Recall that the mean and sd of a Binomial distribution are np and np(1-p), respectively.] distribution.
 
 ```{r eval = FALSE}
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
-    subdir = "Apps/normBinom")
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
+    subdir = "Tools/normBinom")
 ```
 
-Set n = 20 and find p such that np < 10. Also find p such that n(1-p) < 10. What is the shape of the Binomial distribution in these cases? What do you notice about the normal distribution? Why do both np and n(1-p) need to be greater than 10?^[Answers: Skewed; positive probability below 0 and above n; symmetric.]
+Set n = 20 and find p such that np < 10. Also find p such that n(1-p) < 10. What is the shape of the Binomial distribution in these cases? What do you notice about the normal distribution? Why do both np and n(1-p) need to be greater than 10?^[Answers: Skewed; positive probability below 0 or above n; symmetric.]
 
-### Back to Binomial
+### Binomial? More like Bi*norm*ial!
 
 It turns out that, with large $n$ the sampling distribution of $p$ also follows a normal distribution!^[Again, we use the rule of thumb that $np>10$ and $n(1-p)>10$.] Even though the population distribution isn't even continuous,^[This is important.] the normal distribution approximates it well when there are lots of samples.
 
@@ -159,16 +181,33 @@ To recap: The variance of a Binomial distribution is $np(1-p)$. If we take repea
 
 ### Example
 
-Suppose I'm rolling a dice 5 times. The probability of exactly 2 ones is defined by the Binomial distribution: `dbinom(2, size = 5, prob = 1/6)` = `r round(dbinom(2, size = 5, prob = 1/6), 2)`.^[In other words, 2 successes in 5 trials, where a success is defined as "rolling a one".] The variance in the number of ones in 5 rolls is np(1/p) = 5/36. 
+Suppose I'm rolling a dice 5 times. The probability of exactly 1 one is defined by the Binomial distribution: `dbinom(1, size = 5, prob = 1/6)` = `r round(dbinom(1, size = 5, prob = 1/6), 2)`.^[In other words, 1 successes in 5 trials, where a success is defined as "rolling a one".] The number of ones we expect after rolling many many dice is $np = 5/6 =0.8333$. The variance in the number of ones in 5 rolls is $np(1 - p) = 25/36 = 0.69444$, meaning the standard deviation of the number of ones in 5 rolls is $\sqrt{np(1-p)} = \sqrt{5/36}$.
 
-The average number of ones in 5 rolls is np=5/6. The standard deviation of the number of ones in 5 rolls is $\sqrt{np(1-p)} = \sqrt{5/36}$.  
+Let's use R to roll some dice for us!
 
+```{r}
+# Rolling 1 dice
+# The "r" version of functions givexs random values
+# Not on midterm
+rbinom(n = 1, size = 5, prob = 1/6)
+```
 
+```{r}
+# Rolling 1000 dice
+# Not on midterm
+dice_1000 <- rbinom(n = 1000, size = 5, prob = 1/6)
+mean(dice_1000) # We expect this to be 0.8333
+var(dice_1000) # We expect this to be 0.69444
+```
+
+The results match! For 1000 rolls of the dice, we got close an average of 0.833 ones per sample (note that this is the number of ones, not a probability). The variance in the number of ones per roll for 1000 is close to the 0.69444 that we expected.
+
+This is the sampling distribution for the *number* of 1s out of five rolls. However, we generall deal with the *probability* of a 1 out of 5 rolls.
 
 ### Exampling Distribution
 
 
-The following code is not testable - you are *not* expected to write anything like this. I'm taking repeated samples from a B(50, 0.4) distribution and calculating the proportion of successes for each sample. 
+The following code is not testable - you are *not* expected to write anything like this. I'm taking repeated samples from a B(75, 0.4) distribution and calculating the proportion of successes for each sample. 
 
 ```{r}
 set.seed(4)
@@ -187,13 +226,16 @@ for(i in 1:1000){ # repeat this 1000 times:
 }
 
 hist(binom_proportions, 
-    breaks = 10, # what happens if you make this larger?
+    breaks = 13, # what happens if you make this larger?
     freq = FALSE) # Divide the heights of bars by the number of obs.
 curve(dnorm(x, mean = p, sd = sqrt(p*(1-p)/n)), add = TRUE, col = 3, lwd = 3)
 ```
 
 Copy and paste the code above into a script file and observe what happens when you increase the number of breaks. Why does this happen?^[Hint: What are the possible values of $\hat p$?]
 
+Each sample has a 40% chance to be a success, and this is indeed shown in the sampling distribution. However, due to random sampling, we can get sample proprtions as low as 0.25 and has high as 0.55! Because of randomness, we'll *very* rarely (if ever) get a sample value that perfectly matches the population value.
+
+The lesson is this: Even if the true population proportion is 0.4, a sample value of, say, 0.5 is still consistent with the true proportion. This is analogous to saying that the true population mean is 162.3, but our random sample had a mean of 165. The sample value is different from the population value, but still close enough (**releative to the variance**) to be reasonable. 
 
 ## Conclusion: Statistics is the Study of Variance
 
