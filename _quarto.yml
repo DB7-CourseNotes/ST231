@@ -13,7 +13,7 @@ book:
   subtitle: "Course Notes for ST231, Updated for Winter 2024"
   author: "Dr. Devan Becker"
   date: "6/20/2023"
-  repo-url: https://github.com/DB7-CourseNotes/ST231_S23
+  repo-url: https://github.com/DB7-CourseNotes/ST231
   repo-actions: [issue]
   downloads: [pdf]
   chapters:
