@@ -86,7 +86,7 @@ Notice how this is the second of two options. Again, we get to use the choose fu
 choose(2, 1) * (1/6) * (1-1/6)
 ```
 
-If we roll 18 dice, what's the probability that exactly four of them show a 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)$^4$\*(1 - 1/6)$^{14}$ = 0.000060098. That's pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C5\*(1/6)^4\*(1-1/6)^14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 14 rolls!
+If we roll 18 dice, what's the probability that exactly four of them show a 5? Regardless of the order, we have four dice that are 5 and 14 dice that are not 5. The probability of any one of the outcomes is (1/6)$^4$\*(1 - 1/6)$^{14}$ = 0.000060098. That's pretty unlikely for this exact dice combination of dice rolls! But how many ways are there for this to happen? There are 18C4 = 3060, which is a lot, so there are a lot of opportunities for things with small probabilities. The probability of exactly four 5s out of 18 rolls is 18C4\*(1/6)^4\*(1-1/6)^14 = 0.1840. Even though an individual dice roll is unlikely, there are a lot of dice rolls that meet our criteria of four 5s out of 14 rolls!
 
 ## Binomial Probabilities
 
