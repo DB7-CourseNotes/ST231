@@ -11,14 +11,7 @@
     "href": "index.html#alternate-textbooks-for-extra-instruction",
     "title": "Statistics for Life Sciences",
     "section": "Alternate Textbooks for Extra Instruction",
-    "text": "Alternate Textbooks for Extra Instruction\n\nAlternate free text: These course notes structured to coincide with Baldi and Moore’s The Basic Practice of Statistics in the Life Sciences, 4th edition. However, I am working towards making them self-contained in order to provide these notes as an Open Educational Resources. In doing so, I will also borrow from OpenIntro Statistics for the Biomedical and Life Sciences, with attribution. As such, these resources have the same license (see the end of this page), except for those elements that are still present from Baldi & Moore (mainly exercises, which are being removed as I go)."
-  },
-  {
-    "objectID": "index.html#helpful-alternate-textbooks",
-    "href": "index.html#helpful-alternate-textbooks",
-    "title": "Statistics for Life Sciences",
-    "section": "Helpful Alternate Textbooks",
-    "text": "Helpful Alternate Textbooks\n\nText: Bald & Moore: The practice of statistics in the life sciences.\n\nRecommended, not required.\nCopy available in the library. Old versions work fine.\n\nAlternate (free) text (trialing):\n\nOpenIntro Statistics for Life Sciences\nNote that there are some issues with this text which will be discussed in class.\n\nAlternate paid text: Bald & Moore: The practice of statistics in the life sciences.\n\nNot required.\nCopy available in the library. Old versions work fine."
+    "text": "Alternate Textbooks for Extra Instruction\n\nThese course notes structured to coincide with Baldi and Moore’s The Basic Practice of Statistics in the Life Sciences, 4th edition. However, I have made them self-contained in order to provide these notes as an Open Educational Resources."
   },
   {
     "objectID": "index.html#learning-outcomes",
@@ -32,7 +25,7 @@
     "href": "index.html#accessing-materials",
     "title": "Statistics for Life Sciences",
     "section": "Accessing Materials",
-    "text": "Accessing Materials\n\nLectures posted on MyLS\nRStudio\n\nFree, open-source interface to the R programming language.\n\nSyzygy Jupyter Notebooks\n\nFree, web-based service for WLU students\nNo need to install R on your own computer!\n\n\nYou can use either RStudio or Syzygy for this course, RStudio has many fantastic bells and whistles that help you produce results and reports, whereas Syzygy has an online interface and makes it easy to use without installing R on your own computer. Note that Syzygy uses “notebooks” rather than the RMarkdown notebooks that RStudio prefers. L1abs will use RStudio.\nFor lectures, I will be using VSCode, which I use because it works well with python and R as well as other languages that I need. I will switch to RStudio for many demonstrations just to show you how it works because this is the program that most people who do statistics will use. I will occasionally demonstrate some concepts using Jupyter notebooks because this is another common way that people do statistics and data science. You will not be tested on the features of Rtudio, VSCode or Jupyter notebooks, but mastery of RStudio will be extremely helpful for all future data analysis tasks beyond this course.\nThis work is licensed under a Creative Commons Attribution-ShareAlike 4.0 Unported License."
+    "text": "Accessing Materials\n\nLectures posted on MyLS\nrdrr.io allows running single R commands to caclulate probabilities\nRStudio\n\nFree, open-source interface to the R programming language.\nA free online cloud version is available - no need to install R on your own computer!\n\nSyzygy Jupyter Notebooks\n\nFree, web-based service for WLU students\nNo need to install R on your own computer!\n\n\nYou can use either RStudio or Syzygy for this course, RStudio has many fantastic bells and whistles that help you produce results and reports, whereas Syzygy has an online interface and makes it easy to use without installing R on your own computer. Note that Syzygy uses “notebooks” rather than the RMarkdown notebooks that RStudio prefers. L1abs will use RStudio.\nFor lectures, I will be using VSCode, which I use because it works well with python and R as well as other languages that I need. I will switch to RStudio for many demonstrations just to show you how it works because this is the program that most people who do statistics will use. I will occasionally demonstrate some concepts using Jupyter notebooks because this is another common way that people do statistics and data science. You will not be tested on the features of Rtudio, VSCode or Jupyter notebooks, but mastery of RStudio will be extremely helpful for all future data analysis tasks beyond this course.\nThis work is licensed under a Creative Commons Attribution-ShareAlike 4.0 Unported License."
   },
   {
     "objectID": "L01-Intro_PicturingGraphs.html#introduction",
