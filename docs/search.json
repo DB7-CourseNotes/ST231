@@ -298,7 +298,7 @@
     "href": "L08-Normal_Distributions.html#problems-z-scores",
     "title": "7  The Normal Distributions",
     "section": "7.7 Problems: Z-scores",
-    "text": "7.7 Problems: Z-scores\n\n\n\\(P(z \\le 2.25)\\)\n\\(P(z \\le -2.25)\\)\n\\(P(z \\ge 2.25)\\)\n\\(P(z \\ge -2.25)\\)\n\n\n\n\\(P(-2 \\le z \\le 2)\\)\n\n$P(Z ; and; Z )\n\n\\(P(2 \\le z \\le -2)\\)\n\\(P(0 \\le z \\le 2)\\)\n\\(P(-2 \\le z \\le 0)\\)\n\\(P(Z \\ge 2\\; or\\; Z \\le -2.5)\\)\n\n\n\n\\(P(Z \\le z) = 0.5\\)\n\\(P(Z \\ge z) = 0.4238\\)\n\nWhat is \\(z\\)?"
+    "text": "7.7 Problems: Z-scores\n\n\n\\(P(z \\le 2.25)\\)\n\\(P(z \\le -2.25)\\)\n\\(P(z \\ge 2.25)\\)\n\\(P(z \\ge -2.25)\\)\n\n\n\n\\(P(-2 \\le z \\le 2)\\)\n\n\\(P(Z \\le 2\\; and\\; Z \\ge -2)\\)\n\n\\(P(2 \\le z \\le -2)\\)\n\\(P(0 \\le z \\le 2)\\)\n\\(P(-2 \\le z \\le 0)\\)\n\\(P(Z \\ge 2\\; or\\; Z \\le -2.5)\\)\n\n\n\n\\(P(Z \\le z) = 0.5\\)\n\\(P(Z \\ge z) = 0.4238\\)\n\nWhat is \\(z\\)?"
   },
   {
     "objectID": "L08-Normal_Distributions.html#problems-standardizing",
