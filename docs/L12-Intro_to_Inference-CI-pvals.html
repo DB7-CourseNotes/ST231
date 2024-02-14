@@ -276,6 +276,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#inference-basics" id="toc-inference-basics" class="nav-link active" data-scroll-target="#inference-basics"><span class="header-section-number">9.1</span> Inference Basics</a>
   <ul class="collapse">
   <li><a href="#probability-vs.-inference" id="toc-probability-vs.-inference" class="nav-link" data-scroll-target="#probability-vs.-inference">Probability vs.&nbsp;Inference</a></li>
+  <li><a href="#one-last-silly-example" id="toc-one-last-silly-example" class="nav-link" data-scroll-target="#one-last-silly-example">One Last Silly Example</a></li>
   <li><a href="#flippin-it-confidence-intervals" id="toc-flippin-it-confidence-intervals" class="nav-link" data-scroll-target="#flippin-it-confidence-intervals">Flippin’ it: Confidence intervals</a></li>
   </ul></li>
   <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">9.2</span> Confidence Intervals</a>
@@ -285,10 +286,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#critical-values" id="toc-critical-values" class="nav-link" data-scroll-target="#critical-values">Critical Values</a></li>
   <li><a href="#calculating-critical-values-0.95" id="toc-calculating-critical-values-0.95" class="nav-link" data-scroll-target="#calculating-critical-values-0.95">Calculating critical values: 0.95%</a></li>
   <li><a href="#what-is-z" id="toc-what-is-z" class="nav-link" data-scroll-target="#what-is-z">What is <span class="math inline">\(z^*\)</span>?</a></li>
+  <li><a href="#building-a-confidence-interval" id="toc-building-a-confidence-interval" class="nav-link" data-scroll-target="#building-a-confidence-interval">Building a Confidence Interval</a></li>
   <li><a href="#some-notation-alpha" id="toc-some-notation-alpha" class="nav-link" data-scroll-target="#some-notation-alpha">Some notation: <span class="math inline">\(\alpha\)</span></a></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#interpretations" id="toc-interpretations" class="nav-link" data-scroll-target="#interpretations">Interpretations</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">9.3</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -336,9 +340,18 @@ ul.task-list li input[type="checkbox"] {
 <li>Assuming an SRS, 95% of sample means should be within 2<span class="math inline">\(\sigma/\sqrt{n}\)</span> of the population mean.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
 </ul>
 </section>
+<section id="one-last-silly-example" class="level3">
+<h3 class="anchored" data-anchor-id="one-last-silly-example">One Last Silly Example</h3>
+<p>Suppose the average heart rate of a population is 70bpm, with a standard deviation of 5bpm. What’s the probability of getting a mean heart rate that’s further than 4bpm away from the mean when using samples of size 9?</p>
+<p>Let’s solve this the same way as before, just for some practice. A population standard deviation of 7 and a sample size of 9 means the standard deviation of the sampling distribution - also known as the <strong>standard error</strong>, is <span class="math inline">\(7/\sqrt{9}\)</span> = 2.33.</p>
+<p>We’re looking for values below 66bpm or above 74bpm in the <em>sampling distribution</em>. Since we know the normal distribution is symmetric, we can just find the probability of a heart rate below 66<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> and then double it.</p>
+<p>Solution 1: We can find the z-score as <span class="math inline">\((x-\mu)/\sigma = (70-66)/2.33 \approx -1.71\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, then we can calculate the probability of a Z value less than -3. In R<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, this is <code>pnorm(-1.71)</code> = 0.046. Doubling this, there is a 8.72 percent chance of a heart rate below 66bpm.</p>
+<p>Solution 2: Let’s jump straight to R. We know we’re looking for <span class="math inline">\(2*P(\bar X \le 66)\)</span> where <span class="math inline">\(X\sim N(70, 7/\sqrt{9})\)</span>, and this can be plugged in directly: <code>2 * pnorm(66, mean = 70, sd = 7/sqrt(9))</code> = 0.0865, or an 8.65%<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+</section>
 <section id="flippin-it-confidence-intervals" class="level3">
 <h3 class="anchored" data-anchor-id="flippin-it-confidence-intervals">Flippin’ it: Confidence intervals</h3>
-<p>Instead of asking “What’s the probability that a sample mean is further than 2<span class="math inline">\(\sigma\)</span> away?”, we can ask “If your sample mean is further than 2<span class="math inline">\(\sigma\)</span>, is it reasonable to say that it comes from that particular population?”</p>
+<p>Let’s flip this on it’s head. Suppose you have a sample and calculate the mean and standard deviation. Let’s say you’re looking at the average heart rate of people who have started a treatment for heart issues. We want their heart rates to go to 70bpm but our sample mean is 77bpm with a standard deviation across patients of 5bpm. Is it reasonable to say that this mean came from a population centered at 70bpm? In other words, there’s a difference between 70 and 77, but is the variance high enough that this difference is simply due to random variation?</p>
+<p>Instead of asking “Using known population parameters, what’s the probability that a sample mean is further than 2<span class="math inline">\(\sigma\)</span> away?”, we can ask “If your sample mean is further than 2<span class="math inline">\(\sigma\)</span> from a proposed population mean, is it reasonable to say that our sample came from that particular population?”</p>
 <p>Notice the subtle shift - we’re now talking about something that we can do with <em>just a sample</em>. The Sampling Distributions section always assumed that the population mean was known and told us about potential sample means. We’re now shifting our perspective: given a sample mean, what are the potential population values?</p>
 <p>The basic idea in this lecture is as follows: the sample should be similar to the population but a little bit off. What are the potential values of the population mean that are compatible with what we observed?</p>
 </section>
@@ -349,7 +362,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="background">Background</h3>
 <p>Given data, we want to make an <strong>inference</strong> about the population. Since <span class="math inline">\(P(\bar X = \mu) = 0\)</span>, we can’t just calculate the probability that we have the correct population mean. It’s always going to be 0!</p>
 <p>However, we can make guesses based on ranges! With confidence intervals, we create a range around our estimate that (hopefully) contains the true population mean. It won’t contain the true mean every time, but if we do things right, we can quantify our <strong>confidence</strong> that it does.</p>
-<p>All CI’s that we learn in this class have the form: <span class="math display">\[
+<p>All CI’s that we learn in this class have the form<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>: <span class="math display">\[
 \text{Estimate} \pm \text{Margin of Error}
 \]</span></p>
 </section>
@@ -368,27 +381,48 @@ MoE = (z^*)*(\sigma/\sqrt{n}) = \text{Critical Value}*\text{Standard Error}
 <h3 class="anchored" data-anchor-id="critical-values">Critical Values</h3>
 <p>If <span class="math inline">\(z^* = \infty\)</span>, it means that the confidence interval is infinitely wide. That is, we’re 100% confident that the true population mean is in the interval!</p>
 <p>If <span class="math inline">\(z^* = 0\)</span>, it means the CI is just the <strong>point estimate</strong>. In other words, we’re 0% confident.</p>
-<p>Usually, we choose a confidence level in between 0 and 100. Values of 90%, 95%, or 97.5% are common. This values strike a nice balance between being useful and being less than infinity.</p>
+<p>Usually, we choose a confidence level in between 0 and 100. Values of 90%, 95%, or 97.5% are common. These values strike a nice balance between being useful and being less than infinity.</p>
 </section>
 <section id="calculating-critical-values-0.95" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-critical-values-0.95">Calculating critical values: 0.95%</h3>
 <p>If <span class="math inline">\(X\sim N(\mu, \sigma)\)</span>, then the sampling distribution is <span class="math inline">\(\bar X\sim N(\mu,\sigma/\sqrt{n})\)</span>.</p>
-<p>WTo make a confidence interval, we want a range of values <span class="math inline">\((L, U)\)</span> such that <span class="math inline">\(P(L &lt; \bar X &lt; U) = 0.95\)</span>.</p>
+<p>To make a confidence interval, we want a range of values <span class="math inline">\((L, U)\)</span> such that <span class="math inline">\(P(L &lt; \bar X &lt; U) = 0.95\)</span>.</p>
 <p>The normal distribution is symmetric. If we want 95% in the middle, then we need 0.025 below L and 0.025 above U. This is equivalent to values such that <span class="math inline">\(P(\bar X &lt; L) = 0.025\)</span> and <span class="math inline">\(P(\bar X &lt; U) = 0.975\)</span>.</p>
-<p>We can find <span class="math inline">\(P(Z &lt; -z^*) = 0.025\)</span>, then use the formula <span class="math inline">\(x = z\sigma+\mu\)</span>. However, since we’re using <span class="math inline">\(\bar X\)</span> instead (which has a standard deviation of <span class="math inline">\(\sigma/\sqrt{n}\)</span> instead of <span class="math inline">\(\sigma\)</span>), this is <span class="math inline">\(\bar x = z^*\sigma/\sqrt{n} + \mu\)</span>.</p>
+<p>We can find a <span class="math inline">\(z^*\)</span> value such that <span class="math inline">\(P(Z &lt; -z^*) = 0.025\)</span>, then use the formula <span class="math inline">\(x = z\sigma+\mu\)</span>. However, since we’re using <span class="math inline">\(\bar X\)</span> instead (which has a standard deviation of <span class="math inline">\(\sigma/\sqrt{n}\)</span><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> instead of <span class="math inline">\(\sigma\)</span>), this is <span class="math inline">\(\bar x = z^*\sigma/\sqrt{n} + \mu\)</span>.</p>
 <p>We can do the same with <span class="math inline">\(P(Z &lt; z^*) = 0.975\)</span> and find <span class="math inline">\(\bar x = z^*\sigma/\sqrt n + \mu\)</span>.</p>
 </section>
 <section id="what-is-z" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-z">What is <span class="math inline">\(z^*\)</span>?</h3>
 <p>For <span class="math inline">\(P(\bar X &lt; L) = 0.025\)</span>, <span class="math inline">\(-z^* = -1.96\)</span> (almost -2).</p>
 <p>For <span class="math inline">\(P(\bar X &lt; U) = 0.975\)</span>, <span class="math inline">\(z^* = 1.96\)</span> (almost 2).</p>
-<p>In other words, it’s symmetric! The two ends of the interval are: <span class="math display">\[
-\bar x = \pm z^*\sigma/\sqrt{n} + \mu
+<p>In other words, it’s symmetric!</p>
+</section>
+<section id="building-a-confidence-interval" class="level3">
+<h3 class="anchored" data-anchor-id="building-a-confidence-interval">Building a Confidence Interval</h3>
+<p>A Confidence Interval is an interval of “reasonable” values for the population mean based on what we got in a sample. In other words, it’s a collection of values for <span class="math inline">\(\mu\)</span> that are within 2 standard deviations of the sampling distribution, but using the estimated value of the mean.</p>
+<p>For simplicity, we’re still going to use the population standard deviation to construct this interval. The sample standard deviation will be used later, but it adds a level of complexity that we’re going to ignore for now.</p>
+<p>For the standard normal distribution, 95% of the distribution is in the interval (-1.96, 1.96)<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>. Instead of standardizing (calculating the Z-score), we’re going backwards from a Z score to the distribution of <span class="math inline">\(\bar X\)</span>.</p>
+<p>We use the Z-score formula <span class="math inline">\(Z = \frac{\bar X-\mu}{\sigma/sqrt{n}}\)</span>, which uses <span class="math inline">\(\sigma/\sqrt{n}\)</span> instead of <span class="math inline">\(\sigma\)</span> because <span class="math inline">\(\sigma/\sqrt{n}\)</span> is the standard deviation of the distribution of <span class="math inline">\(\bar X\)</span><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>.</p>
+<p>The lower bound for the interval for <span class="math inline">\(Z\)</span> is -1.96. To un-standardize this, we can rearrange the formula and get <span class="math inline">\(\bar x = z\sigma/\sqrt{n} + \mu\)</span>. However, we’re actually interested in <span class="math inline">\(\mu\)</span>! Our formula for the lower bound is <span class="math inline">\(\mu = \bar x-1.96\sigma/\sqrt{n}\)</span>. By a similar argument, we can find that the upper bound is <span class="math inline">\(\mu = \bar x + 1.96\sigma/\sqrt{n}\)</span>.</p>
+<p>For any value of <span class="math inline">\(z^*\)</span>, the two ends of the interval can be written in one expression: <span class="math display">\[
+\bar x\pm z^*\sigma/\sqrt{n}
 \]</span></p>
-<p>However, we don’t know the population mean. Instead, we have <span class="math inline">\(\bar x\)</span>.</p>
-<p>A CI is defined as: <span class="math display">\[
-\mu \text{ is in the range } \bar x \pm z^*\sigma/\sqrt{n}
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Confidence Interval for the Population Mean
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The confidence interval is defined as:</p>
+<p><span class="math display">\[
+\text{all values of } \mu \text{ that are in the range } \bar x \pm z^*\sigma/\sqrt{n}
 \]</span></p>
+</div>
+</div>
 </section>
 <section id="some-notation-alpha" class="level3">
 <h3 class="anchored" data-anchor-id="some-notation-alpha">Some notation: <span class="math inline">\(\alpha\)</span></h3>
@@ -399,22 +433,77 @@ MoE = (z^*)*(\sigma/\sqrt{n}) = \text{Critical Value}*\text{Standard Error}
 <ul>
 <li>For a 95%CI, <span class="math inline">\(\alpha = 0.05\)</span> and <span class="math inline">\(\alpha/2= 0.025\)</span>.
 <ul>
-<li><span class="math inline">\(z^*\)</span> is found by finding the value such that <span class="math inline">\(P(Z &lt;z^*) = 0.025\)</span>.</li>
-<li><code>qnorm(0.025)</code> = <code>r round(qnorm(0.025), 4)</code>, so <span class="math inline">\(z^* = 1.96\)</span>.</li>
+<li><span class="math inline">\(z^*\)</span> is found by finding the value such that <span class="math inline">\(P(Z &lt; z^*) = 0.025\)</span>.</li>
+<li><code>qnorm(0.025)</code> = -1.96, so <span class="math inline">\(z^* = 1.96\)</span>.</li>
 </ul></li>
 <li>For a 89%CI, <span class="math inline">\(\alpha = 0.11\)</span> and <span class="math inline">\(\alpha/2 = 0.055\)</span>.
 <ul>
-<li><code>qnorm(0.055)</code> = <code>r round(qnorm(0.055), 5)</code>, so <span class="math inline">\(z^* = 1.6\)</span>.</li>
+<li><code>qnorm(0.055)</code> = -1.56, so <span class="math inline">\(z^* = 1.6\)</span>.</li>
 </ul></li>
 </ul>
 </section>
-<section id="interpretation" class="level3">
-<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<p>For the heart rates example, suppose we got a sample mean of <span class="math inline">\(\bar x = 77\)</span> in a sample with 9 participants. Further suppose that we know from a previous study that the standard deviation of heart rates is 7bpm. Construct a 95% CI for the population mean.</p>
+<p>To do this, we must calculate <span class="math inline">\(\bar x \pm z^*\sigma/\sqrt{n}\)</span>. Let’s gather the values we need.</p>
+<ol type="1">
+<li><span class="math inline">\(\bar x\)</span> and <span class="math inline">\(\sigma\)</span> are given.</li>
+<li><span class="math inline">\(\sqrt{n} = \sqrt{9} = 3\)</span>.</li>
+<li>The critical value defines the two values on a standard normal curve such that 95% is in the middle. In other words, we need 2.5% below <span class="math inline">\(-z^*\)</span> and 2.5% above <span class="math inline">\(z^*\)</span>. It’s easiest to calculate probabilities of the form <span class="math inline">\(P(Z\le z^*) = 0.025\)</span>, so we’ll go with that.
+<ul>
+<li>Since we hav <span class="math inline">\(P(Z\le q) = p\)</span> and we’re given <span class="math inline">\(p\)</span>, we use the <code>qnorm()</code> function<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>. <code>qnorm(0.025)</code> = -1.96, so <span class="math inline">\(z^*=1.96\)</span>.</li>
+</ul></li>
+</ol>
+<p>All together, this means our 95%CI is: <span class="math display">\[
+\bar x \pm z^*\sigma/\sqrt{n} = 77 \pm 1.96 * 7/\sqrt{9}
+\]</span> Using R as a fancy calculator, we get a 95% CI of (72.43, 81.57).</p>
+<p>Let’s take a moment to consider what this means.</p>
+<ul>
+<li>If <span class="math inline">\(\bar x\)</span> were the true center of the sampling distribution, then the middle 95% would be between 72.43 and 81.57.
+<ul>
+<li>In terms of our empirical rule, 72.43 to 81.57 is within two standard <strong>errors</strong> of the mean. Again, we’re using standard errors because this is a sampling distribution, i.e.&nbsp;the sd of the means is the population sd divided by the square root of <span class="math inline">\(n\)</span>.</li>
+</ul></li>
+<li>We defined the CI as “all reasonable proposed values of <span class="math inline">\(\mu\)</span>”. In our original question, we were inquring about whether 70bpm is a reasonable population mean. According to this CI, it is not.</li>
+<li>If we had used a different confidence level, we would have had a different CI. Try this example again to get the following results:
+<ul>
+<li>A 90% CI is (73.16201, 80.83799)<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></li>
+<li>An 89%<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> CI is (73.27088, 80.72912)</li>
+<li>An 85% CI is (73.64109, 80.35891)</li>
+<li>An 80% CI is (74.00971, 79.99029)</li>
+<li>A 50% CI is (75.42619, 78.57381)</li>
+</ul></li>
+</ul>
+<p>Notice how the interval gets smaller as I lower the confidence?</p>
+<ul>
+<li>A 0% CI would be a single value. As we’ve seen, there’s a 0% chance of any single value in a normal distribution, and the 0% CI communicates this: We are 0% confident that the sample mean is exactly equal to the population mean.</li>
+<li>A 100% CI would be infinitely wide. That means we would accept any population value as “reasonable”, and we’re 100% confident that the true population mean is in our interval. This is true that we’re 100% confident, but this isn’t useful at all! We must accept risk of failure in order to make progress.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></li>
+</ul>
+</section>
+<section id="interpretations" class="level3">
+<h3 class="anchored" data-anchor-id="interpretations">Interpretations</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interpretation of the CI
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Our particular sample mean is almost surely <strong>not</strong> exactly equal to the population mean. However, 95% of all possible samples will result in a 95% CI that includes the population mean.</p>
+</div>
+</div>
+<p>What does that mean? Let’s start by imagining a CI that was actually centered at the population mean. We know that there’s a 95% chance of a value from the middle 95% of a normal distribution, so 95% of sample means are in the middle 95% of the sampling distribution. This of course leaves a 5% chance that any given sample will result in a mean that is unusually far from the population mean - it’s good to remember this as a possiblity!</p>
+<p>Now let’s imagine taking a random sample and getting a mean. That is, we took a random value from the sampling distribution. Now take that 95% interval that’s centered at the population mean, and shift it so it’s centered at our new sample mean. If our sample mean is within the middle 95%, then that interval still contains <span class="math inline">\(\mu\)</span>. If the sample mean is outside the middle 95% of the sampling distribution, then that interval does not include <span class="math inline">\(\mu\)</span>. This will happen 5% of the time, and there’s nothing we can do about that.</p>
+<p>For the heart rate example, we have a sample that has a mean of 77bpm. If the population were truly normal with a mean of 70 and a sd of 7, then the sampling distribution of <span class="math inline">\(\bar X\)</span> with samples of size 9 is N(70, <span class="math inline">\(7/\sqrt{9}\)</span>) with a middle 95% of the true sampling distribution being defined as (65.42675, 74.57325)<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a>. If the sampling distribution is truly N(70, <span class="math inline">\(7/\sqrt{9}\)</span>), then 95% of the sample means we might get are in the interval (65.42675, 74.57325). To get the CI from data, we take an interval with the same width (74.57325 - 65.42675 = 9.1465) and center it on our sample mean<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a>. Since 95% of the means are withon 2 sd of the population mean, then 95% of the intervals that are centered at <span class="math inline">\(\bar x\)</span> will contain the population mean.</p>
+<p>To put this another way: We find the width of the middle 95% of the sampling distribution. If this width were centered at <span class="math inline">\(\mu\)</span>, then 95% of all sample means will be contained in this interval. Instead, we have a single sample mean, so we center it there. We’re not sure whether this sample mean was actually in the interval, so we say that we’re 95% confident that this interval contains the population mean.</p>
+<p>A couple of important notes:</p>
 <ul>
 <li>There is no randomness in a 95% CI. The mean is fixed, the sd is fixed, the population mean is fixed.</li>
 <li>It is <strong>NOT</strong> true that “95% of the time, the population mean falls in the CI”.
 <ul>
-<li>This is a classic gotcha.</li>
+<li>This is a classic gotcha. Everything here is fixed. 95% of the intervals we construct will contain the population mean, we’re just not sure if this particular one actually does.</li>
 </ul></li>
 <li>By the way the CI is constructed, it will contain the population mean 95% of the time. We have no idea whether any particular one does, but 95% of them do.
 <ul>
@@ -426,7 +515,7 @@ MoE = (z^*)*(\sigma/\sqrt{n}) = \text{Critical Value}*\text{Standard Error}
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
 <p>If <span class="math inline">\(X\sim N(\mu,\sigma)\)</span>, then a <span class="math inline">\((1-alpha)\%\)</span>CI is <span class="math display">\[
 \bar x \pm z^*\sigma/\sqrt{n}
-\]</span> where <span class="math inline">\(P(Z &lt; z^*) = \alpha/2\)</span> can be found with qnorm (or a z-table).</p>
+\]</span> where <span class="math inline">\(P(Z &lt; z^*) = \alpha/2\)</span> can be found with <code>qnorm()</code> (or a z-table).</p>
 <ul>
 <li>A 95% is based on finding the middle 95% of the sampling distribution, but centering it around <span class="math inline">\(\bar x\)</span>.</li>
 <li>95% of the intervals constructed this way will contain the true population mean.
@@ -435,9 +524,45 @@ MoE = (z^*)*(\sigma/\sqrt{n}) = \text{Critical Value}*\text{Standard Error}
 </ul></li>
 <li>A point of sillyness: This assumes that <span class="math inline">\(\sigma\)</span> is <em>known</em>.</li>
 </ul>
-
-
 </section>
+</section>
+<section id="exercises" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.3</span> Exercises</h2>
+<p>Verify the following CIs.</p>
+<ol type="1">
+<li>A 95% CI when <span class="math inline">\(\bar x = 160\)</span>, <span class="math inline">\(X\sim N(162.3, 7.11)\)</span> and <span class="math inline">\(n=25\)</span></li>
+<li>A 99.7% CI when <span class="math inline">\(\bar x = 160\)</span>, <span class="math inline">\(X\sim N(162.3, 7.11)\)</span> and <span class="math inline">\(n=25\)</span></li>
+<li>A 95% CI when <span class="math inline">\(\bar x = 160\)</span>, <span class="math inline">\(X\sim N(162.3, 7.11)\)</span> and <span class="math inline">\(n = 36\)</span></li>
+<li>A 95% CI when <span class="math inline">\(\bar x = 160\)</span>, <span class="math inline">\(\bar X\sim N(162.3, 7.11/\sqrt{49})\)</span></li>
+</ol>
+<p>The answers to the above are:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>A1: (157.21, 162.79)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A2: (155.78, 164.22)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A3: (157.68, 162.32)</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A4(158.01, 161.99)</code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Explain every part of the following R code, which calculates a 95% CI for the heart rate example: <code>77 - qnorm((1 - 0.95)/2) * 7 / sqrt(9)</code>.
+<ul>
+<li>Why 77, not 70?</li>
+<li>Why qnorm, not pnorm?</li>
+<li>Why (1 - 0.95)/2, not just 0.95 or 0.05?</li>
+<li>Why is it divided by the square root of 9?</li>
+<li>Why is this the <strong>upper</strong> limit of the interval?<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a></li>
+</ul></li>
+<li>Explain why, after we’ve collected our sample, the 95% is <strong>not</strong> a probability.</li>
+</ol>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -445,6 +570,21 @@ MoE = (z^*)*(\sigma/\sqrt{n}) = \text{Critical Value}*\text{Standard Error}
 <li id="fn1"><p>These things!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Or silliness.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>This is using the empirical rule - the actual value is closer to 1.96.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>We prefer problems with <span class="math inline">\(\le\)</span> in them.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Note that we’re using the standard error, so we divide by the square root of the sample size.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>You’re also welcome to try this with the Z-table, but R will be used on exams.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>This differs from our previous answer due to rounding - R is always more accurate than rounding yourself and using the Z-table!<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Note that there are many other kinds of confidence intervals beyond this class! We’re just going to stick to these ones.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>the <strong>standard error</strong><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>This is standard notation for intervals: (lower bound, upper bound).<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>To be clear, the formula is the exact same: it’s (value - mean)/standard deviation, we just need the right values for the mean and standard deviation!<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>You could also find the closest thing to 0.025 in the body Z-table, if that’s easier for you - but be careful that you’re looking at the body rather than the margins!<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>I used R with no rounding for these - it’s fine if your values are slightly off. Rounding errors will not be distractors on the exam.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Why do I use 89 in so many examples? The 95% CI is standard, but 95 is also chosen completely arbitrarily. Some authors have argued that 89% is less affected by outliers, and if we’re going with an arbitrary number then it might as well be a prime number!<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>Sorry for the dad advice (aka dadvice).<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>This is a CI centered at the population mean - try it yourself!<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>Verify that the width of the CI above is 9.1465<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>Hint: run <code>qnorm((1-0.95)/2)</code> yourself, then explain why it’s negative.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

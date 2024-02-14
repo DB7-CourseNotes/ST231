@@ -25,9 +25,23 @@ Recall: Sampling Distributions
 - Assuming an SRS, 95\% of sample means should be within 2$\sigma/\sqrt{n}$ of the population mean.^[This is using the empirical rule - the actual value is closer to 1.96.]
 
 
+### One Last Silly Example
+
+Suppose the average heart rate of a population is 70bpm, with a standard deviation of 5bpm. What's the probability of getting a mean heart rate that's further than 4bpm away from the mean when using samples of size 9?
+
+Let's solve this the same way as before, just for some practice. A population standard deviation of 7 and a sample size of 9 means the standard deviation of the sampling distribution - also known as the **standard error**, is $7/\sqrt{9}$ = 2.33.
+
+We're looking for values below 66bpm or above 74bpm in the *sampling distribution*. Since we know the normal distribution is symmetric, we can just find the probability of a heart rate below 66^[We prefer problems with $\le$ in them.] and then double it.
+
+Solution 1: We can find the z-score as $(x-\mu)/\sigma = (70-66)/2.33 \approx -1.71$^[Note that we're using the standard error, so we divide by the square root of the sample size.], then we can calculate the probability of a Z value less than -3. In R^[You're also welcome to try this with the Z-table, but R will be used on exams.], this is `pnorm(-1.71)` = 0.046. Doubling this, there is a 8.72 percent chance of a heart rate below 66bpm.
+
+Solution 2: Let's jump straight to R. We know we're looking for $2*P(\bar X \le 66)$ where $X\sim N(70, 7/\sqrt{9})$, and this can be plugged in directly: `2 * pnorm(66, mean = 70, sd = 7/sqrt(9))` = 0.0865, or an 8.65%^[This differs from our previous answer due to rounding - R is always more accurate than rounding yourself and using the Z-table!]
+
 ### Flippin' it: Confidence intervals
 
-Instead of asking "What's the probability that a sample mean is further than 2$\sigma$ away?", we can ask "If your sample mean is further than 2$\sigma$, is it reasonable to say that it comes from that particular population?" 
+Let's flip this on it's head. Suppose you have a sample and calculate the mean and standard deviation. Let's say you're looking at the average heart rate of people who have started a treatment for heart issues. We want their heart rates to go to 70bpm but our sample mean is 77bpm with a standard deviation across patients of 5bpm. Is it reasonable to say that this mean came from a population centered at 70bpm? In other words, there's a difference between 70 and 77, but is the variance high enough that this difference is simply due to random variation?
+
+Instead of asking "Using known population parameters, what's the probability that a sample mean is further than 2$\sigma$ away?", we can ask "If your sample mean is further than 2$\sigma$ from a proposed population mean, is it reasonable to say that our sample came from that particular population?" 
 
 Notice the subtle shift - we're now talking about something that we can do with *just a sample*. The Sampling Distributions section always assumed that the population mean was known and told us about potential sample means. We're now shifting our perspective: given a sample mean, what are the potential population values? 
 
@@ -42,7 +56,7 @@ Given data, we want to make an **inference** about the population. Since $P(\bar
 
 However, we can make guesses based on ranges! With confidence intervals, we create a range around our estimate that (hopefully) contains the true population mean. It won't contain the true mean every time, but if we do things right, we can quantify our **confidence** that it does.
 
-All CI's that we learn in this class have the form:
+All CI's that we learn in this class have the form^[Note that there are many other kinds of confidence intervals beyond this class! We're just going to stick to these ones.]:
 $$
 \text{Estimate} \pm \text{Margin of Error}
 $$
@@ -66,39 +80,59 @@ If $z^* = \infty$, it means that the confidence interval is infinitely wide. Tha
 
 If $z^* = 0$, it means the CI is just the **point estimate**. In other words, we're 0\% confident.
 
-Usually, we choose a confidence level in between 0 and 100. Values of 90\%, 95\%, or 97.5\% are common. This values strike a nice balance between being useful and being less than infinity.
+Usually, we choose a confidence level in between 0 and 100. Values of 90\%, 95\%, or 97.5\% are common. These values strike a nice balance between being useful and being less than infinity.
 
 
 ### Calculating critical values: 0.95\% 
 
 If $X\sim N(\mu, \sigma)$, then the sampling distribution is $\bar X\sim N(\mu,\sigma/\sqrt{n})$.
 
-WTo make a confidence interval, we want a range of values $(L, U)$ such that $P(L < \bar X < U) = 0.95$.
+To make a confidence interval, we want a range of values $(L, U)$ such that $P(L < \bar X < U) = 0.95$.
 
 The normal distribution is symmetric. If we want 95\% in the middle, then we need 0.025 below L and 0.025 above U. This is equivalent to values such that $P(\bar X < L) = 0.025$ and $P(\bar X < U) = 0.975$.
 
-We can find $P(Z < -z^*) = 0.025$, then use the formula $x = z\sigma+\mu$. However, since we're using $\bar X$ instead (which has a standard deviation of $\sigma/\sqrt{n}$ instead of $\sigma$), this is $\bar x = z^*\sigma/\sqrt{n} + \mu$.
+We can find a $z^*$ value such that $P(Z < -z^*) = 0.025$, then use the formula $x = z\sigma+\mu$. However, since we're using $\bar X$ instead (which has a standard deviation of $\sigma/\sqrt{n}$^[the **standard error**] instead of $\sigma$), this is $\bar x = z^*\sigma/\sqrt{n} + \mu$.
 
 We can do the same with $P(Z < z^*) = 0.975$ and find $\bar x = z^*\sigma/\sqrt n + \mu$.
+
+
+
 
 ### What is $z^*$?
 
 For $P(\bar X < L) = 0.025$, $-z^* = -1.96$ (almost -2).
 
-For $P(\bar X < U) = 0.975$, $z^* = 1.96$ (almost 2).\newline
+For $P(\bar X < U) = 0.975$, $z^* = 1.96$ (almost 2).
 
-In other words, it's symmetric! The two ends of the interval are:
+In other words, it's symmetric! 
+
+### Building a Confidence Interval
+
+A Confidence Interval is an interval of "reasonable" values for the population mean based on what we got in a sample. In other words, it's a collection of values for $\mu$ that are within 2 standard deviations of the sampling distribution, but using the estimated value of the mean.
+
+For simplicity, we're still going to use the population standard deviation to construct this interval. The sample standard deviation will be used later, but it adds a level of complexity that we're going to ignore for now. 
+
+For the standard normal distribution, 95\% of the distribution is in the interval (-1.96, 1.96)^[This is standard notation for intervals: (lower bound, upper bound).]. Instead of standardizing (calculating the Z-score), we're going backwards from a Z score to the distribution of $\bar X$. 
+
+We use the Z-score formula $Z = \frac{\bar X-\mu}{\sigma/sqrt{n}}$, which uses $\sigma/\sqrt{n}$ instead of $\sigma$ because $\sigma/\sqrt{n}$ is the standard deviation of the distribution of $\bar X$^[To be clear, the formula is the exact same: it's (value - mean)/standard deviation, we just need the right values for the mean and standard deviation!].
+
+The lower bound for the interval for $Z$ is -1.96. To un-standardize this, we can rearrange the formula and get $\bar x = z\sigma/\sqrt{n} + \mu$. However, we're actually interested in $\mu$! Our formula for the lower bound is $\mu = \bar x-1.96\sigma/\sqrt{n}$. By a similar argument, we can find that the upper bound is $\mu = \bar x + 1.96\sigma/\sqrt{n}$.
+
+For any value of $z^*$, the two ends of the interval can be written in one expression:
 $$
-\bar x = \pm z^*\sigma/\sqrt{n} + \mu
+\bar x\pm z^*\sigma/\sqrt{n}
 $$
 
+::: {.callout-note}
+### Confidence Interval for the Population Mean
 
-However, we don't know the population mean. Instead, we have $\bar x$.
+The confidence interval is defined as:
 
-A CI is defined as:
 $$
-\mu \text{ is in the range } \bar x \pm z^*\sigma/\sqrt{n}
+\text{all values of } \mu \text{ that are in the range } \bar x \pm z^*\sigma/\sqrt{n}
 $$
+
+:::
 
 
 ### Some notation: $\alpha$
@@ -111,20 +145,70 @@ $$
 where $P(Z < z^*) = \alpha/2$.\newline
 
 - For a 95\%CI, $\alpha = 0.05$ and $\alpha/2= 0.025$. 
-    - $z^*$ is found by finding the value such that $P(Z <z^*) = 0.025$. 
-    - `qnorm(0.025)` = `r round(qnorm(0.025), 4)`, so $z^* = 1.96$. 
+    - $z^*$ is found by finding the value such that $P(Z < z^*) = 0.025$. 
+    - `qnorm(0.025)` = -1.96, so $z^* = 1.96$. 
 - For a 89\%CI, $\alpha = 0.11$ and $\alpha/2 = 0.055$. 
-    - `qnorm(0.055)` = `r round(qnorm(0.055), 5)`, so $z^* = 1.6$.
+    - `qnorm(0.055)` = -1.56, so $z^* = 1.6$.
 
+### Example
 
+For the heart rates example, suppose we got a sample mean of $\bar x = 77$ in a sample with 9 participants. Further suppose that we know from a previous study that the standard deviation of heart rates is 7bpm. Construct a 95\% CI for the population mean.
 
-### Interpretation
+To do this, we must calculate $\bar x \pm z^*\sigma/\sqrt{n}$. Let's gather the values we need.
+
+1. $\bar x$ and $\sigma$ are given. 
+2. $\sqrt{n} = \sqrt{9} = 3$.
+3. The critical value defines the two values on a standard normal curve such that 95\% is in the middle. In other words, we need 2.5\% below $-z^*$ and 2.5\% above $z^*$. It's easiest to calculate probabilities of the form $P(Z\le z^*) = 0.025$, so we'll go with that.
+    - Since we hav $P(Z\le q) = p$ and we're given $p$, we use the `qnorm()` function^[You could also find the closest thing to 0.025 in the body Z-table, if that's easier for you - but be careful that you're looking at the body rather than the margins!]. `qnorm(0.025)` = -1.96, so $z^*=1.96$.
+
+All together, this means our 95\%CI is:
+$$
+\bar x \pm z^*\sigma/\sqrt{n} = 77 \pm 1.96 * 7/\sqrt{9}
+$$
+Using R as a fancy calculator, we get a 95\% CI of (72.43, 81.57).
+
+Let's take a moment to consider what this means.
+
+- If $\bar x$ were the true center of the sampling distribution, then the middle 95\% would be between 72.43 and 81.57.
+    - In terms of our empirical rule, 72.43 to 81.57 is within two standard **errors** of the mean. Again, we're using standard errors because this is a sampling distribution, i.e. the sd of the means is the population sd divided by the square root of $n$.
+- We defined the CI as "all reasonable proposed values of $\mu$". In our original question, we were inquring about whether 70bpm is a reasonable population mean. According to this CI, it is not. 
+- If we had used a different confidence level, we would have had a different CI. Try this example again to get the following results:
+    - A 90\% CI is (73.16201, 80.83799)^[I used R with no rounding for these - it's fine if your values are slightly off. Rounding errors will not be distractors on the exam.]
+    - An 89\%^[Why do I use 89 in so many examples? The 95\% CI is standard, but 95 is also chosen completely arbitrarily. Some authors have argued that 89\% is less affected by outliers, and if we're going with an arbitrary number then it might as well be a prime number!] CI is (73.27088, 80.72912)
+    - An 85\% CI is (73.64109, 80.35891)
+    - An 80\% CI is (74.00971, 79.99029)
+    - A 50\% CI is (75.42619, 78.57381)
+
+Notice how the interval gets smaller as I lower the confidence?
+
+- A 0\% CI would be a single value. As we've seen, there's a 0\% chance of any single value in a normal distribution, and the 0\% CI communicates this: We are 0\% confident that the sample mean is exactly equal to the population mean.
+- A 100\% CI would be infinitely wide. That means we would accept any population value as "reasonable", and we're 100\% confident that the true population mean is in our interval. This is true that we're 100\% confident, but this isn't useful at all! We must accept risk of failure in order to make progress.^[Sorry for the dad advice (aka dadvice).]
+
+### Interpretations
+
+::: {.callout-note}
+### Interpretation of the CI
+
+Our particular sample mean is almost surely **not** exactly equal to the population mean. However, 95\% of all possible samples will result in a 95\% CI that includes the population mean.
+:::
+
+What does that mean? Let's start by imagining a CI that was actually centered at the population mean. We know that there's a 95\% chance of a value from the middle 95\% of a normal distribution, so 95\% of sample means are in the middle 95\% of the sampling distribution. This of course leaves a 5\% chance that any given sample will result in a mean that is unusually far from the population mean - it's good to remember this as a possiblity!
+
+Now let's imagine taking a random sample and getting a mean. That is, we took a random value from the sampling distribution. Now take that 95\% interval that's centered at the population mean, and shift it so it's centered at our new sample mean. If our sample mean is within the middle 95%, then that interval still contains $\mu$. If the sample mean is outside the middle 95\% of the sampling distribution, then that interval does not include $\mu$. This will happen 5\% of the time, and there's nothing we can do about that.
+
+For the heart rate example, we have a sample that has a mean of 77bpm. If the population were truly normal with a mean of 70 and a sd of 7, then the sampling distribution of $\bar X$ with samples of size 9 is N(70, $7/\sqrt{9}$) with a middle 95\% of the true sampling distribution being defined as (65.42675, 74.57325)^[This is a CI centered at the population mean - try it yourself!]. If the sampling distribution is truly N(70, $7/\sqrt{9}$), then 95\% of the sample means we might get are in the interval (65.42675, 74.57325). To get the CI from data, we take an interval with the same width (74.57325 - 65.42675 = 9.1465) and center it on our sample mean^[Verify that the width of the CI above is 9.1465]. Since 95\% of the means are withon 2 sd of the population mean, then 95\% of the intervals that are centered at $\bar x$ will contain the population mean. 
+
+To put this another way: We find the width of the middle 95\% of the sampling distribution. If this width were centered at $\mu$, then 95\% of all sample means will be contained in this interval. Instead, we have a single sample mean, so we center it there. We're not sure whether this sample mean was actually in the interval, so we say that we're 95\% confident that this interval contains the population mean.
+
+A couple of important notes:
 
 - There is no randomness in a 95\% CI. The mean is fixed, the sd is fixed, the population mean is fixed.
 - It is **NOT** true that "95\% of the time, the population mean falls in the CI". 
-    - This is a classic gotcha.
+    - This is a classic gotcha. Everything here is fixed. 95\% of the intervals we construct will contain the population mean, we're just not sure if this particular one actually does.
 - By the way the CI is constructed, it will contain the population mean 95\% of the time. We have no idea whether any particular one does, but 95\% of them do.
     - On any given day, there's a 10\% chance of rain. However, it either rained yesterday or it didn't. There's **not** a 10\% chance that it rained yesterday - it's either 0\% or 100\%.
+
+
 
 ### Summary
 
@@ -132,7 +216,7 @@ If $X\sim N(\mu,\sigma)$, then a $(1-alpha)\%$CI is
 $$
 \bar x \pm z^*\sigma/\sqrt{n}
 $$
-where $P(Z < z^*) = \alpha/2$ can be found with qnorm (or a z-table).
+where $P(Z < z^*) = \alpha/2$ can be found with `qnorm()` (or a z-table).
 
 - A 95\% is based on finding the middle 95\% of the sampling distribution, but centering it around $\bar x$.
 - 95\% of the intervals constructed this way will contain the true population mean.
@@ -140,7 +224,37 @@ where $P(Z < z^*) = \alpha/2$ can be found with qnorm (or a z-table).
 - A point of sillyness: This assumes that $\sigma$ is *known*. 
 
 
+## Exercises
 
+Verify the following CIs.
+
+1. A 95\% CI when $\bar x = 160$, $X\sim N(162.3, 7.11)$ and $n=25$
+2. A 99.7\% CI when $\bar x = 160$, $X\sim N(162.3, 7.11)$ and $n=25$
+3. A 95\% CI when $\bar x = 160$, $X\sim N(162.3, 7.11)$ and $n = 36$
+4. A 95\% CI when $\bar x = 160$, $\bar X\sim N(162.3, 7.11/\sqrt{49})$
+
+
+The answers to the above are:
+```{r}
+#| eval: true
+#| echo: false
+ci <- 160 + c(1, -1) * qnorm((1 - 0.95) / 2) * 7.11 / sqrt(25)
+cat(paste0("A1: (", paste0(round(ci, 2), collapse = ", "), ")"))
+ci <- 160 + c(1, -1) * qnorm((1 - 0.997) / 2) * 7.11 / sqrt(25)
+cat(paste0("A2: (", paste0(round(ci, 2), collapse = ", "), ")"))
+ci <- 160 + c(1, -1) * qnorm((1 - 0.95) / 2) * 7.11 / sqrt(36)
+cat(paste0("A3: (", paste0(round(ci, 2), collapse = ", "), ")"))
+ci <- 160 + c(1, -1) * qnorm((1 - 0.95) / 2) * 7.11 / sqrt(49)
+cat(paste0("A4(", paste0(round(ci, 2), collapse = ", "), ")"))
+```
+
+5. Explain every part of the following R code, which calculates a 95\% CI for the heart rate example: `77 - qnorm((1 - 0.95)/2) * 7 / sqrt(9)`. 
+    - Why 77, not 70?
+    - Why qnorm, not pnorm?
+    - Why (1 - 0.95)/2, not just 0.95 or 0.05?
+    - Why is it divided by the square root of 9?
+    - Why is this the **upper** limit of the interval?^[Hint: run `qnorm((1-0.95)/2)` yourself, then explain why it's negative.]
+6. Explain why, after we've collected our sample, the 95\% is **not** a probability. 
 
 
 
