@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -421,6 +455,7 @@ Confidence Interval for the Population Mean
 <p><span class="math display">\[
 \text{all values of } \mu \text{ that are in the range } \bar x \pm z^*\sigma/\sqrt{n}
 \]</span></p>
+<p>This is the middle 95% of the sampling distribution <em>if it were centered at the sample mean.</em> It gives a range of population means that could reasonably have resulted in our observed sample mean.</p>
 </div>
 </div>
 </section>
@@ -535,6 +570,10 @@ Interpretation of the CI
 <li>A 95% CI when <span class="math inline">\(\bar x = 160\)</span>, <span class="math inline">\(X\sim N(162.3, 7.11)\)</span> and <span class="math inline">\(n = 36\)</span></li>
 <li>A 95% CI when <span class="math inline">\(\bar x = 160\)</span>, <span class="math inline">\(\bar X\sim N(162.3, 7.11/\sqrt{49})\)</span></li>
 </ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
 <p>The answers to the above are:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -550,7 +589,9 @@ Interpretation of the CI
 <pre><code>A4(158.01, 161.99)</code></pre>
 </div>
 </div>
+</details>
 <ol start="5" type="1">
+<li>The CIs in questions 1-4 all the same sample mean and population sd, but different sample sizes and/or confidence levels (<span class="math inline">\(\alpha\)</span>). Comment on the width of the intervals and how this relates to the sample size/<span class="math inline">\(\alpha\)</span> value.</li>
 <li>Explain every part of the following R code, which calculates a 95% CI for the heart rate example: <code>77 - qnorm((1 - 0.95)/2) * 7 / sqrt(9)</code>.
 <ul>
 <li>Why 77, not 70?</li>
@@ -559,8 +600,38 @@ Interpretation of the CI
 <li>Why is it divided by the square root of 9?</li>
 <li>Why is this the <strong>upper</strong> limit of the interval?<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a></li>
 </ul></li>
+<li>Similarly, explain why <code>qnorm((1 - 0.95)/2, mean = 77, sd = 7/sqrt(9))</code> will produce the same lower bound as question 5. Write a similar calculation to get the same upper bound.</li>
 <li>Explain why, after we’ve collected our sample, the 95% is <strong>not</strong> a probability.</li>
+<li>A group of researchers is studying the reaction time of a species of birds to changes in environmental stimuli. They collect a sample of 36 birds and record their reaction times. The sample mean reaction time is found to be 2.5 seconds, and the standard deviation is 0.8 seconds. Calculate a 95% confidence interval for the true mean reaction time of the entire population. Provide the interval and interpret the results in the context of the study.</li>
 </ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.5</span> <span class="sc">+</span> <span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span>)<span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fl">0.8</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">36</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.238671</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.5</span> <span class="sc">-</span> <span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span>)<span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fl">0.8</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">36</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.761329</code></pre>
+</div>
+</div>
+Our 95% CI is (2.23, 2.76). We are 95% confident that the true population reaction time is in this interval.
+</details>
+<ol start="10" type="1">
+<li>The CI we calculated in the question above was 0.265 on either side, which leaves a lot of possible values. Suppose we want the width of the 95% CI to be 0.05 seconds on either side (for a total width of 0.1 seconds). We only care about the width, so it doesn’t matter what the sample mean is. We can’t change the population sd or the confidence level, so all that’s left to work with is the sample size. Find <span class="math inline">\(n\)</span> to make the CI half-width equal to 0.05.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>The half-width of the interval is also called the Margin of Error, or MoE. We want MoE = 0.05, and we know that MoE = <span class="math inline">\(z^*\sigma/\sqrt{n}\)</span>. Setting these equal,</p>
+<p><span class="math inline">\(0.05 = 1.96 * 0.8 / sqrt{n} \implies \sqrt{n} = 1.96 * 0.8 / 0.05 \implies n = 31.36^2 = 983.4\)</span></p>
+<p>Since the sample size can’t be a fraction, we must round this number. If we round <strong>down</strong>, we have a smaller sample size and therefore a wider interval. Instead, we must round up! 983.4 is the <em>minimum</em> sample size, so if we want a round number we always have to go up<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a>. The final answer is that we need 984 birbs to get a 95% CI that has a total width of 0.1.</p>
+Without rounding: <code>(-qnorm(0.025) * 0.8 / 0.05)^2 = 983.4135</code>, and so our answer doesn’t change!
+</details>
 
 
 </section>
@@ -585,6 +656,7 @@ Interpretation of the CI
 <li id="fn16"><p>This is a CI centered at the population mean - try it yourself!<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn17"><p>Verify that the width of the CI above is 9.1465<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn18"><p>Hint: run <code>qnorm((1-0.95)/2)</code> yourself, then explain why it’s negative.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>Even if we got 983.0001, we would round up!<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

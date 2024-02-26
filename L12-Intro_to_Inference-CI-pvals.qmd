@@ -132,6 +132,8 @@ $$
 \text{all values of } \mu \text{ that are in the range } \bar x \pm z^*\sigma/\sqrt{n}
 $$
 
+This is the middle 95% of the sampling distribution *if it were centered at the sample mean.* It gives a range of population means that could reasonably have resulted in our observed sample mean.
+
 :::
 
 
@@ -233,6 +235,8 @@ Verify the following CIs.
 3. A 95\% CI when $\bar x = 160$, $X\sim N(162.3, 7.11)$ and $n = 36$
 4. A 95\% CI when $\bar x = 160$, $\bar X\sim N(162.3, 7.11/\sqrt{49})$
 
+<details>
+    <summary>**Solution**</summary>
 
 The answers to the above are:
 ```{r}
@@ -247,11 +251,40 @@ cat(paste0("A3: (", paste0(round(ci, 2), collapse = ", "), ")"))
 ci <- 160 + c(1, -1) * qnorm((1 - 0.95) / 2) * 7.11 / sqrt(49)
 cat(paste0("A4(", paste0(round(ci, 2), collapse = ", "), ")"))
 ```
+</details>
 
-5. Explain every part of the following R code, which calculates a 95\% CI for the heart rate example: `77 - qnorm((1 - 0.95)/2) * 7 / sqrt(9)`. 
+5. The CIs in questions 1-4 all the same sample mean and population sd, but different sample sizes and/or confidence levels ($\alpha$). Comment on the width of the intervals and how this relates to the sample size/$\alpha$ value.
+6. Explain every part of the following R code, which calculates a 95\% CI for the heart rate example: `77 - qnorm((1 - 0.95)/2) * 7 / sqrt(9)`. 
     - Why 77, not 70?
     - Why qnorm, not pnorm?
     - Why (1 - 0.95)/2, not just 0.95 or 0.05?
     - Why is it divided by the square root of 9?
     - Why is this the **upper** limit of the interval?^[Hint: run `qnorm((1-0.95)/2)` yourself, then explain why it's negative.]
-6. Explain why, after we've collected our sample, the 95\% is **not** a probability. 
+7. Similarly, explain why `qnorm((1 - 0.95)/2, mean = 77, sd = 7/sqrt(9))` will produce the same lower bound as question 5. Write a similar calculation to get the same upper bound. 
+8. Explain why, after we've collected our sample, the 95\% is **not** a probability. 
+9. A group of researchers is studying the reaction time of a species of birds to changes in environmental stimuli. They collect a sample of 36 birds and record their reaction times. The sample mean reaction time is found to be 2.5 seconds, and the standard deviation is 0.8 seconds. Calculate a 95% confidence interval for the true mean reaction time of the entire population. Provide the interval and interpret the results in the context of the study.
+
+<details>
+    <summary>**Solution**</summary>
+
+```{r}
+2.5 + qnorm((1 - 0.95)/2) * 0.8 / sqrt(36)
+2.5 - qnorm((1 - 0.95)/2) * 0.8 / sqrt(36)
+```
+
+Our 95\% CI is (2.23, 2.76). We are 95% confident that the true population reaction time is in this interval. 
+</details>
+
+10. The CI we calculated in the question above was 0.265 on either side, which leaves a lot of possible values. Suppose we want the width of the 95% CI to be 0.05 seconds on either side (for a total width of 0.1 seconds). We only care about the width, so it doesn't matter what the sample mean is. We can't change the population sd or the confidence level, so all that's left to work with is the sample size. Find $n$ to make the CI half-width equal to 0.05.
+
+<details>
+    <summary>**Solution**</summary>
+The half-width of the interval is also called the Margin of Error, or MoE. We want MoE = 0.05, and we know that MoE = $z^*\sigma/\sqrt{n}$. Setting these equal,
+
+$0.05 = 1.96 * 0.8 / sqrt{n} \implies \sqrt{n} = 1.96 * 0.8 / 0.05 \implies n = 31.36^2 = 983.4$
+
+Since the sample size can't be a fraction, we must round this number. If we round **down**, we have a smaller sample size and therefore a wider interval. Instead, we must round up! 983.4 is the *minimum* sample size, so if we want a round number we always have to go up^[Even if we got 983.0001, we would round up!]. The final answer is that we need 984 birbs to get a 95% CI that has a total width of 0.1.
+
+Without rounding: `(-qnorm(0.025) * 0.8 / 0.05)^2 = 983.4135`, and so our answer doesn't change!
+</details>
+

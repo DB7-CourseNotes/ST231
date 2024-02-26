@@ -261,7 +261,7 @@ For these questions, suppose we know that Candian womens' heights are normal wit
     b. $n = 16$
     c. $n = 25$
 3. What do you notice about the probabilities in question 2?
-3. Given heights are Normal with a mean of 163 and a standard deviation of 7, what sample size do we need to ensure that 95% of potential sample means are within 2cm of the population mean (that is, 2cm on either side of the mean)?
+4. Given heights are Normal with a mean of 163 and a standard deviation of 7, what sample size do we need to ensure that 95% of potential sample means are within 2cm of the population mean (that is, 2cm on either side of the mean)?
 
 <details>
     <summary>**Answer to Questions 1 and 2**</summary>
@@ -295,11 +295,11 @@ We know that the middle 95% of any normal distribution is within 2 standard devi
 
 We know that the sample mean will have a normal distribution with a mean of $\mu$ and a standard deviation of $\sigma/\sqrt{n}$, so we're using $\sigma/\sqrt{n}$ as the standard deviation. Because we don't have the sample size, we don't have a value to put into `qnorm()` and we'll need to do some math ourselves.
 
-The two paragraphs above tell us that 2cm is equal to 1.96 standard deviations, and the standard deviation of the sampling distribution (the **standard error**) is $7/\sqrt{n}$. Setting these equal, we get $1.96 = 7/\sqrt{n}$ which means $n = (7/1.96)^2 = 12.7551$. 
+The two paragraphs above tell us that 2cm is equal to 1.96 standard deviations, and the standard deviation of the sampling distribution (the **standard error**) is $7/\sqrt{n}$. Setting these equal, we get $2 = 1.96 *7/\sqrt{n}$ which means $n = (1.96 * 7/2)^2 = 47.0596$. 
 
-We're not done yet! We can't sample 12.7551 people! We want to be *within* two standard deviations of the mean, so we want to make sure that when we round, we don't go above 2cm. Since the variance of the sampling ditribution decreases as $n$ increase, the confidence interval is smaller when $n$ is larger. Because of this, we always want to round **up**. Even if our answer came to 12.0001, we would round up to 13. Since our answer of 12.7551 rounds to 13 anyway, we can say that $n=13$ is our final answer.
+We're not done yet! We can't sample 47.0596 people! We want to be *within* two standard deviations of the mean, so we want to make sure that when we round, we don't go above 2cm. Since the variance of the sampling ditribution decreases as $n$ increase, the confidence interval is smaller when $n$ is larger. Because of this, we always want to round **up**. Even if our answer came to 12.0001, we would round up to 48 to get our final answer.
 
-A short version of this solution: Using R or the normal table, the middle 95% is within 1.96 standard deviations of the mean. Since we're dealing with a sampling distribution, the standard deviation is $7/\sqrt{n}$. Setting these two numbers equal, we get $1.96 = 7/\sqrt{n}$ and we solve for $n$. We round up, because we want our interval to be less than 2cm on either side, and a larger sample has lower variance.
+A short version of this solution: Using R or the normal table, the middle 95% is within 1.96 standard deviations of the mean. Since we're dealing with a sampling distribution, the standard deviation is $7/\sqrt{n}$. Setting these two numbers equal, we get $2 = 1.967/\sqrt{n}$ and we solve for $n$. We round up, because we want our interval to be less than 2cm on either side and because a larger sample has lower variance.
 
 </details>
 

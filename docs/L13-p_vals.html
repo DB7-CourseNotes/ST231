@@ -324,6 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ci-vs.-p-value" id="toc-ci-vs.-p-value" class="nav-link" data-scroll-target="#ci-vs.-p-value">CI vs.&nbsp;p-value</a></li>
   </ul></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">10.4</span> Self-Study Questions</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">10.5</span> Exercises</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -366,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>We start with a “null” hypothesis, <span class="math inline">\(H_0\)</span>, which states that nothing “interesting” is going on.
 <ul>
-<li>The mean is exactly what we guessed, <span class="math inline">\(H_0: \mu = \mu_0\)</span></li>
+<li>The mean is exactly what we guessed, <span class="math inline">\(H_0: \mu = \mu_0\)</span><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li>The effect of the drug is the same in both groups.</li>
 <li>Something something “same as” something something.</li>
 </ul></li>
@@ -382,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>We make a decision - reject or don’t reject <span class="math inline">\(H_0\)</span> - based on our p-value.</li>
 </ol>
-<p>To summarize: We make a “guess” about the population. We collect data, and we determine whether or not our data is compatible with our guess. If it isn’t, then it’s the <em>guess</em> that must be wrong; not the data<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>To summarize: We make a “guess” about the population. We collect data, and we determine whether or not our data is compatible with our guess. If it isn’t, then it’s the <em>guess</em> that must be wrong; not the data<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>The assumptions are the same as the assumptions for CIs:</p>
 <ul>
 <li>Normal population (or large sample size)</li>
@@ -396,21 +397,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="p-value-by-example-trailmaking-test-for-fatigue" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="p-value-by-example-trailmaking-test-for-fatigue"><span class="header-section-number">10.2</span> p-value by Example: Trailmaking Test for Fatigue</h2>
-<p>The following image shows the output of a “trailmaking” app. Subjects are shown the numbers on a touch screen and are tasked with drawing a line<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> starting at 1, then 2, and so on without touching the other numbers. The time is recorded.</p>
-<!--- ![](figs/Trails.jpg)--->
+<p>The following image shows the output of a “trailmaking” app. Subjects are shown the numbers on a touch screen and are tasked with drawing a line<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> starting at 1, then 2, and so on without touching the other numbers. The time is recorded.</p>
+<p><img src="figs/Trails.jpg" class="img-fluid"></p>
 <p>In my research, this app was given to aerial forest fire fighters. Flying a plane is a very challenging task to begin with, made much more challenging when there’s an active fire! The hypothesis is that pilots are measurably fatigued after a fire. However, this hypothesis must be converted into a mathematical construct that we can do something with!</p>
-<p>Pilots perform the test many times before a long flight and once after. In samples from the aerial firefighters who were non-fatigued, it was found that completion time follows a normal distribution with mean 15 seconds and standard deviation 1.2 seconds<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. We hypothesize that it took longer than that after the flight. <span class="math display">\[\begin{align*}
+<p>Pilots perform the test many times before a long flight and once after. In samples from the aerial firefighters who were non-fatigued, it was found that completion time follows a normal distribution with mean 15 seconds and standard deviation 1.2 seconds<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. We hypothesize that it took longer than that after the flight. <span class="math display">\[\begin{align*}
 H_0: \mu &amp;= 15\\
 H_A: \mu &amp;&gt; 15
-\end{align*}\]</span> The hypotheses above are created entirely based on the research question. We can (must) write the hypothesis before collecting data. <span class="math inline">\(\bar x\)</span> does <em>NOT</em> appear in hypotheses. Instead, the “15”s and the “&gt;” come from the hypotheses that fatigued pilots take <em>longer</em> than the population.</p>
+\end{align*}\]</span> The hypotheses above are created entirely based on the research question. We can (must) write the hypothesis before collecting data. <span class="math inline">\(\bar x\)</span> does <em>NOT</em> appear in hypotheses. Instead, “15” (<span class="math inline">\(\mu_0\)</span>) and the “&gt;” come from the hypotheses that fatigued pilots take <em>longer</em> than the population.</p>
 <section id="results" class="level3">
 <h3 class="anchored" data-anchor-id="results">Results</h3>
 <p>We caclulated a mean of 15.9 seconds from 16 pilots. Is this slower than 15 seconds? Obviously, these numbers are different, but is this a big difference? To tell whether two numbers are “far apart”, we need some sense of scale. In statistics, scale is given to us in the form of <strong>variance</strong>.</p>
-<p>The population standard deviation is given as 1.2 seconds. How many standard deviations away from the hypothesized value is our <em>sample</em> mean? Well, since it’s a <strong>SAMPLE MEAN</strong>, the standard deviation is <span class="math inline">\(1.2/\sqrt{16} = 0.3\)</span> (again, this is also called the <strong>standard error</strong>). Our sample mean of 15.9 is 3 standard deviations<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> <em>above</em> the hypothesized means.</p>
-<p>The <strong>p-value</strong> for this is the probability of observing a value at least as far from the hypothesized mean, assuming that the hypothesized mean is the true mean<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
-<p>Our p-value is P(Z &gt; 3) = 1 - P(Z &lt; 3) = 0.0013<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Is our sample mean “unlikely” assuming that the null hypothesis is true?</p>
-<p>The definition of “unlikely” will generally need to be given in the question. Usually, a <strong>significance level</strong> of <span class="math inline">\(\alpha = 0.05\)</span><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> is used<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
-<p>Since our p-value is 0.0013 &lt; 0.05, our observed mean is “too unlikely.” So our hypothesis must be wrong!<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> We conclude that the average time to complete the trail has increased, i.e.&nbsp;<span class="math inline">\(\mu &gt; 15\)</span><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>. In this case, we say our result is <strong>statistically significant</strong>.</p>
+<p>The population standard deviation is given as 1.2 seconds. How many standard deviations away from the hypothesized value is our <em>sample</em> mean? Well, since it’s a <strong>SAMPLE MEAN</strong>, the standard deviation is <span class="math inline">\(1.2/\sqrt{16} = 0.3\)</span> (again, this is also called the <strong>standard error</strong>). Our sample mean of 15.9 is 3 standard deviations<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> <em>above</em> the hypothesized means.</p>
+<p>The <strong>p-value</strong> for this is the probability of observing a value at least as far from the hypothesized mean, assuming that the hypothesized mean is the true mean<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
+<p>Using <code>pnorm()</code>, our p-value is P(Z &gt; 3) = 1 - P(Z &lt; 3) = 0.0013<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Is our sample mean “unlikely” assuming that the null hypothesis is true?</p>
+<p>The definition of “unlikely” will generally need to be given in the question. Usually, a <strong>significance level</strong> of <span class="math inline">\(\alpha = 0.05\)</span><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> is used<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
+<p>Since our p-value is 0.0013 &lt; 0.05, our observed mean is “too unlikely.” So our hypothesis must be wrong!<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> We conclude that the average time to complete the trail has increased, i.e.&nbsp;<span class="math inline">\(\mu &gt; 15\)</span><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>. In this case, we say our result is <strong>statistically significant</strong>.</p>
 </section>
 <section id="summary" class="level3">
 <h3 class="anchored" data-anchor-id="summary">Summary</h3>
@@ -419,9 +420,9 @@ H_A: \mu &amp;&gt; 15
 H_0: &amp;\mu = 15\\
 H_A: &amp;\mu &gt; 15
 \end{align*}\]</span></p>
-<p>We caclulated our <strong>test statistic</strong><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>:</p>
+<p>We caclulated our <strong>test statistic</strong><a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, which is the z-score of our observed mean <strong>assuming that the null hypothesis is true</strong>:</p>
 <p><span class="math display">\[ z_{obs} = \frac{\bar x - \mu_0}{\sigma/\sqrt{n}}  = \frac{15.9 - 15}{1.2/\sqrt{16}} = 0.9/0.3 = 3\]</span></p>
-<p>We looked up P(Z &gt; <span class="math inline">\(z_{obs}\)</span>)<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> on our z-table, which gave us the p-value of 0.0013.</p>
+<p>We found up P(Z &gt; <span class="math inline">\(z_{obs}\)</span>)<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> using <code>1 - pnorm(3)</code> to get our p-value of 0.0013.</p>
 <p>Since this is a small probability (our p-value is less than our significance value of <span class="math inline">\(\alpha = 0.05\)</span>), we reject the null hypothesis in favour of the alternative.</p>
 <p>This is the general approach to hypothesis testing: hypotheisize, calculate, find a normal value, then conclude.</p>
 </section>
@@ -433,21 +434,21 @@ H_A: &amp;\mu &gt; 15
 H_0: &amp;\mu = 15\\
 H_A: &amp;\mu \ne 15
 \end{align*}\]</span></p>
-<p>then you’re going to need to change things. In particular, you need to <em>double</em> the p-value for a one-sided test<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>. This is where the phrase “at least as extreme” comes in - we would reject anything this far away on either side.</p>
-<p>The following shiny app demonstrates this. In particular, note what happens when you have a two sided alternative hypothesis and you double the wrong tails<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>.</p>
+<p>then you’re going to need to change things. In particular, you need to <em>double</em> the p-value for a one-sided test<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>. This is where the phrase “at least as extreme” comes in - we would reject anything this far away on either side.</p>
+<p>The following shiny app demonstrates this. In particular, note what happens when you have a two sided alternative hypothesis and you double the wrong tails<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7_OER/TeachingApps"</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pvalues"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="two-sided-example" class="level3">
 <h3 class="anchored" data-anchor-id="two-sided-example">Two Sided Example</h3>
-<p>Given <span class="math inline">\(\sigma = 2\)</span>, <span class="math inline">\(n = 25\)</span>, and <span class="math inline">\(\bar x = 6.6\)</span>, test the hypothesis that the true population mean is not equal to 6 at the 10% level<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a>.</p>
+<p>Given <span class="math inline">\(\sigma = 2\)</span>, <span class="math inline">\(n = 25\)</span>, and <span class="math inline">\(\bar x = 6.6\)</span>, test the hypothesis that the true population mean is not equal to 6 at the 10% level<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a>.</p>
 <p><span class="math display">\[\begin{align*}
 H_0: \mu = 6\\
 H_A: \mu \ne 6
 \end{align*}\]</span></p>
 <p>test stat: <span class="math inline">\(z_{obs} = \frac{6.6 - 6}{2/\sqrt{5}} = \frac{0.6}{0.4} = 1.5\)</span></p>
-<p>Find on z-table (or using R): P(Z &gt; 1.5) = P(Z &lt; -1.5) = <code>pnorm(-1.5)</code> = 0.0668</p>
+<p>Find using R: P(Z &gt; 1.5) = P(Z &lt; -1.5) = <code>pnorm(-1.5)</code> = 0.0668</p>
 <p>p-value = 2*0.0668 = 0.1336</p>
 <p>Conclude: p &gt; <span class="math inline">\(\alpha\)</span>, therefore do not reject. The p-value is not significant.</p>
 </section>
@@ -455,7 +456,7 @@ H_A: \mu \ne 6
 <h3 class="anchored" data-anchor-id="critical-values">Critical Values</h3>
 <p>For a two-sided test at the 5% level, what is the largest test statistic that would not be rejected?</p>
 <p>Since it’s a two-sided test at 5%, we would reject anything in the 2.5% area in either tail. Using the Z-table (or qnorm(0.05/2)), this would come from a test-statistic of 1.96. So if our test stat is 1.97, it would have a p-value below 0.05, and if it’s 1.95 it would have a p-value above 0.05.</p>
-<p>In hypothesis testing, the critical value denotes the point at which z statistics<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a> are significant. If your z statistic is larger than 1.96, it will be statistically significant at the 5% level (for a two-sided test). This way, we can test significance without even calculating the p-value. Our conclusion will simply be that <span class="math inline">\(p&lt;0.05\)</span>, but this is often sufficient - it’s not important if the p-value is 0.044 versus 0.045.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></p>
+<p>In hypothesis testing, the critical value denotes the point at which z statistics<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a> are significant. If your z statistic is larger than 1.96, it will be statistically significant at the 5% level (for a two-sided test). This way, we can test significance without even calculating the p-value. Our conclusion will simply be that <span class="math inline">\(p&lt;0.05\)</span>, but this is often sufficient - it’s not important if the p-value is 0.044 versus 0.045.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a></p>
 </section>
 <section id="hard-exam-style-question" class="level3">
 <h3 class="anchored" data-anchor-id="hard-exam-style-question">Hard Exam-Style Question</h3>
@@ -479,7 +480,7 @@ H_A: \mu \ne 6
 </ul></li>
 </ul>
 <p>Conclusion: The standard deviation is between 23.3 and 30.6.</p>
-<p>In this example, notice that a <em>smaller</em> standard deviation means a <em>smaller</em> significance level!</p>
+<p>In this example, notice how a <em>smaller</em> standard deviation means a <em>smaller</em> significance level!</p>
 </section>
 <section id="ci-vs.-p-value" class="level3">
 <h3 class="anchored" data-anchor-id="ci-vs.-p-value">CI vs.&nbsp;p-value</h3>
@@ -490,7 +491,7 @@ H_A: \mu \ne 6
 </ul>
 <p>As homework, rearrange the test statistic equation for <span class="math inline">\(\mu_0\)</span>.</p>
 <p>A new definition of confidence intervals: A <span class="math inline">\((1-\alpha)\)</span>% CI contains every <span class="math inline">\(\mu_0\)</span> that would <strong>NOT</strong> be rejected by a test at the <span class="math inline">\(\alpha\)</span>% significance level.</p>
-<p>This is why we don’t say that we “accept” the null hypothesis. There are an infinite number of hypothesis values in the CI - we can’t “accept” them all!<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a></p>
+<p>This is why we don’t say that we “accept” the null hypothesis. There are an infinite number of hypothesis values in the CI - we can’t “accept” them all! Also, our tests only work in reference to the alternate hypothesis. We can only reject/not reject in reference to <span class="math inline">\(H_A\)</span>.</p>
 </section>
 </section>
 <section id="self-study-questions" class="level2" data-number="10.4">
@@ -503,30 +504,63 @@ H_A: \mu \ne 6
 <li>Suppose we are testing <span class="math inline">\(H_A:\mu &gt; 10\)</span> and we get a sample statistic <span class="math inline">\(\bar x = 10\)</span>. What would the p-value for this be?</li>
 <li>For a one-sided hypothesis test, what does it mean for our p-value to be larger than 0.5? Does this mean we did something wrong?<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a></li>
 </ol>
+</section>
+<section id="exercises" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">10.5</span> Exercises</h2>
+<ol type="1">
+<li>Suppose we know that <span class="math inline">\(\sigma = 10\)</span> and that the population is normally distributed, but we don’t know the mean. We found a sample mean of 150 from a sample of size 25. Test the hypothesis that <span class="math inline">\(\mu_0 &lt; 155\)</span> at the 5% level.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">150</span>, <span class="at">mean =</span> <span class="dv">155</span>, <span class="at">sd =</span> <span class="dv">10</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">25</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.006209665</code></pre>
+</div>
+</div>
+Since <span class="math inline">\(p&lt;\alpha\)</span>, we reject the null hypothesis and conclude that the population mean is less than 155.
+</details>
+<ol start="2" type="1">
+<li>A pharmaceutical company is testing a new drug designed to lower cholesterol levels. In a clinical trial with 80 participants, the average reduction in cholesterol is found to be 15 mg/dL and the population standard deviation is known to be 5 mg/dL. The company claims that the drug will reduce cholesterol by at least 12 mg/dL on average. Calculate the p-value for this claim based on the sample data, and determine whether there is sufficient evidence to support the company’s claim at a significance level of 0.05. Interpret the results in the context of the study.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">15</span>, <span class="at">mean =</span> <span class="dv">12</span>, <span class="at">sd =</span> <span class="dv">5</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">80</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.012556e-08</code></pre>
+</div>
+</div>
+We reject the null hypothesis that the reduction in cholesterol is exactly 12 mg/dL in favour of the alternative that the reduction in cholesterol is less than 12 mg/dL. In other words, 15 is a statistically significantly larger reduction than 12.
+</details>
 
 
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Unless it’s a bad sample/study design<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>“trail”<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>These numbers actually come from the data of pre-flight trails, but we’re going to treat them as the population for now.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>15.9 is 3 steps of 0.3 above 15; (15.9 - 15)/0.3 = 3<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>This is the definition. The description must always include the part about “assuming that the hypothesized value is the true value”<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>We can only use a standard normal distrubution because the mean of the sampling distribution is assumed to be <span class="math inline">\(\mu_0\)</span>, our hypothesized mean. If this weren’t the case, then we would not get a standard normal distribution and thus we wouldn’t be able to use this method. This is why the “assuming the null is true” bit is important.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>The symbol <span class="math inline">\(\alpha\)</span> refers to the significance level, but also comes up in a <span class="math inline">\((1-\alpha)\)</span>%CI. Perhaps this is foreshadowing.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Please read the APA’s statement on p-values, found on OWL. At least one short answer question will be based on this.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Again: if our guess is incompatible with our data, then it’s our guess that’s wrong, not the data.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>Notice how this conclusion brings back the context of the question.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p>Labelled <span class="math inline">\(z_{obs}\)</span>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn12"><p>We used <span class="math inline">\(&gt;\)</span> rather than <span class="math inline">\(&lt;\)</span> because <span class="math inline">\(&gt;\)</span> appears in our alternate hypothesis.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn13"><p>If you do this and find a p-value that is larger than 1, you used the wrong tails!<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn14"><p>In the app, it’s denoted “Use absolute value”. This is because you can find <span class="math inline">\(P(Z &gt; |z_{obs}|)\)</span> so that you always get the upper tail<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn15"><p>That is, at the <span class="math inline">\(\alpha=0.1\)</span> significance level.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn16"><p><span class="math inline">\(z_{obs}\)</span><a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn17"><p>If we had taken a different sample, we would have gotten a different p-value - p-values have a sampling distribution as well!!!<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn18"><p>Also, our tests only work in reference to the alternate hypothesis. We can only reject/not reject in reference to <span class="math inline">\(H_A\)</span>.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Notation note: <span class="math inline">\(\mu_0\)</span> will always refer to the proposed population value.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Unless it’s a bad sample/study design<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>“trail”<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>These numbers actually come from the data of pre-flight trails, but we’re going to treat them as the population for now.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>15.9 is 3 steps of 0.3 above 15; (15.9 - 15)/0.3 = 3<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>This is the definition. The description must always include the part about “assuming that the hypothesized value is the true value”<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>We can only use a standard normal distrubution because the mean of the sampling distribution is assumed to be <span class="math inline">\(\mu_0\)</span>, our hypothesized mean. If this weren’t the case, then we would not get a standard normal distribution and thus we wouldn’t be able to use this method. This is why the “assuming the null is true” bit is important.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>The symbol <span class="math inline">\(\alpha\)</span> refers to the significance level, but also comes up in a <span class="math inline">\((1-\alpha)\)</span>%CI. Perhaps this is foreshadowing.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Please read the APA’s statement on p-values, found on OWL. At least one short answer question will be based on this.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Again: if our guess is incompatible with our data, then it’s our guess that’s wrong, not the data.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Notice how this conclusion brings back the context of the question.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Labelled <span class="math inline">\(z_{obs}\)</span>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>We used <span class="math inline">\(&gt;\)</span> rather than <span class="math inline">\(&lt;\)</span> because <span class="math inline">\(&gt;\)</span> appears in our alternate hypothesis.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>If you do this and find a p-value that is larger than 1, you used the wrong tails!<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>In the app, it’s denoted “Use absolute value”. This is because you can find <span class="math inline">\(P(Z &gt; |z_{obs}|)\)</span> so that you always get the upper tail<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>That is, at the <span class="math inline">\(\alpha=0.1\)</span> significance level.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p><span class="math inline">\(z_{obs}\)</span><a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>If we had taken a different sample, we would have gotten a different p-value - p-values have a sampling distribution as well!!!<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn19"><p>This implies that p-values have sampling distributions!<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn20"><p>While you’re at it, what happens to the CI?<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn21"><p>“p-value” is literally short for “Probability Value”.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

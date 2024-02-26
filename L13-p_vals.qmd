@@ -13,7 +13,7 @@ execute:
 ### Philosophy
 
 1. We start with a "null" hypothesis, $H_0$, which states that nothing "interesting" is going on.
-    - The mean is exactly what we guessed, $H_0: \mu = \mu_0$
+    - The mean is exactly what we guessed, $H_0: \mu = \mu_0$^[Notation note: $\mu_0$ will always refer to the proposed population value.]
     - The effect of the drug is the same in both groups.
     - Something something "same as" something something.
 2. We have an alternative hypothesis - things are different.
@@ -38,17 +38,16 @@ The assumptions are the same as the assumptions for CIs:
 
 The following image shows the output of a "trailmaking" app. Subjects are shown the numbers on a touch screen and are tasked with drawing a line^["trail"] starting at 1, then 2, and so on without touching the other numbers. The time is recorded.
 
-<!--- ![](figs/Trails.jpg)--->
+![](figs/Trails.jpg)
 
 In my research, this app was given to aerial forest fire fighters. Flying a plane is a very challenging task to begin with, made much more challenging when there's an active fire! The hypothesis is that pilots are measurably fatigued after a fire. However, this hypothesis must be converted into a mathematical construct that we can do something with!
-
 
 Pilots perform the test many times before a long flight and once after. In samples from the aerial firefighters who were non-fatigued, it was found that completion time follows a normal distribution with mean 15 seconds and standard deviation 1.2 seconds^[These numbers actually come from the data of pre-flight trails, but we're going to treat them as the population for now.]. We hypothesize that it took longer than that after the flight.
 \begin{align*}
 H_0: \mu &= 15\\
 H_A: \mu &> 15
 \end{align*}
-The hypotheses above are created entirely based on the research question. We can (must) write the hypothesis before collecting data. $\bar x$ does *NOT* appear in hypotheses. Instead, the "15"s and the ">" come from the hypotheses that fatigued pilots take *longer* than the population. 
+The hypotheses above are created entirely based on the research question. We can (must) write the hypothesis before collecting data. $\bar x$ does *NOT* appear in hypotheses. Instead, "15" ($\mu_0$) and the ">" come from the hypotheses that fatigued pilots take *longer* than the population. 
 
 ### Results
 
@@ -59,7 +58,7 @@ The population standard deviation is given as 1.2 seconds. How many standard dev
 
 The **p-value** for this is the probability of observing a value at least as far from the hypothesized mean, assuming that the hypothesized mean is the true mean^[This is the definition. The description must always include the part about "assuming that the hypothesized value is the true value"].
 
-Our p-value is P(Z > 3) = 1 - P(Z < 3) = 0.0013^[We can only use a standard normal distrubution because the mean of the sampling distribution is assumed to be $\mu_0$, our hypothesized mean. If this weren't the case, then we would not get a standard normal distribution and thus we wouldn't be able to use this method. This is why the "assuming the null is true" bit is important.]. Is our sample mean "unlikely" assuming that the null hypothesis is true?
+Using `pnorm()`, our p-value is P(Z > 3) = 1 - P(Z < 3) = 0.0013^[We can only use a standard normal distrubution because the mean of the sampling distribution is assumed to be $\mu_0$, our hypothesized mean. If this weren't the case, then we would not get a standard normal distribution and thus we wouldn't be able to use this method. This is why the "assuming the null is true" bit is important.]. Is our sample mean "unlikely" assuming that the null hypothesis is true?
 
 The definition of "unlikely" will generally need to be given in the question. Usually, a **significance level** of $\alpha = 0.05$^[The symbol $\alpha$ refers to the significance level, but also comes up in a $(1-\alpha)$\%CI. Perhaps this is foreshadowing.] is used^[Please read the APA's statement on p-values, found on OWL. At least one short answer question will be based on this.].
 
@@ -74,11 +73,11 @@ H_0: &\mu = 15\\
 H_A: &\mu > 15
 \end{align*}
 
-We caclulated our **test statistic**^[Labelled $z_{obs}$.]:
+We caclulated our **test statistic**^[Labelled $z_{obs}$.], which is the z-score of our observed mean **assuming that the null hypothesis is true**:
 
 $$ z_{obs} = \frac{\bar x - \mu_0}{\sigma/\sqrt{n}}  = \frac{15.9 - 15}{1.2/\sqrt{16}} = 0.9/0.3 = 3$$
 
-We looked up P(Z > $z_{obs}$)^[We used $>$ rather than $<$ because $>$ appears in our alternate hypothesis.] on our z-table, which gave us the p-value of 0.0013.
+We found up P(Z > $z_{obs}$)^[We used $>$ rather than $<$ because $>$ appears in our alternate hypothesis.] using `1 - pnorm(3)` to get our p-value of 0.0013.
 
 Since this is a small probability (our p-value is less than our significance value of $\alpha = 0.05$), we reject the null hypothesis in favour of the alternative. 
 
@@ -98,7 +97,7 @@ then you're going to need to change things. In particular, you need to *double* 
 The following shiny app demonstrates this. In particular, note what happens when you have a two sided alternative hypothesis and you double the wrong tails^[In the app, it's denoted "Use absolute value". This is because you can find $P(Z > |z_{obs}|)$ so that you always get the upper tail].
 
 ```{r echo=TRUE, eval=FALSE}
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+shiny::runGitHub(repo = "DB7_OER/TeachingApps", 
     subdir = "Tools/pvalues")
 ```
 
@@ -114,7 +113,7 @@ H_A: \mu \ne 6
 
 test stat: $z_{obs} = \frac{6.6 - 6}{2/\sqrt{5}} = \frac{0.6}{0.4} = 1.5$
 
-Find on z-table (or using R): P(Z > 1.5) = P(Z < -1.5) = `pnorm(-1.5)` = 0.0668
+Find using R: P(Z > 1.5) = P(Z < -1.5) = `pnorm(-1.5)` = 0.0668
 
 p-value = 2*0.0668 = 0.1336
 
@@ -147,7 +146,7 @@ Solution:
 
 Conclusion: The standard deviation is between 23.3 and 30.6.
 
-In this example, notice that a *smaller* standard deviation means a *smaller* significance level!
+In this example, notice how a *smaller* standard deviation means a *smaller* significance level!
 
 ### CI vs. p-value
 
@@ -158,10 +157,9 @@ Recall the following two facts:
 
 As homework, rearrange the test statistic equation for $\mu_0$. 
 
-
 A new definition of confidence intervals: A $(1-\alpha)$\% CI contains every $\mu_0$ that would **NOT** be rejected by a test at the $\alpha$\% significance level.
 
-This is why we don't say that we "accept" the null hypothesis. There are an infinite number of hypothesis values in the CI - we can't "accept" them all!^[Also, our tests only work in reference to the alternate hypothesis. We can only reject/not reject in reference to $H_A$.]
+This is why we don't say that we "accept" the null hypothesis. There are an infinite number of hypothesis values in the CI - we can't "accept" them all! Also, our tests only work in reference to the alternate hypothesis. We can only reject/not reject in reference to $H_A$.
 
 ## Self-Study Questions
 
@@ -173,10 +171,29 @@ This is why we don't say that we "accept" the null hypothesis. There are an infi
 6. For a one-sided hypothesis test, what does it mean for our p-value to be larger than 0.5? Does this mean we did something wrong?^[Hint: refer to the previous question.]
 
 
+## Exercises
 
+1. Suppose we know that $\sigma = 10$ and that the population is normally distributed, but we don't know the mean. We found a sample mean of 150 from a sample of size 25. Test the hypothesis that $\mu_0 < 155$ at the 5% level.
 
+<details>
+    <summary>**Solution**</summary>
+```{r}
+pnorm(150, mean = 155, sd = 10 / sqrt(25))
+```
 
+Since $p<\alpha$, we reject the null hypothesis and conclude that the population mean is less than 155.
+</details>
 
+2. A pharmaceutical company is testing a new drug designed to lower cholesterol levels. In a clinical trial with 80 participants, the average reduction in cholesterol is found to be 15 mg/dL and the population standard deviation is known to be 5 mg/dL. The company claims that the drug will reduce cholesterol by at least 12 mg/dL on average. Calculate the p-value for this claim based on the sample data, and determine whether there is sufficient evidence to support the company's claim at a significance level of 0.05. Interpret the results in the context of the study.
 
+<details>
+    <summary>**Solution**</summary>
+
+```{r}
+1 - pnorm(15, mean = 12, sd = 5/sqrt(80))
+```
+
+We reject the null hypothesis that the reduction in cholesterol is exactly 12 mg/dL in favour of the alternative that the reduction in cholesterol is less than 12 mg/dL. In other words, 15 is a statistically significantly larger reduction than 12.
+</details>
 
 
