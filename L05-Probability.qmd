@@ -336,7 +336,7 @@ sum(mtcars$cyl == 4 & mtcars$am == 0)
     b. What is P(even)?
     c. Are the events "even" and "<3" independent?
 
-Solutions to Two-Way Table exercises: **3.** 15/156; **8.** 195/431; **9.** 185/431
+Solutions to Two-Way Table exercises: **3.** 15/156; **8.** 195/431; **9.** 285/431
 
 
 
