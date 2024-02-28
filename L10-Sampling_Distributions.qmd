@@ -163,7 +163,7 @@ Most textbooks provide the rule: if *both* np and n(1-p) are larger than 10^[Or 
 
 ```{r eval = FALSE}
 shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
-    subdir = "Tools/normBinom")
+    subdir = "Apps/normBinom")
 ```
 
 Set n = 20 and find p such that np < 10. Also find p such that n(1-p) < 10. What is the shape of the Binomial distribution in these cases? What do you notice about the normal distribution? Why do both np and n(1-p) need to be greater than 10?^[Answers: Skewed; positive probability below 0 or above n; symmetric.]
