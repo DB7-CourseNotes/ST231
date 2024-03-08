@@ -325,7 +325,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#the-t-confidence-interval" id="toc-the-t-confidence-interval" class="nav-link" data-scroll-target="#the-t-confidence-interval"><span class="header-section-number">12.4</span> The <span class="math inline">\(t\)</span> Confidence Interval</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">12.5</span> Examples</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.6</span> Summary</a></li>
+  <li><a href="#real-example" id="toc-real-example" class="nav-link" data-scroll-target="#real-example"><span class="header-section-number">12.6</span> Real Example</a>
+  <ul class="collapse">
+  <li><a href="#the-t-ci" id="toc-the-t-ci" class="nav-link" data-scroll-target="#the-t-ci">The t CI</a></li>
+  <li><a href="#bonus---webscraping" id="toc-bonus---webscraping" class="nav-link" data-scroll-target="#bonus---webscraping">Bonus - Webscraping</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.7</span> Summary</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -711,8 +716,202 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol></li>
 </ol>
 </section>
-<section id="summary" class="level2" data-number="12.6">
-<h2 data-number="12.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">12.6</span> Summary</h2>
+<section id="real-example" class="level2" data-number="12.6">
+<h2 data-number="12.6" class="anchored" data-anchor-id="real-example"><span class="header-section-number">12.6</span> Real Example</h2>
+<p>The following heights were collected from Laurier’s athletics page.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>inch <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">11</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>heights <span class="ot">&lt;-</span> <span class="fl">30.48</span> <span class="sc">*</span> ft <span class="sc">+</span> <span class="fl">2.54</span> <span class="sc">*</span> inch</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(heights)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fl">162.3</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L15-CI_for_Means_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(heights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 170.7573</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(heights)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 22</code></pre>
+</div>
+</div>
+<p>Assuming that we know the population standard deviation <span class="math inline">\(\sigma = 7.1\)</span>, we can make a 89% CI:</p>
+<p><span class="math display">\[
+\bar x \pm z^*\frac{\sigma}{\sqrt{n}}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(heights) <span class="sc">+</span> <span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.89</span>) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fl">7.1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(heights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 168.338</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(heights) <span class="sc">-</span> <span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.89</span>) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fl">7.1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(heights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 173.1765</code></pre>
+</div>
+</div>
+<p>But is it reasonable to say that the standard deviation of athletic women’s heights is the same as the standard deviation of the heights in the population of all the women?</p>
+<section id="the-t-ci" class="level3">
+<h3 class="anchored" data-anchor-id="the-t-ci">The t CI</h3>
+<p>It’s probably silly that we think that the standard deviation for all Canadian women applies here.</p>
+<p>With a different sample, we would have gotten a different sample standard deviation! We need to account for this extra source of variance while creating the CI - we do this with the t distribution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(heights) <span class="sc">+</span> <span class="fu">qt</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.89</span>) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="fu">length</span>(heights) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sd</span>(heights) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(heights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 168.0833</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(heights) <span class="sc">-</span> <span class="fu">qt</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.89</span>) <span class="sc">/</span> <span class="dv">2</span>, <span class="at">df =</span> <span class="fu">length</span>(heights) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sd</span>(heights) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(heights))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 173.4313</code></pre>
+</div>
+</div>
+<p>We’ll rarely have to go through this calculation again in this class. Instead, R does the calculations for us and we do the hard work (interpretations).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(heights, <span class="at">conf.level =</span> <span class="fl">0.89</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  heights
+t = 106.57, df = 21, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+89 percent confidence interval:
+ 168.0833 173.4313
+sample estimates:
+mean of x 
+ 170.7573 </code></pre>
+</div>
+</div>
+</section>
+<section id="bonus---webscraping" class="level3">
+<h3 class="anchored" data-anchor-id="bonus---webscraping">Bonus - Webscraping</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in web pages</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>basketball <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://laurierathletics.com/sports/womens-basketball/roster"</span>)</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>soccer <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://laurierathletics.com/sports/wsoc/roster"</span>)</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>hockey <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://laurierathletics.com/sports/whock/roster"</span>)</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the stats tables</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>bstats <span class="ot">&lt;-</span> <span class="fu">html_table</span>(basketball)[[<span class="dv">3</span>]]</span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>sstats <span class="ot">&lt;-</span> <span class="fu">html_table</span>(soccer)[[<span class="dv">3</span>]]</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>hstats <span class="ot">&lt;-</span> <span class="fu">html_table</span>(hockey)[[<span class="dv">3</span>]]</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine into one data frame</span></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a>bstats<span class="sc">$</span>Sport <span class="ot">&lt;-</span> <span class="st">"Basketball"</span></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>hstats<span class="sc">$</span>Sport <span class="ot">&lt;-</span> <span class="st">"Hockey"</span></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>sstats<span class="sc">$</span>Sport <span class="ot">&lt;-</span> <span class="st">"Soccer"</span></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="co"># There are, like 5 things here that experienced R users might not know.</span></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(bstats, hstats, sstats) <span class="sc">|&gt;</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="at">Number =</span> No., <span class="at">Pos =</span> Pos., <span class="at">Height =</span> Ht.,</span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">Year =</span> <span class="st">`</span><span class="at">Academic Year</span><span class="st">`</span>, Major, Sport,</span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">EligYear =</span> <span class="st">`</span><span class="at">Elig. Yr.</span><span class="st">`</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">separate</span>(Height, <span class="at">sep =</span> <span class="st">"-"</span>,</span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"ft"</span>, <span class="st">"inch"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Height =</span> <span class="fu">as.numeric</span>(ft) <span class="sc">*</span> <span class="fl">30.48</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(inch) <span class="sc">*</span> <span class="fl">2.24</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>ft, <span class="sc">-</span>inch)</span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  Number Pos   Year  Major         Sport      EligYear Height
+   &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;         &lt;int&gt;  &lt;dbl&gt;
+1     14 G     4th   Business      Basketball       NA   168.
+2      9 F     2nd   Kin/Phys. Ed. Basketball       NA   175.
+3     11 F     3rd   Poli Sci      Basketball       NA   183.
+4      4 G     2nd   Philosophy    Basketball       NA   166.
+5      5 G     3rd   Business      Basketball       NA   168.
+6     13 G     2nd   Kin/Phys. Ed. Basketball       NA   175.</code></pre>
+</div>
+</div>
+<p>The code above gets all of the heights from the hockey, soccer, and basketball teams (thank you Laurier Athletecs for having well-structured wed pages!).</p>
+<p>Let’s take a minute to explore these data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(stats) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Sport, <span class="at">y =</span> Height) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Heights by sport"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L15-CI_for_Means_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>For now, let’s focus on the basketball team. The following code finds a 95%CI. It also tests the hypothesis that the true mean height is 0, so we’ll ignore that for now.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Just the heights of basketball players</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>ballers <span class="ot">&lt;-</span> stats<span class="sc">$</span>Height[stats<span class="sc">$</span>Sport <span class="sc">==</span> <span class="st">"Basketball"</span>]</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(ballers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 172.1771</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(ballers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.641504</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(ballers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> ballers) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">15</span>, <span class="at">fill =</span> <span class="st">"dodgerblue"</span>, <span class="at">colour =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">162.3</span>, <span class="at">colour =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L15-CI_for_Means_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In the histogram above, our data look somewhat normal. If this sample is representative of the population, then we might guess that the population<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> looks somewhat normal. However, a sample size of 14 is probably too small to make reliable conclusions.</p>
+<p>I put a red line at the height of 163.2, the height of women in the general population. It seems like 163.2 would be not be a reasonable value in this sample, but could it be a reasonable guess at the overall mean? Let’s use a CI and a t-test to find out:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ballers, <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  ballers
+t = 138.8, df = 13, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 169.4972 174.8571
+sample estimates:
+mean of x 
+ 172.1771 </code></pre>
+</div>
+</div>
+<p>A 95% CI is (169.5, 174.9), which clearly does not contain 163.2. Since we’re 95% confident that the true population mean is in our CI, so 162.3 is unlikely to be the true mean.</p>
+<p>To test the hypothesis that this is greater than the general population, we still do a t-test. We just have to tell R what kind of test we want to do. As always, we have to set the significance level. Since we’re not skeptical about the alternate hypothesis, let’s set it to 10%. This says that we don’t need particularly strong evidence before we reject the null hypothesis.</p>
+<p>We are testing whether the basketball players are taller than the general population. In symbols:</p>
+<p><span class="math display">\[
+H_0: \mu = 163.2 \text{ versus } H_A: \mu &gt; 163.2
+\]</span></p>
+<p>The R code to test this is below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ballers, <span class="at">mu =</span> <span class="fl">162.3</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  ballers
+t = 7.9623, df = 13, p-value = 1.177e-06
+alternative hypothesis: true mean is greater than 162.3
+95 percent confidence interval:
+ 169.9803      Inf
+sample estimates:
+mean of x 
+ 172.1771 </code></pre>
+</div>
+</div>
+<p>Our p-value is 0.00000177. This is a very small p-value, which means we have strong evidence against the null. We reject the null hypothesis, and conclude that the average of female varisty basketball players is taller than the general population (an unsurprising result, but nice to have confirmation).</p>
+</section>
+</section>
+<section id="summary" class="level2" data-number="12.7">
+<h2 data-number="12.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">12.7</span> Summary</h2>
 <p>This lesson could have been two sentences: The sample standard deviation has variance, so each confidence interval based on <span class="math inline">\(s\)</span> is slightly different. To account for this, we use the <span class="math inline">\(t\)</span> distribution. Then again, when someone tells me their name at a party I immediately forget it. Hopefully this long-winded exploration helps you understand why these facts are true and how they’re relevant to the course.</p>
 <p>Note that all of the best practices for inference still apply! We can still get smaller intervals by taking better samples with larger sample sizes, and we still have to be careful to <em>never</em> speak of a calculated confidence interval in terms of chance.</p>
 <p>The <span class="math inline">\(t\)</span> confidence interval is actually used in practice. We’ll see some code that calculates the interval for us in the next lecture, and then we’ll never have to use <code>qt()</code> again! (Except possibly to demonstrate knowledge on tests.)</p>
@@ -736,6 +935,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li id="fn12"><p>Note: I’m not even going to bother writing out the <span class="math inline">\(P()\)</span> notation for <span class="math inline">\(t^*_{n-1}\)</span> because you’ll never use it. You’ll only ever need to find <span class="math inline">\(t^*_{n-1}\)</span> in this course.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn13"><p>This means it’s working!<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn14"><p>Recall: For both the sample mean and the sample proportion, the variance of the sampling distribution decreases as <span class="math inline">\(n\)</span> increases.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>In this example, the population refers to the population of female varsity basketball players.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

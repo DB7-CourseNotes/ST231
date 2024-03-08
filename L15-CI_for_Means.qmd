@@ -346,6 +346,144 @@ It's only slightly wider. The sample size is large enough that the variance in t
     3. $2.131s/\sqrt{16} = 2.5$, so $s = 2.5\sqrt{16}/2.131 = 4.69$
     4. The variance is $4.69^2 = 21.9961$
 
+## Real Example
+
+The following heights were collected from Laurier's athletics page.
+
+```{r}
+# 
+ft <- c(5, 5, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5)
+inch <- c(7, 10, 0, 6, 7, 10, 7, 8, 7, 10, 3, 10, 1, 4, 2, 5, 6, 6, 9, 8, 10, 11)
+
+heights <- 30.48 * ft + 2.54 * inch
+hist(heights)
+abline(v = 162.3, col = "red")
+```
+
+```{r}
+mean(heights)
+length(heights)
+```
+
+Assuming that we know the population standard deviation $\sigma = 7.1$, we can make a 89% CI:
+
+$$
+\bar x \pm z^*\frac{\sigma}{\sqrt{n}}
+$$
+
+```{r}
+mean(heights) + qnorm((1 - 0.89) / 2) * 7.1 / sqrt(length(heights))
+mean(heights) - qnorm((1 - 0.89) / 2) * 7.1 / sqrt(length(heights))
+```
+
+But is it reasonable to say that the standard deviation of athletic women's heights is the same as the standard deviation of the heights in the population of all the women?
+
+### The t CI
+
+It's probably silly that we think that the standard deviation for all Canadian women applies here.
+
+With a different sample, we would have gotten a different sample standard deviation! We need to account for this extra source of variance while creating the CI - we do this with the t distribution.
+
+```{r}
+mean(heights) + qt((1 - 0.89) / 2, df = length(heights) - 1) * sd(heights) / sqrt(length(heights))
+mean(heights) - qt((1 - 0.89) / 2, df = length(heights) - 1) * sd(heights) / sqrt(length(heights))
+```
+
+We'll rarely have to go through this calculation again in this class. Instead, R does the calculations for us and we do the hard work (interpretations).
+
+```{r}
+t.test(heights, conf.level = 0.89)
+```
+
+
+### Bonus - Webscraping
+
+```{r}
+library(rvest)
+library(dplyr)
+library(ggplot2)
+
+# Read in web pages
+basketball <- read_html("https://laurierathletics.com/sports/womens-basketball/roster")
+soccer <- read_html("https://laurierathletics.com/sports/wsoc/roster")
+hockey <- read_html("https://laurierathletics.com/sports/whock/roster")
+
+# Extract the stats tables
+bstats <- html_table(basketball)[[3]]
+sstats <- html_table(soccer)[[3]]
+hstats <- html_table(hockey)[[3]]
+
+# Combine into one data frame
+bstats$Sport <- "Basketball"
+hstats$Sport <- "Hockey"
+sstats$Sport <- "Soccer"
+# There are, like 5 things here that experienced R users might not know.
+stats <- bind_rows(bstats, hstats, sstats) |>
+    select(Number = No., Pos = Pos., Height = Ht.,
+        Year = `Academic Year`, Major, Sport,
+        EligYear = `Elig. Yr.`) |>
+    tidyr::separate(Height, sep = "-",
+        into = c("ft", "inch")) |>
+    mutate(Height = as.numeric(ft) * 30.48 + as.numeric(inch) * 2.24) |>
+    select(-ft, -inch)
+head(stats)
+```
+
+The code above gets all of the heights from the hockey, soccer, and basketball teams (thank you Laurier Athletecs for having well-structured wed pages!).
+
+Let's take a minute to explore these data:
+
+
+```{r}
+#| label: gg_stats
+ggplot(stats) +
+    aes(x = Sport, y = Height) +
+    geom_boxplot() +
+    labs(title = "Heights by sport")
+```
+
+For now, let's focus on the basketball team. The following code finds a 95%CI. It also tests the hypothesis that the true mean height is 0, so we'll ignore that for now.
+
+```{r}
+#| label: gg_ballers
+# Just the heights of basketball players
+ballers <- stats$Height[stats$Sport == "Basketball"]
+mean(ballers)
+sd(ballers)
+length(ballers)
+ggplot() +
+    aes(x = ballers) +
+    geom_histogram(bins = 15, fill = "dodgerblue", colour = 1) +
+    geom_vline(xintercept = 162.3, colour = "red", linewidth = 2)
+```
+
+In the histogram above, our data look somewhat normal. If this sample is representative of the population, then we might guess that the population^[In this example, the population refers to the population of female varsity basketball players.] looks somewhat normal. However, a sample size of 14 is probably too small to make reliable conclusions.
+
+I put a red line at the height of 163.2, the height of women in the general population. It seems like 163.2 would be not be a reasonable value in this sample, but could it be a reasonable guess at the overall mean? Let's use a CI and a t-test to find out:
+
+```{r}
+t.test(ballers, conf.level = 0.95)
+```
+
+A 95% CI is (169.5, 174.9), which clearly does not contain 163.2. Since we're 95% confident that the true population mean is in our CI, so 162.3 is unlikely to be the true mean.
+
+To test the hypothesis that this is greater than the general population, we still do a t-test. We just have to tell R what kind of test we want to do. As always, we have to set the significance level. Since we're not skeptical about the alternate hypothesis, let's set it to 10%. This says that we don't need particularly strong evidence before we reject the null hypothesis.
+
+We are testing whether the basketball players are taller than the general population. In symbols:
+
+$$
+H_0: \mu = 163.2 \text{ versus } H_A: \mu > 163.2
+$$
+
+The R code to test this is below:
+
+```{r}
+t.test(ballers, mu = 162.3, alternative = "greater")
+```
+
+Our p-value is 0.00000177. This is a very small p-value, which means we have strong evidence against the null. We reject the null hypothesis, and conclude that the average of female varisty basketball players is taller than the general population (an unsurprising result, but nice to have confirmation).
+
+
 
 ## Summary
 
