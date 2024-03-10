@@ -491,7 +491,7 @@ This lesson could have been two sentences: The sample standard deviation has var
 
 Note that all of the best practices for inference still apply! We can still get smaller intervals by taking better samples with larger sample sizes, and we still have to be careful to *never* speak of a calculated confidence interval in terms of chance.
 
-The $t$ confidence interval is actually used in practice. We'll see some code that calculates the interval for us in the next lecture, and then we'll never have to use `qt()` again! (Except possibly to demonstrate knowledge on tests.)
+The $t$ confidence interval is actually used in practice. We saw some code that calculates the interval for us in this lecture, and we'll never have to use `qt()` again! (Except possibly to demonstrate knowledge on tests.)
 
 
 # Self-Study Questions
