@@ -246,7 +246,7 @@ You may also be happy to hear that no, you will never have to manually enter the
     - The null hypothesis is usually 0, and the alternate dependes on the order in which you subtract the means.
 
 
-## Example 2: Birthweights (by hand)
+## Example 3: Birthweights (by hand)
 
 :::: {.columns}
 ::: {.column width="60%"}
