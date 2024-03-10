@@ -252,6 +252,10 @@ Under which condition does the CLT *not* apply?
 4. For $\hat p$, we have checked $np>10$ and $n(1-p)>10$
 
 
+<details>
+    <summary>**Solution**</summary>
+41431
+</details>
 
 
 
