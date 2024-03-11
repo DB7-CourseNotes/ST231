@@ -166,9 +166,7 @@ The assumptions are still the same, with one notable addition:
 3. The observations *between* each group are independent.
 
 
-## Examples
-
-### Example 1: Two-Sample versus Matched
+## Example 1: Two-Sample versus Matched Pairs
 
 From the Ointment example:
 
@@ -209,7 +207,9 @@ t.test(x = withoint, y = without, alternative = "less")
 
 This result should not be trusted since it misses a key aspect of the data. The first value in the "Ointment" group corresponds to the first value in the "Without Ointment" group, they aren't just two separate values - they're measured on the same individual!
 
-### Example 2: Body Mass of Penguins
+Regardless, take a moment to look at the differences in the results between the two tests.
+
+## Example 2: Body Mass of Penguins
 
 In this example, we'll look at the difference in body mass between male and female penguins. 
 
@@ -233,17 +233,6 @@ Note: The notation will always be "variable we care most about" ~ "other variabl
 From the output above, we get a two-sided p-value as well as a two-sided CI, both confirming that the difference in body mass is different from 0. You can also see that it's using "female minus male", rather than "male minus female". This is because R will put them in alphabetical order, so female comes first. 
 
 You may also be happy to hear that no, you will never have to manually enter the standard error formula! Let's all say a big, collective thank you to the R programming language! Thank you! (You may need to interpret the idea of standard error in two-sample t-tests, though.)
-
-## Conclusion
-
-- If you can have matched pairs, you should use a matched pairs test.
-- Most of the time, you'll need to use a two-sample t-test.
-    - Don't get fooled by equal sample sizes!
-- A two-sample t-test is based on the difference in means
-    - The standard error is tricky.
-    - The degrees of freedom is the *smallest* sample size minus 1.
-        - Used for the p-value for hypothesis tests and the critical value for confidence intervals.
-    - The null hypothesis is usually 0, and the alternate dependes on the order in which you subtract the means.
 
 
 ## Example 3: Birthweights (by hand)
@@ -269,24 +258,24 @@ We're going to do this by hand!
 :::
 ::::
 
-- The null hypothesis is $H_0: \mu_{smoke} = \mu_{non}$, which can be written as $H_0: \mu_{non} - \mu_{smoke} = \mu_{n - s} = 0$.\pause\lspace
+- The null hypothesis is $H_0: \mu_{smoke} = \mu_{non}$, which can be written as $H_0: \mu_{non} - \mu_{smoke} = 0$.\pause\lspace
 - The alternate hypothesis is $H_a: \mu_{smoke} < \mu_{non}$, which could be written as
-    - $H_a: \mu_{n - s} > 0$, or
-    - $H_a: \mu_{s - n} < 0$
+    - $H_a: \mu_{non} - \mu_{smoke} > 0$, or
+    - $H_a: \mu_{smoke} - \mu_{non} < 0$
 
 It doesn't matter which we choose, but we have to know which we chose in order to calculate the corresponding p-value! Let's use $\mu_{n-s}$.
 
 
-The sample mean difference is $\bar x_{n - s} = 7.18 - 6.78 = 0.4$. The standard error is:
+The sample mean difference is $\bar x_{non} - \bar x_{smoke} = 7.18 - 6.78 = 0.4$. The standard error is:
 $$
 SE = \sqrt{\dfrac{s_s^2}{n_s} + \dfrac{s_n^2}{n_n}} = \sqrt{\dfrac{1.43^2}{50} + \dfrac{1.60^2}{100}} = 0.2578721
 $$
 
 
-Since we used $\bar x_{n - s}$, our alternate tells us to find the p-value for a t-statistic larger than what we got.
+Since we used $\bar x_{non} - \bar x_{smoke}$, our alternate tells us to find the p-value for a t-statistic larger than what we got.
 
 $$
-t_{obs} = \dfrac{\bar x_{n-s} - \mu_{n-s}}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.55
+t_{obs} = \dfrac{(\bar x_{non} - \bar x_{smoke}) - (\mu_{non} - \mu_{smoke})}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.55
 $$
 
 Since we're doing a right-tailed test^[If we had done a left-tailed test, we wouldn't need the "1 - ". Explain why.], we calculate our p-value as:
@@ -300,12 +289,56 @@ Since we're doing a right-tailed test^[If we had done a left-tailed test, we wou
 
 To summarise:
 
-- $H_0: \mu_{n - s} = 0$ versus $H_0: \mu_{n - s} > 0$
+- $H_0: \mu_{non} - \mu_{smoke} = 0$ versus $H_0: \mu_{non} - \mu_{smoke} > 0$
 - $t_{obs} = 1.55$
 - p-value is 0.06
 
 
 Since our p-value is larger than 0.5, we do not have a statistically significant result. We fail to reject the hypothesis that smokers have lower birthweights. We conclude that we do not have enough evidence to say that smoking is associated with lower birthweights.
+
+## Example 4: Basketball versus Hockey Players
+
+In a previous lecture, we looked at the heights of female basketball players to test whether their heights were consistent with the population. Now that we have the tools to compare two samples, let's compare some teams! In what follows, we're testing the the hypothesis that the basketball team and the hockey team are different heights. Let's test at the 5% level since we have no strong reason to use a smaller or larger level^[A smaller level would be used if we required strong evidence before we reject the null, such as when a new treatment seems implausible.]
+
+```{r}
+library(dplyr)
+library(ggplot2)
+stats <- read.csv("wlu_female_athletes.csv")
+baskey <- filter (stats, Sport %in% c("Hockey", "Basketball"))
+boxplot(Height ~ Sport, data = baskey)
+```
+
+From the boxplot, I would be absolutely flabbergasted if the two groups had the same mean! Astonished! Befuddled, even! This is an important part of any analysis: have expectations! You should know your data well before diving into a study. For example, looking at these boxplots reveals that there are no apparent outliers, and both groups look approximately symmetric. This is good.
+
+Let's do the t-test.
+
+```{r}
+t.test(Height ~ Sport, data = baskey)
+```
+
+From the output, we can conclude that there is a statistically significant difference in the average height of female hockey and basketball players at Laurier. 
+
+Some caveats:
+
+- These are small samples!!!
+    - Recall that R uses a more accurate value for `df` (we just use the smaller sample size then subtract one for hand calculations). It's 26.588, which can be interpreted as something like the average of the two sample sizes. 
+- This isn't exactly a random sample!
+    - The data were taken from the current seasons' full teams. We don't exactly have a wel--defined population here. Is the population all women? Only femal athletes? Only female varsity athletes? Only Canadian female varsity athletes in these particular sports? Or is it only female varsity athletes in these particular sports at Laurier? It's hard to say what these results apply to.
+- We just tested hockey versus basketball. What about soccer? What about heights by position?
+    - If we start testing many hypotheses, we run afoul of the multiple comparisons problem. Before collecting the data, this test had a 5% chance of being significant if the null hypothesis were true. So do all of the other tests. If we test enough times, we'll eventually reject a true null hypothesis. 
+
+
+## Conclusion
+
+- If you can have matched pairs, you should use a matched pairs test.
+- Most of the time, you'll need to use a two-sample t-test.
+    - Don't get fooled by equal sample sizes! Just because the sample sizes are the same doesn't mean that the observations are paired!
+- A two-sample t-test is based on the difference in means
+    - The standard error is tricky - software will do this for you.
+    - The degrees of freedom is the *smallest* sample size minus 1.
+        - Used for the p-value for hypothesis tests and the critical value for confidence intervals.
+        - R uses a better value.
+    - The null hypothesis is usually 0, and the alternate depends on the order in which you subtract the means.
 
 ## Self-Study Questions
 
@@ -321,8 +354,8 @@ t.test(mpg ~ am, data = mtcars)
 ```
 
 <details>
-    <summary>**Selected SolutionS**</summary>
+    <summary>**Selected Solutions**</summary>
 1. Ointment: $H_0: \mu_{without-with} = 0$ versus and $H_A: \mu_{without-with} < 0$. Note that we can tell that it's `without-with` by looking at the means of the two groups and the sign of the t-statistic. 
-    - $H_0: \mu_{female} - \mu_{male} = 0$ versus $H_A: \mu_{female} - \mu_{male} \ne 0$.
-    - The ointment example had $\mu_{without - with}$ as a single number, whereas the penguins example used $\mu_{female} - \mu_{male}$. This is because the ointment example was a *one-sample t-test* since we were treating the set of differences as a single sample; the penguins example is a two-sample t-test.
+    - Penguins: $H_0: \mu_{female} - \mu_{male} = 0$ versus $H_A: \mu_{female} - \mu_{male} \ne 0$.
+    - The ointment example had $\mu_{without - with}$ as a single number, whereas the penguins example used $\mu_{female} - \mu_{male}$, which is the difference between two numbers. This is because the ointment example was a *one-sample t-test* since we were treating the set of differences as a single sample; the penguins example is a two-sample t-test.
 </details>
