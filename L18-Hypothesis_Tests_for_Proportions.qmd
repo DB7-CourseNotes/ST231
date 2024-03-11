@@ -12,12 +12,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 In the lecture on sampling distributions, we learned that the sampling distribution of a sample proportion can be found as follows:
 
-If $X\sim B(n,p)$ and $np>10$ and $n(1-p)>10$, then
+If $X\sim B(n,p)$ and $np>10$ and $n(1-p)>10$,^[That is, we have a **large sample**] then we can approximate the sampling distribution of $\hat p$ as follows:
 $$
 \hat p \sim N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)
 $$
 
-This relies on the population proportion to find the standard error, but this is never available.^[If it was, then why are we doing inference?] 
+This relies on the population proportion $p$ to find the standard error, but this is never available. If it was, then why are we trying to do inference?
 
 
 ## Hypothesis tests for proportions
@@ -60,7 +60,7 @@ A common question is: which $p$ do we use to check normality? We're supposed to 
 
 For a hypothesis test, we assume the null is true, i.e. $p=p_0$. We should use this assumption *everywhere*! For a hypothesis test about a proportion, we check whether $np_0>10$ and $n(1-p_0)>10$^[As before, both conditions must be true; it's not enough for just $np_0>10$ alone.].
 
-From here, we proceed as usual. We check the observed test statistic against a *normal* distribution and see whether our data are too extreme to come from the distribution assumed in the null hypothesis. 
+From here, we proceed as usual. We check the observed test statistic against a *normal* distribution^[We do not use a t distribution for this. The $t$ distribution was used to account for the variance in the sampling distribution for $s$ - the standard error for proportions is still based on $p$, which means that there is no added variance!] and see whether our data are too extreme to come from the distribution assumed in the null hypothesis. 
 
 
 ## Example
@@ -75,7 +75,7 @@ To test his theory that 75% of plants would inheret a dominant gene, Gregor Mend
 2. $z_{obs} = \frac{\hat p - p_0}{\sqrt{p_0(1-p_0)/n}} = \frac{0.747 - 0.75}{\sqrt{0.75*0.25/7324}} = -0.513$
 3. $p-val = 2 *P(Z < z_{obs})$ = `2*pnorm(-0.513)` = 0.608
     - We doubled the $P(Z < z_{obs})$ because we want both tails. If you do this and your p-value is larger than 1, do $1 - P(Z < z_{obs})$ first and then double it.
-4. Conclusion: Since $p-val > \alpha$, we do not reject the null. The hypothesis that 75% of plants inherent the dominant trait is compatible with the data.
+4. Conclusion: Since our p-value is larger than $\alpha$, we do not reject the null. The hypothesis that 75% of plants inherent the dominant trait is compatible with the data.
 
 The last step is important: always word your conclusion in the context of the study.
 
@@ -97,7 +97,7 @@ x <- 5474
 n <- 7324
 phat <- x / n
 se <- sqrt(0.75 * (1 - 0.75) / n)
-2*pnorm((phat - 0.75) / se)
+2 * pnorm((phat - 0.75) / se)
 ```
 
 Nope, it's not a rounding problem!
@@ -126,15 +126,24 @@ If we run `prop.test()` without the correction factor, we get the exact same p-v
 prop.test(x = 5474, n = 7324, p = 0.75, correct = FALSE)
 ```
 
-These details are not important, just be aware that almost all tests for proportions are run *with* the continuity correction factor. 
+These details are not important, just be aware that almost all tests for proportions are run *with* the continuity correction factor. You will not be doing this by hand on a test, so you can assume that R did the right things to make the calculations as correct as possible (but R will *not* do anything to make sure that the test is appropriate for the data). 
 
 ### Mendelian Genetics Confidence Interval
 
-Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5\%^[$\alpha = 0.045$, so $1 - \alpha = 0.955$.] 
+Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5\%^[$\alpha = 0.045$, so $1 - \alpha = 0.955$.] CI matches what we used before.
 
-In order to find the confidence interval, we again need the standard error! In the hypothesis test, we assumed that $p_0$ was the true population proportion in order to proceed with the test. However, we don't make this assumption for confidence intervals.
+In order to find the confidence interval, we again need the standard error! In the hypothesis test, we assumed that $p_0$ was the true population proportion in order to proceed with the test. However, we don't make this assumption for confidence intervals. In other words, there *is no $p_0$ value that we can use*. We haven't made any hypotheses for a p CI.
 
 What can we do? We don't have $p$ or $p_0$, so we're left with $\hat p$, the sample proportion that we calculated. In the t-test, this meant that we needed to switch to the $t$ distribution. However, that was because there was really good theory to say that the $t$ distribution is the correct distribution to use. There's no such theory here.
+
+The standard error is still the same, we just use $\hat p$ in place of $p$:
+$$
+SE = \sqrt{\dfrac{\hat p(1 - \hat p)}{n}}
+$$
+and our confidence interval is, again,
+$$
+\text{Point Estimate }\pm\text{ Critical Value} * \text{Standard Error} = \hat p \pm z^*\sqrt{\dfrac{\hat p(1 - \hat p)}{n}}
+$$
 
 ::: {.callout-warning}
 ### CIs for Proportions Only Work When the CLT Applies
@@ -147,17 +156,19 @@ $$
 \hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}} = 0.747 \pm 2.005\sqrt{\frac{0.747(1-0.747)}{7324}}
 $$
 
-which results in the CI (0.737, 0.758). This matches the CI shown in the output of `prop.test()` above (double check this!).
+which results in the CI (0.737, 0.757). This matches the CI shown in the output of `prop.test()` above (double check this!).
 
 ::: {.callout-warning}
-### Duality of Hypotheses and CIs
+### Non-Duality of Hypotheses and CIs
 
-For proportions, it is *not* true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors. 
+For the t-test, a CI can be interpreted as "every value that would not be rejected by a hypothesis test."
+
+For proportions, it is *not* true. This is because the CI and the hypothesis test use *different standard errors*. This is a very important point: the hypothesis test uses $p_0$ in the standard error formula, while CIs use $\hat p$, and thus the standard errors will be different.
 :::
 
 ## Exact Test for Binomial
 
-In this course, we use the normal approximation to the binomial in order to do hypothesis tests. This is not the only way to do it: we don't always need to use the approximation! There's something called the "exact binomial test", which is a hypothesis test that uses the binomial distribution rather than the normal approximation (this will not be on tests).
+In this course, we have used the normal approximation to the binomial in order to do hypothesis tests. This is not the only way to do it: we don't always need to use the approximation! There's something called the "exact binomial test", which is a hypothesis test that uses the binomial distribution rather than the normal approximation (this will not be on tests).
 
 There are two main reasons why we might prefer the approximation, rather than using the exact test:
 
@@ -166,7 +177,49 @@ There are two main reasons why we might prefer the approximation, rather than us
 2. Because the binomial distribution is discrete, the p-values for many different test statistics will be the same. By setting $\alpha$, we might not actually be getting $\alpha$.
     - This is a technical point that can be safely ignored when studying for tests.
 
-The exact test can be performed using the `binom.test()` function in R.
+The exact test can be performed using the `binom.test()` function in R. You will *never* have to choose between the two on an exam in this course. You will be given only the one that you need (usually `binom.test()` for one sample proportions, and `prop.test()` for two-sample proportions).
+
+## Example: Titanic Survivors
+
+Did women have a 50% chance of surviving the sinking of the titanic? Let's test this at the 10% level, since we'd be pretty easily convinced.
+
+Since this is **categorical** data, we'll use a bar plot. 
+
+```{r}
+#| label: Titanic_plots
+# The code in this example is *not* testable. The output *is*.
+library(dplyr)
+library(ggplot2)
+
+# The Titanic data is built in to R, but starts off in a weird format.
+# as.data.frame() makes it easier to deal with.
+Titanic = as.data.frame(Titanic)
+# This fancy code gives me all women, regardless of class, but only adults.
+survivors <- Titanic %>% filter(Age == "Adult") %>%
+    group_by(Sex, Survived) %>%
+    summarise(Freq = sum(Freq))
+
+# Barplot since it's categorical.
+ggplot(survivors) +
+    aes(x = Sex, y = Freq, fill = Survived) +
+    geom_bar(position = "Dodge", stat = "Identity")
+```
+
+From the bar plot, it's pretty clear that the prportion of survivors is different from 50%. Let's confirm this statistically!
+
+We're only interested in the female survivors for this analysis, so we'll focus on that aspect of the bar plot. 
+
+```{r}
+survivors
+```
+
+From this output, we know that there were 316 female survivors out of 316 + 109 = 425 women total. Let's report these numbers to R:
+
+```{r}
+prop.test(x = 316, n = 425)
+```
+
+The default hypothesis is that the proportion is equal to 0.5, so we didn't have to change anything. From this, it is clear that the null hypothesis should be rejected. We conclude that the percentage of women who survived the sinking of the Titanic is *different from* 50%^[We can only conclude what we see in our hypotheses!!!]. 
 
 ## Summary
 
@@ -189,6 +242,7 @@ There are two other wrinkles to consider when using proportions:
 2. Explain why we don't estimate the standard error in a hypothesis test about a proportion.
 3. Explain in your own words why there's no $t$ version of a hypothesis test for proportions.
 4. Write a good summary of the Mendelian genetics example. What did we conclude, and how is this knowledge useful?
+5. Repeat the Titanic survivors example but with male passengers.
 
 
 
