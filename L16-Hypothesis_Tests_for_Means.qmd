@@ -177,7 +177,7 @@ Construct a 95% CI for the New York sleep example.
 |---|---|---|
 |7.73 | 0.77 | 25 |
 
-- $\alpha$ = \pause 0.05\lspace
+- $\alpha$ = 0.05\lspace
 - $t^*_{n-1}$ = \pause `qt(0.025, 24)` = `r round(qt(0.025, 24), 4)`.\lspace
 - $\bar x \pm t^*_{n-1}s/\sqrt{n} = 7.73 \pm 2.0639*0.77/5 = (7.41, 8.05)$\lspace
 - Conclude: we are 95% confident that the true average nights sleep in New York is between 7.41 and 8.05.
