@@ -309,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">16.1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#this-is-the-same-as-the-last-video." id="toc-this-is-the-same-as-the-last-video." class="nav-link" data-scroll-target="#this-is-the-same-as-the-last-video.">This is the same as the last video.</a></li>
+  <li><a href="#this-is-the-same-as-the-last-lesson" id="toc-this-is-the-same-as-the-last-lesson" class="nav-link" data-scroll-target="#this-is-the-same-as-the-last-lesson">This is the same as the last lesson</a></li>
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
   </ul></li>
   <li><a href="#the-ci-for-p" id="toc-the-ci-for-p" class="nav-link" data-scroll-target="#the-ci-for-p"><span class="header-section-number">16.2</span> The CI for <span class="math inline">\(p\)</span></a>
@@ -323,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#devan-style-simulation-1" id="toc-devan-style-simulation-1" class="nav-link" data-scroll-target="#devan-style-simulation-1">Devan Style: Simulation</a></li>
   <li><a href="#simulation-results" id="toc-simulation-results" class="nav-link" data-scroll-target="#simulation-results">Simulation Results</a></li>
   </ul></li>
-  <li><a href="#examlpes-and-cautions" id="toc-examlpes-and-cautions" class="nav-link" data-scroll-target="#examlpes-and-cautions"><span class="header-section-number">16.3</span> Examlpes and Cautions</a>
+  <li><a href="#examples-and-cautions" id="toc-examples-and-cautions" class="nav-link" data-scroll-target="#examples-and-cautions"><span class="header-section-number">16.3</span> Examples and Cautions</a>
   <ul class="collapse">
   <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
   <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
@@ -366,16 +366,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">16.1</span> Introduction</h2>
-<section id="this-is-the-same-as-the-last-video." class="level3">
-<h3 class="anchored" data-anchor-id="this-is-the-same-as-the-last-video.">This is the same as the last video.</h3>
+<section id="this-is-the-same-as-the-last-lesson" class="level3">
+<h3 class="anchored" data-anchor-id="this-is-the-same-as-the-last-lesson">This is the same as the last lesson</h3>
 <ul>
-<li><p>Based on our data, we make an interval that we think describes the population.</p></li>
-<li><p>In this case, we just have a different population distribution?</p></li>
+<li>Based on our data, we make an interval that we think describes the population.</li>
+<li>In this case, we just have a different population distribution?</li>
 </ul>
 </section>
 <section id="assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="assumptions">Assumptions</h3>
-<p>In stats, assumptions give us power but only if they hold.</p>
+<p>In stats, assumptions give us power, but only if they’re good assumptions.</p>
 <p>Assumptions for a CI for <span class="math inline">\(p\)</span> are the same as the assumptions for the binomial distribution, with the addition of an SRS.</p>
 </section>
 </section>
@@ -478,50 +478,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>DIY: Change <span class="math inline">\(p\)</span> so that the normal approximation doesn’t apply.</p>
 </section>
 </section>
-<section id="examlpes-and-cautions" class="level2" data-number="16.3">
-<h2 data-number="16.3" class="anchored" data-anchor-id="examlpes-and-cautions"><span class="header-section-number">16.3</span> Examlpes and Cautions</h2>
+<section id="examples-and-cautions" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="examples-and-cautions"><span class="header-section-number">16.3</span> Examples and Cautions</h2>
 <section id="example-1" class="level3 t">
 <h3 class="t anchored" data-anchor-id="example-1">Example 1</h3>
 <p>It was found that 591 out of 700 people sampled supported a certain political position. Find a 91%CI.</p>
+<div class="notes">
+<p>Since we have R, let’s use it!</p>
+<p>Both <code>prop.test()</code> and <code>binom.test()</code> will give us a CI, with <code>prop.test()</code> calculating an approximation using the normal distribution and <code>binom.test()</code> calculating the exact value, without approximation. In general, you should always use <code>binom.test()</code> for one sample proportions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">591</span>, <span class="at">n =</span> <span class="dv">700</span>, <span class="at">conf.level =</span> <span class="fl">0.91</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact binomial test
+
+data:  591 and 700
+number of successes = 591, number of trials = 700, p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
+91 percent confidence interval:
+ 0.8192078 0.8670686
+sample estimates:
+probability of success 
+             0.8442857 </code></pre>
+</div>
+</div>
+</div>
 </section>
 <section id="example-2" class="level3 t">
 <h3 class="t anchored" data-anchor-id="example-2">Example 2</h3>
 <p>It was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">70</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="dv">68</span><span class="sc">/</span><span class="dv">70</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>se_est <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(phat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>phat)<span class="sc">/</span>n)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>z_star <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.09</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>phat <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)<span class="sc">*</span>z_star<span class="sc">*</span>se_est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">70</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="dv">68</span><span class="sc">/</span><span class="dv">70</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>se_est <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(phat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>phat)<span class="sc">/</span>n)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>z_star <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">qnorm</span>(<span class="fl">0.09</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>phat <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)<span class="sc">*</span>z_star<span class="sc">*</span>se_est</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9376692 1.0051879</code></pre>
 </div>
 </div>
 <p>… so it would be reasonable to say that the popluation proportion is larger than 1???</p>
+<div class="notes">
+<p>Absolutely not! The normal approximation does not apply here since <span class="math inline">\(n(1 - \hat p) = 70*(1 - 68/70) = 2\)</span>, and 2 is less than 10<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The normal distribution can only be used when the sample size is large enough!!!</p>
+<p>Instead, we can use the exact test. This is much slower to calculate, but for <span class="math inline">\(n = 70\)</span> there’s no issue.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">68</span>, <span class="at">n =</span> <span class="dv">70</span>, <span class="at">conf.level =</span> <span class="fl">0.91</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Exact binomial test
+
+data:  68 and 70
+number of successes = 68, number of trials = 70, p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
+91 percent confidence interval:
+ 0.9108816 0.9951927
+sample estimates:
+probability of success 
+             0.9714286 </code></pre>
+</div>
+</div>
+<p>Notice that</p>
+</div>
 </section>
 <section id="example-2-1" class="level3 t">
 <h3 class="t anchored" data-anchor-id="example-2-1">Example 2</h3>
 <p>It was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="dv">68</span>, <span class="at">n =</span> <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">68</span>, <span class="at">n =</span> <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    1-sample proportions test with continuity correction
+    Exact binomial test
 
-data:  68 out of 70, null probability 0.5
-X-squared = 60.357, df = 1, p-value = 7.912e-15
-alternative hypothesis: true p is not equal to 0.5
+data:  68 and 70
+number of successes = 68, number of trials = 70, p-value &lt; 2.2e-16
+alternative hypothesis: true probability of success is not equal to 0.5
 95 percent confidence interval:
- 0.8913981 0.9950358
+ 0.9005711 0.9965209
 sample estimates:
-        p 
-0.9714286 </code></pre>
+probability of success 
+             0.9714286 </code></pre>
 </div>
 </div>
 
 
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Citation needed.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

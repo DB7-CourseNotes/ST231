@@ -320,14 +320,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#two-sample-t-test-and-ci-overview" id="toc-two-sample-t-test-and-ci-overview" class="nav-link" data-scroll-target="#two-sample-t-test-and-ci-overview">Two-Sample t-test and CI Overview</a></li>
   </ul></li>
-  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples"><span class="header-section-number">14.3</span> Examples</a>
-  <ul class="collapse">
-  <li><a href="#example-1-two-sample-versus-matched" id="toc-example-1-two-sample-versus-matched" class="nav-link" data-scroll-target="#example-1-two-sample-versus-matched">Example 1: Two-Sample versus Matched</a></li>
-  <li><a href="#example-2-body-mass-of-penguins" id="toc-example-2-body-mass-of-penguins" class="nav-link" data-scroll-target="#example-2-body-mass-of-penguins">Example 2: Body Mass of Penguins</a></li>
-  </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">14.4</span> Conclusion</a></li>
+  <li><a href="#example-1-two-sample-versus-matched-pairs" id="toc-example-1-two-sample-versus-matched-pairs" class="nav-link" data-scroll-target="#example-1-two-sample-versus-matched-pairs"><span class="header-section-number">14.3</span> Example 1: Two-Sample versus Matched Pairs</a></li>
+  <li><a href="#example-2-body-mass-of-penguins" id="toc-example-2-body-mass-of-penguins" class="nav-link" data-scroll-target="#example-2-body-mass-of-penguins"><span class="header-section-number">14.4</span> Example 2: Body Mass of Penguins</a></li>
   <li><a href="#example-3-birthweights-by-hand" id="toc-example-3-birthweights-by-hand" class="nav-link" data-scroll-target="#example-3-birthweights-by-hand"><span class="header-section-number">14.5</span> Example 3: Birthweights (by hand)</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">14.6</span> Self-Study Questions</a></li>
+  <li><a href="#example-4-basketball-versus-hockey-players" id="toc-example-4-basketball-versus-hockey-players" class="nav-link" data-scroll-target="#example-4-basketball-versus-hockey-players"><span class="header-section-number">14.6</span> Example 4: Basketball versus Hockey Players</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">14.7</span> Conclusion</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">14.8</span> Self-Study Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -479,10 +477,8 @@ t_{obs} = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}
 </ol>
 </section>
 </section>
-<section id="examples" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="examples"><span class="header-section-number">14.3</span> Examples</h2>
-<section id="example-1-two-sample-versus-matched" class="level3">
-<h3 class="anchored" data-anchor-id="example-1-two-sample-versus-matched">Example 1: Two-Sample versus Matched</h3>
+<section id="example-1-two-sample-versus-matched-pairs" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="example-1-two-sample-versus-matched-pairs"><span class="header-section-number">14.3</span> Example 1: Two-Sample versus Matched Pairs</h2>
 <p>From the Ointment example:</p>
 <table class="table">
 <thead>
@@ -587,10 +583,11 @@ mean of x mean of y
 </div>
 </div>
 <p>This result should not be trusted since it misses a key aspect of the data. The first value in the “Ointment” group corresponds to the first value in the “Without Ointment” group, they aren’t just two separate values - they’re measured on the same individual!</p>
+<p>Regardless, take a moment to look at the differences in the results between the two tests.</p>
 </section>
 </section>
-<section id="example-2-body-mass-of-penguins" class="level3">
-<h3 class="anchored" data-anchor-id="example-2-body-mass-of-penguins">Example 2: Body Mass of Penguins</h3>
+<section id="example-2-body-mass-of-penguins" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="example-2-body-mass-of-penguins"><span class="header-section-number">14.4</span> Example 2: Body Mass of Penguins</h2>
 <p>In this example, we’ll look at the difference in body mass between male and female penguins.</p>
 <p>In this case, there is no clear pairing between the penguins. If they were monogomous couples, then the differences in body mass might tell us about couples, but doesn’t say much about male and female penguins in general.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>This example gives us the opportunity to learn more notation in R! The previous example used <code>t.test(x = ..., y = ...)</code> to denote the two samples. If the data are neatly formatted in a data frame, then we can use the <code>~</code> notation to demonstrate that the body mass is split into different groups for male and female.</p>
@@ -620,26 +617,6 @@ mean in group female   mean in group male
 <p>Note: The notation will always be “variable we care most about” ~ “other variables”. In linear regression, this was y ~ x, and now it’s continuous ~ categorical.</p>
 <p>From the output above, we get a two-sided p-value as well as a two-sided CI, both confirming that the difference in body mass is different from 0. You can also see that it’s using “female minus male”, rather than “male minus female”. This is because R will put them in alphabetical order, so female comes first.</p>
 <p>You may also be happy to hear that no, you will never have to manually enter the standard error formula! Let’s all say a big, collective thank you to the R programming language! Thank you! (You may need to interpret the idea of standard error in two-sample t-tests, though.)</p>
-</section>
-</section>
-<section id="conclusion" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">14.4</span> Conclusion</h2>
-<ul>
-<li>If you can have matched pairs, you should use a matched pairs test.</li>
-<li>Most of the time, you’ll need to use a two-sample t-test.
-<ul>
-<li>Don’t get fooled by equal sample sizes!</li>
-</ul></li>
-<li>A two-sample t-test is based on the difference in means
-<ul>
-<li>The standard error is tricky.</li>
-<li>The degrees of freedom is the <em>smallest</em> sample size minus 1.
-<ul>
-<li>Used for the p-value for hypothesis tests and the critical value for confidence intervals.</li>
-</ul></li>
-<li>The null hypothesis is usually 0, and the alternate dependes on the order in which you subtract the means.</li>
-</ul></li>
-</ul>
 </section>
 <section id="example-3-birthweights-by-hand" class="level2" data-number="14.5">
 <h2 data-number="14.5" class="anchored" data-anchor-id="example-3-birthweights-by-hand"><span class="header-section-number">14.5</span> Example 3: Birthweights (by hand)</h2>
@@ -678,20 +655,20 @@ mean in group female   mean in group male
 </div>
 </div>
 <ul>
-<li>The null hypothesis is <span class="math inline">\(H_0: \mu_{smoke} = \mu_{non}\)</span>, which can be written as <span class="math inline">\(H_0: \mu_{non} - \mu_{smoke} = \mu_{n - s} = 0\)</span>.</li>
+<li>The null hypothesis is <span class="math inline">\(H_0: \mu_{smoke} = \mu_{non}\)</span>, which can be written as <span class="math inline">\(H_0: \mu_{non} - \mu_{smoke} = 0\)</span>.</li>
 <li>The alternate hypothesis is <span class="math inline">\(H_a: \mu_{smoke} &lt; \mu_{non}\)</span>, which could be written as
 <ul>
-<li><span class="math inline">\(H_a: \mu_{n - s} &gt; 0\)</span>, or</li>
-<li><span class="math inline">\(H_a: \mu_{s - n} &lt; 0\)</span></li>
+<li><span class="math inline">\(H_a: \mu_{non} - \mu_{smoke} &gt; 0\)</span>, or</li>
+<li><span class="math inline">\(H_a: \mu_{smoke} - \mu_{non} &lt; 0\)</span></li>
 </ul></li>
 </ul>
 <p>It doesn’t matter which we choose, but we have to know which we chose in order to calculate the corresponding p-value! Let’s use <span class="math inline">\(\mu_{n-s}\)</span>.</p>
-<p>The sample mean difference is <span class="math inline">\(\bar x_{n - s} = 7.18 - 6.78 = 0.4\)</span>. The standard error is: <span class="math display">\[
+<p>The sample mean difference is <span class="math inline">\(\bar x_{non} - \bar x_{smoke} = 7.18 - 6.78 = 0.4\)</span>. The standard error is: <span class="math display">\[
 SE = \sqrt{\dfrac{s_s^2}{n_s} + \dfrac{s_n^2}{n_n}} = \sqrt{\dfrac{1.43^2}{50} + \dfrac{1.60^2}{100}} = 0.2578721
 \]</span></p>
-<p>Since we used <span class="math inline">\(\bar x_{n - s}\)</span>, our alternate tells us to find the p-value for a t-statistic larger than what we got.</p>
+<p>Since we used <span class="math inline">\(\bar x_{non} - \bar x_{smoke}\)</span>, our alternate tells us to find the p-value for a t-statistic larger than what we got.</p>
 <p><span class="math display">\[
-t_{obs} = \dfrac{\bar x_{n-s} - \mu_{n-s}}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.55
+t_{obs} = \dfrac{(\bar x_{non} - \bar x_{smoke}) - (\mu_{non} - \mu_{smoke})}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.55
 \]</span></p>
 <p>Since we’re doing a right-tailed test<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, we calculate our p-value as:</p>
 <div class="cell">
@@ -702,14 +679,82 @@ t_{obs} = \dfrac{\bar x_{n-s} - \mu_{n-s}}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.
 </div>
 <p>To summarise:</p>
 <ul>
-<li><span class="math inline">\(H_0: \mu_{n - s} = 0\)</span> versus <span class="math inline">\(H_0: \mu_{n - s} &gt; 0\)</span></li>
+<li><span class="math inline">\(H_0: \mu_{non} - \mu_{smoke} = 0\)</span> versus <span class="math inline">\(H_0: \mu_{non} - \mu_{smoke} &gt; 0\)</span></li>
 <li><span class="math inline">\(t_{obs} = 1.55\)</span></li>
 <li>p-value is 0.06</li>
 </ul>
 <p>Since our p-value is larger than 0.5, we do not have a statistically significant result. We fail to reject the hypothesis that smokers have lower birthweights. We conclude that we do not have enough evidence to say that smoking is associated with lower birthweights.</p>
 </section>
-<section id="self-study-questions" class="level2" data-number="14.6">
-<h2 data-number="14.6" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">14.6</span> Self-Study Questions</h2>
+<section id="example-4-basketball-versus-hockey-players" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="example-4-basketball-versus-hockey-players"><span class="header-section-number">14.6</span> Example 4: Basketball versus Hockey Players</h2>
+<p>In a previous lecture, we looked at the heights of female basketball players to test whether their heights were consistent with the population. Now that we have the tools to compare two samples, let’s compare some teams! In what follows, we’re testing the the hypothesis that the basketball team and the hockey team are different heights. Let’s test at the 5% level since we have no strong reason to use a smaller or larger level<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"wlu_female_athletes.csv"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>baskey <span class="ot">&lt;-</span> <span class="fu">filter</span> (stats, Sport <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Hockey"</span>, <span class="st">"Basketball"</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Height <span class="sc">~</span> Sport, <span class="at">data =</span> baskey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="L17-Two_Sample_hypothesis_Tests_files/figure-html/baskey-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the boxplot, I would be absolutely flabbergasted if the two groups had the same mean! Astonished! Befuddled, even! This is an important part of any analysis: have expectations! You should know your data well before diving into a study. For example, looking at these boxplots reveals that there are no apparent outliers, and both groups look approximately symmetric. This is good.</p>
+<p>Let’s do the t-test.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Height <span class="sc">~</span> Sport, <span class="at">data =</span> baskey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  Height by Sport
+t = 4.5266, df = 26.588, p-value = 0.0001121
+alternative hypothesis: true difference in means between group Basketball and group Hockey is not equal to 0
+95 percent confidence interval:
+  3.805256 10.123430
+sample estimates:
+mean in group Basketball     mean in group Hockey 
+                172.1771                 165.2128 </code></pre>
+</div>
+</div>
+<p>From the output, we can conclude that there is a statistically significant difference in the average height of female hockey and basketball players at Laurier.</p>
+<p>Some caveats:</p>
+<ul>
+<li>These are small samples!!!
+<ul>
+<li>Recall that R uses a more accurate value for <code>df</code> (we just use the smaller sample size then subtract one for hand calculations). It’s 26.588, which can be interpreted as something like the average of the two sample sizes.</li>
+</ul></li>
+<li>This isn’t exactly a random sample!
+<ul>
+<li>The data were taken from the current seasons’ full teams. We don’t exactly have a wel–defined population here. Is the population all women? Only femal athletes? Only female varsity athletes? Only Canadian female varsity athletes in these particular sports? Or is it only female varsity athletes in these particular sports at Laurier? It’s hard to say what these results apply to.</li>
+</ul></li>
+<li>We just tested hockey versus basketball. What about soccer? What about heights by position?
+<ul>
+<li>If we start testing many hypotheses, we run afoul of the multiple comparisons problem. Before collecting the data, this test had a 5% chance of being significant if the null hypothesis were true. So do all of the other tests. If we test enough times, we’ll eventually reject a true null hypothesis.</li>
+</ul></li>
+</ul>
+</section>
+<section id="conclusion" class="level2" data-number="14.7">
+<h2 data-number="14.7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">14.7</span> Conclusion</h2>
+<ul>
+<li>If you can have matched pairs, you should use a matched pairs test.</li>
+<li>Most of the time, you’ll need to use a two-sample t-test.
+<ul>
+<li>Don’t get fooled by equal sample sizes! Just because the sample sizes are the same doesn’t mean that the observations are paired!</li>
+</ul></li>
+<li>A two-sample t-test is based on the difference in means
+<ul>
+<li>The standard error is tricky - software will do this for you.</li>
+<li>The degrees of freedom is the <em>smallest</em> sample size minus 1.
+<ul>
+<li>Used for the p-value for hypothesis tests and the critical value for confidence intervals.</li>
+<li>R uses a better value.</li>
+</ul></li>
+<li>The null hypothesis is usually 0, and the alternate depends on the order in which you subtract the means.</li>
+</ul></li>
+</ul>
+</section>
+<section id="self-study-questions" class="level2" data-number="14.8">
+<h2 data-number="14.8" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">14.8</span> Self-Study Questions</h2>
 <ol type="1">
 <li>Write out the null and alternate hypotheses for the “Ointment” example and the “Penguins” example, and comment on the difference between the two examples. Make sure the alternate has the same “&gt;” or “&lt;” or “≠” that was used in R’s calculation! Hint: It matters if you do Group 1 minus Group 2 or if you do Group 2 minus Group 1!</li>
 <li>Veryify the p-values in the Ointment and Penguins examples. Use the t-value reported in the R output, and find the p-value using either <code>pt()</code>, <code>1 - pt</code>, or <code>2 * (1 - pt())</code>, as appropriate. Explain your answer.</li>
@@ -719,7 +764,7 @@ t_{obs} = \dfrac{\bar x_{n-s} - \mu_{n-s}}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.
 <li>Provide a conclusion based on the following output (suppose you’re testing at the 10% level). The <code>mpg</code> variable is the miles per gallon of a vehicle, while <code>am</code> is the transmission type, with 0 = Automatic and 1 = Manual. <code>mtcars</code> is just the name of the data that these variables are in.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -736,13 +781,13 @@ mean in group 0 mean in group 1
 </div>
 <details>
 <summary>
-<strong>Selected SolutionS</strong>
+<strong>Selected Solutions</strong>
 </summary>
 <ol type="1">
 <li>Ointment: <span class="math inline">\(H_0: \mu_{without-with} = 0\)</span> versus and <span class="math inline">\(H_A: \mu_{without-with} &lt; 0\)</span>. Note that we can tell that it’s <code>without-with</code> by looking at the means of the two groups and the sign of the t-statistic.
 <ul>
-<li><span class="math inline">\(H_0: \mu_{female} - \mu_{male} = 0\)</span> versus <span class="math inline">\(H_A: \mu_{female} - \mu_{male} \ne 0\)</span>.</li>
-<li>The ointment example had <span class="math inline">\(\mu_{without - with}\)</span> as a single number, whereas the penguins example used <span class="math inline">\(\mu_{female} - \mu_{male}\)</span>. This is because the ointment example was a <em>one-sample t-test</em> since we were treating the set of differences as a single sample; the penguins example is a two-sample t-test.</li>
+<li>Penguins: <span class="math inline">\(H_0: \mu_{female} - \mu_{male} = 0\)</span> versus <span class="math inline">\(H_A: \mu_{female} - \mu_{male} \ne 0\)</span>.</li>
+<li>The ointment example had <span class="math inline">\(\mu_{without - with}\)</span> as a single number, whereas the penguins example used <span class="math inline">\(\mu_{female} - \mu_{male}\)</span>, which is the difference between two numbers. This is because the ointment example was a <em>one-sample t-test</em> since we were treating the set of differences as a single sample; the penguins example is a two-sample t-test.</li>
 </ul></li>
 </ol>
 </details>
@@ -755,6 +800,7 @@ mean in group 0 mean in group 1
 <li id="fn1"><p>In general, we would much, much, much rather <em>overestimate</em> the variance. The whole point of statistics is to avoid overconfidence in our estimates.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Recall: penguins are especially likely to have homosexual relationships and tend to be more fluid in their gender roles than other animals.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>If we had done a left-tailed test, we wouldn’t need the “1 -”. Explain why.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>A smaller level would be used if we required strong evidence before we reject the null, such as when a new treatment seems implausible.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

@@ -301,6 +301,7 @@ Since our p-value is larger than 0.5, we do not have a statistically significant
 In a previous lecture, we looked at the heights of female basketball players to test whether their heights were consistent with the population. Now that we have the tools to compare two samples, let's compare some teams! In what follows, we're testing the the hypothesis that the basketball team and the hockey team are different heights. Let's test at the 5% level since we have no strong reason to use a smaller or larger level^[A smaller level would be used if we required strong evidence before we reject the null, such as when a new treatment seems implausible.]
 
 ```{r}
+#| label: baskey
 library(dplyr)
 library(ggplot2)
 stats <- read.csv("wlu_female_athletes.csv")

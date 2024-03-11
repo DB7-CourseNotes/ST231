@@ -318,8 +318,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#mendelian-genetics-confidence-interval" id="toc-mendelian-genetics-confidence-interval" class="nav-link" data-scroll-target="#mendelian-genetics-confidence-interval">Mendelian Genetics Confidence Interval</a></li>
   </ul></li>
   <li><a href="#exact-test-for-binomial" id="toc-exact-test-for-binomial" class="nav-link" data-scroll-target="#exact-test-for-binomial"><span class="header-section-number">15.4</span> Exact Test for Binomial</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">15.5</span> Summary</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">15.6</span> Self-Study Questions</a></li>
+  <li><a href="#example-titanic-survivors" id="toc-example-titanic-survivors" class="nav-link" data-scroll-target="#example-titanic-survivors"><span class="header-section-number">15.5</span> Example: Titanic Survivors</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">15.6</span> Summary</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">15.7</span> Self-Study Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -358,10 +359,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="refresher" class="level2" data-number="15.1">
 <h2 data-number="15.1" class="anchored" data-anchor-id="refresher"><span class="header-section-number">15.1</span> Refresher</h2>
 <p>In the lecture on sampling distributions, we learned that the sampling distribution of a sample proportion can be found as follows:</p>
-<p>If <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span>, then <span class="math display">\[
+<p>If <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(np&gt;10\)</span> and <span class="math inline">\(n(1-p)&gt;10\)</span>,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> then we can approximate the sampling distribution of <span class="math inline">\(\hat p\)</span> as follows: <span class="math display">\[
 \hat p \sim N\left(p, \sqrt{\frac{p(1-p)}{n}}\right)
 \]</span></p>
-<p>This relies on the population proportion to find the standard error, but this is never available.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>This relies on the population proportion <span class="math inline">\(p\)</span> to find the standard error, but this is never available. If it was, then why are we trying to do inference?</p>
 </section>
 <section id="hypothesis-tests-for-proportions" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="hypothesis-tests-for-proportions"><span class="header-section-number">15.2</span> Hypothesis tests for proportions</h2>
@@ -397,7 +398,7 @@ P(Z \{&gt;or&lt;or\text{ further away than}\} z_{obs}) = \dots
 <p>where we use <span class="math inline">\(&gt;\)</span> if the alternate hypothesis uses <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span> if the alternate hypothesis uses <span class="math inline">\(&lt;\)</span>, and we look at the two tails if the alternate hypothesis is <span class="math inline">\(\ne\)</span>.</p>
 <p>A common question is: which <span class="math inline">\(p\)</span> do we use to check normality? We’re supposed to check <span class="math inline">\(np\)</span> and <span class="math inline">\(n(1-p)\)</span>, but do we use <span class="math inline">\(\hat p\)</span> or <span class="math inline">\(p_0\)</span>?</p>
 <p>For a hypothesis test, we assume the null is true, i.e.&nbsp;<span class="math inline">\(p=p_0\)</span>. We should use this assumption <em>everywhere</em>! For a hypothesis test about a proportion, we check whether <span class="math inline">\(np_0&gt;10\)</span> and <span class="math inline">\(n(1-p_0)&gt;10\)</span><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
-<p>From here, we proceed as usual. We check the observed test statistic against a <em>normal</em> distribution and see whether our data are too extreme to come from the distribution assumed in the null hypothesis.</p>
+<p>From here, we proceed as usual. We check the observed test statistic against a <em>normal</em> distribution<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and see whether our data are too extreme to come from the distribution assumed in the null hypothesis.</p>
 </section>
 </section>
 <section id="example" class="level2" data-number="15.3">
@@ -413,7 +414,7 @@ P(Z \{&gt;or&lt;or\text{ further away than}\} z_{obs}) = \dots
 <ul>
 <li>We doubled the <span class="math inline">\(P(Z &lt; z_{obs})\)</span> because we want both tails. If you do this and your p-value is larger than 1, do <span class="math inline">\(1 - P(Z &lt; z_{obs})\)</span> first and then double it.</li>
 </ul></li>
-<li>Conclusion: Since <span class="math inline">\(p-val &gt; \alpha\)</span>, we do not reject the null. The hypothesis that 75% of plants inherent the dominant trait is compatible with the data.</li>
+<li>Conclusion: Since our p-value is larger than <span class="math inline">\(\alpha\)</span>, we do not reject the null. The hypothesis that 75% of plants inherent the dominant trait is compatible with the data.</li>
 </ol>
 <p>The last step is important: always word your conclusion in the context of the study.</p>
 <p>These methods are extremely widespread, so of course they’re implemented in R. Here’s a verification of our results:</p>
@@ -440,7 +441,7 @@ sample estimates:
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">7324</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> x <span class="sc">/</span> n</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fl">0.75</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.75</span>) <span class="sc">/</span> n)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>((phat <span class="sc">-</span> <span class="fl">0.75</span>) <span class="sc">/</span> se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>((phat <span class="sc">-</span> <span class="fl">0.75</span>) <span class="sc">/</span> se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6081484</code></pre>
 </div>
@@ -470,13 +471,18 @@ sample estimates:
 0.7474058 </code></pre>
 </div>
 </div>
-<p>These details are not important, just be aware that almost all tests for proportions are run <em>with</em> the continuity correction factor.</p>
+<p>These details are not important, just be aware that almost all tests for proportions are run <em>with</em> the continuity correction factor. You will not be doing this by hand on a test, so you can assume that R did the right things to make the calculations as correct as possible (but R will <em>not</em> do anything to make sure that the test is appropriate for the data).</p>
 </section>
 <section id="mendelian-genetics-confidence-interval" class="level3">
 <h3 class="anchored" data-anchor-id="mendelian-genetics-confidence-interval">Mendelian Genetics Confidence Interval</h3>
-<p>Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5%<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<p>In order to find the confidence interval, we again need the standard error! In the hypothesis test, we assumed that <span class="math inline">\(p_0\)</span> was the true population proportion in order to proceed with the test. However, we don’t make this assumption for confidence intervals.</p>
+<p>Recall from last lecture the duality of the CI and the hypothesis test. For this question, a 95.5%<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> CI matches what we used before.</p>
+<p>In order to find the confidence interval, we again need the standard error! In the hypothesis test, we assumed that <span class="math inline">\(p_0\)</span> was the true population proportion in order to proceed with the test. However, we don’t make this assumption for confidence intervals. In other words, there <em>is no <span class="math inline">\(p_0\)</span> value that we can use</em>. We haven’t made any hypotheses for a p CI.</p>
 <p>What can we do? We don’t have <span class="math inline">\(p\)</span> or <span class="math inline">\(p_0\)</span>, so we’re left with <span class="math inline">\(\hat p\)</span>, the sample proportion that we calculated. In the t-test, this meant that we needed to switch to the <span class="math inline">\(t\)</span> distribution. However, that was because there was really good theory to say that the <span class="math inline">\(t\)</span> distribution is the correct distribution to use. There’s no such theory here.</p>
+<p>The standard error is still the same, we just use <span class="math inline">\(\hat p\)</span> in place of <span class="math inline">\(p\)</span>: <span class="math display">\[
+SE = \sqrt{\dfrac{\hat p(1 - \hat p)}{n}}
+\]</span> and our confidence interval is, again, <span class="math display">\[
+\text{Point Estimate }\pm\text{ Critical Value} * \text{Standard Error} = \hat p \pm z^*\sqrt{\dfrac{\hat p(1 - \hat p)}{n}}
+\]</span></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -493,25 +499,26 @@ CIs for Proportions Only Work When the CLT Applies
 <p>Now that we know all this, the CI can be found as: <span class="math display">\[
 \hat p \pm z^*\sqrt{\frac{\hat p(1-\hat p)}{n}} = 0.747 \pm 2.005\sqrt{\frac{0.747(1-0.747)}{7324}}
 \]</span></p>
-<p>which results in the CI (0.737, 0.758). This matches the CI shown in the output of <code>prop.test()</code> above (double check this!).</p>
+<p>which results in the CI (0.737, 0.757). This matches the CI shown in the output of <code>prop.test()</code> above (double check this!).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Duality of Hypotheses and CIs
+Non-Duality of Hypotheses and CIs
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>For proportions, it is <em>not</em> true that the CI contains all hypotheses that would not be rejected because the CI and the hypothesis test use different standard errors.</p>
+<p>For the t-test, a CI can be interpreted as “every value that would not be rejected by a hypothesis test.”</p>
+<p>For proportions, it is <em>not</em> true. This is because the CI and the hypothesis test use <em>different standard errors</em>. This is a very important point: the hypothesis test uses <span class="math inline">\(p_0\)</span> in the standard error formula, while CIs use <span class="math inline">\(\hat p\)</span>, and thus the standard errors will be different.</p>
 </div>
 </div>
 </section>
 </section>
 <section id="exact-test-for-binomial" class="level2" data-number="15.4">
 <h2 data-number="15.4" class="anchored" data-anchor-id="exact-test-for-binomial"><span class="header-section-number">15.4</span> Exact Test for Binomial</h2>
-<p>In this course, we use the normal approximation to the binomial in order to do hypothesis tests. This is not the only way to do it: we don’t always need to use the approximation! There’s something called the “exact binomial test”, which is a hypothesis test that uses the binomial distribution rather than the normal approximation (this will not be on tests).</p>
+<p>In this course, we have used the normal approximation to the binomial in order to do hypothesis tests. This is not the only way to do it: we don’t always need to use the approximation! There’s something called the “exact binomial test”, which is a hypothesis test that uses the binomial distribution rather than the normal approximation (this will not be on tests).</p>
 <p>There are two main reasons why we might prefer the approximation, rather than using the exact test:</p>
 <ol type="1">
 <li>If we have a large sample, then the approximation and the exact test are very very close. The approximation is computationally simpler.
@@ -523,10 +530,51 @@ Duality of Hypotheses and CIs
 <li>This is a technical point that can be safely ignored when studying for tests.</li>
 </ul></li>
 </ol>
-<p>The exact test can be performed using the <code>binom.test()</code> function in R.</p>
+<p>The exact test can be performed using the <code>binom.test()</code> function in R. You will <em>never</em> have to choose between the two on an exam in this course. You will be given only the one that you need (usually <code>binom.test()</code> for one sample proportions, and <code>prop.test()</code> for two-sample proportions).</p>
 </section>
-<section id="summary" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">15.5</span> Summary</h2>
+<section id="example-titanic-survivors" class="level2" data-number="15.5">
+<h2 data-number="15.5" class="anchored" data-anchor-id="example-titanic-survivors"><span class="header-section-number">15.5</span> Example: Titanic Survivors</h2>
+<p>Did women have a 50% chance of surviving the sinking of the titanic? Let’s test this at the 10% level, since we’d be pretty easily convinced.</p>
+<p>Since this is <strong>categorical</strong> data, we’ll use a bar plot.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L18-Hypothesis_Tests_for_Proportions_files/figure-html/Titanic_plots-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>From the bar plot, it’s pretty clear that the prportion of survivors is different from 50%. Let’s confirm this statistically!</p>
+<p>We’re only interested in the female survivors for this analysis, so we’ll focus on that aspect of the bar plot.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+# Groups:   Sex [2]
+  Sex    Survived  Freq
+  &lt;fct&gt;  &lt;fct&gt;    &lt;dbl&gt;
+1 Male   No        1329
+2 Male   Yes        338
+3 Female No         109
+4 Female Yes        316</code></pre>
+</div>
+</div>
+<p>From this output, we know that there were 316 female survivors out of 316 + 109 = 425 women total. Let’s report these numbers to R:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1-sample proportions test with continuity correction
+
+data:  316 out of 425, null probability 0.5
+X-squared = 99.849, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: true p is not equal to 0.5
+95 percent confidence interval:
+ 0.698733 0.783840
+sample estimates:
+        p 
+0.7435294 </code></pre>
+</div>
+</div>
+<p>The default hypothesis is that the proportion is equal to 0.5, so we didn’t have to change anything. From this, it is clear that the null hypothesis should be rejected. We conclude that the percentage of women who survived the sinking of the Titanic is <em>different from</em> 50%<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
+</section>
+<section id="summary" class="level2" data-number="15.6">
+<h2 data-number="15.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">15.6</span> Summary</h2>
 <p>CIs and Hypothesis Tests work exactly as they did before, but now we’re dealing with proportions. Just like the change from one sample to two sample <span class="math inline">\(t\)</span> tests, the standard error is important and difficult.</p>
 <ul>
 <li>For hypothesis tests, the standard error uses <span class="math inline">\(p_0\)</span>.</li>
@@ -542,13 +590,14 @@ Duality of Hypotheses and CIs
 <li>There is also an exact test, but for large samples the approximation is faster and easier.</li>
 </ul>
 </section>
-<section id="self-study-questions" class="level2" data-number="15.6">
-<h2 data-number="15.6" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">15.6</span> Self-Study Questions</h2>
+<section id="self-study-questions" class="level2" data-number="15.7">
+<h2 data-number="15.7" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">15.7</span> Self-Study Questions</h2>
 <ol type="1">
 <li>When do we use <span class="math inline">\(\hat p\)</span> in the standard error? When do we use <span class="math inline">\(p_0\)</span>?</li>
 <li>Explain why we don’t estimate the standard error in a hypothesis test about a proportion.</li>
 <li>Explain in your own words why there’s no <span class="math inline">\(t\)</span> version of a hypothesis test for proportions.</li>
 <li>Write a good summary of the Mendelian genetics example. What did we conclude, and how is this knowledge useful?</li>
+<li>Repeat the Titanic survivors example but with male passengers.</li>
 </ol>
 
 
@@ -556,11 +605,13 @@ Duality of Hypotheses and CIs
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>If it was, then why are we doing inference?<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>That is, we have a <strong>large sample</strong><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>We want to be strict about this so that it’s more convincing if we prove it wrong.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>I’m lying.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>As before, both conditions must be true; it’s not enough for just <span class="math inline">\(np_0&gt;10\)</span> alone.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p><span class="math inline">\(\alpha = 0.045\)</span>, so <span class="math inline">\(1 - \alpha = 0.955\)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>We do not use a t distribution for this. The <span class="math inline">\(t\)</span> distribution was used to account for the variance in the sampling distribution for <span class="math inline">\(s\)</span> - the standard error for proportions is still based on <span class="math inline">\(p\)</span>, which means that there is no added variance!<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><span class="math inline">\(\alpha = 0.045\)</span>, so <span class="math inline">\(1 - \alpha = 0.955\)</span>.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>We can only conclude what we see in our hypotheses!!!<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
