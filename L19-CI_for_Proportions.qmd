@@ -14,15 +14,14 @@ set.seed(2112)
 
 ## Introduction
 
-### This is the same as the last video.
+### This is the same as the last lesson
 
-- Based on our data, we make an interval that we think describes the population.\newline\pause
-
+- Based on our data, we make an interval that we think describes the population.\lspace\pause
 - In this case, we just have a different population distribution?
 
 ### Assumptions
 
-In stats, assumptions give us power \pause but only if they hold.
+In stats, assumptions give us power, \pause but only if they're good assumptions.
 
 \pause
 
@@ -135,11 +134,23 @@ Using the population proportion is... worse?\pause
 
 DIY: Change $p$ so that the normal approximation doesn't apply.
 
-## Examlpes and Cautions
+## Examples and Cautions
 
 ### Example 1 {.t}
 
 It was found that 591 out of 700 people sampled supported a certain political position. Find a 91%CI.
+
+:::notes
+
+Since we have R, let's use it!
+
+Both `prop.test()` and `binom.test()` will give us a CI, with `prop.test()` calculating an approximation using the normal distribution and `binom.test()` calculating the exact value, without approximation. In general, you should always use `binom.test()` for one sample proportions. 
+
+```{r}
+binom.test(x = 591, n = 700, conf.level = 0.91)
+```
+:::
+
 
 
 ### Example 2 {.t}
@@ -157,13 +168,25 @@ phat + c(-1, 1)*z_star*se_est
 
 ... so it would be reasonable to say that the popluation proportion is larger than 1???
 
+:::notes
+Absolutely not! The normal approximation does not apply here since $n(1 - \hat p) = 70*(1 - 68/70) = 2$, and 2 is less than 10^[Citation needed.]. The normal distribution can only be used when the sample size is large enough!!!
+
+Instead, we can use the exact test. This is much slower to calculate, but for $n = 70$ there's no issue.
+
+```{r}
+binom.test(x = 68, n = 70, conf.level = 0.91)
+```
+
+Notice that 
+:::
+
 
 ### Example 2 {.t}
 
 It was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.\pause
 
 ```{r}
-prop.test(x = 68, n = 70)
+binom.test(x = 68, n = 70)
 ```
 
 
