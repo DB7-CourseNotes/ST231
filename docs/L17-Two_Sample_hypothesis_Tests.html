@@ -692,7 +692,7 @@ t_{obs} = \dfrac{(\bar x_{non} - \bar x_{smoke}) - (\mu_{non} - \mu_{smoke})}{SE
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"wlu_female_athletes.csv"</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>baskey <span class="ot">&lt;-</span> <span class="fu">filter</span> (stats, Sport <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Hockey"</span>, <span class="st">"Basketball"</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>baskey <span class="ot">&lt;-</span> <span class="fu">filter</span>(stats, Sport <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Hockey"</span>, <span class="st">"Basketball"</span>))</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Height <span class="sc">~</span> Sport, <span class="at">data =</span> baskey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L17-Two_Sample_hypothesis_Tests_files/figure-html/baskey-1.png" class="img-fluid" width="672"></p>

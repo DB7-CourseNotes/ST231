@@ -305,7 +305,7 @@ In a previous lecture, we looked at the heights of female basketball players to 
 library(dplyr)
 library(ggplot2)
 stats <- read.csv("wlu_female_athletes.csv")
-baskey <- filter (stats, Sport %in% c("Hockey", "Basketball"))
+baskey <- filter(stats, Sport %in% c("Hockey", "Basketball"))
 boxplot(Height ~ Sport, data = baskey)
 ```
 

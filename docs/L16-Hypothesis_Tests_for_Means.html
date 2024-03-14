@@ -409,9 +409,9 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 </ul>
 <p>Using the <span class="math inline">\(t\)</span> distribution, our p-value is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="dv">3</span>, <span class="at">df =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="dv">3</span>, <span class="at">df =</span> <span class="dv">16</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.00423975</code></pre>
+<pre><code>[1] 0.004486369</code></pre>
 </div>
 </div>
 <p>This is <em>larger</em> than our previous p-value of 0.0013. This will always be the case: if the <span class="math inline">\(z_{obs}\)</span> test statistic is the same as the <span class="math inline">\(t_{obs}\)</span> test statistic, then the p-value for <span class="math inline">\(t_{obs}\)</span> will be wider.</p>

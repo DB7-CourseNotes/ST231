@@ -58,7 +58,7 @@ $$
 Using the $t$ distribution, our p-value is:
 
 ```{r}
-1 - pt(3, df = 16)
+1 - pt(3, df = 16 - 1)
 ```
 
 
