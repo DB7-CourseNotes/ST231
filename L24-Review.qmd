@@ -428,6 +428,35 @@ chisq.test(table(penguins$sex, penguins$island))
 The p-value is identical! If one is independent of the other, then the other is independent of the one!
 </details>
 
+### Chi-Square Test for Goodness of Fit
+
+- **Assumptions**: Independence between individuals.
+- **Hypothesis**: The distribution matches the hypothesized distribution.
+- **Test Statistic**: The squared difference between observed and expected, where expected is defined in the hypothesis.
+- **p-value**: Always right-tailed.
+
+**Example**: A researcher claimed that they saw 50% of the penguins on the Briscoe island, 30% on Dream, and 20% on Torgersen. Is this hypothesis compatible with the data?
+
+The penguins data looks like this:
+
+```{r}
+table(penguins$island)
+```
+
+
+```{r}
+chisq.test(table(penguins$island), p = c(0.5, 0.3, 0.2))
+```
+
+It looks like the answer is no! The p-value is less than 0.05, so we conclude that the distribution of penguins across the islands is different from the claimed 0.5, 0.3, and 0.2. Let's see the actual proportions to see why:
+
+```{r}
+table(penguins$island) / nrow(penguins)
+```
+
+From the data, it looks like there were more on Dream than the researcher suggested, and fewer on Torgersen.
+
+Notice how the goodness-of-fit test works like a one-sample Chi-Square test. That's neat!
 
 ## Practice Problems
 
