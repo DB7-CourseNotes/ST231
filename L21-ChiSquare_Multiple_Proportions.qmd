@@ -125,7 +125,32 @@ The $\chi^2$ test calculates the difference in observed counts and what would be
 A significant p-value means there is some sort of dependence, even if it's just one cell that is sufficiently different.
 :::
 
-### Example in R
+### This Example in R
+
+Preparing the data for R is relatively difficult, so ignore those details.
+
+```{r}
+#| eval: true
+#| echo: true
+#| label: mammochisq
+
+mammograms <- as.table(cbind(c(500, 44425), c(505, 44405)))
+colnames(mammograms) <- c("Died", "Survived")
+rownames(mammograms) <- c("Mammogram", "Control")
+
+chisq.test(mammograms)
+```
+
+Again, R does a better calculation using continuity correction, which is out of the scope of this course.
+
+For this simple example, note that this is the same as a two-sample test for proportions (but with a different form of contnuity correction):
+
+```{r}
+prop.test(x = c(500, 505), n = c(44425, 44405))
+```
+
+
+### Another Example in R
 
 The following data come from the help file for the `chisq.test()` function in R.
 
