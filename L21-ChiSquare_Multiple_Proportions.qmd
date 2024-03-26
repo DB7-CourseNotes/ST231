@@ -137,6 +137,7 @@ Preparing the data for R is relatively difficult, so ignore those details.
 mammograms <- as.table(cbind(c(500, 44425), c(505, 44405)))
 colnames(mammograms) <- c("Died", "Survived")
 rownames(mammograms) <- c("Mammogram", "Control")
+mammograms
 
 chisq.test(mammograms)
 ```
@@ -196,6 +197,38 @@ The main thing that sticks out to me is that the count for republican women and 
 ## Confidence Intervals
 
 Let's not.^[There's not really a single statistic that's worth making a CI for. We could make one for each expected count, but that's silly.]
+
+
+### Chi-Square and Power
+
+In previous lectures, we saw that **power** is our ability to reject a false null.
+
+- If we're looking for a "small" difference, we need a larger sample size.
+
+\pspace
+
+What's a "small" difference in a Chi-Square test?
+
+- Not calculating a single estimate, so there's no one value to compare to a hypothesis.
+- Instead, the Chi-Square statistic is the important thing. It's an overall measure of the difference between observed and expected.
+
+The $\chi^2$ statistic is divided by *expected* $\implies$ differences are less important when *expected* is larger. Recall:
+
+$$
+\chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
+$$
+
+- A value that's 10 units away from the expected count...
+    - Is a large difference if the expected count is 2
+    - Is a small difference if the expected count is 2,000\lspace
+
+Larger sample size $\rightarrow$ larger value of *expected*. For the same difference between observed and *expected*, a larger sample size means a smaller p-value! A smaller p-value means we're more likely to reject the null, and rejecting a false null is power!
+
+\pspace
+
+This is the same as with means and proportions!!!
+
+There's no "standard error" for Chi-Square tests, but there's still a concept of "larger sample means smaller variance in the sampling distribution"!
 
 ## Chi-Square for "Goodness of Fit"
 
