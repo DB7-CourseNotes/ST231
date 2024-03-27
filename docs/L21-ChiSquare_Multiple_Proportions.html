@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-03-25">
+<meta name="dcterms.date" content="2024-03-26">
 
 <title>Statistics for Life Sciences - 18&nbsp; Chi-Square Test for Multiple Proportions</title>
 <style>
@@ -344,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-03-25</p>
+      <p class="date">2024-03-26</p>
     </div>
   </div>
   
@@ -653,15 +653,14 @@ gender Democrat Independent Republican
 \chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
 \]</span></p>
 <ul>
-<li>A value that’s 10 units away from the expected count…
+<li>A value that’s 10 units away from the <em>expected</em> count…
 <ul>
-<li>Is a large difference if the expected count is 2</li>
-<li>Is a small difference if the expected count is 2,000</li>
+<li>Is a large difference if the <em>expected</em> count is 2</li>
+<li>Is a small difference if the <em>expected</em> count is 2,000</li>
 </ul></li>
 </ul>
-<p>Larger sample size <span class="math inline">\(\rightarrow\)</span> larger value of <em>expected</em>. For the same difference between observed and <em>expected</em>, a larger sample size means a smaller p-value! A smaller p-value means we’re more likely to reject the null, and rejecting a false null is power!</p>
-<p>This is the same as with means and proportions!!!</p>
-<p>There’s no “standard error” for Chi-Square tests, but there’s still a concept of “larger sample means smaller variance in the sampling distribution”!</p>
+<p>In other words, the interpretation of the difference between observed and expected depends on the size of the expected count, and with a larger sample size we get a larger expected count.</p>
+<p>This is the same as with means and proportions!!! There’s no “standard error” for Chi-Square tests, but there’s still a concept of “larger sample means smaller variance in the sampling distribution”!</p>
 </section>
 </section>
 <section id="chi-square-for-goodness-of-fit" class="level2" data-number="18.4">
@@ -724,6 +723,7 @@ X-squared = 440.18, df = 3, p-value &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>According to R, the demographics are significantly different!</p>
+<p>For more examples of the goodness-of-fit test, see <a href="https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Statistics_with_Technology_2e_(Kozak)/11%3A_Chi-Square_and_ANOVA_Tests/11.02%3A_Chi-Square_Goodness_of_Fit">this free, open-source textbook</a></p>
 
 
 </section>

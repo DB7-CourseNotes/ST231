@@ -218,17 +218,15 @@ $$
 \chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
 $$
 
-- A value that's 10 units away from the expected count...
-    - Is a large difference if the expected count is 2
-    - Is a small difference if the expected count is 2,000\lspace
+- A value that's 10 units away from the *expected* count...
+    - Is a large difference if the *expected* count is 2
+    - Is a small difference if the *expected* count is 2,000\lspace
 
-Larger sample size $\rightarrow$ larger value of *expected*. For the same difference between observed and *expected*, a larger sample size means a smaller p-value! A smaller p-value means we're more likely to reject the null, and rejecting a false null is power!
+In other words, the interpretation of the difference between observed and expected depends on the size of the expected count, and with a larger sample size we get a larger expected count.  
 
 \pspace
 
-This is the same as with means and proportions!!!
-
-There's no "standard error" for Chi-Square tests, but there's still a concept of "larger sample means smaller variance in the sampling distribution"!
+This is the same as with means and proportions!!! There's no "standard error" for Chi-Square tests, but there's still a concept of "larger sample means smaller variance in the sampling distribution"!
 
 ## Chi-Square for "Goodness of Fit"
 
@@ -259,3 +257,5 @@ chisq.test(x = observed, p = hypothesized)
 ```
 
 According to R, the demographics are significantly different!
+
+For more examples of the goodness-of-fit test, see [this free, open-source textbook](https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Statistics_with_Technology_2e_(Kozak)/11%3A_Chi-Square_and_ANOVA_Tests/11.02%3A_Chi-Square_Goodness_of_Fit)
