@@ -395,10 +395,20 @@ prop.test(table(db$island, db$sex))
 
 The p-value for the two-sided alternated hypothesis is 1! This is definitely larger than our significance level, so we absolutely cannot reject the null. We conclude that there is no evidence of a difference in the proportion of males to females.
 
+Notice that the proportion estimates are 80/(80 + 83) and 61/(61 + 63), i.e. the proportion of female penguuins on Briscoe Island and the proportion of female pengiuns on Dream Island (note that these are conditional probabilities). If we had done it the other way:
+
+```{r}
+prop.test(table(db$sex, db$island))
+```
+
+we get the proportion of Briscoe among females and the proportion of Dream among females, but the exact same p-value!
+
+
 ### Chi-Square Test for Two-Way Tables
 
 - **Assumptions**: Independence among individuals, large enough samples for the normal approximation to apply.
 - **Hypotheses**: The Column and the Row variable are independent. 
+    - In other words, P(A | X) = P(A) for all rows A and columns X, and vice versa.
 - **Test Statistic**: The squared difference between the observed count and the expected count.
     - The expected count is what we would get if the rows and columns were independent. 
 - **p-value**: Always right-tailed, since the test stat is a squared difference.
@@ -415,6 +425,8 @@ chisq.test(table(penguins$island, penguins$sex))
 ```
 
 As we might have expected, there's no evidence that there's a difference in the "sex" variable in different islands.
+
+One way to interpret this result is that P(Male | Briscoe) = P(Male), and similarly for both biological sexes and for all three islands. That is, knowing which island the penguin was sampled from does not give us more information about the penguin's biological sex. Conversely, if I told you that it was a Male penguin then you would have no more information about which island it was sampled from.
 
 <details>
     <summary>**Second Example**</summary>
