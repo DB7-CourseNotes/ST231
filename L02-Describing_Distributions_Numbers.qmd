@@ -534,6 +534,8 @@ all_means <- c(mean(g1), mean(g2), mean(3), mean(4), mean(5), mean(6), mean(7))
 The **Ecological Fallacy** is that the data looks less variable if we only look at the average values in different groups.
 
 For example, Statistics Canada releases information of the average household income for people who are 16-24 years old, 25-34, etc. The variance of these averages is **NOT** related to the actual variance of the values. When we learn more about statistical tests, we learn just how important the variance is - getting it wrong by not acknowledging that we're working with means is a **HUGE** problem!
+
+*****
 </details>
 
 :::
@@ -572,3 +574,30 @@ table(penguins$sex, penguins$species) |> knitr::kable()
 
 - The number of penguins in each *combination* of categories.
 - We can find that there were 165 female penguins by adding the entries in the row labelled `female`. 
+
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. Given this set of numbers: 23, 19, 27, 36, 21, 29, 38, 39, 42, 25, determine the Q0, Q1, Q2, Q3, and Q4. Measure the spread by determining the IQR of this set of numbers.
+
+<details>
+    <summary>**Solution**</summary>
+First we will re-order the numbers from smallest value to largest value.
+19, 21, 23, 25, 27, 29, 36, 38, 39, 42.
+
+- Q0 is the lowest value so that will be 19.
+- Q4 is the highest value in the set so that will be 42.
+- Q2 is the median. Since the number of values (n) is even, the median will be between the middle two numbers, 27 and 29. Making Q2 = 28.
+- Q1 is the median between the values between Q0 and Q2 (19, 21, 23, 25, 27). The median in this set is 23, making Q1 = 23.
+- Q3 is the median of the second half of the data set, between Q2 and Q4 (29, 36, 38, 39, 42). The median in this set is 38, making Q3 = 38.
+
+Next to determine the IQR, we subtract Q1 from Q3.
+
+IQR = Q3-Q1 = 38 - 23 = 15
+
+Therefore, the Interquartile range for this set of data is 15.
+
+
+*****
+</details>

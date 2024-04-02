@@ -538,8 +538,35 @@ Use [this app](https://projects.fivethirtyeight.com/p-hacking/) to play around w
 
 </details>
 
+## Crowdsourced Questions
 
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
 
+1. Which of the following statements is false about degrees of freedom (df) for a one-sample t-test?
+    a. df = n - 1, where n is the number of items in your sample.
+    b. Degrees of freedom refer to how many values in your data can change without breaking any rules.
+    c. The higher the degrees of freedom, the more the t-distribution resembles a normal distribution.
+    d. Degrees of freedom always equal the number of items in your dataset.
+
+<details>
+    <summary>**Solution**</summary>
+D is false because degrees of freedom (df) are calculated based on the sample size minus the number of parameters estimated. For example, in a simple t-test, df = n - 1, where n is the sample size. Degrees of freedom are not simply equal to the number of items but reflect the number of values that are free to vary in the calculation of a statistic, taking into account any constraints such as parameters estimated.
+
+*****
+</details>
+
+2. A survey was carried out to estimate the average daily screen time of university students. A 90% confidence interval for the mean daily screen time was found to be (3 hours, 5 hours). How should this confidence interval be interpreted?
+    a. The true average daily screen time of all university students is between 3 hours and 5 hours.
+    b. There is a 90% confidence that the average daily screen time for university students is within the 3 to 5 hours range.
+    c. 90% of university students have a daily screen time between 3 and 5 hours.
+    d. There is a 10% chance that the true average daily screen time for university students is not between 3 and 5 hours.
+
+<details>
+    <summary>**Solution**</summary>
+b is the correct answer - The 90% confidence interval means that if we were to replicate this survey multiple times, each time calculating a new 90% confidence interval for the mean daily screen time from different samples, about 90% of these intervals would be expected to contain the true mean daily screen time for the population. It demonstrates our level of confidence in the interval's ability to capture the true population parameter, not the distribution of individual screen times.
+
+*****
+</details>
 
 
 

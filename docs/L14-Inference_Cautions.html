@@ -327,6 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#q4" id="toc-q4" class="nav-link" data-scroll-target="#q4">Q4</a></li>
   <li><a href="#q5" id="toc-q5" class="nav-link" data-scroll-target="#q5">Q5</a></li>
   </ul></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">11.9</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -752,9 +753,92 @@ The Multiple Comparisons Problem
 <li>The probability that my diagnosis is correct is 1 - P(Type 2 error).</li>
 <li>A smaller significance level means I’ll have less power.</li>
 </ol>
-
-
 </section>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="11.9">
+<h2 data-number="11.9" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">11.9</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>A type 1 error occurs when?
+<ol type="a">
+<li>A null hypothesis is not rejected but should be rejected</li>
+<li>A null hypothesis is rejected but should not be rejected</li>
+<li>A test statistic is incorrect</li>
+<li>None of the above are correct</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol start="2" type="a">
+<li>is the correct answer – In statistical hypothesis testing, a type 1 error (also known as a “false positive”) refers to the situation where the null hypothesis is incorrectly rejected when it is actually true. This means that the test concludes there is a significant effect or difference when, in reality, there is none.</li>
+</ol>
+</details>
+<ol start="2" type="1">
+<li>Bottles of water have a label stating that the volume is 14 oz. A ST231 class suspects the bottles are under‐filled and plans to conduct a test. A Type I error in this situation would mean:
+<ol type="a">
+<li>The ST231 class concludes the bottle has less than 14 oz, when the mean actually is 14 oz</li>
+<li>The ST231 class concludes the bottles has less than 14 oz when the mean actually is less than 14 oz</li>
+<li>The ST231 class has evidence that the label is incorrect</li>
+<li>A type 1 error does not occur but a Type 2 error does</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="a">
+<li>is the correct answer because it aligns with the definition of a Type I error, which occurs when the null hypothesis (in this case, that the bottles have 14 oz) is incorrectly rejected, leading to the conclusion that the bottles have less than 14 oz when, in fact, they do have 14 oz.</li>
+</ol>
+</details>
+<ol start="3" type="1">
+<li>A researcher conducts a hypothesis test with a significance level of 0.05. What does this significance level represent?
+<ol type="a">
+<li>There is a 5% chance of making a Type l error.</li>
+<li>There is a 5% chance of making a Type ll error.</li>
+<li>There is a 95% confidence level in the results</li>
+<li>There is a 95% chance of the null hypothesis being true.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+a is the correct answer - the significance level 0.05 meant that there is a 5% chance of committing a Type l error, which means to reject the null hypothesis when it is actually true. The significance level is usually chosen by researchers to control the risk of making a Type l error, it does not directly represent the probability of Type ll error. The significance level does not specifically represent the confidence interval.
+</details>
+<ol start="4" type="1">
+<li>A researcher is designing a study to determine the effectiveness of a new drug in reducing blood pressure. They want to make sure that their study has enough power to detect a clinically meaningful difference in blood pressure if it actually exists. Which of the following actions would increase the statistical power of the study.
+<ol type="a">
+<li>Increasing the sample size</li>
+<li>Decreasing the significance level</li>
+<li>Lowering the effect size</li>
+<li>Using a one-tailed test instead of a two-tailed test</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+a is the correct answer - increasing the sample size would increase the statistical power. A larger sample size gives more information and reduces the variability in the estimate of the population parameter (mean or the effect size), making it more precise and easier to detect smaller effects. The rest of the options don’t increase the statistical power.
+</details>
+<ol start="5" type="1">
+<li>A new production procedure, according to the corporation, lowers the average product fault rate to less than 1%. To assess this assertion, a statistical test is performed. A defect rate of less than 1% is suggested by the alternative hypothesis (H1), contrary to the null hypothesis (H0), which maintains that the defect rate stays at 1% or higher. The business rejects the null hypothesis after determining that the new manufacturing procedure effectively lowers the defect rate based on its analysis of the data. In this case, what kind of mistake might the corporation have made?
+<ol type="a">
+<li>The company correctly rejected the null hypothesis when the defect rate remains at 1% or higher.</li>
+<li>The company erroneously rejected the null hypothesis when the defect rate remains at 1% or higher.</li>
+<li>The company correctly failed to reject the null hypothesis when the defect rate is less than 1%.</li>
+<li>The company erroneously failed to reject the null hypothesis when the defect rate is less than 1%.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+The right answer is option (b). In this instance, the corporation made a Type 1 error by mistakenly rejecting the null hypothesis (H0) when it was true (the failure rate is still 1% or greater). Due to a Type 1 error, the business came to the false conclusion that the new manufacturing method effectively lowers the failure rate, which could have led to poor resource allocation and decision-making.
+</details>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

@@ -327,6 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">9.3</span> Exercises</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">9.4</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -631,6 +632,57 @@ Our 95% CI is (2.23, 2.76). We are 95% confident that the true population reacti
 <p><span class="math inline">\(0.05 = 1.96 * 0.8 / sqrt{n} \implies \sqrt{n} = 1.96 * 0.8 / 0.05 \implies n = 31.36^2 = 983.4\)</span></p>
 <p>Since the sample size can’t be a fraction, we must round this number. If we round <strong>down</strong>, we have a smaller sample size and therefore a wider interval. Instead, we must round up! 983.4 is the <em>minimum</em> sample size, so if we want a round number we always have to go up<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a>. The final answer is that we need 984 birbs to get a 95% CI that has a total width of 0.1.</p>
 Without rounding: <code>(-qnorm(0.025) * 0.8 / 0.05)^2 = 983.4135</code>, and so our answer doesn’t change!
+</details>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">9.4</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>A survey is conducted to estimate the average number of hours university students spend per week. A 95% confidence interval for the mean number of study hours is calculated to be (6.3, 8.8). What does this confidence interval imply?
+<ol type="a">
+<li>There is a 95% chance that the true mean number of study hours falls between 6.3 and 8.8.</li>
+<li>The mean number is study hours fall between 6.3 and 8.8 with 95% confidence</li>
+<li>95% of students spend between 6.3 and 8.8 hours studying per week</li>
+<li>There is a 5% chance that the true mean number of study hours is outside the 6.3 to 8.8 range.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+b is the correct answer - a 95% confidence interval means that if we were to repeat this study multiple times and calculate confidence intervals for each sample study, then around 95% of these intervals would contain the true population mean. We could be 95% confident that the true mean number of study hours falls between 6.3 and 8.8.
+</details>
+<ol start="2" type="1">
+<li>A research study estimates a 95% confidence interval for the mean height of students at Ganton Heights Public High School to be between 160 cm and 170 cm. What does this confidence interval represent over the long run?
+<ol type="a">
+<li>There is a 95% chance that the true mean height of students falls between 160 cm and 170 cm.</li>
+<li>95% of the students in the school have heights between 160 cm and 170 cm.</li>
+<li>If we were to repeat this study multiple times and calculate a 95% confidence interval each time, 95% of those intervals would contain the true mean height of students.</li>
+<li>The mean height of students in the school is exactly between 160 cm and 170 cm.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+The correct answer is (c). The confidence interval represents the long term frequency that intervals generated from independent random samples of fixed size will contain the true population mean. In this situation, a 95% confidence interval represents that if the study was repeated multiple times, 95% of those intervals constructed from random sample statistics would contain the true mean height of students at Ganton Heights Public High School. Option (a) would also be correct, if we were not looking at the long run frequency of this 95% confidence interval.
+</details>
+<ol start="3" type="1">
+<li>Concerning Margin of Error, which of the following statements about critical values is <em>true</em>?
+<ol type="a">
+<li><span class="math inline">\(z^*\)</span> value can only be 1, 2, or 3, as per the Empirical rule</li>
+<li><span class="math inline">\(z^* = 0\)</span> means that the confidence interval can not be found</li>
+<li><span class="math inline">\(z^* = \infty\)</span> means that the true population mean is 100% within the confidence interval</li>
+<li>Standard deviation is different from standard error</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>The correct statement is c).</p>
+<p>Equation for Margin of Error is <span class="math inline">\(MoE = (z^*) \frac{\sigma}{\sqrt{n}}\)</span></p>
+The (<span class="math inline">\(z^*\)</span>) represents the critical value which indicates how many standard deviations from the mean the confidence interval lies. A z-score can not be negative therefore it can not be any integer. A z-score of 0 does not indicate that the confidence interval cant be found, it tells us that the true population mean is definitely not within the confidence interval. As mentioned in Devan Beckers course notes, an infinite z score means that the confidence interval is infinitely wide. That tells us that we would be 100% confident that the true population mean is within the confidence interval.
 </details>
 
 

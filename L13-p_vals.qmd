@@ -1,7 +1,6 @@
 ---
 title: "Tests of Significance"
 author: "Devan Becker"
-date: "June 21, 2023"
 execute:
   echo: true
 ---
@@ -182,6 +181,9 @@ pnorm(150, mean = 155, sd = 10 / sqrt(25))
 ```
 
 Since $p<\alpha$, we reject the null hypothesis and conclude that the population mean is less than 155.
+
+
+*****
 </details>
 
 2. A pharmaceutical company is testing a new drug designed to lower cholesterol levels. In a clinical trial with 80 participants, the average reduction in cholesterol is found to be 15 mg/dL and the population standard deviation is known to be 5 mg/dL. The company claims that the drug will reduce cholesterol by at least 12 mg/dL on average. Calculate the p-value for this claim based on the sample data, and determine whether there is sufficient evidence to support the company's claim at a significance level of 0.05. Interpret the results in the context of the study.
@@ -194,6 +196,37 @@ Since $p<\alpha$, we reject the null hypothesis and conclude that the population
 ```
 
 We reject the null hypothesis that the reduction in cholesterol is exactly 12 mg/dL in favour of the alternative that the reduction in cholesterol is less than 12 mg/dL. In other words, 15 is a statistically significantly larger reduction than 12.
+
+
+*****
 </details>
 
+## Crowdsourced Questions
 
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. A pharmaceutical company asserts that their latest pain relief drug reduces the average duration of headaches by at least 30 minutes. To test this claim, a researcher conducts a study and gathers data from a sample of individuals suffering from headaches who took the medication. The null hypothesis (H0) states that the  drug does not reduce headache duration by 30 minutes, whereas the alternative hypothesis (H1) states that it does. The research conducts a hypothesis test and obtains a p-value of 0.03. What inference should the research make at the significance level of 0.05.
+    a. Fail to reject the null hypothesis; there is insufficient evidence to conclude that the drug reduces headache duration by 30 minutes on average.
+    b. Fail to reject the null hypothesis; there is sufficient evidence to conclude that the drug does not reduce headache duration by 30 minutes on average.
+    c. Reject the null hypothesis; there is sufficient evidence to conclude that the drug reduces headache duration by 30 minutes on average.
+    d. Reject the null hypothesis; there is insufficient evidence to conclude that the drug reduces headache duration by 30 minutes on average.
+
+<details>
+    <summary>**Solution**</summary>
+c is the correct answer - since the p-value, 0.03 is less than the significance level, 0.05, the null hypothesis is rejected. This also means that there is sufficient evidence to conclude that the drug does reduce headache by at least 30 minutes on average, supporting the company’s claim.
+
+*****
+</details>
+
+2. A basketball coach refutes the claim that the average player scores 15 points per game. Which hypothesis is used to test the claim?
+    a. $H_0: \mu = 15, H_A: \mu \ne 15$
+    b. $H_0: \mu \ne 15, H_A: \mu = 15$
+    c. $H_0: \mu > 15, H_A: \mu \le 15$
+    d. $H_0: \mu \ge 15, H_A: \mu > 15$
+
+<details>
+    <summary>**Solution**</summary>
+The correct answer would be (a). The null hypothesis ($H_0$) in option (a) states that the average player scores exactly 15 points per game, which is the claim being tested by the basketball coach. The alternative hypothesis ($H_A$) would then be that the average player does NOT score exactly 15 points, which has been modeled by the HA in option (a). This also means that the player could score less or more than 15 points per game (allowing for a two-tailed test, which has been discussed in our lesson regarding tests of significance).  
+
+*****
+</details>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-02-12">
+<meta name="dcterms.date" content="2024-04-01">
 
 <title>Statistics for Life Sciences - 7&nbsp; The Normal Distributions</title>
 <style>
@@ -335,6 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.10</span> Summary</a></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">7.11</span> Self-Study Questions</a></li>
   <li><a href="#more-questions" id="toc-more-questions" class="nav-link" data-scroll-target="#more-questions"><span class="header-section-number">7.12</span> More Questions</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">7.13</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -367,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-02-12</p>
+      <p class="date">2024-04-01</p>
     </div>
   </div>
   
@@ -961,6 +962,61 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <pre><code>[1] 50.51182</code></pre>
 </div>
 </div>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="7.13">
+<h2 data-number="7.13" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">7.13</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>A group of researchers studying Kane toads found that the length of the toads follow a normal distribution. They have a mean length of 20 cm and a standard deviation of 2 cm. Using the 68-95-99.7 Rule, answer the following questions about the toad lengths:
+<ol type="a">
+<li>What percentage of Kane toads have a length between 18-22 cm?</li>
+<li>What percent of the toads have a length between 14-26 cm?</li>
+<li>What Percent of Kane toads have a length between 16-24 cm?</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="a">
+<li>With a mean length of 20 cm and a standard deviation of 2 cm, the toads with a length between 18-22 cm fall within one standard deviation. Approximately 68% of the toads have a length in this range.</li>
+<li>99.7% of the toads have a length that fall within 3 standard deviations, therefore, falling in the range of 14-26 cm.</li>
+<li>Toads with a length of 16-24 cm, fall into 2 standard deviations, meaning 95% of the toads fall into this range.</li>
+</ol>
+</details>
+<ol start="2" type="1">
+<li>Let X represent the heights, in metres (m), of male basketball players. It is known that X follows a normal distribution with a mean (μ) of 2.05 m and a standard deviation (σ) of 0.1 m. Find the probability that a randomly selected male basketball player is at least 2.2 m tall.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>We want to find the probability of a randomly selected male basketball player’s height to be <strong>at least</strong> 2.2 m tall, which means we are trying to find P(X &gt; 2.2)</p>
+<p>In order to find the probability, we are going to use the z-score formula: <span class="math inline">\(Z = \frac{X - \mu}{\sigma} = (2.2 - 2.05) / 0.1 = 1.5\)</span></p>
+<p>Find the probability using the z table:</p>
+<ul>
+<li>P(Z &gt; 1.5) = 1 - P(Z &lt; 1.5)
+<ul>
+<li>P(Z &gt; 1.5) = 1 - 0.9332</li>
+<li>P(Z &gt; 1.5) = 0.0668</li>
+</ul></li>
+</ul>
+<p>Therefore, there is a 6.68% (or 0.0668) chance that a randomly selected male basketball player is at least 2.2 m tall.</p>
+<p>In R, this can be calculated without rounding:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0668072</code></pre>
+</div>
+</div>
+<p>We can also let R do the standardization for us!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">2.2</span>, <span class="at">mean =</span> <span class="fl">2.05</span>, <span class="at">sd =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0668072</code></pre>
+</div>
+</div>
+</details>
 
 
 </section>

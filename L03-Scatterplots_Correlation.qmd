@@ -430,6 +430,8 @@ c. Is this a strong or a weak relationship? Explain.
 a. The relationship increases with an upward curve from temperatures of 300K to 340K, when it turns downward sharply and decreases to 355K.
 b. The association is different for different X values. This is *not* a linear relationship, which means we have to do extra work to make sure that we cover all the non-linearities.
 c. This is a very strong relationship. The pattern clearly passes the facial impact test that we discussed before. It is far from a linear relationship, but it's clearly noticable. 
+
+*****
 </details>
 :::
 
@@ -579,5 +581,58 @@ Questions 1.35, 1.36, 1.37.
 For further R practice and case studies, see the [labs page for the OpenIntro textbook](https://www.openintro.org/book/statlabs/?labblock=biostat_intro_to_data).
 :::
 
+## Crowdsourced Questions
 
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
 
+1. Consider a study investigating the relationship between the amount of time students spend studying for an exam (in hours) and their resulting exam scores (percentage). The study gathers data from 100 students, measures the two variables for each student, and plots these data points on a scatterplot. Which of the following statements best aligns with the principles of interpreting scatterplots and understanding relationships between variables as discussed in the course notes?
+    a. If the scatterplot shows a clear upward trend, it proves that spending more time studying causes students to achieve higher exam scores.
+    b. The study identifies the amount of time spent studying as the response variable and the exam score as the explanatory variable, predicting that higher exam scores explain why students spend more time studying.
+    c. The scatterplot can help visualize the relationship between the two variables, but further analysis is required to determine if one variable causes changes in the other.
+    d. A linear pattern in the scatterplot indicates that every additional hour of study leads to a uniform increase in exam scores for all students.
+
+<details>
+    <summary>**Solution**</summary>
+C is the correct answer. This option correctly acknowledges that while scatterplots are instrumental in visualizing the relationship between two variables (the amount of time spent studying and exam scores in this case), they alone cannot confirm causality. This aligns with the course's emphasis on the distinction between correlation and causation and the role of scatterplots in identifying patterns rather than proving causation. Options A, B, and D either incorrectly assume causation from correlation, misidentify explanatory and response variables, or oversimplify the interpretation of a linear pattern, respectively.
+
+*****
+</details>
+
+2. In an agricultural study, researchers are investigating the impact of different amounts of fertilizer (in kilograms) applied to tomato plants on the yield of tomatoes (in kilograms). Which of the following correctly identifies the explanatory and response variables?
+    a. Explanatory variable: Yield of tomatoes; Response variable: Amount of fertilizer
+    b. Explanatory variable: Amount of fertilizer; Response variable: Yield of tomatoes
+    c. Both the amount of fertilizer and the yield of tomatoes are explanatory variables since they influence each other.
+    d. Both the amount of fertilizer and the yield of tomatoes are response variables due to external factors like sunlight and water.
+
+<details>
+    <summary>**Solution**</summary>
+B is the correct answer. The amount of fertilizer is the explanatory variable because it is the variable being manipulated or controlled by the researchers to observe its effect on the yield of tomatoes, which is the response variable.
+
+*****
+</details>
+
+3. A study plots the average daily temperature against the total daily sales of ice cream over a summer in a coastal city. The scatterplot shows a clear upward trend. What does this trend indicate about the relationship between these two variables?
+    a. As the average daily temperature increases, the total daily sales of ice cream decrease.
+    b. There is no relationship between the average daily temperature and the total daily sales of ice cream.
+    c. As the average daily temperature increases, the total daily sales of ice cream also increase.
+    d. The increase in average daily temperature causes an increase in the total daily sales of ice cream.
+
+<details>
+    <summary>**Solution**</summary>
+C is the correct answer. The upward trend in the scatterplot indicates that there is a positive relationship between the average daily temperature and the total daily sales of ice cream—meaning, as one increases, so does the other. However, it is important to note that this does not imply causation (which option D incorrectly suggests).
+
+*****
+</details>
+
+4. In a study examining the relationship between hours spent on physical activity per week and overall quality of sleep, a correlation coefficient of -0.3 is found. Which of the following statements best interprets this finding?
+    a. There is a strong negative relationship between hours spent on physical activity and quality of sleep.
+    b. There is a weak negative relationship between hours spent on physical activity and quality of sleep, suggesting that as physical activity increases, quality of sleep slightly decreases.
+    c. There is a weak positive relationship between hours spent on physical activity and quality of sleep.
+    d. The correlation coefficient indicates that increased physical activity causes poorer quality of sleep.
+
+<details>
+    <summary>**Solution**</summary>
+B is the correct answer. A correlation coefficient of -0.3 indicates a weak negative relationship between the two variables. This means that as one variable increases (hours spent on physical activity), the other variable (quality of sleep) slightly decreases. However, it's important to remember that correlation does not imply causation, making option D incorrect.
+
+*****
+</details>

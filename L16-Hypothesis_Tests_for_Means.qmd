@@ -129,9 +129,9 @@ t.test(difference, alternative = "two.sided", conf.level = 0.89)
 Notice that this calculated a two-sided p-value, which is twice what we saw before (and no longer significant at the 5% level!).
 
 
-# Recap
+## Recap
 
-## Hypothesis Tests in General
+### Hypothesis Tests in General
 
 1. Decide on a hypothesis.
     - $H_0: \mu = \mu_0$ versus $H_a: \mu [\ne,>,\text{ or }<] \mu_0$\lspace
@@ -144,7 +144,7 @@ Notice that this calculated a two-sided p-value, which is twice what we saw befo
 5. Calculate the p-value according to the form of the *alternate* hypothesis.
     - If $<$, then `pnorm(z_obs)`; if $>$, then `1 - pnorm(z_obs)`; if two sided, double the correct one.
 
-## Hypothesis Test Example
+### Hypothesis Test Example
 
 New York is sometimes called "the city that never sleeps". At the 5% level, do the following data provide evidence that the average New Yorker gets less than 8 hours of sleep per night?
 
@@ -158,7 +158,7 @@ New York is sometimes called "the city that never sleeps". At the 5% level, do t
 - Conclude: \pause Since p < $\alpha$, we reject the null hypothesis.
     - We have found statistically significant evidence that New Yorkers sleep less than 8 hours per night on average. 
 
-## Confidence Intervals
+### Confidence Intervals
 
 1. Choose a confidence level $\alpha$.
     - "100(1-$\alpha$)%CI\lspace
@@ -169,7 +169,7 @@ New York is sometimes called "the city that never sleeps". At the 5% level, do t
 4. Calculate $\bar x \pm t^*s/\sqrt{n}$\lspace
 5. Conclude: 95% of the intervals constructed this way will contain the true population mean.
 
-## Confidence Interval Example
+### Confidence Interval Example
 
 Construct a 95% CI for the New York sleep example.
 
@@ -269,12 +269,82 @@ Under which condition does the CLT *not* apply?
 4. Re-do the ointment example, but using without - with.
     a. Draw a t distribution and mark the two test statistics, then fill in the area that corresponds to the p-value. 
 
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. A researcher believes that the average sleep duration for adults in a certain city is less than the national average of 8 hours. To test this hypothesis, the researcher collects a sample of 50 adults from the city and finds that the mean sleep duration in the sample is 7.5 hours with a standard deviation of 1.2 hours. At a 5% significance level, can the researcher conclude that the average sleep duration for adults in the city is less than 8 hours?
+
+<details>
+    <summary>**Solution**</summary>
+Set up the hypotheses:
+
+- Null hypothesis (H0​): The average sleep duration is 8 hours ($\mu = 8$).
+- Alternative hypothesis (H1​): The average sleep duration is less than 8 hours ($\mu < 8$).
+
+Calculate the test statistic using the sample mean, population mean, standard deviation, and sample size:
+$t_{obs} = \frac{\bar x - \mu_0}{s/\sqrt{n}} = \frac{7.5 - 8}{1.2 / \sqrt{50}} = -2.946
+
+The p-value can be found using the t-distribution on $n-1$ degrees of freedom:
+
+```{r}
+pt(-2.946, df = 50 - 1)
+```
+
+Since this is less than 0.05, we reject the null hypothesis. There is evidence at the 5\% level that the true mean sleep duration is less than 8 hours. 
+
+*****
+</details>
 
 
+2. A nutritionist claims that the new diet plan they have designed results in a more significant average weight loss than the generally accepted average of 5 pounds after a 4-week program. To validate this claim, the nutritionist collects data from 40 individuals who followed the diet plan and finds that the mean weight loss among the participants is 5.8 pounds with a standard deviation of 0.9 pounds. At a significance level of 1%, is there enough evidence to support the nutritionist's claim?
 
+<details>
+    <summary>**Solution**</summary>
 
+Note that this is a matched pairs t-test!
 
+Set up the hypotheses:
 
+- Null hypothesis (H0): The average weight loss is 5 pounds ($\mu = 5$).
+- Alternative hypothesis (H1): The average weight loss is more than 5 pounds ($\mu > 5$).
+
+Calculate the test statistic using the formula for a t-test:
+$$
+t_{obs} = \frac{\bar x - \mu_0}{s/\sqrt{n}} = \frac{5.8 - 5}{0.9/\sqrt{40}} = 5.62
+$$
+
+Using the  t-distribution on $n - 1$ degrees of freedom:
+
+```{r}
+1 - pt(5.62, df = 40 - 1)
+```
+
+We get a value much smaller than our significance level of 0.01! We reject the null, and conclude that the average weight loss is more than 5 pounds.
+
+*****
+</details>
+
+3. A coffee company has engineered an espresso machine that is advertised to make cups of espresso with an average of 80mg of caffeine. When being sampled, 36 cups of espresso were made and tested for their caffeine content. The sample mean came out to be 82mg with a standard deviation of 6mg. Conduct a 2-sided hypothesis test at a significance level of 5%. State Null hypothesis, Alternate Hypothesis, and significant level. Calculate test statistic and determine whether claims made by the coffee company should be accepted.
+
+<details>
+    <summary>**Solution**</summary>
+Our hypotheses are $H_0:\mu = 80$ versus $H_0:\mu \ne 80$.
+
+$$
+t_{obs} = \frac{\bar x - \mu_0}{s/\sqrt{n}} = \frac{82 - 80}{6 / \sqrt{36}} = 2
+$$
+
+The p-value can be found as:
+
+```{r}
+2 * (1 - pt(2, df = 6 - 1))
+```
+
+Since our p-value is larger than alpha, we do not reject the null. We have not gathered evidence that the claim of 80mg is incorrect.
+
+*****
+</details>
 
 
 

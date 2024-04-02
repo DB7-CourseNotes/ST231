@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2023-06-21">
+<meta name="dcterms.date" content="2024-04-01">
 
 <title>Statistics for Life Sciences - 10&nbsp; Tests of Significance</title>
 <style>
@@ -325,6 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">10.4</span> Self-Study Questions</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">10.5</span> Exercises</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">10.6</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -350,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-06-21</p>
+      <p class="date">2024-04-01</p>
     </div>
   </div>
   
@@ -536,6 +537,40 @@ Since <span class="math inline">\(p&lt;\alpha\)</span>, we reject the null hypot
 </div>
 </div>
 We reject the null hypothesis that the reduction in cholesterol is exactly 12 mg/dL in favour of the alternative that the reduction in cholesterol is less than 12 mg/dL. In other words, 15 is a statistically significantly larger reduction than 12.
+</details>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">10.6</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>A pharmaceutical company asserts that their latest pain relief drug reduces the average duration of headaches by at least 30 minutes. To test this claim, a researcher conducts a study and gathers data from a sample of individuals suffering from headaches who took the medication. The null hypothesis (H0) states that the drug does not reduce headache duration by 30 minutes, whereas the alternative hypothesis (H1) states that it does. The research conducts a hypothesis test and obtains a p-value of 0.03. What inference should the research make at the significance level of 0.05.
+<ol type="a">
+<li>Fail to reject the null hypothesis; there is insufficient evidence to conclude that the drug reduces headache duration by 30 minutes on average.</li>
+<li>Fail to reject the null hypothesis; there is sufficient evidence to conclude that the drug does not reduce headache duration by 30 minutes on average.</li>
+<li>Reject the null hypothesis; there is sufficient evidence to conclude that the drug reduces headache duration by 30 minutes on average.</li>
+<li>Reject the null hypothesis; there is insufficient evidence to conclude that the drug reduces headache duration by 30 minutes on average.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+c is the correct answer - since the p-value, 0.03 is less than the significance level, 0.05, the null hypothesis is rejected. This also means that there is sufficient evidence to conclude that the drug does reduce headache by at least 30 minutes on average, supporting the company’s claim.
+</details>
+<ol start="2" type="1">
+<li>A basketball coach refutes the claim that the average player scores 15 points per game. Which hypothesis is used to test the claim?
+<ol type="a">
+<li><span class="math inline">\(H_0: \mu = 15, H_A: \mu \ne 15\)</span></li>
+<li><span class="math inline">\(H_0: \mu \ne 15, H_A: \mu = 15\)</span></li>
+<li><span class="math inline">\(H_0: \mu &gt; 15, H_A: \mu \le 15\)</span></li>
+<li><span class="math inline">\(H_0: \mu \ge 15, H_A: \mu &gt; 15\)</span></li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+The correct answer would be (a). The null hypothesis (<span class="math inline">\(H_0\)</span>) in option (a) states that the average player scores exactly 15 points per game, which is the claim being tested by the basketball coach. The alternative hypothesis (<span class="math inline">\(H_A\)</span>) would then be that the average player does NOT score exactly 15 points, which has been modeled by the HA in option (a). This also means that the player could score less or more than 15 points per game (allowing for a two-tailed test, which has been discussed in our lesson regarding tests of significance).
 </details>
 
 

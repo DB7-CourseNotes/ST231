@@ -252,6 +252,8 @@ The data set is built into our so we don't need to load anything to put this dat
 - `geom_bar()` actually draws the bar plot using the data set that `ggplot()` set up and the aesthetics, that `aes()` set up.
     - Try running the code without this line and see what happens!^[It will still create a plot with the correct x and y axes, but won't draw the bars.]
 - The `labs()` function simply adds `lab`el`s` to the plot to make it look nicer.
+
+*****
 </details>
 
 Compare this to the following table:
@@ -687,11 +689,15 @@ ggplot(famuss) +
     aes(x = factor(bmi)) +
     geom_bar()
 ```
+
+*****
 </details>
 
 <details>
 <summary>**Pie Chart**</summary>
 No. I'm not even going to try in this case.
+
+*****
 </details>
 
 <details>
@@ -707,6 +713,8 @@ ggplot(famuss) +
     aes(x = bmi) +
     geom_histogram(bins = 30, colour = "black", fill = "lightgrey")
 ```
+
+*****
 </details>
 
 
@@ -846,3 +854,20 @@ c. This percent cannot be calculated from the information
 provided in the table.
 
 See also: [OpenIntro Textbook](https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Book%3A_OpenIntro_Statistics_(Diez_et_al)./01%3A_Introduction_to_Data/1.E%3A_Introduction_to_Data_(Exercises)) problems relating to visualizations that we have learned, especially 1.30, 1.36, 1.37, 1.39, 1.40, 1.47.
+
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. In a study examining the effects of a new dietary supplement on plant growth, researchers measure the following variables. Which of the variables listed is qualitative?
+    a. Type of plant (e.g., fern, moss, flowering plant)
+    b. Growth rate (cm per week)
+    c. Color intensity of leaves (rated on a scale of 1-10)
+    d. Number of leaves produced after a 2-month period
+    
+<details>
+    <summary>**Solution**</summary>
+The correct answer is 1. Type of plant. This variable is qualitative because it describes a category or quality of the plant (e.g., fern, moss, flowering plant) rather than quantifying a characteristic. Qualitative data, also known as categorical data, includes descriptions or characteristics that cannot be measured or counted in the traditional sense. Variables 2, 3, and 4 are quantitative because they involve measurements or counts that result in numerical values: growth rate is measured in cm per week (continuous), color intensity of leaves is rated on a numerical scale (ordinal), and the number of leaves is a count (discrete).
+
+*****
+</details>

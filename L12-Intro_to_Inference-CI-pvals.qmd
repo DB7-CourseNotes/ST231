@@ -251,6 +251,8 @@ cat(paste0("A3: (", paste0(round(ci, 2), collapse = ", "), ")"))
 ci <- 160 + c(1, -1) * qnorm((1 - 0.95) / 2) * 7.11 / sqrt(49)
 cat(paste0("A4(", paste0(round(ci, 2), collapse = ", "), ")"))
 ```
+
+*****
 </details>
 
 5. The CIs in questions 1-4 all the same sample mean and population sd, but different sample sizes and/or confidence levels ($\alpha$). Comment on the width of the intervals and how this relates to the sample size/$\alpha$ value.
@@ -273,6 +275,9 @@ cat(paste0("A4(", paste0(round(ci, 2), collapse = ", "), ")"))
 ```
 
 Our 95\% CI is (2.23, 2.76). We are 95% confident that the true population reaction time is in this interval. 
+
+
+*****
 </details>
 
 10. The CI we calculated in the question above was 0.265 on either side, which leaves a lot of possible values. Suppose we want the width of the 95% CI to be 0.05 seconds on either side (for a total width of 0.1 seconds). We only care about the width, so it doesn't matter what the sample mean is. We can't change the population sd or the confidence level, so all that's left to work with is the sample size. Find $n$ to make the CI half-width equal to 0.05.
@@ -286,5 +291,55 @@ $0.05 = 1.96 * 0.8 / sqrt{n} \implies \sqrt{n} = 1.96 * 0.8 / 0.05 \implies n = 
 Since the sample size can't be a fraction, we must round this number. If we round **down**, we have a smaller sample size and therefore a wider interval. Instead, we must round up! 983.4 is the *minimum* sample size, so if we want a round number we always have to go up^[Even if we got 983.0001, we would round up!]. The final answer is that we need 984 birbs to get a 95% CI that has a total width of 0.1.
 
 Without rounding: `(-qnorm(0.025) * 0.8 / 0.05)^2 = 983.4135`, and so our answer doesn't change!
+
+
+*****
 </details>
 
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. A survey is conducted to estimate the average number of hours university students spend per week. A 95% confidence interval for the mean number of study hours is calculated to be (6.3, 8.8). What does this confidence interval imply?
+    a. There is a 95% chance that the true mean number of study hours falls between 6.3 and 8.8. 
+    b. The mean number is study hours fall between 6.3 and 8.8 with 95% confidence
+    c. 95% of students spend between 6.3 and 8.8 hours studying per week
+    d. There is a 5% chance that the true mean number of study hours is outside the 6.3 to 8.8 range.
+
+<details>
+    <summary>**Solution**</summary>
+b is the correct answer - a 95% confidence interval means that if we were to repeat this study multiple times and calculate confidence intervals for each sample study, then around 95% of these intervals would contain the true population mean. We could be 95% confident that the true mean number of study hours falls between 6.3 and 8.8. 
+
+*****
+</details>
+
+2. A research study estimates a 95% confidence interval for the mean height of students at Ganton Heights Public High School to be between 160 cm and 170 cm. What does this confidence interval represent over the long run? 
+    a. There is a 95% chance that the true mean height of students falls between 160 cm and 170 cm.
+    b. 95% of the students in the school have heights between 160 cm and 170 cm.
+    c. If we were to repeat this study multiple times and calculate a 95% confidence interval each time, 95% of those intervals would contain the true mean height of students.
+    d. The mean height of students in the school is exactly between 160 cm and 170 cm.
+
+<details>
+    <summary>**Solution**</summary>
+The correct answer is (c). The confidence interval represents the long term frequency that intervals generated from independent random samples of fixed size will contain the true population mean. In this situation, a 95% confidence interval represents that if the study was repeated multiple times, 95% of those intervals constructed from random sample statistics would contain the true mean height of students at Ganton Heights Public High School. Option (a) would also be correct, if we were not looking at the long run frequency of this 95% confidence interval. 
+
+*****
+</details>
+
+3. Concerning Margin of Error, which of the following statements about critical values is *true*?
+    a. $z^*$ value can only be 1, 2, or 3, as per the Empirical rule
+    b. $z^* = 0$ means that the confidence interval can not be found
+    c. $z^* = \infty$ means that the true population mean is 100% within the confidence interval
+    d. Standard deviation is different from standard error
+
+<details>
+    <summary>**Solution**</summary>
+The correct statement is c).
+
+
+Equation for Margin of Error is $MoE = (z^*) \frac{\sigma}{\sqrt{n}}$
+
+The ($z^*$) represents the critical value which indicates how many standard deviations from the mean the confidence interval lies. A z-score can not be negative therefore it can not be any integer. A z-score of 0 does not indicate that the confidence interval cant be found, it tells us that the true population mean is definitely not within the confidence interval. As mentioned in Devan Beckers course notes, an infinite z score means that the confidence interval is infinitely wide. That tells us that we would be 100% confident that the true population mean is within the confidence interval.
+
+*****
+</details>

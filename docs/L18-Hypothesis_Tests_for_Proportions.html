@@ -321,6 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-titanic-survivors" id="toc-example-titanic-survivors" class="nav-link" data-scroll-target="#example-titanic-survivors"><span class="header-section-number">15.5</span> Example: Titanic Survivors</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">15.6</span> Summary</a></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">15.7</span> Self-Study Questions</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">15.8</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -599,6 +600,40 @@ sample estimates:
 <li>Write a good summary of the Mendelian genetics example. What did we conclude, and how is this knowledge useful?</li>
 <li>Repeat the Titanic survivors example but with male passengers.</li>
 </ol>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="15.8">
+<h2 data-number="15.8" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">15.8</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Michael is interested in studying farmers’ preferences for a new variety of genetically modified (GM) corn. He plans to survey 100 farmers to see if more than 60% prefer the GM variety over traditional varieties. Can he use the normal approximation to analyze his survey results?</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>Michael can use the normal approximation in his study. The criteria for using the normal approximation for proportions are that both <span class="math inline">\(np_0\)</span> and <span class="math inline">\(n(1 - p_0)\)</span> must be greater than 5. Here, (the number of farmers surveyed) and (the hypothesized proportion of farmers prefer the GM variety).</p>
+<p>Let’s check if the conditions are met:</p>
+<ul>
+<li><span class="math inline">\(np_0 = 100 * 0.6 = 60\)</span>, which is greater than 5.</li>
+<li><span class="math inline">\(n(1 - p_0) = 100 * 0.4 = 40\)</span>, which is also greater than 5.</li>
+</ul>
+<p>Since both conditions are satisfied, the normal approximation can be used to analyze the survey results.</p>
+<p>A demonstration of this is shown below. Note how closely the normal approximation applies to the binomial. However, it’s a little bit off. This is why R uses “continuity correction” (although we don’t discuss the details of this in this course).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="L18-Hypothesis_Tests_for_Proportions_files/figure-html/normal-approx-with-continuity-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</details>
+<ol start="2" type="1">
+<li>To study the cross breeding of heterozygous plants, Alex wants to perform a study on 8 Hamelin pea plants to test if 75% of the plants are of the dominant type after breeding. Can she assume the normal approximation in her study?</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+No! To use the normal approximation <span class="math inline">\(np \gt 10\)</span> and <span class="math inline">\(n(1-p) \gt 10\)</span> must be obeyed. <span class="math inline">\(8*0.75\lt 10\)</span> and <span class="math inline">\(8*(1-0.75) \lt 10\)</span>, thus Alex should increase her sample size prior to using a normal approximation.
+</details>
 
 
 </section>

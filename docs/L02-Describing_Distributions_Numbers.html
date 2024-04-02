@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-12-31">
+<meta name="dcterms.date" content="2024-04-01">
 
 <title>Statistics for Life Sciences - 2&nbsp; Describing Distributions with Numbers</title>
 <style>
@@ -339,6 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#frequency-tables" id="toc-frequency-tables" class="nav-link" data-scroll-target="#frequency-tables">Frequency Tables</a></li>
   </ul></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">2.4</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -364,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-12-31</p>
+      <p class="date">2024-04-01</p>
     </div>
   </div>
   
@@ -1052,10 +1053,33 @@ female   male
 <li>The number of penguins in each <em>combination</em> of categories.</li>
 <li>We can find that there were 165 female penguins by adding the entries in the row labelled <code>female</code>.</li>
 </ul>
-
-
 </section>
 </section>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">2.4</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Given this set of numbers: 23, 19, 27, 36, 21, 29, 38, 39, 42, 25, determine the Q0, Q1, Q2, Q3, and Q4. Measure the spread by determining the IQR of this set of numbers.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>First we will re-order the numbers from smallest value to largest value. 19, 21, 23, 25, 27, 29, 36, 38, 39, 42.</p>
+<ul>
+<li>Q0 is the lowest value so that will be 19.</li>
+<li>Q4 is the highest value in the set so that will be 42.</li>
+<li>Q2 is the median. Since the number of values (n) is even, the median will be between the middle two numbers, 27 and 29. Making Q2 = 28.</li>
+<li>Q1 is the median between the values between Q0 and Q2 (19, 21, 23, 25, 27). The median in this set is 23, making Q1 = 23.</li>
+<li>Q3 is the median of the second half of the data set, between Q2 and Q4 (29, 36, 38, 39, 42). The median in this set is 38, making Q3 = 38.</li>
+</ul>
+<p>Next to determine the IQR, we subtract Q1 from Q3.</p>
+<p>IQR = Q3-Q1 = 38 - 23 = 15</p>
+<p>Therefore, the Interquartile range for this set of data is 15.</p>
+</details>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

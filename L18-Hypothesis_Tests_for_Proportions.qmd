@@ -245,9 +245,51 @@ There are two other wrinkles to consider when using proportions:
 5. Repeat the Titanic survivors example but with male passengers.
 
 
+## Crowdsourced Questions
 
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
 
+1. Michael is interested in studying farmers' preferences for a new variety of genetically modified (GM) corn. He plans to survey 100 farmers to see if more than 60% prefer the GM variety over traditional varieties. Can he use the normal approximation to analyze his survey results?
 
+<details>
+    <summary>**Solution**</summary>
+Michael can use the normal approximation in his study. The criteria for using the normal approximation for proportions are that both $np_0$ and $n(1 - p_0)$ must be greater than 5. Here, (the number of farmers surveyed) and (the hypothesized proportion of farmers prefer the GM variety).
+
+Let's check if the conditions are met:
+
+- $np_0 = 100 * 0.6 = 60$, which is greater than 5.
+- $n(1 - p_0) = 100 * 0.4 = 40$, which is also greater than 5.
+
+Since both conditions are satisfied, the normal approximation can be used to analyze the survey results.
+
+A demonstration of this is shown below. Note how closely the normal approximation applies to the binomial. However, it's a little bit off. This is why R uses "continuity correction" (although we don't discuss the details of this in this course).
+
+```{r}
+#| label: normal-approx-with-continuity
+#| echo: false
+#| eval: true
+
+xseq <- 40:80
+normseq <- dnorm(xseq, 0.6 * 100, sqrt(100 * 0.6 * 0.4))
+binseq <- dbinom(xseq, 100, 0.6)
+plot(xseq, binseq, type = "s")
+lines(xseq, binseq, type = "h")
+lines(xseq, normseq, col = 2)
+lines(xseq + 0.5, normseq, col = 3)
+legend("topleft", legend = c("Binomial", "Normal", "Normal with continuity correction"), lty = 1, col = 1:3)
+```
+
+*****
+</details>
+
+2. To study the cross breeding of heterozygous plants, Alex wants to perform a study on 8 Hamelin pea plants to test if 75% of the plants are of the dominant type after breeding. Can she assume the normal approximation in her study?
+
+<details>
+    <summary>**Solution**</summary>
+No! To use the normal approximation $np \gt 10$ and $n(1-p) \gt 10$ must be obeyed. $8*0.75\lt 10$ and $8*(1-0.75) \lt 10$, thus Alex should increase her sample size prior to using a normal approximation.
+
+*****
+</details>
 
 
 

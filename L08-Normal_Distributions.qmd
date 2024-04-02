@@ -590,5 +590,52 @@ pnorm(1.7) - pnorm(-1.7)
 ```
 
 
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. A group of researchers studying Kane toads found that the length of the toads follow a normal distribution. They have a mean length of 20 cm and a standard deviation of 2 cm. Using the 68-95-99.7 Rule, answer the following questions about the toad lengths:
+    a. What percentage of Kane toads have a length between 18-22 cm?
+    b. What percent of the toads have a length between 14-26 cm?
+    c. What Percent of Kane toads have a length between 16-24 cm?
+
+<details>
+<summary>**Solution**</summary>
+a. With a mean length of 20 cm and a standard deviation of 2 cm, the toads with a length between 18-22 cm fall within one standard deviation. Approximately 68% of the toads have a length in this range.
+b. 99.7% of the toads have a length that fall within 3 standard deviations, therefore, falling in the range of 14-26 cm.
+c. Toads with a length of 16-24 cm, fall into 2 standard deviations, meaning 95% of the toads fall into this range.
+
+*****
+</details>
+
+2. Let X represent the heights, in metres (m), of male basketball players. It is known that X follows a normal distribution with a mean (μ) of 2.05 m and a standard deviation (σ) of 0.1 m. Find the probability that a randomly selected male basketball player is at least 2.2 m tall. 
+
+<details>
+    <summary>**Solution**</summary>
+We want to find the probability of a randomly selected male basketball player’s height to be **at least** 2.2 m tall, which means we are trying to find P(X > 2.2)
+
+In order to find the probability, we are going to use the z-score formula: $Z = \frac{X - \mu}{\sigma} = (2.2 - 2.05) / 0.1 = 1.5$
+
+Find the probability using the z table: 
+
+    - P(Z > 1.5) = 1 - P(Z < 1.5)
+    - P(Z > 1.5) = 1 - 0.9332 
+    - P(Z > 1.5) = 0.0668
+
+Therefore, there is a 6.68% (or 0.0668) chance that a randomly selected male basketball player is at least 2.2 m tall. 
+
+In R, this can be calculated without rounding:
+
+```{r}
+1 - pnorm(1.5)
+```
+
+We can also let R do the standardization for us!
+
+```{r}
+1 - pnorm(2.2, mean = 2.05, sd = 0.1)
+```
 
 
+*****
+</details>

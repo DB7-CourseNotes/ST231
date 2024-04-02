@@ -331,7 +331,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bonus---webscraping" id="toc-bonus---webscraping" class="nav-link" data-scroll-target="#bonus---webscraping">Bonus - Webscraping</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.7</span> Summary</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">13</span> Self-Study Questions</a></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">13</span> Self-Study Questions</a>
+  <ul class="collapse">
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">13.1</span> Crowdsourced Questions</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -965,8 +968,42 @@ mean of x
 <p>This calculation assumes that all of the null hypotheses are true (as we should do when calculating p-values). Under this assumption, there’s about a 50% chance of getting 2 or more significant results, even if there’s nothing going on. This is vastly different than the “5% risk of rejecting a true null” that we get when setting our significance level.</p>
 <p>Use <a href="https://projects.fivethirtyeight.com/p-hacking/">this app</a> to play around with p-hacking and see why it’s so dangerous!</p>
 </details>
+<section id="crowdsourced-questions" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">13.1</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Which of the following statements is false about degrees of freedom (df) for a one-sample t-test?
+<ol type="a">
+<li>df = n - 1, where n is the number of items in your sample.</li>
+<li>Degrees of freedom refer to how many values in your data can change without breaking any rules.</li>
+<li>The higher the degrees of freedom, the more the t-distribution resembles a normal distribution.</li>
+<li>Degrees of freedom always equal the number of items in your dataset.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+D is false because degrees of freedom (df) are calculated based on the sample size minus the number of parameters estimated. For example, in a simple t-test, df = n - 1, where n is the sample size. Degrees of freedom are not simply equal to the number of items but reflect the number of values that are free to vary in the calculation of a statistic, taking into account any constraints such as parameters estimated.
+</details>
+<ol start="2" type="1">
+<li>A survey was carried out to estimate the average daily screen time of university students. A 90% confidence interval for the mean daily screen time was found to be (3 hours, 5 hours). How should this confidence interval be interpreted?
+<ol type="a">
+<li>The true average daily screen time of all university students is between 3 hours and 5 hours.</li>
+<li>There is a 90% confidence that the average daily screen time for university students is within the 3 to 5 hours range.</li>
+<li>90% of university students have a daily screen time between 3 and 5 hours.</li>
+<li>There is a 10% chance that the true average daily screen time for university students is not between 3 and 5 hours.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+b is the correct answer - The 90% confidence interval means that if we were to replicate this survey multiple times, each time calculating a new 90% confidence interval for the mean daily screen time from different samples, about 90% of these intervals would be expected to contain the true mean daily screen time for the population. It demonstrates our level of confidence in the interval’s ability to capture the true population parameter, not the distribution of individual screen times.
+</details>
 
 
+</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

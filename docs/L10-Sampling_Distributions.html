@@ -329,6 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#conclusion-statistics-is-the-study-of-variance" id="toc-conclusion-statistics-is-the-study-of-variance" class="nav-link" data-scroll-target="#conclusion-statistics-is-the-study-of-variance"><span class="header-section-number">8.7</span> Conclusion: Statistics is the Study of Variance</a></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">8.8</span> Self-Study Questions</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">8.9</span> Exercises</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">8.10</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -649,6 +650,52 @@ As the sample size increases, the variance decreases (since we’re dividing by 
 <p>The two paragraphs above tell us that 2cm is equal to 1.96 standard deviations, and the standard deviation of the sampling distribution (the <strong>standard error</strong>) is <span class="math inline">\(7/\sqrt{n}\)</span>. Setting these equal, we get <span class="math inline">\(2 = 1.96 *7/\sqrt{n}\)</span> which means <span class="math inline">\(n = (1.96 * 7/2)^2 = 47.0596\)</span>.</p>
 <p>We’re not done yet! We can’t sample 47.0596 people! We want to be <em>within</em> two standard deviations of the mean, so we want to make sure that when we round, we don’t go above 2cm. Since the variance of the sampling ditribution decreases as <span class="math inline">\(n\)</span> increase, the confidence interval is smaller when <span class="math inline">\(n\)</span> is larger. Because of this, we always want to round <strong>up</strong>. Even if our answer came to 12.0001, we would round up to 48 to get our final answer.</p>
 <p>A short version of this solution: Using R or the normal table, the middle 95% is within 1.96 standard deviations of the mean. Since we’re dealing with a sampling distribution, the standard deviation is <span class="math inline">\(7/\sqrt{n}\)</span>. Setting these two numbers equal, we get <span class="math inline">\(2 = 1.967/\sqrt{n}\)</span> and we solve for <span class="math inline">\(n\)</span>. We round up, because we want our interval to be less than 2cm on either side and because a larger sample has lower variance.</p>
+</details>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="8.10">
+<h2 data-number="8.10" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">8.10</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>What factor primarily contributes to the sampling distribution having a lower variance than the population distribution?
+<ol type="a">
+<li>reduction in standard deviation within the sample</li>
+<li>the wider range of possible values in the population</li>
+<li>utilization of a different statistical methodology for sampling</li>
+<li>summarization of multiple observations into a single value during sampling</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol start="4" type="A">
+<li>is the correct answer. When creating a sampling distribution, multiple samples from a population are taken to create a statistic for each sample. As more samples are taken, the statistic will represent the true population parameter better. Essentially, as more values are summarized into one, there is a reduced variability in the sampling distribution compared to the population.</li>
+</ol>
+</details>
+<ol start="2" type="1">
+<li>Let X represent the heights, in metres, of white birch trees in Saskatchewan. Given that it follows a normal distribution with a mean of 8 and a standard deviation of 5, the heights of a randomly selected group of n=6 trees are measured. Find the probability that the sample mean tree height is at most 10 m.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>First, let’s label all of the information we have been provided:</p>
+<ul>
+<li>sample size: <span class="math inline">\(n = 6\)</span></li>
+<li>population mean: <span class="math inline">\(\mu = 8\)</span></li>
+<li>population stdev: <span class="math inline">\(\sigma = 5\)</span></li>
+</ul>
+<p>Since there is a sample size of 6 trees, the mean of the sampling distribution will still remain 8 but the standard deviation of the sampling distribution is <span class="math inline">\(\sigma/\sqrt{n} = 5 / \sqrt{6} = 2.04\)</span></p>
+<p>Since the height can be a maximum of 10m, we are trying to find P(<span class="math inline">\(\bar x\)</span> &lt; 10). We can find this by standardizing and using the z-table:</p>
+<p>P(x6 &lt; 10) = P(Zx6 &lt; (10-8) / 2.04) = P(Zx6 &lt; 0.98) = 0.8365</p>
+<p>Therefore, in a sample of 6 trees, there is a 83.65% (or 0.8365) chance that a silver birch tree in Saskatchewan is at most 10 m tall.</p>
+<p>In R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">8</span>, <span class="at">sd =</span> <span class="dv">5</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8364066</code></pre>
+</div>
+</div>
 </details>
 
 

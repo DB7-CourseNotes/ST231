@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-12-31">
+<meta name="dcterms.date" content="2024-04-01">
 
 <title>Statistics for Life Sciences - 3&nbsp; Scatterplots and Correlation</title>
 <style>
@@ -333,6 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-penguins" id="toc-example-penguins" class="nav-link" data-scroll-target="#example-penguins">Example: Penguins</a></li>
   <li><a href="#correlation-summary" id="toc-correlation-summary" class="nav-link" data-scroll-target="#correlation-summary">Correlation Summary</a></li>
   </ul></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">3.4</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -358,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-12-31</p>
+      <p class="date">2024-04-01</p>
     </div>
   </div>
   
@@ -894,9 +895,73 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <p>Questions 1.35, 1.36, 1.37.</p>
 <p>For further R practice and case studies, see the <a href="https://www.openintro.org/book/statlabs/?labblock=biostat_intro_to_data">labs page for the OpenIntro textbook</a>.</p>
 </div>
-
-
 </section>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">3.4</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Consider a study investigating the relationship between the amount of time students spend studying for an exam (in hours) and their resulting exam scores (percentage). The study gathers data from 100 students, measures the two variables for each student, and plots these data points on a scatterplot. Which of the following statements best aligns with the principles of interpreting scatterplots and understanding relationships between variables as discussed in the course notes?
+<ol type="a">
+<li>If the scatterplot shows a clear upward trend, it proves that spending more time studying causes students to achieve higher exam scores.</li>
+<li>The study identifies the amount of time spent studying as the response variable and the exam score as the explanatory variable, predicting that higher exam scores explain why students spend more time studying.</li>
+<li>The scatterplot can help visualize the relationship between the two variables, but further analysis is required to determine if one variable causes changes in the other.</li>
+<li>A linear pattern in the scatterplot indicates that every additional hour of study leads to a uniform increase in exam scores for all students.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+C is the correct answer. This option correctly acknowledges that while scatterplots are instrumental in visualizing the relationship between two variables (the amount of time spent studying and exam scores in this case), they alone cannot confirm causality. This aligns with the course’s emphasis on the distinction between correlation and causation and the role of scatterplots in identifying patterns rather than proving causation. Options A, B, and D either incorrectly assume causation from correlation, misidentify explanatory and response variables, or oversimplify the interpretation of a linear pattern, respectively.
+</details>
+<ol start="2" type="1">
+<li>In an agricultural study, researchers are investigating the impact of different amounts of fertilizer (in kilograms) applied to tomato plants on the yield of tomatoes (in kilograms). Which of the following correctly identifies the explanatory and response variables?
+<ol type="a">
+<li>Explanatory variable: Yield of tomatoes; Response variable: Amount of fertilizer</li>
+<li>Explanatory variable: Amount of fertilizer; Response variable: Yield of tomatoes</li>
+<li>Both the amount of fertilizer and the yield of tomatoes are explanatory variables since they influence each other.</li>
+<li>Both the amount of fertilizer and the yield of tomatoes are response variables due to external factors like sunlight and water.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+B is the correct answer. The amount of fertilizer is the explanatory variable because it is the variable being manipulated or controlled by the researchers to observe its effect on the yield of tomatoes, which is the response variable.
+</details>
+<ol start="3" type="1">
+<li>A study plots the average daily temperature against the total daily sales of ice cream over a summer in a coastal city. The scatterplot shows a clear upward trend. What does this trend indicate about the relationship between these two variables?
+<ol type="a">
+<li>As the average daily temperature increases, the total daily sales of ice cream decrease.</li>
+<li>There is no relationship between the average daily temperature and the total daily sales of ice cream.</li>
+<li>As the average daily temperature increases, the total daily sales of ice cream also increase.</li>
+<li>The increase in average daily temperature causes an increase in the total daily sales of ice cream.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+C is the correct answer. The upward trend in the scatterplot indicates that there is a positive relationship between the average daily temperature and the total daily sales of ice cream—meaning, as one increases, so does the other. However, it is important to note that this does not imply causation (which option D incorrectly suggests).
+</details>
+<ol start="4" type="1">
+<li>In a study examining the relationship between hours spent on physical activity per week and overall quality of sleep, a correlation coefficient of -0.3 is found. Which of the following statements best interprets this finding?
+<ol type="a">
+<li>There is a strong negative relationship between hours spent on physical activity and quality of sleep.</li>
+<li>There is a weak negative relationship between hours spent on physical activity and quality of sleep, suggesting that as physical activity increases, quality of sleep slightly decreases.</li>
+<li>There is a weak positive relationship between hours spent on physical activity and quality of sleep.</li>
+<li>The correlation coefficient indicates that increased physical activity causes poorer quality of sleep.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+B is the correct answer. A correlation coefficient of -0.3 indicates a weak negative relationship between the two variables. This means that as one variable increases (hours spent on physical activity), the other variable (quality of sleep) slightly decreases. However, it’s important to remember that correlation does not imply causation, making option D incorrect.
+</details>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
