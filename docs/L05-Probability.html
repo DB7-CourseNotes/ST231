@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -325,6 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#word-problems" id="toc-word-problems" class="nav-link" data-scroll-target="#word-problems"><span class="header-section-number">5.3</span> Word Problems</a></li>
   <li><a href="#two-way-tables" id="toc-two-way-tables" class="nav-link" data-scroll-target="#two-way-tables"><span class="header-section-number">5.4</span> Two-Way Tables</a></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">5.5</span> Self-Study Questions</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">5.6</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -372,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For a dice, the probability model is simply: Each number has a probability of 1 in 6. But what does this mean? There are two perspectives on what a “probability” is: The Frequentist approach and the Bayesian approach. In this class we’re only going to learn the Frequentist definition of probability, but if you’re interested in learning more I’m happy to talk.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 <p><strong>Probability</strong> (Frequentist Definition): The long run frequency of observing an event. In other words, it’s the number of times an event is observed divided by the number of trials after doing a near-infinite number of trials.</p>
 <p>For the dice, if we rolled the dice 60 times, we would expect 10 of those rolls to be a 1, 10 of them to be a 2, etc. Due to randomness, we won’t get exactly that, but this is what we would expect. If we rolled 600 dice, we would expect 100 to be 1, etc. As we roll more dice, we get closer to the proportion of 1/6. The plot below this demonstrates this - it is the number of times that a dice was 1 divided by the number of trials, with the number of trials being increased. Notice how it takes a while for the “empirical” probability to reach the theoretical probably; as the number of trials approaches infinity, the proportion of rolls that showed a 1 will approach 1/6.</p>
-<div class="cell">
+<div class="cell" data-hash="L05-Probability_cache/html/unnamed-chunk-1_6129663ee8aedb0d42583b467a22650e">
 <div class="cell-output-display">
 <p><img src="L05-Probability_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -481,7 +481,7 @@ P(Even\; or\; &gt;3) &amp; = P(Even) + P(&gt;3) - P(Even\; and\; &gt;3)\\
 <p>Formally, A and B are independent if P(A | B) = P(A).</p>
 <p>This adds further insight into conditional probabilities: P(A|B) is how likely A is, given that you know B happened. Knowledge of B changes your guess of the likelihood of A. If it doesn’t change your guess, then they are independent.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
 <p>The following app demonstrates this concept:</p>
-<div class="cell">
+<div class="cell" data-hash="L05-Probability_cache/html/unnamed-chunk-2_1a541ab66f54a7331ad27a0ef5829bdb">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/indep"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -611,7 +611,7 @@ P(Even\; or\; &gt;3) &amp; = P(Even) + P(&gt;3) - P(Even\; and\; &gt;3)\\
 <li>P(Stats <strong>or</strong> Math) = ??</li>
 </ol>
 <p>Two-way tables can also be created in R using the <code>table()</code> function:</p>
-<div class="cell">
+<div class="cell" data-hash="L05-Probability_cache/html/unnamed-chunk-3_d91bfd308fd1be6166ba79de3e98a1d1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="co"># It's a very useful dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(mtcars<span class="sc">$</span>am, mtcars<span class="sc">$</span>cyl) <span class="co"># cbind BINDs Columns together</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -659,7 +659,7 @@ P(Even\; or\; &gt;3) &amp; = P(Even) + P(&gt;3) - P(Even\; and\; &gt;3)\\
 </div>
 </div>
 <p>The table above is telling us that there were 3 cars that were automatic (0) <strong>and</strong> had 4 cylinders.</p>
-<div class="cell">
+<div class="cell" data-hash="L05-Probability_cache/html/unnamed-chunk-4_d1f2153d07c4cf538dc95a0b97db8ae5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: TRUE == 1, so the sum of a logical vector is the number of TRUEs</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The "&amp;" operator only returns true if BOTH conditions are true, i.e.</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## if mtcars$cyl == 4 AND mtcars$am == 0</span></span>
@@ -696,6 +696,29 @@ P(Even\; or\; &gt;3) &amp; = P(Even) + P(&gt;3) - P(Even\; and\; &gt;3)\\
 </ol></li>
 </ol>
 <p>Solutions to Two-Way Table exercises: <strong>3.</strong> 15/156; <strong>8.</strong> 195/431; <strong>9.</strong> 285/431</p>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">5.6</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Which statement about disjoint and independent probabilities is true?
+<ol type="a">
+<li>Events with disjoint probabilities never occur simultaneously.</li>
+<li>Events with independent probabilities are always disjoint.</li>
+<li>If two events are independent, you know the probability of one based on the other.</li>
+<li>Events are always independent if they have disjoint probabilities.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="a">
+<li>Events with disjoint probabilities never occur simultaneously.</li>
+</ol>
+<p>Disjoint events are mutually exclusive, meaning that they cannot occur at the same time as each other. A good example of disjoint events is a coin toss or the roll of a die. On a coin, there are two sides, heads or tails, and when flipped, only one side can be landed on. The same is true with a dice, once rolled, it can only land on one of its six faces. Therefore, when events are disjoint, the probabilities can’t occur together.</p>
+Independent events on the other hand, are events where one occurrence doesn’t affect the occurrence of another. If we take the roll of a dice for example, and roll the same dice 5 times, the number it lands on can be different every time. Therefore, they are independent because landing on a number on the first roll has no effect on what number will be rolled on the second and so on. *****
+</details>
 
 
 </section>

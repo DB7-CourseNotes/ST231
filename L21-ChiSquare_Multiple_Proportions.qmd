@@ -259,3 +259,53 @@ chisq.test(x = observed, p = hypothesized)
 According to R, the demographics are significantly different!
 
 For more examples of the goodness-of-fit test, see [this free, open-source textbook](https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Statistics_with_Technology_2e_(Kozak)/11%3A_Chi-Square_and_ANOVA_Tests/11.02%3A_Chi-Square_Goodness_of_Fit)
+
+
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. A study on consumer preference for four brands of lipbalm product yielded the following results, with a sample size of 200: 
+
+| Brand | Count |
+|-------|-------|
+| A | 40 |
+| B | 50 |
+| C | 70 |
+| D | 40 |
+
+Based on market research, the company hypothesizes that the preferences are evenly distributed as follows: Brand A - 25%, Brand B - 25%, Brand C - 25%, and Brand D - 25%.
+
+a. Calculate the expected frequencies for each brand based on the hypothesized distribution.
+b. Using the Chi-Square goodness of fit test, calculate the Chi-Square statistic to determine if there is a significant difference between the observed and expected frequencies. Assume a significance level of 5%.
+
+<details>
+<summary>**Solution**</summary>
+a. Calculating Expected Frequencies:
+
+Given the hypothesized distribution, each brand is expected to have an equal preference of 25% among the 200 respondents.
+
+therefore, the expected frequency for each brand is 200×0.25=50.
+
+b. Calculating the Chi-Square Statistic:
+    - The Chi-Square statistic (x2 ) is calculated using the formula: x2 = ((observed - expected)2)/expected
+    - For Brand A:  (40-50)2/50 = 2
+    - For Brand B: (50-50)2/50 = 0
+    - For Brand C: (70-50)2/50 =8
+    - For Brand D: (40-50)2/50 = 2
+    - Total x2 =2+0+8+2=12
+
+to interprete the results we must find the degrees of freedom: The degrees of freedom is equal to the number of categories minus one, df=4−1=3.
+
+If x2 calculated (12) is greater than the critical value from the Chi-square table, we will reject the null hypothesis and conclude that there is a significant difference between the observed and expected frequencies
+
+Not covered in class, but this can be calculated as follows:
+
+```{r}
+1 - pchisq(12, df = 3)
+```
+
+And this is statistically significant at the 5% level, meaning we have found a deviation from equal probabilities in brand preference. 
+
+*****
+</details>

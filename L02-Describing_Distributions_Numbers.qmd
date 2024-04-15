@@ -601,3 +601,27 @@ Therefore, the Interquartile range for this set of data is 15.
 
 *****
 </details>
+
+2. The test scores for the ST231 midterm are as follows: 64, 77, 79, 88, 99, 81, 72, 77, 70 and 89. Given this information, are there any outliers?
+    a. Yes, 64 is an outlier
+    b. Yes, 99 is an outlier
+    c. Yes, both 64 and 99 are outliers
+    d. No, this data set does not contain any outliers
+
+<details>
+<summary>**Solution**</summary>
+Answer: d
+
+Firstly, put data in numerical order: 64, 70, 72, 77, 77, 79, 81, 88, 89, 99
+
+Secondly, find the five-number summary: Q0 (min) = 64, Q1 (25%) = 72, Q2 (median) = 78 ((77+79)/2) , Q3 (75%) = 88, Q4 (max) = 99
+
+Thirdly, determine the interquartile range: IQR = Q3-Q1 = 88-72 = 16
+
+Fourthly, use the outliers formula, below Q1-1.5(IQR) OR above Q3+1.5(IQR) : lower bound = 72-1.5(16) = 48 ; upper bound = 88+1.5(16) = 112
+
+Fifthly, make a conclusion: since no values fall below 48 or above 112, there are no outliers for this data set. 
+
+*****
+</details>
+

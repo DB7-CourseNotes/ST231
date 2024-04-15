@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -388,7 +387,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="8.3" class="anchored" data-anchor-id="sampling-distribution-of-the-sample-mean"><span class="header-section-number">8.3</span> Sampling distribution of the sample mean</h2>
 <p>Because the value of a sample mean is random (since we took a random sample), there’s a probability distribution that describes it. I could just jump to the answer, but it’s best if I build up to it.</p>
 <p>The app below<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> will take a random sample from the population (in this case, normal), then find the mean and add it to a histogram. As you collect more means, the histogram gets more and more data. This simulates taking many many different samples.</p>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-2_c13eaa9c7d30a275b1cf1b274ceb6fd8">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># if this fails, run install.packages("ggplot2")</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/samplingDist"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -433,7 +432,7 @@ Summary
 <h2 data-number="8.5" class="anchored" data-anchor-id="non-normal-populations-with-large-sample-size"><span class="header-section-number">8.5</span> Non-Normal Populations with Large Sample Size</h2>
 <p>In the previous example, we saw that a normal population distribution will result in a distribution for all possible sample means that is also normal, but with a smaller variance. If the population <em>isn’t</em> normal, but you have a large enough sample size, the sampling distribution is still normal. It’s kind of amazing, but it seems to work in practice!</p>
 <p>The app below<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> will help you understand this relationship. I use an “Exponential distribution” for the population, but this isn’t a distribution you really need to worry about. All you need to know is that the population <em>clearly</em> isn’t normal.</p>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-3_26ca255535ce9a545f61ea447d3c6c0a">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/nLarge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -460,7 +459,7 @@ The Central Limit Theorem
 <p>For a perfectly normal population, this is true for any <span class="math inline">\(n\)</span>. For a population that just a little bit not normal, <span class="math inline">\(n\)</span> must be moderately large. For a very not normal population (e.g.&nbsp;Binomial with <span class="math inline">\(p\)</span> far from 0.5), we need <span class="math inline">\(n\)</span> even larger. Still, as long as the sd of the population is finite, the sampling distribution will be normal for sufficiently large <span class="math inline">\(n\)</span>!</p>
 <section id="examples" class="level3">
 <h3 class="anchored" data-anchor-id="examples">Examples</h3>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-4_978647a6f2348b9e76c5950de6b73262">
 <div class="cell-output-display">
 <p><img src="L10-Sampling_Distributions_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -496,7 +495,7 @@ The Central Limit Theorem
 <section id="aside-the-normal-approximation-to-binomial" class="level3">
 <h3 class="anchored" data-anchor-id="aside-the-normal-approximation-to-binomial">Aside: The normal approximation to Binomial</h3>
 <p>Most textbooks provide the rule: if <em>both</em> np and n(1-p) are larger than 10<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a>, then the normal distribution is a good approximation to the binomial distribution. I prefer to let you see whether these rules make sense. The app below lets you change n and p, and shows a <span class="math inline">\(B(n, p)\)</span> and an <span class="math inline">\(N(np, \sqrt{np(1-p)})\)</span><a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a> distribution.</p>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-5_f023041726f418656612d00756e67e16">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/normBinom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -513,7 +512,7 @@ The Central Limit Theorem
 <h3 class="anchored" data-anchor-id="example-1">Example</h3>
 <p>Suppose I’m rolling a dice 5 times. The probability of exactly 1 one is defined by the Binomial distribution: <code>dbinom(1, size = 5, prob = 1/6)</code> = 0.4.<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a> The number of ones we expect after rolling many many dice is <span class="math inline">\(np = 5/6 =0.8333\)</span>. The variance in the number of ones in 5 rolls is <span class="math inline">\(np(1 - p) = 25/36 = 0.69444\)</span>, meaning the standard deviation of the number of ones in 5 rolls is <span class="math inline">\(\sqrt{np(1-p)} = \sqrt{5/36}\)</span>.</p>
 <p>Let’s use R to roll some dice for us!</p>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-6_4722b187418ca91872d8df91135312c5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rolling 1 dice</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The "r" version of functions givexs random values</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Not on midterm</span></span>
@@ -522,7 +521,7 @@ The Central Limit Theorem
 <pre><code>[1] 1</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-7_83ae1bdff1c5bfbf433a35eb9c913878">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rolling 1000 dice</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Not on midterm</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dice_1000 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
@@ -541,7 +540,7 @@ The Central Limit Theorem
 <section id="exampling-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="exampling-distribution">Exampling Distribution</h3>
 <p>The following code is not testable - you are <em>not</em> expected to write anything like this. I’m taking repeated samples from a B(75, 0.4) distribution and calculating the proportion of successes for each sample.</p>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-8_6e9bd6fc8d74bdc4952bbd60cbcb37b3">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">75</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
@@ -602,7 +601,7 @@ The Central Limit Theorem
 <summary>
 <strong>Answer to Questions 1 and 2</strong>
 </summary>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-9_71dd5a5fbafdde58396589bb1251e07e">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Question 1</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">170</span>, <span class="at">mean =</span> <span class="dv">163</span>, <span class="at">sd =</span> <span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -634,12 +633,14 @@ The Central Limit Theorem
 <pre><code>[1] 2.866516e-07</code></pre>
 </div>
 </div>
+<hr>
 </details>
 <details>
 <summary>
 <strong>Solution to Question 3</strong>
 </summary>
-As the sample size increases, the variance decreases (since we’re dividing by the square root of <span class="math inline">\(n\)</span>). This means that values further away from the mean are less and less likely.
+<p>As the sample size increases, the variance decreases (since we’re dividing by the square root of <span class="math inline">\(n\)</span>). This means that values further away from the mean are less and less likely.</p>
+<hr>
 </details>
 <details>
 <summary>
@@ -650,6 +651,7 @@ As the sample size increases, the variance decreases (since we’re dividing by 
 <p>The two paragraphs above tell us that 2cm is equal to 1.96 standard deviations, and the standard deviation of the sampling distribution (the <strong>standard error</strong>) is <span class="math inline">\(7/\sqrt{n}\)</span>. Setting these equal, we get <span class="math inline">\(2 = 1.96 *7/\sqrt{n}\)</span> which means <span class="math inline">\(n = (1.96 * 7/2)^2 = 47.0596\)</span>.</p>
 <p>We’re not done yet! We can’t sample 47.0596 people! We want to be <em>within</em> two standard deviations of the mean, so we want to make sure that when we round, we don’t go above 2cm. Since the variance of the sampling ditribution decreases as <span class="math inline">\(n\)</span> increase, the confidence interval is smaller when <span class="math inline">\(n\)</span> is larger. Because of this, we always want to round <strong>up</strong>. Even if our answer came to 12.0001, we would round up to 48 to get our final answer.</p>
 <p>A short version of this solution: Using R or the normal table, the middle 95% is within 1.96 standard deviations of the mean. Since we’re dealing with a sampling distribution, the standard deviation is <span class="math inline">\(7/\sqrt{n}\)</span>. Setting these two numbers equal, we get <span class="math inline">\(2 = 1.967/\sqrt{n}\)</span> and we solve for <span class="math inline">\(n\)</span>. We round up, because we want our interval to be less than 2cm on either side and because a larger sample has lower variance.</p>
+<hr>
 </details>
 </section>
 <section id="crowdsourced-questions" class="level2" data-number="8.10">
@@ -671,6 +673,7 @@ As the sample size increases, the variance decreases (since we’re dividing by 
 <ol start="4" type="A">
 <li>is the correct answer. When creating a sampling distribution, multiple samples from a population are taken to create a statistic for each sample. As more samples are taken, the statistic will represent the true population parameter better. Essentially, as more values are summarized into one, there is a reduced variability in the sampling distribution compared to the population.</li>
 </ol>
+<hr>
 </details>
 <ol start="2" type="1">
 <li>Let X represent the heights, in metres, of white birch trees in Saskatchewan. Given that it follows a normal distribution with a mean of 8 and a standard deviation of 5, the heights of a randomly selected group of n=6 trees are measured. Find the probability that the sample mean tree height is at most 10 m.</li>
@@ -690,12 +693,80 @@ As the sample size increases, the variance decreases (since we’re dividing by 
 <p>P(x6 &lt; 10) = P(Zx6 &lt; (10-8) / 2.04) = P(Zx6 &lt; 0.98) = 0.8365</p>
 <p>Therefore, in a sample of 6 trees, there is a 83.65% (or 0.8365) chance that a silver birch tree in Saskatchewan is at most 10 m tall.</p>
 <p>In R:</p>
-<div class="cell">
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-10_c3ea78e46c6bfe6dc50c3f8bffed53ef">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">8</span>, <span class="at">sd =</span> <span class="dv">5</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8364066</code></pre>
 </div>
 </div>
+<hr>
+</details>
+<ol start="3" type="1">
+<li>the scores on a standardized test are normally distributed with a mean of 75 and a standard deviation of 10.
+<ol type="a">
+<li>what percentage of students scored above 85?</li>
+<li>if the top 15% of students receive a special award, what is the minimum score required to receive the award?</li>
+<li>if a random sample of 50 students is selected, what is the probability that the sample mean score is greater than 78?</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="a">
+<li>to find the percentage of students who scored above 85, we can use the z-score formula:</li>
+</ol>
+<p>where: z = x - μ / σ</p>
+<p>x = score</p>
+<p>μ=75 (mean)</p>
+<p>σ=10 (standard deviation)</p>
+<p>calculating the z-score: z=85−75 / 10 ​=1</p>
+<p>by looking at a normal distribution table, we find that the percentage of students who scored above z or 1 was 15.87%</p>
+<ol start="2" type="a">
+<li>to find the minimum score required to receive the award (the score corresponding to the top 15%): using the inverse standard normal distribution table or calculator, we find that the z-score corresponding to the top 15% is approximately z=1.04. now, we can use the z-score formula to find the corresponding score: x=μ+z⋅σ</li>
+</ol>
+<p>x=75 + 1.04⋅10 = 85.4</p>
+<ol start="3" type="a">
+<li>for a random sample of 50 students, we need to use the central limit theorem. since the sample size is large (n &gt; 30), the sample mean will be approximately normally distributed. the mean of the sample distribution will be the same as the population mean (μ=75), and the standard deviation of the sample distribution (σˉ​) will be the population standard deviation divided by the square root of the sample size: σˉ​= ​σ​ / √n = 10 / √50 = 1.41</li>
+</ol>
+<p>we calculate the z-score for x=78:</p>
+<p>z = 78 - 75 / 1.41 = 2.13</p>
+<p>using the standard normal distribution table, we find that the probability of obtaining a z-score greater than 2.12 is approximately 0.017. therefore, the probability that the sample mean score is greater than 78 is approximately 0.017, or 1.7%.</p>
+<p>In R:</p>
+<div class="cell" data-hash="L10-Sampling_Distributions_cache/html/unnamed-chunk-11_5f602cca58670bde9de630c448dd3d20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a) P(X &lt; q) = pnorm(q), so P(X &gt; q) = 1 - pnorm(q)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">85</span>, <span class="at">mean =</span> <span class="dv">75</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1586553</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># b) qnorm calculates the value q such that P(X &lt; q) = p, where p is given.</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.15</span>, <span class="at">mean =</span> <span class="dv">75</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 85.36433</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">78</span>, <span class="at">mean =</span> <span class="dv">75</span>, <span class="at">sd =</span> <span class="dv">10</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">50</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01694743</code></pre>
+</div>
+</div>
+<hr>
+</details>
+<ol start="4" type="1">
+<li>Which of the following best describes the Central Limit Theorem (CLT)?
+<ol type="a">
+<li>The CLT states that as the sample size increases, the sampling distribution of the sample sum approaches a uniform distribution, regardless of the shape of the population distribution.</li>
+<li>The CLT asserts that the sampling distribution of the sample mean will be perfectly normal only if the population distribution is normal.</li>
+<li>The CLT guarantees that for any population with a finite mean and variance, the sampling distribution of the sample mean approaches a normal distribution as the sample size becomes large.</li>
+<li>According to the CLT, the mean of the sampling distribution of the sample mean is always equal to the population mean, regardless of the sample size.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>The correct answer is C) The CLT guarantees that for any population with a finite mean and variance, the sampling distribution of the sample mean approaches a normal distribution as the sample size becomes large.</p>
+<hr>
 </details>
 
 

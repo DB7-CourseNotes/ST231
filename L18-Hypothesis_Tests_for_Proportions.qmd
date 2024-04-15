@@ -244,6 +244,15 @@ There are two other wrinkles to consider when using proportions:
 4. Write a good summary of the Mendelian genetics example. What did we conclude, and how is this knowledge useful?
 5. Repeat the Titanic survivors example but with male passengers.
 
+:::: {.columns}
+::: {.column width="50%"}
+\vspace{1cm}
+
+:::
+::: {.column width="50%"}
+
+:::
+::::
 
 ## Crowdsourced Questions
 

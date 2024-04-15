@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -446,7 +445,7 @@ SE(\bar X) = \frac{\sigma}{\sqrt{n}} = \sqrt{\frac{\sigma^2}{n}},
 \text{Point Estimate}\pm\text{Critical Value}*\text{Standard Error}
 \]</span> From your homework above, verify that you can calculate the standard error as 0.025.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <p>Our point estimate is <span class="math inline">\(\hat p_1 - \hat p_2 = 0.47 - 0.34 = 0.13\)</span>. Since we doing a difference in proportions, our critical value comes from the normal distribution:</p>
-<div class="cell">
+<div class="cell" data-hash="L20-Two_Proportions_cache/html/unnamed-chunk-1_424605d866d2abb08723b02f290613b0">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.9</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.644854</code></pre>
@@ -495,7 +494,7 @@ H_A: &amp;p_{1-2} \ne 0\text{ or }p_{1-2} &gt; 0\text{ or }p_{1-2} &gt; 0\\
 \frac{(\hat p_1 - \hat p_2) - 0}{\sqrt{\hat p(1 - \hat p)\left(\frac{1}{n_1} + \frac{1}{n_2}\right)}} = \frac{(0.47 - 0.34) - 0}{\sqrt{0.4065(1-0.4065)(1/771 + 1/732)}} = 5.12
 \]</span></p>
 <p>We all remember the all-important value of 1.96, right? The total area under the normal curve above 1.96 plus the area below -1.96 adds to 5%. If we get a z-score above 1.96 or below -1.96, we know that the p-value is <em>smaller than</em> 5%. Intuitively, 5.12 is a <em>massive</em> z-score, and thus will have a miniscule p-value.</p>
-<div class="cell">
+<div class="cell" data-hash="L20-Two_Proportions_cache/html/unnamed-chunk-2_d5190b128666187991469dacb9acdc4b">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">5.12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.055357e-07</code></pre>

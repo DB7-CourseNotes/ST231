@@ -343,3 +343,16 @@ The ($z^*$) represents the critical value which indicates how many standard devi
 
 *****
 </details>
+
+4. When building confidence intervals based on sample standard deviations, why is the t-distribution used rather than the standard normal distribution?
+    a. Because every confidence interval is based on the sample standard deviation and changes slightly. Therefore it needs a distribution that takes variability into account. 
+    b. The t-distribution is not used in real-world computations; it is only utilized in theoretical ones.
+    c. Because the smaller intervals are provided by the t-distribution than by the conventional normal distribution.
+    d. Because the confidence interval construction is not appropriate for the typical normal distribution.
+
+<details>
+<summary>**Solution**</summary>
+A; since confidence intervals slightly change due to the variability in the sample data, the t-distribution is used when creating confidence intervals based on sample standard deviations. 
+
+*****
+</details>

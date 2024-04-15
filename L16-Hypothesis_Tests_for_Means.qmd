@@ -346,7 +346,85 @@ Since our p-value is larger than alpha, we do not reject the null. We have not g
 *****
 </details>
 
+4. A clinical trial is conducted to compare the mean blood pressure reduction (in mmHg) achieved by a new medication against a standard treatment. The mean reduction for the new medication is calculated with a 95% confidence interval of (2, 8). Which of the following conclusions is most appropriate if testing the null hypothesis that the new medication does not differ from the standard treatment in terms of mean blood pressure reduction? 
+    a. Reject the null hypothesis at the 5% significance level because the confidence interval does not include 0, indicating a significant difference in mean reductions.
+    b. Fail to reject the null hypothesis because the confidence interval includes the mean reduction of the standard treatment, indicating no significant difference.
+    c. Reject the null hypothesis only if the mean reduction for the standard treatment is outside the interval (2, 8), indicating a significant difference. 
+    d. Accept the null hypothesis because confidence intervals are only useful for estimating the range of possible values, not for testing hypotheses.
 
+In addition, what kind of test is this?
+<details>
+<summary>**Solution**</summary>
+The correct answer is (a) Reject the null hypothesis at the 5% significance level because the confidence interval does not include 0, indicating a significant difference in mean reductions. The 95% confidence interval represents the range of values within which we are 95% confident the true mean difference lies. If the null hypothesis were true (no difference in mean reductions), we would expect the interval to include 0. However, since the interval (2, 8) does not include 0, we have evidence that the mean reduction from the new medication is significantly different from the standard treatment at the 5% significance level. This conclusion is based on the principle that if a 95% confidence interval for a difference does not include 0, the difference is statistically significant at the 5% level. Hence, the confidence interval directly informs the hypothesis test outcome.
 
+This is a matched pairs test, since it's looking at the same patient before and after treatment. Instead of a sample of people before treatment and a sample of people after treatment, the researchers can look at a single sample of the differences.
 
+*****
+</details>
+
+5. A psychology researcher is interested in the effects of a new therapy on reducing anxiety levels. To test the effectiveness of the therapy, the researcher selects a random sample of 15 patients and records their anxiety levels before and after undergoing the therapy. The differences in anxiety level for the patients are as follows: 
+
+Differences 3, 5, -1, 4, 6, 2, 7, 4, 3, 5, 2, 4, 6, 8, 3
+
+Assuming the differences in anxiety levels are normally distributed, conduct a one-sample t-test to determine if the therapy leads to a significant reduction in anxiety levels at a 5% significance level.
+
+a. Explain why this is a matched pairs test.
+b. State the null and alternative hypotheses.
+c. Calculate the test statistic.
+d. Determine the critical t-value.
+e. Conclude whether or not there is sufficient evidence to support that the therapy leads to a significant reduction in anxiety levels.
+
+<details>
+<summary>**Solution**</summary>
+A.) The researchers have a sample of differences, meaning that each value comes from two observations on a natural pairing (e.g. the same individual). This can be done as a one-sample t-test.
+
+B.) Null hypothesis ($H_0$​): The therapy has no effect on anxiety levels, so the mean difference in anxiety levels is 0 ($\mu_d​=0$).
+
+Alternative hypothesis ($H_A$​): The therapy leads to a reduction in anxiety levels, so the mean difference in anxiety levels is greater than 0 ($\mu_d >0$).
+
+C.) The calculated test statistic (t-statistic) for the differences in anxiety levels is approximately 7.00. 
+
+D.) The critical t-value for a one-tailed test at a 5% significance level with 14 degrees of freedom is approximately 1.76.
+
+E.) Since the calculated t-statistic (7.00) is greater than the critical t-value (1.76), we reject the null hypothesis. There is sufficient evidence to support that the therapy leads to a significant reduction in anxiety levels. This conclusion is based on the assumption that if the therapy had no effect, the likelihood of observing a sample mean difference as extreme as this, or more extreme, is very low under the null hypothesis. Therefore, the therapy appears to be effective in reducing anxiety levels among the patients in this study.  
+
+In R:
+
+```{r}
+t.test(c(3, 5, -1, 4, 6, 2, 7, 4, 3, 5, 2, 4, 6, 8, 3), alternative = "greater")
+```
+
+*****
+</details>
+
+6. A small tech startup is interested in estimating the average number of hours its employees spend on professional development activities per month. Due to the startup's limited size, a random sample of 10 employees is selected, and the following number of hours spent on professional development activities per month are recorded:
+
+Hours: 12,15,9,11,14,8,10,13,12,7
+
+Assuming the number of hours follows a normal distribution, calculate a 90% confidence interval for the average number of hours all employees at the startup spend on professional development activities per month.
+
+a. Calculate the sample mean  and the sample standard deviation.
+b. Determine the critical t-value for a 90% confidence interval. 
+c. Construct the 90% confidence interval. 
+d. Interpret the confidence interval in the context of the study.
+
+<details>
+<summary>**Solution**</summary>
+A) The sample mean of hours spent on professional development activities per month is 11.1 hours, and the sample standard deviation is approximately 2.60 hours. 
+
+B.) The critical t-value for constructing a 90% confidence interval with 9 degrees of freedom is approximately 1.83. 
+
+C.)The 90% confidence interval for the average number of hours all employees at the startup spend on professional development activities per month is approximately (9.59, 12.61) hours. 
+
+D.) Based on the sample data, we can be 90% confident that the true average number of hours spent on professional development activities by all employees at the startup falls between 9.59 and 12.61 hours per month 
+
+In R:
+
+```{r}
+hours <- c(12, 15, 9, 11, 14, 8, 10, 13, 12, 7)
+t.test(hours, conf.level = 0.9)
+```
+
+*****
+</details>
 

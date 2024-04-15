@@ -15,7 +15,7 @@ book:
   date: "6/20/2023"
   repo-url: https://github.com/DB7-CourseNotes/ST231
   repo-actions: [issue]
-  downloads: [pdf]
+  downloads: []
   chapters:
     - index.qmd
     - part: Pre-Midterm
@@ -46,6 +46,7 @@ book:
 
 execute: 
   warning: false
+  cache: true
 
 format:
   html:
@@ -57,6 +58,5 @@ format:
         code-fold: true
         code-summary: "Show the code"
         warning: false
-
 
 

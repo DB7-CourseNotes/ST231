@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-01">
+<meta name="dcterms.date" content="2024-04-10">
 
 <title>Statistics for Life Sciences - 2&nbsp; Describing Distributions with Numbers</title>
 <style>
@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -365,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-01</p>
+      <p class="date">2024-04-10</p>
     </div>
   </div>
   
@@ -479,7 +478,7 @@ Set 3: -2000 -1000 3 4 5000 60000000</code></pre>
 <li>If someone pulled one of the observed values out of a hat and we were punished based on how wrong our guess was, the mean would be least overall punishment. This formula for the mean may look a little bit scary, but all it means is that we add up all of the values that we have and divide by the number of values.</li>
 </ul>
 <p>Create a couple examples yourself and find the mean! If you create a list of values, you can use R to check your work as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-1_4fb90a0fda2343242b61525c707d6b52">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="fl">6.3212</span>, <span class="dv">3</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(my_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -517,7 +516,7 @@ Set 2: 1, 2, 3, 4, 5, 60</code></pre>
 </section>
 <section id="mean-and-median-vs.-skew-mean-less-means-left" class="level3">
 <h3 class="anchored" data-anchor-id="mean-and-median-vs.-skew-mean-less-means-left">Mean and Median vs.&nbsp;Skew: Mean less means left</h3>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-2_91bfeb9113d6c3d4eaba22c690c01e33">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/MeanLessMeansLeft"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -644,7 +643,7 @@ s^2 = \frac{1}{n-1}\sum_{i=1}^n(x_i - \bar x)^2
 </div>
 </div>
 <p>Note that the variance can be calculated in R as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-3_86a848c1e25ae4e45ee3bfd4ffcb7f88">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>my_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="fl">6.3212</span>, <span class="dv">3</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(my_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -665,7 +664,7 @@ s = \sqrt{\frac{1}{n-1}\sum_{i=1}^n(x - \bar x)^2}
 <p>In addition, if we have two data sets and the variance of one is larger than the other, then the standard deviation is also larger. They’re the same thing, just in different units!</p>
 <p>I will often refer to one when I mean the other. When I’m comparing standard deviations, I may call them variances because the same patterns will be there.</p>
 <p>Here’s the R code:</p>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-4_87810fad4a8d8ab4970230d627bb65c4">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(my_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.746706</code></pre>
@@ -839,12 +838,12 @@ Warning
 <li>The highest point is Q4</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-5_a297d8d8c056c0a821be38fbbbb8e169">
 <div class="cell-output-display">
 <p><img src="L02-Describing_Distributions_Numbers_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-6_af5251b75789ecb31a6809f5428eca8c">
 <div class="cell-output-display">
 <p><img src="L02-Describing_Distributions_Numbers_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -866,7 +865,7 @@ Warning
 <div class="notes">
 <p>This is the second measure of spread that we will learn. The IQR is commonly used when we have highly skewed data or data with outliers. The sd measures the average squared deviation from the mean, whereas the IQR measures the middle 50% of the data.</p>
 <p>Notice how this is not centered on the median. Consider the following data:</p>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-7_be70eface093bbc70bc747ae438f4746">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>my_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_values) <span class="co"># number of observations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -935,7 +934,7 @@ Warning
 <li>Use the <code>boxplot()</code> function to create a boxplot (you do not need the <code>breaks=10</code> part of the code). Compare this to the histogram. Also comment on any points that stand out (when there are outliers, R shows <span class="math inline">\(Q1 - 1.5IQR\)</span> rather than Q0).</li>
 <li>Use the <span class="math inline">\(Q1 - 1.5IQR\)</span> and <span class="math inline">\(Q3 + 1.5 IQR\)</span> formulas by hand to find the outliers, and verify your calculations with the R plot.</li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-8_30a585e34a3caaf2d1b5c2e5aad0f1cc">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>silk_stress <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">164.00</span>, <span class="fl">173.00</span>, <span class="fl">176.10</span>, <span class="fl">236.10</span>, <span class="fl">251.30</span>, <span class="fl">270.50</span>, <span class="fl">270.50</span>,</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fl">272.40</span>, <span class="fl">282.20</span>, <span class="fl">288.80</span>, <span class="fl">290.70</span>, <span class="fl">300.60</span>, <span class="fl">327.20</span>, <span class="fl">329.00</span>,</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">332.10</span>, <span class="fl">351.70</span>, <span class="fl">358.20</span>, <span class="fl">362.00</span>, <span class="fl">448.90</span>, <span class="fl">478.70</span>, <span class="fl">740.20</span>)</span>
@@ -949,7 +948,7 @@ Warning
 <li><p><strong>Glucose levels.</strong> People with diabetes must monitor and control their blood glucose level. The goal is to maintain a “fasting plasma glucose” between approximately 90 and 130 milligrams per deciliter (mg/dl). The data tables below give the fasting plasma glucose levels for two groups of diabetics five months after they received either group instruction or individual instruction on glucose control.</p></li>
 </ol>
 <p>I provide the data as vectors in R, but you don’t need R for this question (it’s good practice to do it both ways).</p>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-9_4a4cb12d9c66a34ea3cfe51769033a14">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">78.00</span>, <span class="fl">95.00</span>, <span class="fl">96.00</span>, <span class="fl">103.00</span>, <span class="fl">112.00</span>, <span class="fl">134.00</span>, <span class="fl">141.00</span>, <span class="fl">145.00</span>, <span class="fl">147.00</span>,</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fl">148.00</span>, <span class="fl">153.00</span>, <span class="fl">158.00</span>, <span class="fl">172.00</span>, <span class="fl">172.00</span>, <span class="fl">200.00</span>, <span class="fl">255.00</span>, <span class="fl">271.00</span>, <span class="fl">359.00</span>)</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -971,7 +970,7 @@ Warning
 </ul></li>
 </ol>
 <p>Once you’re very certain that you know the answer (you don’t learn anything unless you put effort into, so do the hard thing), uncomment the commented code (i.e., remove the <code>#</code> at the start of the last two lines) and see if you were right!</p>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-10_2b87ea3da043e3adf55f08dab7296a5a">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>g3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
@@ -989,7 +988,8 @@ Warning
 <strong>Solution</strong>
 </summary>
 <p>The <strong>Ecological Fallacy</strong> is that the data looks less variable if we only look at the average values in different groups.</p>
-For example, Statistics Canada releases information of the average household income for people who are 16-24 years old, 25-34, etc. The variance of these averages is <strong>NOT</strong> related to the actual variance of the values. When we learn more about statistical tests, we learn just how important the variance is - getting it wrong by not acknowledging that we’re working with means is a <strong>HUGE</strong> problem!
+<p>For example, Statistics Canada releases information of the average household income for people who are 16-24 years old, 25-34, etc. The variance of these averages is <strong>NOT</strong> related to the actual variance of the values. When we learn more about statistical tests, we learn just how important the variance is - getting it wrong by not acknowledging that we’re working with means is a <strong>HUGE</strong> problem!</p>
+<hr>
 </details>
 </div>
 </section>
@@ -1002,7 +1002,7 @@ For example, Statistics Canada releases information of the average household inc
 <h3 class="anchored" data-anchor-id="frequency-tables">Frequency Tables</h3>
 <section id="one-way-table" class="level4">
 <h4 class="anchored" data-anchor-id="one-way-table">One-Way Table</h4>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-11_8074a23fff4c49b879c96c042fb75f27">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 female   male 
@@ -1021,7 +1021,7 @@ female   male
 </section>
 <section id="two-way-table" class="level4">
 <h4 class="anchored" data-anchor-id="two-way-table">Two-Way Table</h4>
-<div class="cell">
+<div class="cell" data-hash="L02-Describing_Distributions_Numbers_cache/html/unnamed-chunk-12_b3bc399e4b38277c84377b8d37778d66">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -1077,6 +1077,28 @@ female   male
 <p>Next to determine the IQR, we subtract Q1 from Q3.</p>
 <p>IQR = Q3-Q1 = 38 - 23 = 15</p>
 <p>Therefore, the Interquartile range for this set of data is 15.</p>
+<hr>
+</details>
+<ol start="2" type="1">
+<li>The test scores for the ST231 midterm are as follows: 64, 77, 79, 88, 99, 81, 72, 77, 70 and 89. Given this information, are there any outliers?
+<ol type="a">
+<li>Yes, 64 is an outlier</li>
+<li>Yes, 99 is an outlier</li>
+<li>Yes, both 64 and 99 are outliers</li>
+<li>No, this data set does not contain any outliers</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>Answer: d</p>
+<p>Firstly, put data in numerical order: 64, 70, 72, 77, 77, 79, 81, 88, 89, 99</p>
+<p>Secondly, find the five-number summary: Q0 (min) = 64, Q1 (25%) = 72, Q2 (median) = 78 ((77+79)/2) , Q3 (75%) = 88, Q4 (max) = 99</p>
+<p>Thirdly, determine the interquartile range: IQR = Q3-Q1 = 88-72 = 16</p>
+<p>Fourthly, use the outliers formula, below Q1-1.5(IQR) OR above Q3+1.5(IQR) : lower bound = 72-1.5(16) = 48 ; upper bound = 88+1.5(16) = 112</p>
+<p>Fifthly, make a conclusion: since no values fall below 48 or above 112, there are no outliers for this data set.</p>
+<hr>
 </details>
 
 

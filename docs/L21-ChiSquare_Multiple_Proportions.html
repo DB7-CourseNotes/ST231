@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-03-26">
+<meta name="dcterms.date" content="2024-04-10">
 
 <title>Statistics for Life Sciences - 18&nbsp; Chi-Square Test for Multiple Proportions</title>
 <style>
@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -319,6 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#chi-square-and-power" id="toc-chi-square-and-power" class="nav-link" data-scroll-target="#chi-square-and-power">Chi-Square and Power</a></li>
   </ul></li>
   <li><a href="#chi-square-for-goodness-of-fit" id="toc-chi-square-for-goodness-of-fit" class="nav-link" data-scroll-target="#chi-square-for-goodness-of-fit"><span class="header-section-number">18.4</span> Chi-Square for “Goodness of Fit”</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">18.5</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -344,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-03-26</p>
+      <p class="date">2024-04-10</p>
     </div>
   </div>
   
@@ -512,7 +512,7 @@ The <span class="math inline">\(\chi^2\)</span> Test Statistic
 df = (r-1)(c-1)
 \]</span> where <span class="math inline">\(r\)</span> is the number of rows and <span class="math inline">\(c\)</span> is the number of columns.</p>
 <p>We can calculate the right-tailed p-value as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/unnamed-chunk-1_66280059e78d327d2481babb2d4e4655">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="fl">0.02</span>, <span class="at">df =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8875371</code></pre>
@@ -537,7 +537,7 @@ The <span class="math inline">\(\chi^2\)</span> Test
 <section id="this-example-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="this-example-in-r">This Example in R</h3>
 <p>Preparing the data for R is relatively difficult, so ignore those details.</p>
-<div class="cell">
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/mammochisq_c57cc8e81aab796391610699ad55a2c5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mammograms <span class="ot">&lt;-</span> <span class="fu">as.table</span>(<span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">500</span>, <span class="dv">44425</span>), <span class="fu">c</span>(<span class="dv">505</span>, <span class="dv">44405</span>)))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mammograms) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Died"</span>, <span class="st">"Survived"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(mammograms) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Mammogram"</span>, <span class="st">"Control"</span>)</span>
@@ -558,7 +558,7 @@ X-squared = 0.01748, df = 1, p-value = 0.8948</code></pre>
 </div>
 <p>Again, R does a better calculation using continuity correction, which is out of the scope of this course.</p>
 <p>For this simple example, note that this is the same as a two-sample test for proportions (but with a different form of contnuity correction):</p>
-<div class="cell">
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/unnamed-chunk-3_af6cfcd5abfd25913c7ce5d77877d339">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">500</span>, <span class="dv">505</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">44425</span>, <span class="dv">44405</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -578,7 +578,7 @@ sample estimates:
 <section id="another-example-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="another-example-in-r">Another Example in R</h3>
 <p>The following data come from the help file for the <code>chisq.test()</code> function in R.</p>
-<div class="cell">
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/unnamed-chunk-4_41733456625d220667c4abe0f1580a25">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>party_by_gender <span class="ot">&lt;-</span> <span class="fu">as.table</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">762</span>, <span class="dv">327</span>, <span class="dv">468</span>), <span class="fu">c</span>(<span class="dv">484</span>, <span class="dv">239</span>, <span class="dv">477</span>)))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The following line is just to make sure we get pretty output</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># It is NOT something you'd be expect to reproduce</span></span>
@@ -594,7 +594,7 @@ gender Democrat Independent Republican
 </div>
 <p>We want to know whether the party affiliation is independent of the gender. By eye, it looks like there are more women in the democratic party, slightly more in the Independent party, and about the same in the republican party. However, there are more women in general in this study, so it’s not immediately obvious that this is a difference in party affiliation or a difference in sample sizes across groups. This is where the <span class="math inline">\(\chi^2\)</span> test works best!</p>
 <p>Let’s use the built-in R function to save us some work.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
-<div class="cell">
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/unnamed-chunk-5_6179c874e8a33c786a2c641d89e8668e">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(party_by_gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -621,7 +621,7 @@ Residuals for a <span class="math inline">\(\chi^2\)</span> Test
 \]</span> This is just the square root of their contribution to the <span class="math inline">\(\chi^2\)</span> test statistic, which preserves the sign (expected counts that are too small are still negative).</p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/unnamed-chunk-6_0bf4a50e92aaf8114145c767b8b7ad39">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rounding the values for nicer display</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">chisq.test</span>(party_by_gender)<span class="sc">$</span>residuals, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -710,7 +710,7 @@ gender Democrat Independent Republican
 <p>We can calculate the <span class="math inline">\(\chi^2\)</span> statistic in the exact same way: <span class="math display">\[
 \chi^2 = \sum_{\text{all cells}}\frac{(\text{observed} - \text{expected})^2}{\text{expected}}
 \]</span> and compare this to a <span class="math inline">\(\chi^2\)</span> distribution. As before, I’m too lazy to do this by hand and I want R to do it for me. Let’s use the usual 5% significance level.</p>
-<div class="cell">
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/unnamed-chunk-7_445fc5a26849c782c9402d4dea4ab153">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">27</span>, <span class="dv">55</span>, <span class="dv">467</span>, <span class="dv">46</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>hypothesized <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.128</span>, <span class="fl">0.01</span>, <span class="fl">0.804</span>, <span class="fl">0.058</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="at">x =</span> observed, <span class="at">p =</span> hypothesized)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -724,6 +724,76 @@ X-squared = 440.18, df = 3, p-value &lt; 2.2e-16</code></pre>
 </div>
 <p>According to R, the demographics are significantly different!</p>
 <p>For more examples of the goodness-of-fit test, see <a href="https://stats.libretexts.org/Bookshelves/Introductory_Statistics/Statistics_with_Technology_2e_(Kozak)/11%3A_Chi-Square_and_ANOVA_Tests/11.02%3A_Chi-Square_Goodness_of_Fit">this free, open-source textbook</a></p>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">18.5</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>A study on consumer preference for four brands of lipbalm product yielded the following results, with a sample size of 200:</li>
+</ol>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Brand</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>40</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>50</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>Based on market research, the company hypothesizes that the preferences are evenly distributed as follows: Brand A - 25%, Brand B - 25%, Brand C - 25%, and Brand D - 25%.</p>
+<ol type="a">
+<li>Calculate the expected frequencies for each brand based on the hypothesized distribution.</li>
+<li>Using the Chi-Square goodness of fit test, calculate the Chi-Square statistic to determine if there is a significant difference between the observed and expected frequencies. Assume a significance level of 5%.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="a">
+<li>Calculating Expected Frequencies:</li>
+</ol>
+<p>Given the hypothesized distribution, each brand is expected to have an equal preference of 25% among the 200 respondents.</p>
+<p>therefore, the expected frequency for each brand is 200×0.25=50.</p>
+<ol start="2" type="a">
+<li>Calculating the Chi-Square Statistic:
+<ul>
+<li>The Chi-Square statistic (x2 ) is calculated using the formula: x2 = ((observed - expected)2)/expected</li>
+<li>For Brand A: (40-50)2/50 = 2</li>
+<li>For Brand B: (50-50)2/50 = 0</li>
+<li>For Brand C: (70-50)2/50 =8</li>
+<li>For Brand D: (40-50)2/50 = 2</li>
+<li>Total x2 =2+0+8+2=12</li>
+</ul></li>
+</ol>
+<p>to interprete the results we must find the degrees of freedom: The degrees of freedom is equal to the number of categories minus one, df=4−1=3.</p>
+<p>If x2 calculated (12) is greater than the critical value from the Chi-square table, we will reject the null hypothesis and conclude that there is a significant difference between the observed and expected frequencies</p>
+<p>Not covered in class, but this can be calculated as follows:</p>
+<div class="cell" data-hash="L21-ChiSquare_Multiple_Proportions_cache/html/unnamed-chunk-8_e010f4bf5cac4dd0e5cc4286d07f6c59">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="dv">12</span>, <span class="at">df =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.007383161</code></pre>
+</div>
+</div>
+<p>And this is statistically significant at the 5% level, meaning we have found a deviation from equal probabilities in brand preference.</p>
+<hr>
+</details>
 
 
 </section>

@@ -190,7 +190,22 @@ binom.test(x = 68, n = 70)
 ```
 
 
+## Crowdsourced Questions
 
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. Assuming all other factors are held constant, how does increasing the number of trials from 100 to 400 affect the width of the confidence interval for a population proportion?
+    a. The width of the confidence interval remains unchanged.
+    b. The width of the confidence interval decreases, leading to a more precise estimate.
+    c. The width of the confidence interval increases, indicating less precision in the estimate.
+    d. The change in the width of the confidence interval cannot be determined without knowing the population size.
+
+<details>
+<summary>**Solution**</summary>
+(b) Increasing the sample size from 100 to 400, while keeping all other factors constant, decreases the width of the confidence interval for a population proportion. This is because the standard error of the proportion decreases as the sample size increases, leading to a more precise estimate of the population proportion.
+
+*****
+</details>
 
 
 

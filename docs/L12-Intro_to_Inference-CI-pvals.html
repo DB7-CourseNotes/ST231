@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -576,7 +575,7 @@ Interpretation of the CI
 <strong>Solution</strong>
 </summary>
 <p>The answers to the above are:</p>
-<div class="cell">
+<div class="cell" data-hash="L12-Intro_to_Inference-CI-pvals_cache/html/unnamed-chunk-1_3083caca53767bc37dabe2bcc8397cb7">
 <div class="cell-output cell-output-stdout">
 <pre><code>A1: (157.21, 162.79)</code></pre>
 </div>
@@ -590,6 +589,7 @@ Interpretation of the CI
 <pre><code>A4(158.01, 161.99)</code></pre>
 </div>
 </div>
+<hr>
 </details>
 <ol start="5" type="1">
 <li>The CIs in questions 1-4 all the same sample mean and population sd, but different sample sizes and/or confidence levels (<span class="math inline">\(\alpha\)</span>). Comment on the width of the intervals and how this relates to the sample size/<span class="math inline">\(\alpha\)</span> value.</li>
@@ -609,7 +609,7 @@ Interpretation of the CI
 <summary>
 <strong>Solution</strong>
 </summary>
-<div class="cell">
+<div class="cell" data-hash="L12-Intro_to_Inference-CI-pvals_cache/html/unnamed-chunk-2_904a96815abd5ca9445672485fff166a">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fl">2.5</span> <span class="sc">+</span> <span class="fu">qnorm</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span>)<span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fl">0.8</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">36</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.238671</code></pre>
@@ -619,7 +619,8 @@ Interpretation of the CI
 <pre><code>[1] 2.761329</code></pre>
 </div>
 </div>
-Our 95% CI is (2.23, 2.76). We are 95% confident that the true population reaction time is in this interval.
+<p>Our 95% CI is (2.23, 2.76). We are 95% confident that the true population reaction time is in this interval.</p>
+<hr>
 </details>
 <ol start="10" type="1">
 <li>The CI we calculated in the question above was 0.265 on either side, which leaves a lot of possible values. Suppose we want the width of the 95% CI to be 0.05 seconds on either side (for a total width of 0.1 seconds). We only care about the width, so it doesn’t matter what the sample mean is. We can’t change the population sd or the confidence level, so all that’s left to work with is the sample size. Find <span class="math inline">\(n\)</span> to make the CI half-width equal to 0.05.</li>
@@ -631,7 +632,8 @@ Our 95% CI is (2.23, 2.76). We are 95% confident that the true population reacti
 <p>The half-width of the interval is also called the Margin of Error, or MoE. We want MoE = 0.05, and we know that MoE = <span class="math inline">\(z^*\sigma/\sqrt{n}\)</span>. Setting these equal,</p>
 <p><span class="math inline">\(0.05 = 1.96 * 0.8 / sqrt{n} \implies \sqrt{n} = 1.96 * 0.8 / 0.05 \implies n = 31.36^2 = 983.4\)</span></p>
 <p>Since the sample size can’t be a fraction, we must round this number. If we round <strong>down</strong>, we have a smaller sample size and therefore a wider interval. Instead, we must round up! 983.4 is the <em>minimum</em> sample size, so if we want a round number we always have to go up<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a>. The final answer is that we need 984 birbs to get a 95% CI that has a total width of 0.1.</p>
-Without rounding: <code>(-qnorm(0.025) * 0.8 / 0.05)^2 = 983.4135</code>, and so our answer doesn’t change!
+<p>Without rounding: <code>(-qnorm(0.025) * 0.8 / 0.05)^2 = 983.4135</code>, and so our answer doesn’t change!</p>
+<hr>
 </details>
 </section>
 <section id="crowdsourced-questions" class="level2" data-number="9.4">
@@ -650,7 +652,8 @@ Without rounding: <code>(-qnorm(0.025) * 0.8 / 0.05)^2 = 983.4135</code>, and so
 <summary>
 <strong>Solution</strong>
 </summary>
-b is the correct answer - a 95% confidence interval means that if we were to repeat this study multiple times and calculate confidence intervals for each sample study, then around 95% of these intervals would contain the true population mean. We could be 95% confident that the true mean number of study hours falls between 6.3 and 8.8.
+<p>b is the correct answer - a 95% confidence interval means that if we were to repeat this study multiple times and calculate confidence intervals for each sample study, then around 95% of these intervals would contain the true population mean. We could be 95% confident that the true mean number of study hours falls between 6.3 and 8.8.</p>
+<hr>
 </details>
 <ol start="2" type="1">
 <li>A research study estimates a 95% confidence interval for the mean height of students at Ganton Heights Public High School to be between 160 cm and 170 cm. What does this confidence interval represent over the long run?
@@ -665,7 +668,8 @@ b is the correct answer - a 95% confidence interval means that if we were to rep
 <summary>
 <strong>Solution</strong>
 </summary>
-The correct answer is (c). The confidence interval represents the long term frequency that intervals generated from independent random samples of fixed size will contain the true population mean. In this situation, a 95% confidence interval represents that if the study was repeated multiple times, 95% of those intervals constructed from random sample statistics would contain the true mean height of students at Ganton Heights Public High School. Option (a) would also be correct, if we were not looking at the long run frequency of this 95% confidence interval.
+<p>The correct answer is (c). The confidence interval represents the long term frequency that intervals generated from independent random samples of fixed size will contain the true population mean. In this situation, a 95% confidence interval represents that if the study was repeated multiple times, 95% of those intervals constructed from random sample statistics would contain the true mean height of students at Ganton Heights Public High School. Option (a) would also be correct, if we were not looking at the long run frequency of this 95% confidence interval.</p>
+<hr>
 </details>
 <ol start="3" type="1">
 <li>Concerning Margin of Error, which of the following statements about critical values is <em>true</em>?
@@ -682,7 +686,24 @@ The correct answer is (c). The confidence interval represents the long term freq
 </summary>
 <p>The correct statement is c).</p>
 <p>Equation for Margin of Error is <span class="math inline">\(MoE = (z^*) \frac{\sigma}{\sqrt{n}}\)</span></p>
-The (<span class="math inline">\(z^*\)</span>) represents the critical value which indicates how many standard deviations from the mean the confidence interval lies. A z-score can not be negative therefore it can not be any integer. A z-score of 0 does not indicate that the confidence interval cant be found, it tells us that the true population mean is definitely not within the confidence interval. As mentioned in Devan Beckers course notes, an infinite z score means that the confidence interval is infinitely wide. That tells us that we would be 100% confident that the true population mean is within the confidence interval.
+<p>The (<span class="math inline">\(z^*\)</span>) represents the critical value which indicates how many standard deviations from the mean the confidence interval lies. A z-score can not be negative therefore it can not be any integer. A z-score of 0 does not indicate that the confidence interval cant be found, it tells us that the true population mean is definitely not within the confidence interval. As mentioned in Devan Beckers course notes, an infinite z score means that the confidence interval is infinitely wide. That tells us that we would be 100% confident that the true population mean is within the confidence interval.</p>
+<hr>
+</details>
+<ol start="4" type="1">
+<li>When building confidence intervals based on sample standard deviations, why is the t-distribution used rather than the standard normal distribution?
+<ol type="a">
+<li>Because every confidence interval is based on the sample standard deviation and changes slightly. Therefore it needs a distribution that takes variability into account.</li>
+<li>The t-distribution is not used in real-world computations; it is only utilized in theoretical ones.</li>
+<li>Because the smaller intervals are provided by the t-distribution than by the conventional normal distribution.</li>
+<li>Because the confidence interval construction is not appropriate for the typical normal distribution.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>A; since confidence intervals slightly change due to the variability in the sample data, the t-distribution is used when creating confidence intervals based on sample standard deviations.</p>
+<hr>
 </details>
 
 

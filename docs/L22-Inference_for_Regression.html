@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -316,8 +315,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#regression-in-r" id="toc-regression-in-r" class="nav-link" data-scroll-target="#regression-in-r"><span class="header-section-number">19.4</span> Regression in R</a></li>
   <li><a href="#confidence-intervals" id="toc-confidence-intervals" class="nav-link" data-scroll-target="#confidence-intervals"><span class="header-section-number">19.5</span> Confidence Intervals</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">19.6</span> Conclusion</a></li>
-  <li><a href="#appendix---leverage" id="toc-appendix---leverage" class="nav-link" data-scroll-target="#appendix---leverage"><span class="header-section-number">19.7</span> Appendix - Leverage</a></li>
-  <li><a href="#appendix---interpreting-qq-norm" id="toc-appendix---interpreting-qq-norm" class="nav-link" data-scroll-target="#appendix---interpreting-qq-norm"><span class="header-section-number">19.8</span> Appendix - Interpreting QQ norm</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">19.7</span> Crowdsourced Questions</a></li>
+  <li><a href="#appendix---leverage" id="toc-appendix---leverage" class="nav-link" data-scroll-target="#appendix---leverage"><span class="header-section-number">19.8</span> Appendix - Leverage</a></li>
+  <li><a href="#appendix---interpreting-qq-norm" id="toc-appendix---interpreting-qq-norm" class="nav-link" data-scroll-target="#appendix---interpreting-qq-norm"><span class="header-section-number">19.9</span> Appendix - Interpreting QQ norm</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In regression, we’re trying to find parameters <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> in the equation <span class="math inline">\(y = a + bx\)</span> to make sure that the fitted line is as “close” to the observed data as possible.</p>
 <p>To find the line of best fit, we minimize the sum of squared errors, <span class="math inline">\(\sum(y_i - \hat y_i)^2\)</span>, where <span class="math inline">\(\hat y_i\)</span> is the height of the line that we get if we plug the <span class="math inline">\(x\)</span> value into the model. The fact that we minimize the squares is not important, but it is important that it’s based on the quantity <span class="math inline">\(y_i - \hat y_i\)</span>, called the <em>residuals</em>.</p>
 <p>For example, consider the penguins data that we looked at earlier. In these data, we’re trying to predict the body mass of a penguin based on their flipper length. This is useful to field researchers, since measuring flipper length is much easier than weighing a penguin and still gives them some idea of how much that penguin might weigh.</p>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-2_9a615113643c892d4825d855ded3bcb0">
 <div class="cell-output-display">
 <p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -421,7 +421,7 @@ Linear Regression Assumptions
 <section id="violating-assumption-1" class="level4">
 <h4 class="anchored" data-anchor-id="violating-assumption-1">Violating Assumption 1</h4>
 <p>There is one way for a line to be straight, and an infinite number of curved lines. Basically, the plot of <span class="math inline">\(y\)</span> against <span class="math inline">\(x\)</span> should look linear.</p>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-3_f35c85e6c5c41ceed6bd162f681d5d1e">
 <div class="cell-output-display">
 <p><img src="L22-Inference_for_Regression_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -450,7 +450,7 @@ Linear Regression Assumptions
 <p>Calculating things by hand helps you conceptualize what’s going on, but it’s impractical for actual practice. As a “Statistical Programming Language”, R has so many useful functions built in.</p>
 <p>For this example, we’ll use the <code>mtcars</code> data that is built into R, so we don’t have to worry about loading in new data. These data include various measurements of a sample of cars in the 1970s. For our purposes, we’re going to determine the relationship between fuel efficiency (<span class="math inline">\(y\)</span>) as measured in miles per gallon (mpg), and weight (<span class="math inline">\(x\)</span>) measured in units of 1,000 lbs.</p>
 <p>We’ll start by checking a plot. I sometimes use “base R” plotting, and sometimes use “<code>ggplot</code>”. Neither will be tested on the final exam, but I like pointing out the distinction. Base R plotting has notation that matches the syntax of linear modelling, so it’s useful to include here.</p>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-4_4d7b28a1451f3ffa3543511446be434f">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) <span class="co"># built-in data in R</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Base R plot: y ~ x, data = ...</span></span>
@@ -482,7 +482,7 @@ Linear Regression Assumptions
 <li>This is probably fine, but again we should check other plots before we make a conclusion.</li>
 </ol>
 <p>There are two assumptions that we were not able to test by looking at a plot of mpg against weight. R has some built-in plotting methods that help us with these assumptions.</p>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-5_8b67a4b770635ff4f73bc3abdde0a87f">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plotting space with 2 rows and 2 columns</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "mfrow" = Multiple Figures, filled in ROW-wise</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
@@ -515,7 +515,7 @@ Linear Regression Assumptions
 </ol>
 <p>Now that we’ve looked at the plots to check our assumptions<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>, we can look at our estimates and our p-values.</p>
 <p>The output of the <code>lm()</code> function isn’t very user-friendly, but the <code>summary()</code> function makes it nicer.</p>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-6_de7098b1f3e627877a7da002344ac23f">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mylm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -578,7 +578,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </ul></li>
 </ul>
 <p>The following R code uses <code>+ c(1, -1)</code> to add and subtract (<span class="math inline">\(\pm\)</span>).</p>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-7_01a735eb6bb5ebd2066e521f52cb7758">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">5.3445</span> <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">*</span> <span class="fu">qt</span>((<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.95</span>)<span class="sc">/</span><span class="dv">2</span>, <span class="dv">32</span> <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fl">0.5591</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -6.486335 -4.202665</code></pre>
@@ -604,14 +604,36 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </ul>
 <p>A nice exam question might show you the results of <code>plot(mylm)</code> and <code>summary(mylm)</code> and ask you to make a conclusion in the context of the study.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
 </section>
-<section id="appendix---leverage" class="level2" data-number="19.7">
-<h2 data-number="19.7" class="anchored" data-anchor-id="appendix---leverage"><span class="header-section-number">19.7</span> Appendix - Leverage</h2>
+<section id="crowdsourced-questions" class="level2" data-number="19.7">
+<h2 data-number="19.7" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">19.7</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>After analyzing the results of an experiment, we found a correlation coefficient of 0.75. At the 5% level, does this represent a statistically significant correlation?
+<ol type="a">
+<li>We neglected to establish the significance level beforehand, hence, careful interpretation is needed in relation to the correlation’s significance</li>
+<li>Yes, since the correlation coefficient is greater than 0.5</li>
+<li>No, since the correlation coefficient is greater than 0.5</li>
+<li>No, since the correlation coefficient is less than 1</li>
+<li>Not enough information for a valid answer.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>The correlation is not a p-value, so nothing in the question tells us whether this was significant. While a correlation of 0.75 may feel strong, this can happen with a small sample size, and thus it still is not statistically significant.</p>
+<p>Remember that there are no definite “strong” or “weak” correlations - they must all be interpreted in context!</p>
+<hr>
+</details>
+</section>
+<section id="appendix---leverage" class="level2" data-number="19.8">
+<h2 data-number="19.8" class="anchored" data-anchor-id="appendix---leverage"><span class="header-section-number">19.8</span> Appendix - Leverage</h2>
 <p>The word “leverage” comes from the word “lever”, which is intentional. If you think of the line of best fit as a see-saw, a high leverage point is a point that either pushes the see-saw down or pulls it up.</p>
 <p>An outlier is a point that doesn’t really fit into the pattern. There isn’t a single way to define what an “outlier” is in 2 dimensions<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, so we have to be smart about it. Usually, we refer to an outlier as a point that’s far from the mean of x and y.</p>
 <p>Not all outliers are high leverage, though! The following plots demonstrate this idea. Both plots show the same data, but with an extra outlier. The first plot has an outlier at an x value of <span class="math inline">\(\bar x - 6\)</span> and a y value at <span class="math inline">\(\bar y + 15\)</span>. The second plot has an outlier with the same <span class="math inline">\(x\)</span> value, but the <span class="math inline">\(y\)</span> value is <span class="math inline">\(\bar y - 15\)</span>.</p>
 <p>These two potential outliers are the exact same distance from the mean of <span class="math inline">\(x\)</span> and the mean of <span class="math inline">\(y\)</span>, but have very different effects on the line! Including the red point changes the line a little, while the green point changes the line a lot! Even though they’re the same distance from the mean, the green point has higher leverage.</p>
 <p>The definition of leverage is much more well-defined than the definition of an outlier. The <strong>leverage</strong> of a point is a measure of how much the line of best fit would change if that point were not in the data.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> It is possible to have outliers with low leverage. Outliers are points that are far from your data; leverage provides a measure of how well a point fits into the pattern.</p>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-9_6abeb9ecb0d4a0b61810d3cb27d955d7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lm0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="fu">mean</span>(x) <span class="sc">-</span> <span class="dv">6</span>)</span>
@@ -649,8 +671,8 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </div>
 </div>
 </section>
-<section id="appendix---interpreting-qq-norm" class="level2" data-number="19.8">
-<h2 data-number="19.8" class="anchored" data-anchor-id="appendix---interpreting-qq-norm"><span class="header-section-number">19.8</span> Appendix - Interpreting QQ norm</h2>
+<section id="appendix---interpreting-qq-norm" class="level2" data-number="19.9">
+<h2 data-number="19.9" class="anchored" data-anchor-id="appendix---interpreting-qq-norm"><span class="header-section-number">19.9</span> Appendix - Interpreting QQ norm</h2>
 <p>Copy the following code and past it into RStudio. Run it over and over again to get a feel for QQ plots. Change <code>n</code> as indicated.</p>
 <p>Some things you might notice:</p>
 <ul>
@@ -664,7 +686,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 <li>What do you expect left tailed data to look like?</li>
 </ul></li>
 </ul>
-<div class="cell">
+<div class="cell" data-hash="L22-Inference_for_Regression_cache/html/unnamed-chunk-10_2bd7aa898f1cea184b0fe383bf12b8c1">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change this to 20, 100, 500, and 10000 to see how much changes</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>

@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -416,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="example">Example</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-2_53eab88308895e44415dc9ede436e056">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
@@ -488,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Each value on the x-axis is paired with a value on the y-axis.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-3_8e8b43eceeb6a88fbed5170115ad250e">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -529,7 +528,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="column" style="width:30%;">
 <p>What pattern is this?</p>
 </div><div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-4_531f23ee31a22da8ef48ac3eac1cbe04">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -546,7 +545,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="column" style="width:50%;">
 <p>Each point has an <span class="math inline">\(x\)</span> coordinate, <span class="math inline">\(y\)</span> coordinate, and some other information. We can encode that information with a colour! Again, we have to have a <em>categorical</em> variable measured on the same individual as the x and y values.</p>
 </div><div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-5_3d6c4270851ffea94176efce441ddb2a">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -560,7 +559,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-importance-of-plotting-anscombes-quartet" class="level3">
 <h3 class="anchored" data-anchor-id="the-importance-of-plotting-anscombes-quartet">The Importance of Plotting: Anscombe’s Quartet</h3>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-6_079baedaacb21d42293297fc5e0f9184">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -619,7 +618,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this course we’re introducing plots before we talk about numerical summaries of two variables for a very good reason. The table above shows summary statistics from a well-known data set called Anscombes quartet. Up to the first two decimal places, all of the variables in the data have the same mean and standard deviation. If this were all of the information you had, you might expect the plots of y1 versus x1, y2 versus x2, y3 versus x3, and y4 versus x4 to look similar.</p>
 <p>Instead, they look like this:</p>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-7_24601c68ac159384c1a01f0dfc38ca06">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="864"></p>
 </div>
@@ -661,7 +660,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>From plots, we can sorta see that one looks more linear than another.</p>
 <p>It would be splendid if we could have a way to quantify this…</p>
 </div><div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-8_6514239119955dd771e512b5faa80828">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -715,7 +714,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <li>Social science: 0.8 is very very strong.</li>
 </ul></li>
 </ul>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-9_cd0f24b21db237b0ba2a60dc2b045966">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/ScatterCorr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -745,7 +744,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 </ul>
 <div class="notes">
 <p>Let’s explore some of these ideas with code!</p>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-10_f1a55b0fc866f22d9b50041a7fb08e8a">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1 <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
@@ -754,7 +753,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <p>It looks relatively linear. Take a moment to think of how correlated these two variables are, and assign it a value between 0 and 1. This is how you would guess the correlation coefficient</p>
 <p>On exams, you will be expected to differentiate between “not correlated” (about 0), “slightly correlated” (0.2 to 0.4), “very correlated” (0.6 to 0.8), and “near perfect correlation (almost exactly 1)”, or the negatives of these values; you won’t need to guess whether the correlation is 0.55 or 0.6.</p>
 <p>In R, we calculate the <span class="math inline">\(r\)</span> with the <code>cor()</code> function.</p>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-11_94ebbdbba1dff510567aaf51d9354e3d">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>y1, anscombe<span class="sc">$</span>x1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8164205</code></pre>
@@ -762,21 +761,21 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 </div>
 <p>Does this number make sense to you? It seems fairly high to me, but with small amounts of data it’s not that surprising. Think of it this way: if you removed a quarter of the data at random, would you still be able to see the pattern? If so, then it’s probably “very correlated”!</p>
 <p>The first point states that the order doesn’t matter:</p>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-12_af3eb2115be8a7b7d7ff83076b677309">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>y1, anscombe<span class="sc">$</span>x1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8164205</code></pre>
 </div>
 </div>
 <p>The units don’t matter:</p>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-13_dfa80e9abefc697e718423895c6d9a3c">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(anscombe<span class="sc">$</span>y1<span class="sc">*</span><span class="dv">5</span> <span class="sc">+</span> <span class="dv">1</span>, anscombe<span class="sc">$</span>x1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8164205</code></pre>
 </div>
 </div>
 <p>However, it <em>does</em> matter if we do a <em>non-linear</em> transformation, such as squaring the values. The correlation is a measure of <strong>linear</strong> association, so making things non-linear will affect it.</p>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-14_fb3f344d29bd7bcd502667148c2cee8e">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y1<span class="sc">^</span><span class="dv">2</span> <span class="sc">~</span> x1, <span class="at">data =</span> anscombe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
@@ -813,6 +812,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <li>The association is different for different X values. This is <em>not</em> a linear relationship, which means we have to do extra work to make sure that we cover all the non-linearities.</li>
 <li>This is a very strong relationship. The pattern clearly passes the facial impact test that we discussed before. It is far from a linear relationship, but it’s clearly noticable.</li>
 </ol>
+<hr>
 </details>
 </div>
 </section>
@@ -823,7 +823,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <p>All of the plots in the Anscombe quartet <em>have the same correlation coefficient</em>.</p>
 <p><span class="math inline">\(r\)</span> is a measure of linear association - if it’s not linear, <span class="math inline">\(r\)</span> can’t be interpreted!!!</p>
 </div><div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-15_6d647467bfccdc5477cff0045a648ecc">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="576"></p>
 </div>
@@ -836,7 +836,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 </section>
 <section id="example-penguins" class="level3">
 <h3 class="anchored" data-anchor-id="example-penguins">Example: Penguins</h3>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-16_cfa71b60f900dd430fb86729ba11a716">
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -873,7 +873,7 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <li>Repeat part (b) for <code>am</code>, which is “0” for automatic transmission and “1” for manual transmission.</li>
 </ol></li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="L03-Scatterplots_Correlation_cache/html/unnamed-chunk-17_0d7d1418f4d2b48755be67e40996bcec">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="L03-Scatterplots_Correlation_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
@@ -913,7 +913,8 @@ r = \frac{1}{n-1}\sum_{i=1}^n\left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_
 <summary>
 <strong>Solution</strong>
 </summary>
-C is the correct answer. This option correctly acknowledges that while scatterplots are instrumental in visualizing the relationship between two variables (the amount of time spent studying and exam scores in this case), they alone cannot confirm causality. This aligns with the course’s emphasis on the distinction between correlation and causation and the role of scatterplots in identifying patterns rather than proving causation. Options A, B, and D either incorrectly assume causation from correlation, misidentify explanatory and response variables, or oversimplify the interpretation of a linear pattern, respectively.
+<p>C is the correct answer. This option correctly acknowledges that while scatterplots are instrumental in visualizing the relationship between two variables (the amount of time spent studying and exam scores in this case), they alone cannot confirm causality. This aligns with the course’s emphasis on the distinction between correlation and causation and the role of scatterplots in identifying patterns rather than proving causation. Options A, B, and D either incorrectly assume causation from correlation, misidentify explanatory and response variables, or oversimplify the interpretation of a linear pattern, respectively.</p>
+<hr>
 </details>
 <ol start="2" type="1">
 <li>In an agricultural study, researchers are investigating the impact of different amounts of fertilizer (in kilograms) applied to tomato plants on the yield of tomatoes (in kilograms). Which of the following correctly identifies the explanatory and response variables?
@@ -928,7 +929,8 @@ C is the correct answer. This option correctly acknowledges that while scatterpl
 <summary>
 <strong>Solution</strong>
 </summary>
-B is the correct answer. The amount of fertilizer is the explanatory variable because it is the variable being manipulated or controlled by the researchers to observe its effect on the yield of tomatoes, which is the response variable.
+<p>B is the correct answer. The amount of fertilizer is the explanatory variable because it is the variable being manipulated or controlled by the researchers to observe its effect on the yield of tomatoes, which is the response variable.</p>
+<hr>
 </details>
 <ol start="3" type="1">
 <li>A study plots the average daily temperature against the total daily sales of ice cream over a summer in a coastal city. The scatterplot shows a clear upward trend. What does this trend indicate about the relationship between these two variables?
@@ -943,7 +945,8 @@ B is the correct answer. The amount of fertilizer is the explanatory variable be
 <summary>
 <strong>Solution</strong>
 </summary>
-C is the correct answer. The upward trend in the scatterplot indicates that there is a positive relationship between the average daily temperature and the total daily sales of ice cream—meaning, as one increases, so does the other. However, it is important to note that this does not imply causation (which option D incorrectly suggests).
+<p>C is the correct answer. The upward trend in the scatterplot indicates that there is a positive relationship between the average daily temperature and the total daily sales of ice cream—meaning, as one increases, so does the other. However, it is important to note that this does not imply causation (which option D incorrectly suggests).</p>
+<hr>
 </details>
 <ol start="4" type="1">
 <li>In a study examining the relationship between hours spent on physical activity per week and overall quality of sleep, a correlation coefficient of -0.3 is found. Which of the following statements best interprets this finding?
@@ -958,7 +961,8 @@ C is the correct answer. The upward trend in the scatterplot indicates that ther
 <summary>
 <strong>Solution</strong>
 </summary>
-B is the correct answer. A correlation coefficient of -0.3 indicates a weak negative relationship between the two variables. This means that as one variable increases (hours spent on physical activity), the other variable (quality of sleep) slightly decreases. However, it’s important to remember that correlation does not imply causation, making option D incorrect.
+<p>B is the correct answer. A correlation coefficient of -0.3 indicates a weak negative relationship between the two variables. This means that as one variable increases (hours spent on physical activity), the other variable (quality of sleep) slightly decreases. However, it’s important to remember that correlation does not imply causation, making option D incorrect.</p>
+<hr>
 </details>
 
 

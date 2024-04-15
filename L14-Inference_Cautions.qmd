@@ -255,7 +255,7 @@ Let's return to the 👽 **aliens** example. We observed an abberation that only
 3. In simple (non-mathy) terms, explain why increasing sample size increases power.
 4. If we have the hypotheses $H_0:\mu = 1$ versus $H_0:\mu = 2$, we can directly calculate the power. Run the following code to open the Shiny app, and interpret the results.
 ```{r eval = FALSE}
-shiny::runGitHub(repo = "DBecker7/DB7_TeachingApps", 
+shiny::runGitHub(repo = "DB7-CourseNotes/TeachingApps", 
     subdir = "Tools/SimplePower")
 ```
 
@@ -409,10 +409,37 @@ A is the right answer. The study's statistical power would be improved by expand
 *****
 </details>
 
+7. A researcher is conducting a study to evaluate the effectiveness of a new diagnostic test for a rare disease. The null hypothesis is that the diagnostic test correctly identifies individuals without the disease, while the alternative hypothesis is that the test incorrectly identifies individuals without the disease as positive. The significance level is set at 0.05.
+    a. Describe Type I and Type II errors in the context of this study.
+    b. What are the consequences of making each type of error?
+    c. How would you reduce the risk of each type of error in this study?
+
+<details>
+<summary>**Solution**</summary>
+
+a. Type I Error occurs when the researcher incorrectly rejects the null hypothesis, deciding that the diagnostic test shows the individuals without the disease as positive when, in fact, they do not have the disease.  Type II Error occurs when the researcher fails to reject the null hypothesis, concluding that the diagnostic test correctly identifies individuals without the disease when, in reality, they have the disease.
+b. The consequences of Type I Error results in unnecessary medical interventions, psychological distress for individuals incorrectly diagnosed as positive, and increased healthcare costs. Type II Error, on the other hand, may result in missed diagnoses, delayed treatment, progression of the disease, and potential harm to patients due to lack of appropriate medical care.
+c. To reduce the risk of Type I Error, the researcher can ensure careful validation of the diagnostic test through extensive testing on control groups and ensuring proper calibration to minimize false positives. Additionally, rigorous statistical analysis and replication of results can help verify the test's accuracy. To minimize the risk of Type II Error, the researcher can increase the sample size to improve statistical power, as a result reducing the likelihood of missing true positives. The researcher can also conduct thorough follow-up examinations or use diagnostic methods to confirm or rule out diagnosis made by the test.
 
 
 
+*****
+</details>
 
+8. A study is being conducted to evaluate the effectiveness of a new treatment method in treating a specific medical condition. The researcher is considering the sample size for the study. Which of the following statements best describes the relationship between sample size and statistical power in this scenario?
+    a. Increasing the sample size may or may not affect statistical power depending on the effect size.
+    b. Increasing the sample size will always increase statistical power.
+    c. There is an inverse relationship between sample size and statistical power.
+    d. Increasing the sample size generally increases statistical power, but other factors such as effect size may also play a role.
+
+<details>
+<summary>**Solution**</summary>
+(d) Increasing the sample size generally increases statistical power, but other factors such as effect size may also play a role. As the sample size increases, so does the power of the significance test. This is because a larger sample size restricts the distribution of the test statistic, meaning that the standard error of the distribution is reduced and the acceptance region is reduced which as a result increases the level of power.
+
+
+
+*****
+</details>
 
 
 

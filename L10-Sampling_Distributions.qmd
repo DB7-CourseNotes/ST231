@@ -355,5 +355,65 @@ pnorm(10, mean = 8, sd = 5 / sqrt(6))
 *****
 </details>
 
+3. the scores on a standardized test are normally distributed with a mean of 75 and a standard deviation of 10.
+    a. what percentage of students scored above 85?
+    b. if the top 15% of students receive a special award, what is the minimum score required to receive the award?
+    c. if a random sample of 50 students is selected, what is the probability that the sample mean score is greater than 78?
+
+<details>
+<summary>**Solution**</summary>
+a) to find the percentage of students who scored above 85, we can use the z-score formula:
+
+where: z = x - μ / σ
+
+x = score
+
+μ=75 (mean)
+
+σ=10 (standard deviation)
+
+calculating the z-score: z=85−75 / 10 ​=1
+
+by looking at a normal distribution table, we find that the percentage of students who scored above z or 1 was 15.87%
+
+b) to find the minimum score required to receive the award (the score corresponding to the top 15%): using the inverse standard normal distribution table or calculator, we find that the z-score corresponding to the top 15% is approximately z=1.04. now, we can use the z-score formula to find the corresponding score: x=μ+z⋅σ 
+
+x=75 + 1.04⋅10 = 85.4
+
+c) for a random sample of 50 students, we need to use the central limit theorem. since the sample size is large (n > 30), the sample mean will be approximately normally distributed. the mean of the sample distribution will be the same as the population mean (μ=75), and the standard deviation of the sample distribution (σˉ​) will be the population standard deviation divided by the square root of the sample size: σˉ​= ​σ​ / √n = 10 / √50 = 1.41
+
+we calculate the z-score for x=78: 
+
+z = 78 - 75 / 1.41 = 2.13
+
+using the standard normal distribution table, we find that the probability of obtaining a z-score greater than 2.12 is approximately 0.017. therefore, the probability that the sample mean score is greater than 78 is approximately 0.017, or 1.7%.
+
+In R:
+
+```{r}
+# a) P(X < q) = pnorm(q), so P(X > q) = 1 - pnorm(q)
+1 - pnorm(85, mean = 75, sd = 10)
+
+# b) qnorm calculates the value q such that P(X < q) = p, where p is given.
+qnorm(1 - 0.15, mean = 75, sd = 10)
+
+# c)
+1 - pnorm(78, mean = 75, sd = 10 / sqrt(50))
+```
+
+*****
+</details>
 
 
+4. Which of the following best describes the Central Limit Theorem (CLT)?
+    a. The CLT states that as the sample size increases, the sampling distribution of the sample sum approaches a uniform distribution, regardless of the shape of the population distribution.
+    b. The CLT asserts that the sampling distribution of the sample mean will be perfectly normal only if the population distribution is normal.
+    c. The CLT guarantees that for any population with a finite mean and variance, the sampling distribution of the sample mean approaches a normal distribution as the sample size becomes large.
+    d. According to the CLT, the mean of the sampling distribution of the sample mean is always equal to the population mean, regardless of the sample size.
+
+<details>
+<summary>**Solution**</summary>
+The correct answer is C) The CLT guarantees that for any population with a finite mean and variance, the sampling distribution of the sample mean approaches a normal distribution as the sample size becomes large.
+
+*****
+</details>

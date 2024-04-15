@@ -360,3 +360,40 @@ t.test(mpg ~ am, data = mtcars)
     - Penguins: $H_0: \mu_{female} - \mu_{male} = 0$ versus $H_A: \mu_{female} - \mu_{male} \ne 0$.
     - The ointment example had $\mu_{without - with}$ as a single number, whereas the penguins example used $\mu_{female} - \mu_{male}$, which is the difference between two numbers. This is because the ointment example was a *one-sample t-test* since we were treating the set of differences as a single sample; the penguins example is a two-sample t-test.
 </details>
+
+
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. A biologist is comparing the mean heights of two species of plants. Species A has a sample mean height of 15 cm with a standard deviation of 2 cm from a sample of 30 plants. Species B has a sample mean height of 17 cm with a standard deviation of 3 cm from a sample of 35 plants. What does the two-sample t-test assess in this scenario?
+    a. Whether the sample means of Species A and Species B come from populations with the same variance.
+    b. Whether the mean height of Species A is greater than the mean height of Species B.
+    c. Whether there is a significant difference between the population means of the two species.
+    d. Whether the combined mean height of both species exceeds a specific value.
+
+<details>
+<summary>**Solution**</summary>
+C; The two-sample t-test in this scenario assesses whether there is a significant difference between the population means of Species A and Species B. It does not test for variance equality, the direction of the difference (unless specified as a one-tailed test), or any specific value exceeding the combined means.
+
+*****
+</details>
+
+2. A researcher conducts an experiment to determine if there will be a significant difference in the growth rate of two different species of plants under identical laboratory conditions. The first group of 20 plants (Species A) showed an average growth of 5 cm over a month, while over the same period of time the second group of 20 plants (Species B) showed an average growth of 6 cm. Assume the growth rates follow a normal distribution. explain what steps you would take to determine if the observed difference is statistically significant. Consider a 5% significance level for your decision.
+
+<details>
+<summary>**Solution**</summary>
+1. determine a null and alternative hypothesis: 
+    - Null Hypothesis: There is no difference in the mean growth rates between Species A and Species B, therefore: $\mu_A​−\mu_B​=0$.
+    - Alternative Hypothesis: There will be a difference in the mean growth rates between Species A and Species B, therefore: $\mu_A​−\mu_B$​ does not =0.
+2.  Calculate the difference between the sample means.
+    - $\mu_A​−\mu_B$​: 6cm−5cm=1cm.
+3. Use a Statistical Test: 
+    - because we are comparing the means of two groups, a two-sample t-test would be the best option. This will compare the difference in means to the variability within groups to see if the difference is significant. this can be calculated by using R 
+4. determining the significance:
+    - If the p-value from the t-test is less than 0.05 (which is our chosen significance level stated previously),the null hypothesis will be rejected, therefore we can determine that there is a significant difference in growth rates between the two species.
+    - If the p-value is greater than 0.05, we do not reject the null hypothesis, and therefore we have determined that there is not enough evidence to say there is a significance difference in their growth rate.
+
+*****
+</details>
+

@@ -349,3 +349,76 @@ As a rule, if you see the phrase "Not enough information for a valid answer" as 
 
 The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
 
+1. A biased coin has a probability of 0.7 of landing on heads when flipped. If the coin is flipped 10 times, what is the probability of getting exactly 8 heads?
+
+<details>
+<summary>**Solution**</summary>
+The probability of getting exactly "k" successes in "n" trials, each with a probability success "p", can be calculated using the binomial probability formula
+$$
+P(X=K) = (n/k) * p^k * (1-p)^(n-k)
+$$
+Where (nk) is the binomial coefficient = (n!/k!(n-k)!)
+
+In this case, n = 10, p = 0.7, k = 8
+
+Calculating the binomial coefficient:
+
+- $P(X=8) = (10/8) * 0.7^8 * (1-0.7)^(10-8)$
+- $(10/8)=(10!/8!(10-8)!) = 45$
+- $P(X = 8) = 45 * 0.7^8 * (0.3)^2$
+- $P(X = 8) ≈ 0.233$
+
+Therefore, the probability of getting exactly 8 heads when flipping the biased coin 10 times is approximately 0.233.
+
+In R:
+
+```{r}
+dbinom(8, size = 10, prob = 0.7)
+```
+
+*****
+</details>
+
+2. In a hockey game, a player has a 20% chance of scoring a goal with each shot attempted.
+    a. If the player takes 5 shots during a game, what is the probability that exactly 2 of them result in goals?
+    b. What is the probability that the player scores at least 3 goals out of 8 shots attempted in a game?
+    c. What is the probability that the player scores at most 1 goal out of 2 shots attempted in a game?
+
+<details>
+<summary>**Solution**</summary>
+a. “EXACTLY” 2 goals out of 5 shots ⇒ We want to solve for P(X = 2): 
+
+In R:
+```{r}
+dbinom(x = 2, size = 5, prob = 0.20)
+```
+
+Therefore, the probability that exactly 2 of the 5 shots taken during a game is approximately 20.5%. 
+
+b. “AT LEAST” 3 goals out of 8 shots ⇒ We want to solve for P(X $\ge$ 3) = 1 - P(X < 2):
+
+In R:
+
+```{r}
+# The easy way: P(X >= q) = 1 - P(X < q) -- the equal sign is important!
+1 - pbinom(q = 2, size = 8, prob = 0.20)
+
+# Alternatively: 1 - P(X = 0) - P(X = 1) - P(X = 2)
+1 - (dbinom(0, 8, 0.20) + dbinom(1, 8, 0.20) + dbinom(2, 8, 0.20))
+```
+
+Therefore, the probability that the player scores at least 3 goals out of 8 shots attempted in a game is approximately 20.3%. 
+
+c. “AT MOST” 1 goal out of 2 shots ⇒ We want to solve for P(X ≤ 1): 
+
+In R:
+
+```{r}
+pbinom(q = 1, size = 2, prob = 0.20)
+dbinom(0, 2, 0.20) + dbinom(1, 2, 0.20)
+```
+
+Therefore, the probability that the player scores at most 1 goal out of 2 shots attempted in a game is 96.0%.
+
+*****
+</details>

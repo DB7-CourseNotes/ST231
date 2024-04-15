@@ -360,3 +360,63 @@ Since $R^2$ is a squared value, it's positive whether the slope is positive or n
 a, b, and d could all be argued to be linear, assuming that the data were collected well and as categorical variables. c is clearly not linear - a ball goes up and then goes down, which cannot be modelled by a line. 
 </details>
 
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. Suppose you have collected data on the number of hours studied and the corresponding exam scores for 10 students. using simple linear regression, determine the relationship between the number of hours studied and exam scores.
+
+| hours studied (x) | exam Score (y) |
+|-------------------|----------------|
+| 3 | 60 |
+| 4 | 65 |
+| 6 | 75 |
+| 5 | 70 |
+| 7 | 85 |
+| 8 | 80 |
+| 9 | 90 |
+| 10 | 95 |
+| 12 | 100 |
+| 11 | 98 |
+
+a. What are the means of x and y?
+b. What are the standard deviations of x and y?
+c. What is the correlation between x and y?
+d. Use your answers above to calculate a regression line. Validate with R.
+
+```{r}
+hours_studied <- c(3, 4, 6, 5, 7, 8, 9, 10, 12, 11)
+exam_score <- c(60, 65, 75, 70, 85, 80, 90, 95, 100, 98)
+```
+
+<details>
+<summary>**Solution**</summary>
+
+Try the calculations by hand!
+
+```{r}
+# a)
+mean(hours_studied)
+mean(exam_score)
+
+# b)
+sd(hours_studied)
+sd(exam_score)
+
+# c)
+cor(hours_studied, exam_score)
+
+# d)
+# Regression slope b = r * s_y / s_x
+b <- cor(hours_studied, exam_score) * sd(exam_score) / sd(hours_studied)
+b
+# Regression intercept a = ybar - xbar * b
+a <- mean(exam_score) - mean(hours_studied) * b
+a
+
+# Check with R
+lm(exam_score ~ hours_studied)
+```
+
+*****
+</details>

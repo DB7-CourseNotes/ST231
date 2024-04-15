@@ -128,9 +128,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -519,7 +518,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>The plot below does not quite look normal, but for this size sample it is potentially normal “enough”.</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-2_001bb7707711a2bde89ae3066dd6f038">
 <div class="cell-output-display">
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -532,7 +531,7 @@ H_0: \mu = 19\text{ vs. }H_A:\mu \ne 19
 <p>We’ll let R do the calculations for us.</p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-3_805c4657212d41c77ed86c95fb94864d">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mtcars<span class="sc">$</span>mpg, <span class="at">mu =</span> <span class="dv">19</span>, </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -555,7 +554,7 @@ mean of x
 <strong>Second Example</strong>
 </summary>
 <p>The <code>ggplot2</code> package also loads in a data set called <code>mpg</code>, do these data agree with our previous conclusion?</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-4_2bb0c18e520158d8bf7e8c27057b7648">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 11
   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
@@ -568,7 +567,7 @@ mean of x
 6 audi         a4      2.8  1999     6 manual(m5) f        18    26 p     compa…</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-5_15932ee673aaf504579ac0c861884d41">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mpg<span class="sc">$</span>overall, <span class="at">mu =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -613,7 +612,7 @@ mean of x
 <p>In symbols, our hypotheses are <span class="math inline">\(H_0:\mu_{mtcars} - \mu_{mpg} = 0\)</span> versus <span class="math inline">\(H_A: \mu_{diff} &lt; 0\)</span>.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-6_105ecb093b217fd833463ccce14af5ed">
 <div class="cell-output-display">
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -626,7 +625,7 @@ mean of x
 </ul>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-7_263414ab1dc13f3ed6401455f53c3df6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mtcars<span class="sc">$</span>mpg, mpg<span class="sc">$</span>overall, <span class="at">alternative =</span> <span class="st">"less"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -644,7 +643,7 @@ mean of x mean of y
 </div>
 <p>It looks like there is <em>not</em> a significant difference.</p>
 <p>I’m always a little bit skeptical when something is doing calculations for me, so I just want to double check whether R is doing <code>mtcars</code> minus <code>mpg</code> or the other way around.</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-8_96fdbe633ee0c768071ba9a63adc1e23">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(mtcars<span class="sc">$</span>mpg); <span class="fu">mean</span>(mpg<span class="sc">$</span>overall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20.09062</code></pre>
@@ -677,14 +676,14 @@ mean of x mean of y
 <div class="columns">
 <div class="column" style="width:50%;">
 <p>From the plot below, it looks like there will almost certainly be a difference!</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-9_20ad65caffce07a6c8066ada89abd801">
 <div class="cell-output-display">
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <p>The table shows that one of the assumptions of ANOVA is not satisfied (guess which before looking at the footnote<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>), so we should be careful when interpreting the results.</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-10_b46482447a1239c5e72b3c72f27126af">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -720,7 +719,7 @@ mean of x mean of y
 </div>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-11_f2722dd7474b25e25f4ead41e0379cf0">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(mpg <span class="sc">~</span> <span class="fu">factor</span>(cyl), <span class="at">data =</span> mtcars))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
@@ -756,7 +755,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ul>
 <p><strong>Example</strong>: Is there a linear relationship between the fuel efficiency of the car and the car’s weight? Test at the 5% level.</p>
 <p>To test the assumptions, we have to actually fit the model first! This is a good test of self control - the p-values are just sitting there waiting to be interpreted, but we’ve got a lot of work before we should even look at them!</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-12_74ed7487d46152d17325f7bf7373cb43">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mtcars_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># sets up plotting region for 4 plots</span></span>
@@ -773,7 +772,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </ul>
 <p>So the assumptions are not really satisfied, mainly because of the “U”-shaped pattern in the first plot.</p>
 <p>We’ll look at the output just for practice, but the actual pattern might not be linear.</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-13_2121f21a35ec161f375fea5db7ac5b3e">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mtcars_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -823,7 +822,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 H_0: p = 0.5\text{ vs. }p &lt; 0.05
 \]</span></p>
 </div><div class="column" style="width:40%;">
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-14_1b07ae4be755b55b9887483a5bba0392">
 <div class="cell-output-display">
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -831,7 +830,7 @@ H_0: p = 0.5\text{ vs. }p &lt; 0.05
 </div>
 </div>
 <p>We can look at the data as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-15_aa417bdd56c40de871740808eee92224">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"male"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -875,7 +874,7 @@ sample estimates:
 </ul>
 <p><strong>Example</strong>: In the penguins data, penguins are sampled from three different islands: Biscoe, Dream, and Torgersen. For this example, suppose a researcher is interested in whether the islands Biscoe and Dream have the same proportion of males and females. We’ll test this at the 10% level.</p>
 <p>We can treat the penguins from Biscoe as one sample, find the proportion of males, and do the same for Dream.</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-16_1782919ddd532cccfab08abc0291ffcc">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Code to specify the islands</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">&lt;-</span> penguins[penguins<span class="sc">$</span>island <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Dream"</span>, <span class="st">"Biscoe"</span>),]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that R ignores the third island)</span></span>
@@ -891,7 +890,7 @@ sample estimates:
 </div>
 <p>From the two-way table, I’m guessing that we won’t reject the null! Those proportions look pretty close, and the sample size is pretty small.</p>
 <p>We can use <code>prop.test()</code> to do the calculations for us. If we don’t specify the <code>alternative</code> hypothesis, it will assume two sided. This is appropriate, since we’re just looking for a difference in proportions.</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-17_6441bab265eb5baf097db10538fc1999">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(db<span class="sc">$</span>island, db<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -909,7 +908,7 @@ sample estimates:
 </div>
 <p>The p-value for the two-sided alternated hypothesis is 1! This is definitely larger than our significance level, so we absolutely cannot reject the null. We conclude that there is no evidence of a difference in the proportion of males to females.</p>
 <p>Notice that the proportion estimates are 80/(80 + 83) and 61/(61 + 63), i.e.&nbsp;the proportion of female penguuins on Briscoe Island and the proportion of female pengiuns on Dream Island (note that these are conditional probabilities). If we had done it the other way:</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-18_46f178e621d48936e252f26da8a36e95">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">table</span>(db<span class="sc">$</span>sex, db<span class="sc">$</span>island))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -942,7 +941,7 @@ sample estimates:
 <li><strong>p-value</strong>: Always right-tailed, since the test stat is a squared difference.</li>
 </ul>
 <p><strong>Example</strong>: Instead of just looking at Dream and Biscoe, let’s look at all three islands.</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-19_3448e11375e92875034a22463c797391">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           
@@ -952,7 +951,7 @@ sample estimates:
   Torgersen     24   23</code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-20_4377a908ac4f2f1be4f53da926345c90">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>island, penguins<span class="sc">$</span>sex))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -969,7 +968,7 @@ X-squared = 0.057599, df = 2, p-value = 0.9716</code></pre>
 <strong>Second Example</strong>
 </summary>
 <p>What about a difference in the “island” variable for different sexes?</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-21_d8fcc8ffc8075a6d5fc06df41b439372">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>sex, penguins<span class="sc">$</span>island))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -992,7 +991,7 @@ The p-value is identical! If one is independent of the other, then the other is 
 </ul>
 <p><strong>Example</strong>: A researcher claimed that they saw 50% of the penguins on the Briscoe island, 30% on Dream, and 20% on Torgersen. Is this hypothesis compatible with the data?</p>
 <p>The penguins data looks like this:</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-22_1129f746a260aabc1d002e459b113032">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>island)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1000,7 +999,7 @@ The p-value is identical! If one is independent of the other, then the other is 
       168       124        52 </code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-23_c7f6a3c4992c7f1d294685d58f9f2aaa">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(penguins<span class="sc">$</span>island), <span class="at">p =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1011,7 +1010,7 @@ X-squared = 8.3876, df = 2, p-value = 0.01509</code></pre>
 </div>
 </div>
 <p>It looks like the answer is no! The p-value is less than 0.05, so we conclude that the distribution of penguins across the islands is different from the claimed 0.5, 0.3, and 0.2. Let’s see the actual proportions to see why:</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-24_250392e69be755fbb6596f24273e6db3">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>island) <span class="sc">/</span> <span class="fu">nrow</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1029,12 +1028,12 @@ X-squared = 8.3876, df = 2, p-value = 0.01509</code></pre>
 <h3 class="anchored" data-anchor-id="famuss-study"><code>famuss</code> Study</h3>
 <p>In the famuss study, we focused on the <code>ndrm.ch</code>(non-dominant arm percent change after 12 weeks of strength training) and the <code>actn3.r577x</code> (genotype at a particular position on the genome). We used this for the lecture on Chi-Square test for proportions.</p>
 <p>Here are the other variables available in the data set:</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-25_49b7a1e1f4e7878e3e92a2eaca3f5b44">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Only need to run these lines of code *once*!</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"OI-Biostat/oi_biostat_data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-26_25e32c49e245964d6ce6c464e7a2c6a1">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(oibiostat)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(famuss)</span>
@@ -1112,7 +1111,7 @@ X-squared = 8.3876, df = 2, p-value = 0.01509</code></pre>
 </section>
 <section id="relevant-plots" class="level3">
 <h3 class="anchored" data-anchor-id="relevant-plots">Relevant Plots</h3>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-27_61baea4b3b0a41145e26b048bdb8ef80">
 <div class="cell-output-display">
 <p><img src="L24-Review_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1124,7 +1123,7 @@ X-squared = 8.3876, df = 2, p-value = 0.01509</code></pre>
 <section id="output-of-code" class="level3">
 <h3 class="anchored" data-anchor-id="output-of-code">Output of Code</h3>
 <p>Try these youself, changing the alternative hypothesis and hypothesized values!</p>
-<div class="cell">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-28_55cfe93480c3b66de30e4751d4057508">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Are 50% of the people in this study female?</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(famuss<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">

@@ -871,3 +871,13 @@ The correct answer is 1. Type of plant. This variable is qualitative because it 
 
 *****
 </details>
+
+
+2. True or False: American ZIP codes (e.g. 90210) are quantitative variables 
+
+<details>
+<summary>**Solution**</summary>
+False. Although quantitative variables are defined as numbers and a zip code is made up of numbers it’s just a category for organizing data. It does not make sense to take the average zip code!
+
+*****
+</details>

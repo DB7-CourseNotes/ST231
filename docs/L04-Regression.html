@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-01-25">
+<meta name="dcterms.date" content="2024-04-10">
 
 <title>Statistics for Life Sciences - 4&nbsp; Regression</title>
 <style>
@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -316,7 +315,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#extrapolation" id="toc-extrapolation" class="nav-link" data-scroll-target="#extrapolation">Extrapolation</a></li>
   <li><a href="#lurking-variables" id="toc-lurking-variables" class="nav-link" data-scroll-target="#lurking-variables">Lurking Variables</a></li>
   </ul></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">5</span> Exercises</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">5</span> Exercises</a>
+  <ul class="collapse">
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">5.1</span> Crowdsourced Questions</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -342,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-01-25</p>
+      <p class="date">2024-04-10</p>
     </div>
   </div>
   
@@ -357,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>These notes are based on Chapter 6.1 to 6.3 in OpenIntro Biostats.</p>
 <p>In linear modelling, we have a collection of pairs <span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span>. We think that there’s some sort of relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and we think that a line is an adequate way to characterize that relationship<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Just like we assume that there’s a “true” population mean, there is also a “true” slope and intercept for the line that characterizes the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. In the plot below, the green line represents the “true” relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, and the data are random values above and below that line<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-2_c81c511afa01f472ea097007752f498b">
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -389,7 +391,7 @@ a &amp;= \bar y - b\bar x
 \end{align*}\]</span></p>
 <p>These are called the <strong>least squares</strong> estimates<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. The equation for <span class="math inline">\(b\)</span> is especially important!</p>
 <p>In R, these can be calculated as follows. The <code>mtcars</code> data set is a collection of measurements made on various cars. In this example, we’ll regress the fuel efficiency (in miles per gallon, or mpg) against the weight of the car.</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-3_942129e7ab322e0d14fa9d1e60ac23ca">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Load a built-in data set</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars) </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -431,14 +433,14 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </div>
 </div>
 <p>From this line, we can make <strong>predictions</strong> about new points by simply plugging in the <span class="math inline">\(x\)</span> value. For example, let’s say we wanted to guess the mpg of a car that weighs 3,000 lbs. In the data, the units for weight are 1000 lbs, so this means plugging a value of <code>wt=3</code> into the data.</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-4_520985456ed1a4f62f31617c3471bb5f">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b <span class="sc">*</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 21.25171</code></pre>
 </div>
 </div>
 <p>So we would guess that a 3 ton car would have a fuel efficiency of 21.25 miles per gallon. Let’s look at this on a plot:</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-5_24db58536b4307706a29ece103ce1915">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">3</span>, a <span class="sc">+</span> b <span class="sc">*</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -447,7 +449,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </div>
 <p>It looks like this is somewhere around where we would expect.</p>
 <p>If we repeat this for every possible <span class="math inline">\(x\)</span> value, we get the regression line below:</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-6_275604d963b3086061ea73b0c2bac050">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">3</span>, a <span class="sc">+</span> b<span class="sc">*</span><span class="dv">3</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## abline adds a line with slope b and intercept a to a plot.</span></span>
@@ -457,7 +459,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </div>
 </div>
 <p>We cal also see the values of <span class="math inline">\(e\)</span>, the residuals.</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-7_dd159b23ef68101b5f596ae2cb139d58">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> y <span class="sc">-</span> (a <span class="sc">+</span> b<span class="sc">*</span>x) <span class="do">## Observed minus expected</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(e <span class="sc">~</span> x, <span class="at">main =</span> <span class="st">"Plot of the Residuals"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## abline can also draw a line with slope 0 (horizontal)</span></span>
@@ -487,7 +489,7 @@ F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
 </ul></li>
 <li>The sum of the errors is 0.</li>
 </ul>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-8_2a412d7ad0e3d9a345f824da18eb61a7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## The prediction at mean(x) is equal to mean(y)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="do">## In other words, (mean(x), mean(y)) is a point on the line</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b <span class="sc">*</span> <span class="fu">mean</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -528,7 +530,7 @@ R^2 = r^2 \approx \frac{\text{Variance of the predicted }y\text{-values}}{\text{
 <p>I’ll explain this in steps. The first plot below shows just the values in <span class="math inline">\(y\)</span>. This collection of values has a own mean and variance.</p>
 <p>The second plot shows the change in variance that the line “explains”. Instead of deviations above and below the mean, the variance can now be characterized as the deviations above and below the regression line. This variance will always be lower than the variance of <span class="math inline">\(y\)</span> without incorporating <span class="math inline">\(x\)</span><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
 <p>The third plot shows where this variance went. <em>The line itself has variance</em>; there is deviation in the line above and below the mean of <span class="math inline">\(y\)</span>. This is the variance that gets explained by incorporating <span class="math inline">\(x\)</span>! If you consider one of the points in <span class="math inline">\(y\)</span>, say <span class="math inline">\(y_1\)</span>, the distance between <span class="math inline">\(y_1\)</span> and <span class="math inline">\(\bar y\)</span> can be split up into the difference between <span class="math inline">\(\bar y\)</span> and the regression line plus the distance between the regression line and <span class="math inline">\(y_1\)</span>.</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-9_06ebd4ace3a169c018896097fdc4b9b5">
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -548,7 +550,7 @@ R^2 = r^2 \approx \frac{\text{Variance of the predicted }y\text{-values}}{\text{
 <h3 class="anchored" data-anchor-id="extrapolation">Extrapolation</h3>
 <p><strong>Extrapolation</strong> is what happens when prediction goes wrong. In particular, it’s what happens when we try to make a prediction at an <span class="math inline">\(x\)</span> value where we don’t have any data. Usually this means we’re predicting an <span class="math inline">\(x\)</span> value far above or far below the range of our data, but it can also happen if there’s a gap in the middle of our data.</p>
 <p>In the plot below, the black dots are the original data, and we’re trying to predict a new value at <span class="math inline">\(x = 25\)</span>. The red line is the true model that I generated the data from. The black line represents a linear model. This model fits the original data quite well<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>, but predictions are completely inappropriate for values outside the data.</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-10_351adc2ab2d404e485314d35a07468fc">
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -557,13 +559,13 @@ R^2 = r^2 \approx \frac{\text{Variance of the predicted }y\text{-values}}{\text{
 <section id="lurking-variables" class="level3">
 <h3 class="anchored" data-anchor-id="lurking-variables">Lurking Variables</h3>
 <p>The black line in the plot below represents a regression where all of the data was lumped together. As we can see, this line does not seem to fit the data well. There is a hidden relationship in the the data - the green points and the red points should be considered separately<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>.</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-11_3ca4162893d908ece6a546099bc9fe6f">
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>A more serious consequence of a lurking variable has shown up before in the Palmer penguins data. In that example, the lurking variable actually <strong>reversed</strong> the correlation - if we lumped the groups together we got a negative correlation (and therefore negative slope), but if we looked at the groups individually we got positive associations in all of the groups! This is called <strong>Simpson’s Paradox</strong>, and basically means that we have to be very careful about interpreting correlations!</p>
-<div class="cell">
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-12_5505262dbc53b227ebd541a398f84579">
 <div class="cell-output-display">
 <p><img src="L04-Regression_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -609,8 +611,131 @@ Since <span class="math inline">\(R^2\)</span> is a squared value, it’s positi
 </summary>
 a, b, and d could all be argued to be linear, assuming that the data were collected well and as categorical variables. c is clearly not linear - a ball goes up and then goes down, which cannot be modelled by a line.
 </details>
+<section id="crowdsourced-questions" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">5.1</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Suppose you have collected data on the number of hours studied and the corresponding exam scores for 10 students. using simple linear regression, determine the relationship between the number of hours studied and exam scores.</li>
+</ol>
+<table class="table">
+<thead>
+<tr class="header">
+<th>hours studied (x)</th>
+<th>exam Score (y)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>60</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>65</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>75</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>85</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>90</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>95</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>98</td>
+</tr>
+</tbody>
+</table>
+<ol type="a">
+<li>What are the means of x and y?</li>
+<li>What are the standard deviations of x and y?</li>
+<li>What is the correlation between x and y?</li>
+<li>Use your answers above to calculate a regression line. Validate with R.</li>
+</ol>
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-13_b6bcd59ba6f46bdb85cf00616d719bf4">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>hours_studied <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>exam_score <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">75</span>, <span class="dv">70</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">95</span>, <span class="dv">100</span>, <span class="dv">98</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>Try the calculations by hand!</p>
+<div class="cell" data-hash="L04-Regression_cache/html/unnamed-chunk-14_da3e293a42c0cd20a909fe2686597452">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(hours_studied)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(exam_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 81.8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># b)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(hours_studied)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.02765</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(exam_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14.1091</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># c)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(hours_studied, exam_score)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9832055</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># d)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression slope b = r * s_y / s_x</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">cor</span>(hours_studied, exam_score) <span class="sc">*</span> <span class="fu">sd</span>(exam_score) <span class="sc">/</span> <span class="fu">sd</span>(hours_studied)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.581818</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression intercept a = ybar - xbar * b</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">mean</span>(exam_score) <span class="sc">-</span> <span class="fu">mean</span>(hours_studied) <span class="sc">*</span> b</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 47.43636</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check with R</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(exam_score <span class="sc">~</span> hours_studied)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = exam_score ~ hours_studied)
+
+Coefficients:
+  (Intercept)  hours_studied  
+       47.436          4.582  </code></pre>
+</div>
+</div>
+<hr>
+</details>
 
 
+</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

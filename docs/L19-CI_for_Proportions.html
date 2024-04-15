@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -329,6 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
   <li><a href="#example-2-1" id="toc-example-2-1" class="nav-link" data-scroll-target="#example-2-1">Example 2</a></li>
   </ul></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">16.4</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -429,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="devan-style-simulation" class="level3">
 <h3 class="anchored" data-anchor-id="devan-style-simulation">Devan Style: Simulation</h3>
-<div class="cell">
+<div class="cell" data-hash="L19-CI_for_Proportions_cache/html/unnamed-chunk-1_cac449ac8ef2d0db2931ef50aa31330d">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>SE_true <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">/</span>n)</span>
@@ -442,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="devan-style-simulation-1" class="level3">
 <h3 class="anchored" data-anchor-id="devan-style-simulation-1">Devan Style: Simulation</h3>
-<div class="cell">
+<div class="cell" data-hash="L19-CI_for_Proportions_cache/html/unnamed-chunk-2_39ef4fcad9952605deae90415e7073c1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>){</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    new_sample <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n=</span><span class="dv">1</span>, <span class="at">size=</span>n, <span class="at">prob=</span>p)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    phat <span class="ot">&lt;-</span> new_sample<span class="sc">/</span>n</span>
@@ -460,7 +460,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="simulation-results" class="level3">
 <h3 class="anchored" data-anchor-id="simulation-results">Simulation Results</h3>
-<div class="cell">
+<div class="cell" data-hash="L19-CI_for_Proportions_cache/html/unnamed-chunk-3_ca8b62dd1f7445963ac06d2c1d706cdd">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(p_does)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9371</code></pre>
@@ -486,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="notes">
 <p>Since we have R, let’s use it!</p>
 <p>Both <code>prop.test()</code> and <code>binom.test()</code> will give us a CI, with <code>prop.test()</code> calculating an approximation using the normal distribution and <code>binom.test()</code> calculating the exact value, without approximation. In general, you should always use <code>binom.test()</code> for one sample proportions.</p>
-<div class="cell">
+<div class="cell" data-hash="L19-CI_for_Proportions_cache/html/unnamed-chunk-4_9eab179fa6a63e5c06d6b66bef4e232b">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">591</span>, <span class="at">n =</span> <span class="dv">700</span>, <span class="at">conf.level =</span> <span class="fl">0.91</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -507,7 +507,7 @@ probability of success
 <section id="example-2" class="level3 t">
 <h3 class="t anchored" data-anchor-id="example-2">Example 2</h3>
 <p>It was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.</p>
-<div class="cell">
+<div class="cell" data-hash="L19-CI_for_Proportions_cache/html/unnamed-chunk-5_f0e14f49f5a908927472d44dfce896fc">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">70</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> <span class="dv">68</span><span class="sc">/</span><span class="dv">70</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>se_est <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(phat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>phat)<span class="sc">/</span>n)</span>
@@ -522,7 +522,7 @@ probability of success
 <div class="notes">
 <p>Absolutely not! The normal approximation does not apply here since <span class="math inline">\(n(1 - \hat p) = 70*(1 - 68/70) = 2\)</span>, and 2 is less than 10<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The normal distribution can only be used when the sample size is large enough!!!</p>
 <p>Instead, we can use the exact test. This is much slower to calculate, but for <span class="math inline">\(n = 70\)</span> there’s no issue.</p>
-<div class="cell">
+<div class="cell" data-hash="L19-CI_for_Proportions_cache/html/unnamed-chunk-6_cca6e81cd143e5e8f8b58134696c858a">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">68</span>, <span class="at">n =</span> <span class="dv">70</span>, <span class="at">conf.level =</span> <span class="fl">0.91</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -544,7 +544,7 @@ probability of success
 <section id="example-2-1" class="level3 t">
 <h3 class="t anchored" data-anchor-id="example-2-1">Example 2</h3>
 <p>It was found that 68 out of 70 people sampled supported a certain political position. Find a 91%CI.</p>
-<div class="cell">
+<div class="cell" data-hash="L19-CI_for_Proportions_cache/html/unnamed-chunk-7_4fe8c76d909841535bfb08ff54a06b22">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">68</span>, <span class="at">n =</span> <span class="dv">70</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -560,9 +560,31 @@ probability of success
              0.9714286 </code></pre>
 </div>
 </div>
-
-
 </section>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">16.4</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Assuming all other factors are held constant, how does increasing the number of trials from 100 to 400 affect the width of the confidence interval for a population proportion?
+<ol type="a">
+<li>The width of the confidence interval remains unchanged.</li>
+<li>The width of the confidence interval decreases, leading to a more precise estimate.</li>
+<li>The width of the confidence interval increases, indicating less precision in the estimate.</li>
+<li>The change in the width of the confidence interval cannot be determined without knowing the population size.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol start="2" type="a">
+<li>Increasing the sample size from 100 to 400, while keeping all other factors constant, decreases the width of the confidence interval for a population proportion. This is because the standard error of the proportion decreases as the sample size increases, leading to a more precise estimate of the population proportion.</li>
+</ol>
+<hr>
+</details>
+
+
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -409,7 +408,7 @@ t_{obs} = \frac{15.9 - 15}{1.2/\sqrt{16}} = 3
 \]</span></li>
 </ul>
 <p>Using the <span class="math inline">\(t\)</span> distribution, our p-value is:</p>
-<div class="cell">
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-1_fd4acc7b09f577e3780dccb0206252b5">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="dv">3</span>, <span class="at">df =</span> <span class="dv">16</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.004486369</code></pre>
@@ -489,7 +488,7 @@ p-values from a t-test are larger than a z-test (if you have <span class="math i
 <p>The important thing here is that last row of this table now represents our data - we can forget that the other two rows exist! In other words, we have <em>one</em> observation per person, rather than two sets of observations.</p>
 <p>This is where the assumption that we know the population standard deviation is especially preposterous: we’re looking just at the differences! Even if there’s a true value of the sd for healing time for all people, the standard deviation of the difference between healing times isn’t a reasonable quantity to speak of.</p>
 <p>Since we’re looking at the <em>difference</em>, we no longer have a hypothesized value of <span class="math inline">\(\mu_0\)</span>. Instead, we hypothesize that the average pairwise difference is 0, i.e.&nbsp;<span class="math inline">\(\mu_{with\; minus\; without} = \mu_{diff} = 0\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. The alternative is “with” &lt; “without”, i.e.&nbsp;<span class="math inline">\(\mu_{diff} &lt; 0\)</span>.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
-<div class="cell">
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-2_b5a57a6004e8e1d0479dfe570cfdb07f">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.78</span>, <span class="fl">0.01</span>, <span class="sc">-</span><span class="fl">0.33</span>, <span class="sc">-</span><span class="fl">0.7</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.61</span>, <span class="sc">-</span><span class="fl">0.87</span>, <span class="sc">-</span><span class="fl">2.1</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
@@ -506,7 +505,7 @@ p-values from a t-test are larger than a z-test (if you have <span class="math i
 <section id="t-tests-in-practice" class="level3">
 <h3 class="anchored" data-anchor-id="t-tests-in-practice">t-tests in Practice</h3>
 <p>Do you think that researchers in the field are typing test statistics into their calculator? Of course not! We’re finally at the point in this class where the methods are so commonly used that the built-in functions in R can calculate them.</p>
-<div class="cell">
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-3_34a637d980bb35f2e0b90debbcd27322">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>with_oint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">6.44</span>, <span class="fl">6.06</span>, <span class="fl">4.22</span>, <span class="fl">3.3</span>, <span class="fl">6.5</span>, <span class="fl">3.49</span>, <span class="fl">7.0</span>, <span class="fl">4.22</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>without <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.22</span>, <span class="fl">6.05</span>, <span class="fl">4.55</span>, <span class="dv">4</span>  , <span class="fl">6.7</span>, <span class="fl">2.88</span>, <span class="fl">7.8</span>, <span class="fl">6.32</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>difference <span class="ot">&lt;-</span> with_oint <span class="sc">-</span> without</span>
@@ -527,7 +526,7 @@ mean of x
 </div>
 <p>Notice that the output shows a <strong>one-sided confidence interval</strong>. This isn’t a big leap from what you know: a confidence interval consists of all of the values that would <em>not</em> be rejected by a hypothesis test, and this works for one-sided as well as two-sided alternate hypotheses!</p>
 <p>To get a two-sided confidence interval, we can either leave <code>alternative</code> at it’s default value or set it to <code>"two.sided"</code>. We can also change the significance level with the <code>conf.level</code> argument. For an 89%CI:</p>
-<div class="cell">
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-4_26eac7b3f407ddc595e9ae57bc025e09">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(difference, <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="at">conf.level =</span> <span class="fl">0.89</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -751,7 +750,7 @@ mean of x
 </ul>
 <p>Calculate the test statistic using the sample mean, population mean, standard deviation, and sample size: $t_{obs} = = = -2.946</p>
 <p>The p-value can be found using the t-distribution on <span class="math inline">\(n-1\)</span> degrees of freedom:</p>
-<div class="cell">
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-5_d868082550ba3cbcaafa70ff371e651c">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pt</span>(<span class="sc">-</span><span class="fl">2.946</span>, <span class="at">df =</span> <span class="dv">50</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.002457447</code></pre>
@@ -777,7 +776,7 @@ mean of x
 t_{obs} = \frac{\bar x - \mu_0}{s/\sqrt{n}} = \frac{5.8 - 5}{0.9/\sqrt{40}} = 5.62
 \]</span></p>
 <p>Using the t-distribution on <span class="math inline">\(n - 1\)</span> degrees of freedom:</p>
-<div class="cell">
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-6_01e260ba01e5d02db60e0da127f8101b">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fl">5.62</span>, <span class="at">df =</span> <span class="dv">40</span> <span class="sc">-</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8.727633e-07</code></pre>
@@ -798,13 +797,113 @@ t_{obs} = \frac{\bar x - \mu_0}{s/\sqrt{n}} = \frac{5.8 - 5}{0.9/\sqrt{40}} = 5.
 t_{obs} = \frac{\bar x - \mu_0}{s/\sqrt{n}} = \frac{82 - 80}{6 / \sqrt{36}} = 2
 \]</span></p>
 <p>The p-value can be found as:</p>
-<div class="cell">
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-7_44175c606c4ac680aa3810e7777a88cc">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="dv">2</span>, <span class="at">df =</span> <span class="dv">6</span> <span class="sc">-</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1019395</code></pre>
 </div>
 </div>
 <p>Since our p-value is larger than alpha, we do not reject the null. We have not gathered evidence that the claim of 80mg is incorrect.</p>
+<hr>
+</details>
+<ol start="4" type="1">
+<li>A clinical trial is conducted to compare the mean blood pressure reduction (in mmHg) achieved by a new medication against a standard treatment. The mean reduction for the new medication is calculated with a 95% confidence interval of (2, 8). Which of the following conclusions is most appropriate if testing the null hypothesis that the new medication does not differ from the standard treatment in terms of mean blood pressure reduction?
+<ol type="a">
+<li>Reject the null hypothesis at the 5% significance level because the confidence interval does not include 0, indicating a significant difference in mean reductions.</li>
+<li>Fail to reject the null hypothesis because the confidence interval includes the mean reduction of the standard treatment, indicating no significant difference.</li>
+<li>Reject the null hypothesis only if the mean reduction for the standard treatment is outside the interval (2, 8), indicating a significant difference.</li>
+<li>Accept the null hypothesis because confidence intervals are only useful for estimating the range of possible values, not for testing hypotheses.</li>
+</ol></li>
+</ol>
+In addition, what kind of test is this?
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>The correct answer is (a) Reject the null hypothesis at the 5% significance level because the confidence interval does not include 0, indicating a significant difference in mean reductions. The 95% confidence interval represents the range of values within which we are 95% confident the true mean difference lies. If the null hypothesis were true (no difference in mean reductions), we would expect the interval to include 0. However, since the interval (2, 8) does not include 0, we have evidence that the mean reduction from the new medication is significantly different from the standard treatment at the 5% significance level. This conclusion is based on the principle that if a 95% confidence interval for a difference does not include 0, the difference is statistically significant at the 5% level. Hence, the confidence interval directly informs the hypothesis test outcome.</p>
+<p>This is a matched pairs test, since it’s looking at the same patient before and after treatment. Instead of a sample of people before treatment and a sample of people after treatment, the researchers can look at a single sample of the differences.</p>
+<hr>
+</details>
+<ol start="5" type="1">
+<li>A psychology researcher is interested in the effects of a new therapy on reducing anxiety levels. To test the effectiveness of the therapy, the researcher selects a random sample of 15 patients and records their anxiety levels before and after undergoing the therapy. The differences in anxiety level for the patients are as follows:</li>
+</ol>
+<p>Differences 3, 5, -1, 4, 6, 2, 7, 4, 3, 5, 2, 4, 6, 8, 3</p>
+<p>Assuming the differences in anxiety levels are normally distributed, conduct a one-sample t-test to determine if the therapy leads to a significant reduction in anxiety levels at a 5% significance level.</p>
+<ol type="a">
+<li>Explain why this is a matched pairs test.</li>
+<li>State the null and alternative hypotheses.</li>
+<li>Calculate the test statistic.</li>
+<li>Determine the critical t-value.</li>
+<li>Conclude whether or not there is sufficient evidence to support that the therapy leads to a significant reduction in anxiety levels.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>A.) The researchers have a sample of differences, meaning that each value comes from two observations on a natural pairing (e.g.&nbsp;the same individual). This can be done as a one-sample t-test.</p>
+<p>B.) Null hypothesis (<span class="math inline">\(H_0\)</span>​): The therapy has no effect on anxiety levels, so the mean difference in anxiety levels is 0 (<span class="math inline">\(\mu_d​=0\)</span>).</p>
+<p>Alternative hypothesis (<span class="math inline">\(H_A\)</span>​): The therapy leads to a reduction in anxiety levels, so the mean difference in anxiety levels is greater than 0 (<span class="math inline">\(\mu_d &gt;0\)</span>).</p>
+<p>C.) The calculated test statistic (t-statistic) for the differences in anxiety levels is approximately 7.00.</p>
+<p>D.) The critical t-value for a one-tailed test at a 5% significance level with 14 degrees of freedom is approximately 1.76.</p>
+<p>E.) Since the calculated t-statistic (7.00) is greater than the critical t-value (1.76), we reject the null hypothesis. There is sufficient evidence to support that the therapy leads to a significant reduction in anxiety levels. This conclusion is based on the assumption that if the therapy had no effect, the likelihood of observing a sample mean difference as extreme as this, or more extreme, is very low under the null hypothesis. Therefore, the therapy appears to be effective in reducing anxiety levels among the patients in this study.</p>
+<p>In R:</p>
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-8_4d73a16ed8acce38ea936eaff9e3253c">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">7</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">3</span>), <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  c(3, 5, -1, 4, 6, 2, 7, 4, 3, 5, 2, 4, 6, 8, 3)
+t = 6.9972, df = 14, p-value = 3.138e-06
+alternative hypothesis: true mean is greater than 0
+95 percent confidence interval:
+ 3.043017      Inf
+sample estimates:
+mean of x 
+ 4.066667 </code></pre>
+</div>
+</div>
+<hr>
+</details>
+<ol start="6" type="1">
+<li>A small tech startup is interested in estimating the average number of hours its employees spend on professional development activities per month. Due to the startup’s limited size, a random sample of 10 employees is selected, and the following number of hours spent on professional development activities per month are recorded:</li>
+</ol>
+<p>Hours: 12,15,9,11,14,8,10,13,12,7</p>
+<p>Assuming the number of hours follows a normal distribution, calculate a 90% confidence interval for the average number of hours all employees at the startup spend on professional development activities per month.</p>
+<ol type="a">
+<li>Calculate the sample mean and the sample standard deviation.</li>
+<li>Determine the critical t-value for a 90% confidence interval.</li>
+<li>Construct the 90% confidence interval.</li>
+<li>Interpret the confidence interval in the context of the study.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="A">
+<li>The sample mean of hours spent on professional development activities per month is 11.1 hours, and the sample standard deviation is approximately 2.60 hours.</li>
+</ol>
+<p>B.) The critical t-value for constructing a 90% confidence interval with 9 degrees of freedom is approximately 1.83.</p>
+<p>C.)The 90% confidence interval for the average number of hours all employees at the startup spend on professional development activities per month is approximately (9.59, 12.61) hours.</p>
+<p>D.) Based on the sample data, we can be 90% confident that the true average number of hours spent on professional development activities by all employees at the startup falls between 9.59 and 12.61 hours per month</p>
+<p>In R:</p>
+<div class="cell" data-hash="L16-Hypothesis_Tests_for_Means_cache/html/unnamed-chunk-9_310d650d8049d85f633ffc2e902007f8">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>hours <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">9</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">13</span>, <span class="dv">12</span>, <span class="dv">7</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(hours, <span class="at">conf.level =</span> <span class="fl">0.9</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  hours
+t = 13.494, df = 9, p-value = 2.818e-07
+alternative hypothesis: true mean is not equal to 0
+90 percent confidence interval:
+  9.592086 12.607914
+sample estimates:
+mean of x 
+     11.1 </code></pre>
+</div>
+</div>
 <hr>
 </details>
 

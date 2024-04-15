@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-01">
+<meta name="dcterms.date" content="2024-04-10">
 
 <title>Statistics for Life Sciences - 1&nbsp; Picturing Distributions with Graphs</title>
 <style>
@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -373,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-01</p>
+      <p class="date">2024-04-10</p>
     </div>
   </div>
   
@@ -451,7 +450,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-palmer-penguins-data" class="level3">
 <h3 class="anchored" data-anchor-id="the-palmer-penguins-data">The Palmer Penguins Data</h3>
 <p>Let me introduce you to a dataset that I’m going to be returning to throughout the semester. This is called the Palmer penguins data, end it contains information on penguins from several islands in Antarctica. In the slides, I use some fancier code to only show some of the data, but I’ll display the full data set with simpler code below:</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-1_7bd296ce0e47fc53549e96872c3fb3e7">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">as.data.frame</span>(penguins))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -485,7 +484,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="types-of-variables" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="types-of-variables">Types of Variables</h3>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-2_aaf63fe40405df33c6da0c941f909d6a">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>penguins[, <span class="fu">c</span>(<span class="st">"species"</span>, <span class="st">"sex"</span>, <span class="st">"body_mass_g"</span>)] <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>() <span class="sc">|&gt;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -666,7 +665,7 @@ Paired Observations
 </section>
 <section id="example-what-are-the-individuals-what-are-variables" class="level3">
 <h3 class="anchored" data-anchor-id="example-what-are-the-individuals-what-are-variables">Example: What are the Individuals? What are Variables?</h3>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-3_00d7cb2f0302659446a9c43431066ad8">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="fu">c</span>(<span class="st">"wt"</span>, <span class="st">"mpg"</span>, <span class="st">"cyl"</span>, <span class="st">"am"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     wt  mpg cyl am
@@ -715,7 +714,7 @@ Valiant           3.460 18.1   6  0</code></pre>
 <h3 class="anchored" data-anchor-id="bar-charts-categories">Bar Charts: Categories</h3>
 <p>Bar charts are similar to pie charts, but better in practically every way.</p>
 <p>Each bar represents a category, and the height represents the number of observations in that category.</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-4_962685a3cf6ef677cd846185d9692087">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -746,9 +745,10 @@ Valiant           3.460 18.1   6  0</code></pre>
 </ul></li>
 <li>The <code>labs()</code> function simply adds <code>lab</code>el<code>s</code> to the plot to make it look nicer.</li>
 </ul>
+<hr>
 </details>
 <p>Compare this to the following table:</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-5_090291dc3e6a2e939904abccee85e9d3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mtcars<span class="sc">$</span>am)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -765,7 +765,7 @@ Valiant           3.460 18.1   6  0</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <p>Based on this plot, we might be asking how “Sex” varies by “Class”.</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-6_74d55effbb1f0161561b63dea1159d79">
 <div class="cell-output-display">
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -774,7 +774,7 @@ Valiant           3.460 18.1   6  0</code></pre>
 
 </div><div class="column" style="width:45%;">
 <p>Based on this plot, we might be asking how “Class” varies by “Sex”.</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-7_8c41ab26c75528400b02c3781ff88153">
 <div class="cell-output-display">
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -784,7 +784,7 @@ Valiant           3.460 18.1   6  0</code></pre>
 <p><strong>Exercises</strong></p>
 <p>The following exercises are based on the exercises in the (optional) OpenIntro biostats textbook. They are based on the <strong>F</strong>unctional polymorphisms <strong>A</strong>ssociated with human <strong>Mu</strong>scle <strong>S</strong>ize and <strong>S</strong>trength, or <code>famuss</code>, data set.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
 <p>The data are available in the <code>oibiostat</code> pacjage in R, which is a package based on the OpenIntro Biostat textbook. Don’t worry if you don’t know what any of that means - it’s not important for this portion of the course.</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-8_9493d536ef35f1ab022b01c294d1ce27">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(oibiostat)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(famuss)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(famuss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -872,7 +872,7 @@ Valiant           3.460 18.1   6  0</code></pre>
 <li>Alternative: order according to largest to smallest.</li>
 </ul></li>
 </ul>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-9_60557c0ddc3a3fb61fd6730bf9c1dce6">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
@@ -886,7 +886,7 @@ Valiant           3.460 18.1   6  0</code></pre>
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-10_e0d3ae76e2d3d705cd4cd70a6740d459">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats) <span class="co"># For rearranging "factors", aka. categorical variables</span></span>
@@ -955,7 +955,7 @@ Grey Area
 </section>
 <section id="quantitative-variables-as-a-bar-chart" class="level3">
 <h3 class="anchored" data-anchor-id="quantitative-variables-as-a-bar-chart">Quantitative Variables as a Bar Chart</h3>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-11_192f4e6148623c440cc9fa89776ada1f">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -992,7 +992,7 @@ Grey Area
 <li>Bars should touch since there’s nothing in between.</li>
 </ul></li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-12_4931463d68f56fab19b7ada97bc96bf8">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note that I've manually chosen the bin widths and centers.</span></span>
@@ -1019,7 +1019,7 @@ Grey Area
 <p>These histograms are showing the same data!</p>
 <div class="columns">
 <div class="column" style="width:48%;">
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-13_a864a07ac6bf9994b8763eab1e9d6ca9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
@@ -1034,7 +1034,7 @@ Grey Area
 </div>
 </div>
 </div><div class="column" style="width:48%;">
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-14_f6ffa10c326f0ac8d59a415ef38e711d">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
@@ -1054,7 +1054,7 @@ Grey Area
 <p>In the previous graph, it looked like the distribution of sharks followed a nice bell-shaped curve. However, if we use bins that are 1.5 units wide we get a plot that looks fairly different. It still looks like most sharks are around 16 feet and some go down to 10 and some go as high is 22 or 23, But we see a large bar that covers 12 to 13.5.</p>
 <p>With histograms the bins that you choose are extremely important. Most software have default values that are generally reasonable, But it’s always always always worth investigating other bins.</p>
 <p>A simple version of the plot can be made as follows, where <code>ggplot</code> chooses the bins automatically. Note that this is rarely desireable, and you should almost always choose the bins yourself.</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-15_cd20144e36bc231bcb79c10ec977800a">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sharks) <span class="sc">+</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1063,7 +1063,7 @@ Grey Area
 </div>
 </div>
 <p>Below is an app to visualize the difference that the binwidth can make!</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-16_d5d7b0f001d03f6c4637562044f7522e">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Apps/DensHist"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1098,7 +1098,7 @@ Grey Area
 </section>
 <section id="example-what-is-the-shape" class="level3">
 <h3 class="anchored" data-anchor-id="example-what-is-the-shape">Example: What is the Shape?</h3>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-17_25d29df2fc09c383d9832c4c1a15cfa2">
 <div class="cell-output-display">
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1109,7 +1109,7 @@ Grey Area
 </section>
 <section id="example-what-is-the-shape-1" class="level3">
 <h3 class="anchored" data-anchor-id="example-what-is-the-shape-1">Example: What is the Shape?</h3>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-18_0e6e869621c6c28b0bff6bedc8caf5e0">
 <div class="cell-output-display">
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1141,7 +1141,7 @@ Grey Area
 90 | 8</code></pre>
 </div><div class="column" style="width:50%;">
 <p><strong>Sideways Histogram</strong></p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-19_5ac3d3faaf08ec0bdc0ea62933e580dd">
 <div class="cell-output-display">
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1189,17 +1189,19 @@ Grey Area
 <strong>Bar chart</strong>
 </summary>
 <p>What do you think? Does the plot below give you any useful information about the data?</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-20_da6ca1df3e39184cc55e2f12404c9646">
 <div class="cell-output-display">
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<hr>
 </details>
 <details>
 <summary>
 <strong>Pie Chart</strong>
 </summary>
-No.&nbsp;I’m not even going to try in this case.
+<p>No.&nbsp;I’m not even going to try in this case.</p>
+<hr>
 </details>
 <details>
 <summary>
@@ -1207,11 +1209,12 @@ No.&nbsp;I’m not even going to try in this case.
 </summary>
 <p>Correct! The plot below tells us where most of the subjects’ BMI lie. We can see that most of the subjects are between 15 and 30, with a few between 30 and 35 and few above 35.</p>
 <p>This is the whole reason we categorize variables as quantitative or categorical: knowing the type of the variable tells us which plots will give us useful information!</p>
-<div class="cell">
+<div class="cell" data-hash="L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-21_c498ae26a3357c2c44b3c0b44102e5a6">
 <div class="cell-output-display">
 <p><img src="L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<hr>
 </details>
 <!---
 ## Participation Questions
@@ -1240,7 +1243,7 @@ What shape is the distribution on the right?
 ::: {.column width="50%"}
 
 
-::: {.cell}
+::: {.cell hash='L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-22_a097ef3d0af1323fdea4b9b8f2f1c8eb'}
 ::: {.cell-output-display}
 ![](L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-22-1.png){width=672}
 :::
@@ -1296,7 +1299,7 @@ Approximately what proportion of the data is larger than 0? Note that there are 
 ::: {.column width="50%"}
 
 
-::: {.cell}
+::: {.cell hash='L01-Intro_PicturingGraphs_cache/html/unnamed-chunk-23_c089911cf674b3ac60d39d5afa51eb59'}
 ::: {.cell-output-display}
 ![](L01-Intro_PicturingGraphs_files/figure-html/unnamed-chunk-23-1.png){width=480}
 :::
@@ -1385,7 +1388,18 @@ Answers: 334133
 <summary>
 <strong>Solution</strong>
 </summary>
-The correct answer is 1. Type of plant. This variable is qualitative because it describes a category or quality of the plant (e.g., fern, moss, flowering plant) rather than quantifying a characteristic. Qualitative data, also known as categorical data, includes descriptions or characteristics that cannot be measured or counted in the traditional sense. Variables 2, 3, and 4 are quantitative because they involve measurements or counts that result in numerical values: growth rate is measured in cm per week (continuous), color intensity of leaves is rated on a numerical scale (ordinal), and the number of leaves is a count (discrete).
+<p>The correct answer is 1. Type of plant. This variable is qualitative because it describes a category or quality of the plant (e.g., fern, moss, flowering plant) rather than quantifying a characteristic. Qualitative data, also known as categorical data, includes descriptions or characteristics that cannot be measured or counted in the traditional sense. Variables 2, 3, and 4 are quantitative because they involve measurements or counts that result in numerical values: growth rate is measured in cm per week (continuous), color intensity of leaves is rated on a numerical scale (ordinal), and the number of leaves is a count (discrete).</p>
+<hr>
+</details>
+<ol start="2" type="1">
+<li>True or False: American ZIP codes (e.g.&nbsp;90210) are quantitative variables</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>False. Although quantitative variables are defined as numbers and a zip code is made up of numbers it’s just a category for organizing data. It does not make sense to take the average zip code!</p>
+<hr>
 </details>
 
 

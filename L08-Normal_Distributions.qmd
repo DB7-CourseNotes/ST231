@@ -639,3 +639,17 @@ We can also let R do the standardization for us!
 
 *****
 </details>
+
+3. A group of students' test scores in calculus are normally distributed with a mean of 75 and a standard deviation of 10. using the empirical rule, calculate the range of scores that which will fall within 68%, 95%, and 99.7% of the mean.
+
+<details>
+<summary>**Solution**</summary>
+
+68% of scores fall between 75−10 and 75+10, which is 65 to 85. 
+
+95% of scores fall between 75−2(10) and 75+2(10), which is 55 to 95.
+
+99.7% of scores fall between 75−3(10) and 75+3(10), which is 45 to 105.
+
+*****
+</details>

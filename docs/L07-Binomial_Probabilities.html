@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Devan Becker">
-<meta name="dcterms.date" content="2024-04-01">
+<meta name="dcterms.date" content="2024-04-15">
 
 <title>Statistics for Life Sciences - 6&nbsp; Binomial Probabilities</title>
 <style>
@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -356,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-01</p>
+      <p class="date">2024-04-15</p>
     </div>
   </div>
   
@@ -407,7 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>Alright, let’s do 4 coins. How many ways are there to get, say, 2 heads out of four flips? You can bet that a smart mathemetician has figured out a way to do this without writing them all out again! This is called <em>combinatorics</em>, and includes a lot of things that are not relevant right now. We’ll focus on the <strong>choose</strong> function. For three coins, “3 choose 1” means “out of 3 options, choose 1 of them”. Sometimes this is shortened to “3C1”. As we saw in the table above, there’s 1 way to choose nothing (no heads), 3 ways to choose 1 thing, 3 ways to choose 2 things, and 1 way to choose 3 things.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> In R:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-1_5306408d8d2b09b0e10a939540e25baf">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This code will **not** be tested on exams or assignments.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># It's just here to do calculations for us.</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="at">n =</span> <span class="dv">3</span>, <span class="at">k =</span> <span class="dv">0</span>) <span class="co"># 3C0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -433,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>So for 4 coins, there is 4C2 = 6 ways to get two heads.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> What’s the probability of each of these 6 outcomes? Since there’s a 0.5 chance of heads and a 0.5 chance of tails, there’s a 0.5*0.5*0.5*0.5 = 0.5<span class="math inline">\(^4\)</span> = 0.0625 chance. That means that there’s a 6*0.0625 = 0.375 chance of getting two heads out of four flips.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
 <p>Just to be complete, let’s do this again for 5 coins. We’re already at the point where we <em>need</em> the choose function because there are too many outcomes to write out by hand. Let’s calculate some probabilities with R:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-2_245a84053e90c8f55243b57154054ad4">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Again, this code is not on the tests or assignments.</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of 4 heads out of 5 flips:</span></span>
@@ -448,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>For completeness, let’s make sure these all add up to 1:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-3_344a78738a71cdfbd9c1338db88879aa">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## I really hope this adds to 1</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">0</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">choose</span>(<span class="dv">5</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">5</span>) <span class="sc">+</span></span>
@@ -468,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>From this, and knowing that the two dice rolls are independent, we see that the probability is (1/6)*(1 - 1/6).</p>
 <p>We can also have exactly one 3 if the first dice is not 3 but the second dice is 3. This has the same probability as the other way around: (1 - 1/6)*(1/6).</p>
 <p>Notice how this is the second of two options. Again, we get to use the choose function:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-4_c585d73de494a4bf63d3de7c6249fb98">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Probability of exactly one 3 in two dice rolls</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">2</span>, <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>) <span class="sc">*</span> (<span class="dv">1-1</span><span class="sc">/</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -497,7 +496,7 @@ X \sim B(n,p)
 <p>I just want to talk about “distributions” a little bit more. A <strong>distribution</strong> tells you where the probabilities are. For coins, 50% of the probability is in Heads, 50% is in in tails. When we talk about “is the dice a 3?”, one-sixth of the probability is distributed to the 3 and five-sixths are distributed elsewhere.</p>
 <p>To summarise, saying that <span class="math inline">\(X \sim B(n,p)\)</span>, or that <span class="math inline">\(X\)</span> is distributed as a Binomial random variable with <span class="math inline">\(n\)</span> trials and probability of success <span class="math inline">\(p\)</span>, is the exact same as saying that <span class="math inline">\(P(x\text{ successes in }n\text{ trials})\)</span> can be found using the equation <span class="math inline">\(nCx*p^x*(1-p)^{n-x}\)</span>. This is what it means to have a <strong>probability distribution function.</strong></p>
 <p>To see all of these probabilities at once, we can plot this as a graph. To reduce coding, let’s look at <span class="math inline">\(X\sim B(3, 0.4)\)</span>:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-5_17998197cfb686d454ec778b1e6efec4">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We're still not going to have this on tests!</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co"># X values</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
@@ -523,7 +522,7 @@ X \sim B(n,p)
 <ol type="1">
 <li>Suppose I have a coin that is weighted so that Heads comes up 80% of the time. What is the probability that I get 8 heads in 10 flips?</li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-6_066ef1f60a5f435b71cc641dfa1122bb">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">8</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">8</span> <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-0.8</span>)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3019899</code></pre>
@@ -539,7 +538,7 @@ X \sim B(n,p)
 <li>Since the events “9 heads” and “10 heads” are <strong>disjoint</strong>, we can calculate these individually and add them together.</li>
 </ul></li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-7_725118a2a863d08bb3b9131c4703db95">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">9</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">9</span> <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-0.8</span>)<span class="sc">^</span><span class="dv">1</span> <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">10</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">10</span> <span class="sc">*</span> (<span class="dv">1</span><span class="fl">-0.8</span>)<span class="sc">^</span><span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -550,7 +549,7 @@ X \sim B(n,p)
 <section id="in-r" class="level3">
 <h3 class="anchored" data-anchor-id="in-r">In R</h3>
 <p>Typing out the whole formula is getting boring. Surely R, a <em>statistical</em> programming language, has a way to do it for me, right? Of course!</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-8_3737e118e1bcbd77e112e78889602841">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">choose</span>(<span class="dv">10</span>, <span class="dv">8</span>) <span class="sc">*</span> (<span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">8</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.8</span>)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3019899</code></pre>
@@ -562,14 +561,14 @@ X \sim B(n,p)
 </div>
 <p>The <code>dbinom()</code> function has exactly the arguments that you would expect. Lower case x is the specific value, size is the number of coin flips, prob is the probability of success. The <code>d</code> stands for “density”, which for our purposes is the same as “distribution”.</p>
 <p>As a special note, R will take a vector for <code>x</code>. We can find multiple probabilities at once:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-9_aa507e47a2c51ac9fa7c81bb2b2720fe">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3019899 0.2684355 0.1073742</code></pre>
 </div>
 </div>
 <p>This allows us to easily plot the pdf:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-10_fbd93841d6953b42550d94384398986f">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span> <span class="co"># a vector of the numbers from 0 to 10</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="do">## note: x is the name of the object AND the argument,</span></span>
@@ -588,7 +587,7 @@ X \sim B(n,p)
 <h2 data-number="6.3" class="anchored" data-anchor-id="cumulative-binomial-probabilities"><span class="header-section-number">6.3</span> Cumulative Binomial Probabilities</h2>
 <p>A <strong>cumulative probability</strong> is the probability of observing <em>up to</em> <span class="math inline">\(x\)</span> successes in <span class="math inline">\(n\)</span> trials. In other words, this is <span class="math inline">\(P(X \le x)\)</span>: the probability that the <strong>random variable</strong> <span class="math inline">\(X\)</span> is smaller than or equal to some specific number <span class="math inline">\(x\)</span>. This is referred to as the <strong>Cumulative Distribution Function</strong>, or cdf. It really matters whether it’s <span class="math inline">\(P(X\le x)\)</span> or <span class="math inline">\(P(X&lt; x)\)</span>!</p>
 <p>What’s the probability that we get <em>at most</em> 4 heads in 10 flips? That’s the same as the probability of 0 heads plus the probability of 1 heads plus the probability of 2 heads plus…</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-11_00320b664238f17ca168f18a7bda16d4">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Note: R evaluates the arguments *in order*</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="do">## It expects the arguments in the order of "x, size, prob",</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="do">## so it assumes the first argument is x, the second is size,</span></span>
@@ -604,21 +603,21 @@ X \sim B(n,p)
 </div>
 <p>What about the probability of <em>at most</em> 40 heads in 100 flips? Do I have to type all that out?</p>
 <p>Nope! We can use the <code>pbinom()</code> function. First, let’s verify it with what we’ve already calculated:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-12_0f1e44b733bab1d7a67f497a6fc960a3">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">4</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3769531</code></pre>
 </div>
 </div>
 <p>Now, let’s find the probability of at most 40 heads in 100 flips:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-13_9bac1b363ef275f363fb1e5b05543bc2">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">40</span>, <span class="dv">100</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.02844397</code></pre>
 </div>
 </div>
 <p>It’s surprisingly small! Let’s look at the pdf to see why:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-14_b34f0c0142a98aa48a3790bf1eef9f77">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">30</span><span class="sc">:</span><span class="dv">70</span> <span class="co"># The pdf is REALLY small outside this range</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="do">## I'm going to colour the bars where x &lt;= 40</span></span>
@@ -640,7 +639,7 @@ X \sim B(n,p)
 <h3 class="anchored" data-anchor-id="examples-1">Examples</h3>
 <p>What’s the probability of <em>at least</em> 40 heads in 100 flips? Be careful here: it matters whether I ask “at least” or “more than”. The cdf always calculates “less than or equal to”<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>, and the <strong>complement</strong> of this is “strictly greater than”.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> If I’m looking for “strictly greater than”, I need to be careful what I use!</p>
 <p>In this case, P(X <span class="math inline">\(\ge\)</span> 40) = P(X &gt; 39) = 1 - P(X <span class="math inline">\(\le\)</span> 39) = <code>1 - pbinom(39, 100, 0.5)</code></p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-15_df5d1ec5dd2532193f811d5d4f13dae2">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">39</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9823999</code></pre>
@@ -680,7 +679,7 @@ X \sim B(n,p)
 <p>In the past, I have defined “variance” as something like “the average amount that you would be wrong if you always guessed the mean value.” Consider flipping one coin. If this coin is rigged and always comes up heads, the mean number of heads is 1 and you would always be right when you guess the mean. Intuitively, the variance here is 0. The same happens if the coin is rigged to always come up tails - the mean number of heads is 0, and the number of heads never varies so the variance is 0.</p>
 <p>What happens between 0 and 1? If the coin was heads 80% of the time, then your guess would be right 80% of the time. The actual value of the coin varies, but not too much. If the coin was heads 20% of the time, you’d still be right 80% of the time by guessing 0 heads each time. You’d be wrong <em>most often</em> if the coin had a 50% chance of being heads.</p>
 <p>So we’ve established this: At <span class="math inline">\(p=0\)</span> and <span class="math inline">\(p=1\)</span>, the variance is 0. The maximum value is at 0.5, and the variance should be the same if you’re 0.2 above 0.5 or 0.2 below (it’s symmetric around 0.5). The following plot, then, seems reasonable:</p>
-<div class="cell">
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-16_e5f78b19331de2a85bcac199e4bbcd09">
 <div class="cell-output-display">
 <p><img src="L07-Binomial_Probabilities_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="288"></p>
 </div>
@@ -713,6 +712,91 @@ X \sim B(n,p)
 <section id="crowdsourced-questions" class="level2" data-number="6.7">
 <h2 data-number="6.7" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">6.7</span> Crowdsourced Questions</h2>
 <p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>A biased coin has a probability of 0.7 of landing on heads when flipped. If the coin is flipped 10 times, what is the probability of getting exactly 8 heads?</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>The probability of getting exactly “k” successes in “n” trials, each with a probability success “p”, can be calculated using the binomial probability formula <span class="math display">\[
+P(X=K) = (n/k) * p^k * (1-p)^(n-k)
+\]</span> Where (nk) is the binomial coefficient = (n!/k!(n-k)!)</p>
+<p>In this case, n = 10, p = 0.7, k = 8</p>
+<p>Calculating the binomial coefficient:</p>
+<ul>
+<li><span class="math inline">\(P(X=8) = (10/8) * 0.7^8 * (1-0.7)^(10-8)\)</span></li>
+<li><span class="math inline">\((10/8)=(10!/8!(10-8)!) = 45\)</span></li>
+<li><span class="math inline">\(P(X = 8) = 45 * 0.7^8 * (0.3)^2\)</span></li>
+<li><span class="math inline">\(P(X = 8) ≈ 0.233\)</span></li>
+</ul>
+<p>Therefore, the probability of getting exactly 8 heads when flipping the biased coin 10 times is approximately 0.233.</p>
+<p>In R:</p>
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-17_5f45142bac5954a17dec2d7877c51ec1">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">8</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2334744</code></pre>
+</div>
+</div>
+<hr>
+</details>
+<ol start="2" type="1">
+<li>In a hockey game, a player has a 20% chance of scoring a goal with each shot attempted.
+<ol type="a">
+<li>If the player takes 5 shots during a game, what is the probability that exactly 2 of them result in goals?</li>
+<li>What is the probability that the player scores at least 3 goals out of 8 shots attempted in a game?</li>
+<li>What is the probability that the player scores at most 1 goal out of 2 shots attempted in a game?</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="a">
+<li>“EXACTLY” 2 goals out of 5 shots ⇒ We want to solve for P(X = 2):</li>
+</ol>
+<p>In R:</p>
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-18_f7d1fc8610475fd7eed36a0c3a66eb5e">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2048</code></pre>
+</div>
+</div>
+<p>Therefore, the probability that exactly 2 of the 5 shots taken during a game is approximately 20.5%.</p>
+<ol start="2" type="a">
+<li>“AT LEAST” 3 goals out of 8 shots ⇒ We want to solve for P(X <span class="math inline">\(\ge\)</span> 3) = 1 - P(X &lt; 2):</li>
+</ol>
+<p>In R:</p>
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-19_75c20e391d1c4f6f52bb41b31cae30f0">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The easy way: P(X &gt;= q) = 1 - P(X &lt; q) -- the equal sign is important!</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">prob =</span> <span class="fl">0.20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2030822</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively: 1 - P(X = 0) - P(X = 1) - P(X = 2)</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (<span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="dv">8</span>, <span class="fl">0.20</span>) <span class="sc">+</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="dv">8</span>, <span class="fl">0.20</span>) <span class="sc">+</span> <span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="dv">8</span>, <span class="fl">0.20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2030822</code></pre>
+</div>
+</div>
+<p>Therefore, the probability that the player scores at least 3 goals out of 8 shots attempted in a game is approximately 20.3%.</p>
+<ol start="3" type="a">
+<li>“AT MOST” 1 goal out of 2 shots ⇒ We want to solve for P(X ≤ 1):</li>
+</ol>
+<p>In R:</p>
+<div class="cell" data-hash="L07-Binomial_Probabilities_cache/html/unnamed-chunk-20_595f4412d371333765798f4c7ecce16a">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="at">q =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">prob =</span> <span class="fl">0.20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.96</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.20</span>) <span class="sc">+</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.96</code></pre>
+</div>
+</div>
+<p>Therefore, the probability that the player scores at most 1 goal out of 2 shots attempted in a game is 96.0%.</p>
+<hr>
+</details>
 
 
 </section>

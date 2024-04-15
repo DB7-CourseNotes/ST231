@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -326,6 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#example-4-basketball-versus-hockey-players" id="toc-example-4-basketball-versus-hockey-players" class="nav-link" data-scroll-target="#example-4-basketball-versus-hockey-players"><span class="header-section-number">14.6</span> Example 4: Basketball versus Hockey Players</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">14.7</span> Conclusion</a></li>
   <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">14.8</span> Self-Study Questions</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">14.9</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -380,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="the-standard-deviation-of-a-difference">The standard deviation of a difference</h3>
 <p>Again, I’m going to use a simulation to demonstrate what happens if we take a bunch of pairs of samples, then find their difference.</p>
 <p>In this case, I’m sampling x1 as 22 values from a normal distribution with a mean of 0 and a standard deviation of 2, whereas x2 has 33 observations and comes from a distribution with a mean of 0 and a standard deviation of 3. I’m finding their means, then finding their differences. I repeat this 10,000 times, keeping track of what the difference in means was.</p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/unnamed-chunk-1_7351c2fe8be3074d5ad72434717ad583">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## approximating the sampling distribution</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>differences <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>){</span>
@@ -400,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}
 \]</span></p>
 <p>And to verify that our simulation matches this idea:</p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/unnamed-chunk-2_5ee3eb0f4d30ccfd314d979434b3f41e">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Check</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(differences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -531,7 +531,7 @@ t_{obs} = \frac{\bar x_1 - \bar x_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}
 </tbody>
 </table>
 <p>First we’ll do matched pairs. In this example, <strong>this is the correct test</strong> to use.</p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/paired_oint_a2d8cd68e576da6394a65c346a06a8c4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>withoint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">6.44</span>, <span class="fl">6.06</span>, <span class="fl">4.22</span>, <span class="fl">3.3</span>, <span class="fl">6.5</span>, <span class="fl">3.49</span>, <span class="fl">7.01</span>, <span class="fl">4.22</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>without <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">7.22</span>, <span class="fl">6.05</span>, <span class="fl">4.55</span>, <span class="dv">4</span>, <span class="fl">6.7</span>, <span class="fl">2.88</span>, <span class="fl">7.88</span>, <span class="fl">6.32</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> withoint <span class="sc">-</span> without</span>
@@ -561,7 +561,7 @@ mean of x
 <section id="the-wrong-way" class="level4">
 <h4 class="anchored" data-anchor-id="the-wrong-way">The Wrong Way</h4>
 <p>We could instead have done a two-sample test, which ignores the fact that the observations are paired. Since we know the pairings, this test is leaving out valuable information.</p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/two_sample_oint_b0189c5d10c3ac8bdce57daeeb2a95d7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(withoint, without)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -592,7 +592,7 @@ mean of x mean of y
 <p>In this case, there is no clear pairing between the penguins. If they were monogomous couples, then the differences in body mass might tell us about couples, but doesn’t say much about male and female penguins in general.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>This example gives us the opportunity to learn more notation in R! The previous example used <code>t.test(x = ..., y = ...)</code> to denote the two samples. If the data are neatly formatted in a data frame, then we can use the <code>~</code> notation to demonstrate that the body mass is split into different groups for male and female.</p>
 <p>First, we’ll draw a boxplot. This is a great way to compare two distributions, and can be made in a small amount of space. Pause for a moment and ask yourself whether these two groups intuitively look different.</p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/penguins_t_test_72b32b15e9cf092326dfcbf8fc415bf6">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(body_mass_g <span class="sc">~</span> sex, <span class="at">data =</span> penguins, <span class="at">horizontal =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"Body Mass (grams)"</span>, <span class="at">ylab =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -671,7 +671,7 @@ SE = \sqrt{\dfrac{s_s^2}{n_s} + \dfrac{s_n^2}{n_n}} = \sqrt{\dfrac{1.43^2}{50} +
 t_{obs} = \dfrac{(\bar x_{non} - \bar x_{smoke}) - (\mu_{non} - \mu_{smoke})}{SE} = \dfrac{0.4 - 0}{0.2578721} = 1.55
 \]</span></p>
 <p>Since we’re doing a right-tailed test<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, we calculate our p-value as:</p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/unnamed-chunk-6_e38df2eef56d67add0bb1c57843e9086">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(<span class="fl">1.55</span>, <span class="dv">49</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.06378844</code></pre>
@@ -688,7 +688,7 @@ t_{obs} = \dfrac{(\bar x_{non} - \bar x_{smoke}) - (\mu_{non} - \mu_{smoke})}{SE
 <section id="example-4-basketball-versus-hockey-players" class="level2" data-number="14.6">
 <h2 data-number="14.6" class="anchored" data-anchor-id="example-4-basketball-versus-hockey-players"><span class="header-section-number">14.6</span> Example 4: Basketball versus Hockey Players</h2>
 <p>In a previous lecture, we looked at the heights of female basketball players to test whether their heights were consistent with the population. Now that we have the tools to compare two samples, let’s compare some teams! In what follows, we’re testing the the hypothesis that the basketball team and the hockey team are different heights. Let’s test at the 5% level since we have no strong reason to use a smaller or larger level<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/baskey_42dc8fcb81c6a5ed6f51ff47ec47635d">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"wlu_female_athletes.csv"</span>)</span>
@@ -700,7 +700,7 @@ t_{obs} = \dfrac{(\bar x_{non} - \bar x_{smoke}) - (\mu_{non} - \mu_{smoke})}{SE
 </div>
 <p>From the boxplot, I would be absolutely flabbergasted if the two groups had the same mean! Astonished! Befuddled, even! This is an important part of any analysis: have expectations! You should know your data well before diving into a study. For example, looking at these boxplots reveals that there are no apparent outliers, and both groups look approximately symmetric. This is good.</p>
 <p>Let’s do the t-test.</p>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/unnamed-chunk-8_143a14ee1a7b6a49a8a98ff85cb24cda">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(Height <span class="sc">~</span> Sport, <span class="at">data =</span> baskey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -763,7 +763,7 @@ mean in group Basketball     mean in group Hockey
 <li>Explain why there is only one sampling distribution in a two-sample t-test, even though there are two populations.</li>
 <li>Provide a conclusion based on the following output (suppose you’re testing at the 10% level). The <code>mpg</code> variable is the miles per gallon of a vehicle, while <code>am</code> is the transmission type, with 0 = Automatic and 1 = Manual. <code>mtcars</code> is just the name of the data that these variables are in.</li>
 </ol>
-<div class="cell">
+<div class="cell" data-hash="L17-Two_Sample_hypothesis_Tests_cache/html/unnamed-chunk-9_1dc254ff8c9a814b242338a59fd134cf">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mpg <span class="sc">~</span> am, <span class="at">data =</span> mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -790,6 +790,55 @@ mean in group 0 mean in group 1
 <li>The ointment example had <span class="math inline">\(\mu_{without - with}\)</span> as a single number, whereas the penguins example used <span class="math inline">\(\mu_{female} - \mu_{male}\)</span>, which is the difference between two numbers. This is because the ointment example was a <em>one-sample t-test</em> since we were treating the set of differences as a single sample; the penguins example is a two-sample t-test.</li>
 </ul></li>
 </ol>
+</details>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="14.9">
+<h2 data-number="14.9" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">14.9</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>A biologist is comparing the mean heights of two species of plants. Species A has a sample mean height of 15 cm with a standard deviation of 2 cm from a sample of 30 plants. Species B has a sample mean height of 17 cm with a standard deviation of 3 cm from a sample of 35 plants. What does the two-sample t-test assess in this scenario?
+<ol type="a">
+<li>Whether the sample means of Species A and Species B come from populations with the same variance.</li>
+<li>Whether the mean height of Species A is greater than the mean height of Species B.</li>
+<li>Whether there is a significant difference between the population means of the two species.</li>
+<li>Whether the combined mean height of both species exceeds a specific value.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>C; The two-sample t-test in this scenario assesses whether there is a significant difference between the population means of Species A and Species B. It does not test for variance equality, the direction of the difference (unless specified as a one-tailed test), or any specific value exceeding the combined means.</p>
+<hr>
+</details>
+<ol start="2" type="1">
+<li>A researcher conducts an experiment to determine if there will be a significant difference in the growth rate of two different species of plants under identical laboratory conditions. The first group of 20 plants (Species A) showed an average growth of 5 cm over a month, while over the same period of time the second group of 20 plants (Species B) showed an average growth of 6 cm. Assume the growth rates follow a normal distribution. explain what steps you would take to determine if the observed difference is statistically significant. Consider a 5% significance level for your decision.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<ol type="1">
+<li>determine a null and alternative hypothesis:
+<ul>
+<li>Null Hypothesis: There is no difference in the mean growth rates between Species A and Species B, therefore: <span class="math inline">\(\mu_A​−\mu_B​=0\)</span>.</li>
+<li>Alternative Hypothesis: There will be a difference in the mean growth rates between Species A and Species B, therefore: <span class="math inline">\(\mu_A​−\mu_B\)</span>​ does not =0.</li>
+</ul></li>
+<li>Calculate the difference between the sample means.
+<ul>
+<li><span class="math inline">\(\mu_A​−\mu_B\)</span>​: 6cm−5cm=1cm.</li>
+</ul></li>
+<li>Use a Statistical Test:
+<ul>
+<li>because we are comparing the means of two groups, a two-sample t-test would be the best option. This will compare the difference in means to the variability within groups to see if the difference is significant. this can be calculated by using R</li>
+</ul></li>
+<li>determining the significance:
+<ul>
+<li>If the p-value from the t-test is less than 0.05 (which is our chosen significance level stated previously),the null hypothesis will be rejected, therefore we can determine that there is a significant difference in growth rates between the two species.</li>
+<li>If the p-value is greater than 0.05, we do not reject the null hypothesis, and therefore we have determined that there is not enough evidence to say there is a significance difference in their growth rate.</li>
+</ul></li>
+</ol>
+<hr>
 </details>
 
 

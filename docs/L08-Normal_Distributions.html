@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-04-01">
+<meta name="dcterms.date" content="2024-04-10">
 
 <title>Statistics for Life Sciences - 7&nbsp; The Normal Distributions</title>
 <style>
@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -368,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-04-01</p>
+      <p class="date">2024-04-10</p>
     </div>
   </div>
   
@@ -406,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="7.2" class="anchored" data-anchor-id="the-normal-distribution"><span class="header-section-number">7.2</span> The Normal Distribution</h2>
 <p>The normal distribution is a way to define the probability of something using a function, but the function is complicated.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Instead, we’ll jump right into how to use it and let software deal with the function.</p>
 <p>In the introduction, I used the example of people’s heights. I made the assumption that all heights were equally likely, but this is just a bonkers thing to say. Instead, some heights are more likely than other heights. Of course, this doesn’t mean that, say, 170 cm is very unlikely, but 175 is likely, then 176 is unlikely, then 177 is <em>very</em> unlikely, then 178 is suddenly really likely again; most people have heights close to the average and heights further from the average are less likely. This is exactly what the normal distribution is for! Here’s what the normal distribution looks like:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-1_83fb0d33fc4c7e472387da662e256ed7">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">162.3</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sig <span class="ot">&lt;-</span> <span class="fl">7.11</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>xseq <span class="ot">&lt;-</span> <span class="fu">seq</span>(mu<span class="dv">-3</span><span class="sc">*</span>sig, mu <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>sig, <span class="at">length.out =</span> <span class="dv">300</span>)</span>
@@ -420,7 +419,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The plot above has the highest point occurs at exactly 162.3, which is the best number I could find for the actual average height of Canadian women. This is denoted <span class="math inline">\(\mu\)</span>. The width of the curve is a little trickier - how did I choose to make it go from 145 to 180? I could easily have stretched it out or squeezed it inwards in both directions. The width is defined by the standard deviation, which is denoted <span class="math inline">\(\sigma\)</span>. Because of the way the normal distribution is defined, there’s nothing else we can change about it - knowing <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> are enough to draw the entire curve.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-2_6e5c27027300b1584b40cccd7e9db750">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Requires the "shiny" library</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DBecker7/DB7_TeachingApps"</span>, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/normShape"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -461,7 +460,7 @@ Warning
 P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 \end{align*}\]</span></p>
 <p>To phrase this in another way, if we were to draw random numbers from the normal distribution, 68% of them would be between 1sd below the mean and 1sd above the mean.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-3_d73a244a3dfa7ce9e9010d89123d5da5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="sc">-</span><span class="dv">4</span>) <span class="co"># Ensure the same random numbers every time</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## generate 10000 random N(0,1) values</span></span>
@@ -474,7 +473,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </div>
 </div>
 <p>So out of 10,000 random numbers from a N(0,1) distribution, 6,766 (67.66%) of them were above -1 but below 1. If we change the mean and sd, we still get the same results:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-4_6363832b32bb0203c992704d4df51aa4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Mean is 4, sd is 30, so mean - 1sd = 4 - 30</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Change the mean and sd for yourself to see what happens!</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">4</span></span>
@@ -486,7 +485,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </div>
 </div>
 <p>As you can guess from the name “68-95-99.7 Rule”, 68% being within one sd is only part of the story. The 95 refers to 95% being within 2sd of the mean, and the 99.7 refers to 99.7% being within 3sd of the mean.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-5_50b2e0680e5d7ca1adb8b3b4ce592ae3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">2</span> <span class="sc">&amp;</span> x <span class="sc">&lt;</span> <span class="dv">2</span>) <span class="co"># within 2sd of the mean</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9523</code></pre>
@@ -498,7 +497,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Try this with x2 as well!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Some variant of the following image appears in countless textbooks:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-6_b69764dcd306ec03af0bc1f36246fddb">
 <div class="cell-output-display">
 <p><img src="L08-Normal_Distributions_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -544,7 +543,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </ol>
 <p>The <strong>cdf</strong> is defined as <span class="math inline">\(P(X\le x)\)</span>, which allows us to answer questions like 1. For the standard normal distribution, a table of Z probabilities can be found at the back of the textbook. I’ve added a file that demonstrates how to use the Z-table in the Lecture Materials. This is something that is crucial to know for closed-book tests since you will need to caclulate probabilities somehow, but we can’t let you have a computer to run R! Before moving on, read “<strong>Intro to Ztable.pdf</strong>”.</p>
 <p>In that file, there are some practice problems. Below, you’ll find a selection of solutions using R. For your own practice, try and calculate them with the Z-table (with some good drawings) and verify your answer with R.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-7_c6d913b1986042233f8f7493f3aaf1fc">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 1. Find the probability of a z-value less than 1.11.</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -581,21 +580,21 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p>Returning to the heights example, the probability of a randomly chosen woman being less than 160 cm can be calculated as: <span class="math display">\[
 \frac{x - \mu}{\sigma} = \frac{160 - 162.3}{7.11} = -0.323488045
 \]</span> We can now look up -0.323 with the pnorm function:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-8_54cf11a819fcdd7c4e3fede4fc61f5cc">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.323488045</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3731628</code></pre>
 </div>
 </div>
 <p>Note that R will do the standardization for you if you ask it politely.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-9_4f01315a7ff30257efb988cf69079547">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> <span class="dv">160</span>, <span class="at">mean =</span> <span class="fl">162.3</span>, <span class="at">sd =</span> <span class="fl">7.11</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3731628</code></pre>
 </div>
 </div>
 <p>I have created a shiny app that lets you explore these calculations<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. Feel free to use this to answer the questions in this lecture, and then double check the answers with pnorm.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-10_87f23044e4a298a8aed1f953a28b1136">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">## install.packages("shiny") # Run this if you get an error about "package not found"</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -623,7 +622,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p>A short version of Solution 2: By the 68-95-99.7 Rule, 95% is between 0 and 8. Therefore, 2.5% must be less than 0.</p>
 <p>As you can see, the 68-95-99.7 rule is <em>approximate</em>. However, I highly recommend doing many practice problems with it. On a multiple choice question, if you can figure out the answer with the Empirical Rule than you might be able to guess the correct answer much quicker. You won’t get the exact answer, but if there’s only one answer that’s close to your guess, then that’s probably it.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
 <p><strong>Solution 3</strong>: R.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-11_ae0ab4a527caf8f30217bdf89042d7bb">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Standardize:</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>((<span class="dv">0</span> <span class="sc">-</span> <span class="dv">4</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -642,7 +641,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p><strong>Solution 1</strong>: <span class="math inline">\((x-\mu)/\sigma = (1432-1234)/56 = 3.54\)</span>, which is not on the Z table. When this happens (and we don’t have access to technology), we simply say the answer is 1.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
 <p><strong>Solution 2</strong>: The value we’re interested in isn’t 1, 2, or 3 standard deviations from the mean, so the Empirical Rule doesn’t apply. However, we can guess that our probability will be close to 1 since it’s larger than 3 standard deviations away.</p>
 <p><strong>Solution 3</strong>: R.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-12_d46ae444fd40cca634c13a951d0263f7">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">1432</span>, <span class="at">mean =</span> <span class="dv">1234</span>, <span class="at">sd =</span> <span class="dv">56</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9997967</code></pre>
@@ -658,7 +657,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p><em>Before we start</em>: Use the empirical rule! 0 is 2sd below the mean, so the answer should be close to 97.5%</p>
 <p><strong>With the Z table</strong>: <span class="math inline">\((x-\mu)/\sigma = -2\)</span>, and we’ve already found this on the table as 0.0228. Since we’re looking at the <strong>right tail</strong>, our answer is 1 - 0.0228 = 0.9772.</p>
 <p><strong>With R</strong>:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-13_22c116235ffc622d15eea57ee0dde52f">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9772499</code></pre>
@@ -668,7 +667,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <li>Suppose <span class="math inline">\(X\sim N(23, 23)\)</span>. What’s the probability of a value larger than 23?</li>
 </ol>
 <p><em>Before we start</em>: The normal distribution is perfectly symmetric, which we have learned means that the mean is equal to the median. The median marks the point where 50% of the distribution is smaller. So before doing any work, we know that the answer must be 50%</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-14_b4253c81f78b97e911be02a1614b1e6d">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">23</span>, <span class="dv">23</span>, <span class="dv">23</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5</code></pre>
@@ -682,14 +681,14 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </ol>
 <p><strong>Solution 1</strong>: We have a standard normal value, so we can look these values up directly. P(Z &lt; -1.52) = 0.0643<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> and P(Z &lt; -0.5) = 0.3085.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> We want the area between these two values. P(Z &lt; -0.5) contains everything from negative infinity to -0.5, but we only want values from -1.52 to -0.5. To fix this, we remove everything from negative infinity to -1.52. Our answer is 0.3085 - 0.0643 = 0.2442.</p>
 <p><strong>Solution 2</strong>: R.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-15_0d484ad7f5be162c7b64e9b7c25525ba">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">1.52</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2442821</code></pre>
 </div>
 </div>
 <p>I have made a shiny app for you to visualize this:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-16_b8a09d595565b3a121c91f9f0dcb1cc8">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="at">repo =</span> <span class="st">"DB7-CourseNotes/TeachingApps"</span>, </span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subdir =</span> <span class="st">"Tools/pnorm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -699,7 +698,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p><em>Before we begin:</em> This is the empirical rule for 1sd. The answer is 68%.</p>
 <p><em>With a Z table</em>: We calculate the z-score individually, then subtract the probabilities in a way that makes sense.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> <span class="math inline">\(P(X &lt; -1) = P((X-\mu)/\sigma &lt; (-1 - \mu)/\sigma) = P(Z &lt; (-1 - 2)/3) = P(Z &lt; -1) = 0.1587\)</span>. Similarly, <span class="math inline">\(P(X &lt; 5) = P(Z &lt; 1) = 0.8413\)</span>. The answer is 0.8413 - 0.1587 = 0.6826, which is very close to what we got with the Empirical Rule.</p>
 <p><em>With R</em>:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-17_7ccca3cbe06e440a945c2096be972677">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6826895</code></pre>
@@ -711,7 +710,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <p>What’s the first quartile of an N(2,3) distribution? It’s the point at which 25% of the distribution is smaller. In other words, P(X &lt; Q1) = 0.25. How do we find Q1?</p>
 <p>We can look up 0.25 as a probability. That is, as a value in the <em>body</em> of the Z table. This will give us the corresponding z-score.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a> Unfortunately, 0.25 isn’t in the table. The closest values are 0.2514 (which is a Z score of -0.67) and 0.2483 (Z score of -0.68). On a test situation, -0.67 and -0.68 would both be valid answers, as would -0.675.</p>
 <p>In R, the “<code>q</code>” family of functions are the reverse lookup functions. That is, You tell them the probability, and they return the z-score.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-18_7ea0d6cef953f298cff8db800b320788">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.6744898</code></pre>
@@ -723,7 +722,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 \end{align*}\]</span></p>
 <p>To finish this question, we say that the first quartile of a N(2, 3) distribution is -0.67*3 + 2 = -0.01.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></p>
 <p>In R:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-19_6438bf88b39aee76ec9e8e6bab9bca5e">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.25</span>, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.02346925</code></pre>
@@ -857,7 +856,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </ol>
 <p>I’m going to say it again before you check the answers: <strong>Pre-emptively checking the answer destroys any chance of learning and creates a false sense of knowledge.</strong> You should spend time struggling to convince yourself that you did it right. On an exam, you won’t have the answers so you’ll feel that struggle. Practice the exam struggle now, then you’ll be more confident in your answer on exams.</p>
 <p>Have you ever had that feeling that you knew the material because you could do all of the practice problems, but when you get the exam you forgot everything? <em>That’s because you checked the answers before struggling.</em> You taught yourself to anticipate the answers of those particular questions, rather than teaching yourself the material. The struggling is where you learn. It’s the same as exercise: no pain no gain.</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-20_a094949a4b36eab41b3c15983334a786">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Questions 1, 2, and 3</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="do">## ~~~~~~~~~~~~~~~~~~~~~~~</span></span>
@@ -983,6 +982,7 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 <li>99.7% of the toads have a length that fall within 3 standard deviations, therefore, falling in the range of 14-26 cm.</li>
 <li>Toads with a length of 16-24 cm, fall into 2 standard deviations, meaning 95% of the toads fall into this range.</li>
 </ol>
+<hr>
 </details>
 <ol start="2" type="1">
 <li>Let X represent the heights, in metres (m), of male basketball players. It is known that X follows a normal distribution with a mean (μ) of 2.05 m and a standard deviation (σ) of 0.1 m. Find the probability that a randomly selected male basketball player is at least 2.2 m tall.</li>
@@ -1003,19 +1003,32 @@ P(\mu - \sigma \le X \le \mu + \sigma) \approx 0.68
 </ul>
 <p>Therefore, there is a 6.68% (or 0.0668) chance that a randomly selected male basketball player is at least 2.2 m tall.</p>
 <p>In R, this can be calculated without rounding:</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-21_3990b6027e615450406f18f2294307b0">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0668072</code></pre>
 </div>
 </div>
 <p>We can also let R do the standardization for us!</p>
-<div class="cell">
+<div class="cell" data-hash="L08-Normal_Distributions_cache/html/unnamed-chunk-22_e703766ea019dd72043601fa6aaabda2">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">2.2</span>, <span class="at">mean =</span> <span class="fl">2.05</span>, <span class="at">sd =</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0668072</code></pre>
 </div>
 </div>
+<hr>
+</details>
+<ol start="3" type="1">
+<li>A group of students’ test scores in calculus are normally distributed with a mean of 75 and a standard deviation of 10. using the empirical rule, calculate the range of scores that which will fall within 68%, 95%, and 99.7% of the mean.</li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>68% of scores fall between 75−10 and 75+10, which is 65 to 85.</p>
+<p>95% of scores fall between 75−2(10) and 75+2(10), which is 55 to 95.</p>
+<p>99.7% of scores fall between 75−3(10) and 75+3(10), which is 45 to 105.</p>
+<hr>
 </details>
 
 

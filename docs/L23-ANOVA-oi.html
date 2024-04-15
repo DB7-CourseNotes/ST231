@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2023-07-26">
+<meta name="dcterms.date" content="2024-04-10">
 
 <title>Statistics for Life Sciences - 20&nbsp; Comparing means with ANOVA</title>
 <style>
@@ -129,9 +129,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistics for Life Sciences</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/DB7-CourseNotes/ST231" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Statistics-for-Life-Sciences.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
@@ -323,6 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#but-which-group-is-different" id="toc-but-which-group-is-different" class="nav-link" data-scroll-target="#but-which-group-is-different">But which group is different?</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">20.3</span> Summary</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">20.4</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -348,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2023-07-26</p>
+      <p class="date">2024-04-10</p>
     </div>
   </div>
   
@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="example-5.19">Example 5.19</h3>
 <p>Examine Figure 5.22. Compare groups I, II, and III. Is it possible to visually determine if the differences in the group centers is due to chance or not? Now compare groups IV, V, and VI. Do the differences in these group centers appear to be due to chance?<br>
 It is difficult to discern a difference in the centers of groups I, II, and III, because the data within each group are quite variable relative to any differences in the average outcome. However, there appear to be differences in the centers of groups IV, V, and VI. For instance, group V appears to have a higher mean than that of the other two groups. The differences in centers for groups IV, V, and VI are noticeable because those differences are large relative to the variability in the individual observations within each group.</p>
-<div class="cell">
+<div class="cell" data-hash="L23-ANOVA-oi_cache/html/unnamed-chunk-1_9297c0c0e1985679fb01712345ac1ee5">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -441,7 +441,7 @@ It is difficult to discern a difference in the centers of groups I, II, and III,
 </tr>
 </tbody>
 </table>
-<div class="cell">
+<div class="cell" data-hash="L23-ANOVA-oi_cache/html/unnamed-chunk-2_92c7ef7e92f091167029eb0a3a7b09cb">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -451,7 +451,7 @@ It is difficult to discern a difference in the centers of groups I, II, and III,
 </div>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-hash="L23-ANOVA-oi_cache/html/unnamed-chunk-3_f40bd4408e791f7dded1e6861c81f308">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -569,7 +569,7 @@ dfrac{MSG}{MSE} = dfrac{3521.69}{1090.02} = 3.23
 </summary>
 <p>The following R code will save us many calculations.</p>
 <p>As in the linear regression section, I use the <code>summary()</code> function to get nicer output.</p>
-<div class="cell">
+<div class="cell" data-hash="L23-ANOVA-oi_cache/html/unnamed-chunk-4_7aac038fd447cc6205598fd74ca2d01c">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(oibiostat)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(famuss)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -658,7 +658,7 @@ t = \frac{\overline{x}_1 - \overline{x}_2}{s_{\text{pooled}}\sqrt{\frac{1}{n_1} 
 \]</span></p>
 <p>This results in a <span class="math inline">\(p\)</span>-value of 0.14 on <span class="math inline">\(df =592\)</span>. This <span class="math inline">\(p\)</span>-value is larger than <span class="math inline">\(\alpha^\star = 0.0167\)</span>, so there is not evidence of a difference in the means of genotypes <code>CT</code> and <code>TT</code>.</p>
 <p>In R, these can be calculated using the <code>pairwise.t.test()</code> function as follows:</p>
-<div class="cell">
+<div class="cell" data-hash="L23-ANOVA-oi_cache/html/unnamed-chunk-5_952010f1459795ad9a437ca8d09631b5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise.t.test</span>(famuss<span class="sc">$</span>ndrm.ch, famuss<span class="sc">$</span>actn3.r577x,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -688,6 +688,26 @@ P value adjustment method: bonferroni </code></pre>
 <section id="summary" class="level2" data-number="20.3">
 <h2 data-number="20.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">20.3</span> Summary</h2>
 <p>In summary, the mean percent strength change in the non-dominant arm for genotype <code>CT</code> individuals is not statistically distinguishable from those of genotype <code>CC</code> and <code>TT</code> individuals. However, there is evidence that mean percent strength change in the non-dominant arm differs between individuals of genotype <code>CC</code> and <code>TT</code> are different.</p>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="20.4">
+<h2 data-number="20.4" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">20.4</span> Crowdsourced Questions</h2>
+<p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
+<ol type="1">
+<li>Why is ANOVA preferred over multiple t-tests when comparing the means of three or more groups?
+<ol type="a">
+<li>Because it can analyze more than two groups at once with a single test, reducing the risk of Type I errors.</li>
+<li>Because it provides a direct comparison of variances, which t-tests cannot do.</li>
+<li>Because ANOVA requires less data to be effective.</li>
+<li>Because it is less computationally intensive than performing multiple t-tests.</li>
+</ol></li>
+</ol>
+<details>
+<summary>
+<strong>Solution</strong>
+</summary>
+<p>ANOVA is preferred because it allows for the analysis of more than two groups at once with a single test, which reduces the risk of Type I errors (falsely rejecting the null hypothesis) associated with conducting multiple t-tests.</p>
+<hr>
+</details>
 
 
 </section>

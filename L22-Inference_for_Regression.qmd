@@ -255,6 +255,27 @@ For the exam, you'll be expected to know:
 
 A nice exam question might show you the results of `plot(mylm)` and `summary(mylm)` and ask you to make a conclusion in the context of the study.^[Possibly with one of the assumptions violated, which you'll have to catch on your own!]
 
+## Crowdsourced Questions
+
+The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).
+
+1. After analyzing the results of an experiment, we found a correlation coefficient of 0.75. At the 5% level, does this represent a statistically significant correlation?
+    a. We neglected to establish the significance level beforehand, hence, careful interpretation is needed in relation to the correlation’s significance
+    b. Yes, since the correlation coefficient is greater than 0.5
+    c. No, since the correlation coefficient is greater than 0.5
+    d. No, since the correlation coefficient is less than 1
+    e. Not enough information for a valid answer.
+
+<details>
+<summary>**Solution**</summary>
+The correlation is not a p-value, so nothing in the question tells us whether this was significant. While a correlation of 0.75 may feel strong, this can happen with a small sample size, and thus it still is not statistically significant.
+
+Remember that there are no definite "strong" or "weak" correlations - they must all be interpreted in context!
+
+*****
+</details>
+
+
 ## Appendix - Leverage
 
 ```{r}
