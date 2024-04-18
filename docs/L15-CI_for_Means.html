@@ -330,10 +330,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#bonus---webscraping" id="toc-bonus---webscraping" class="nav-link" data-scroll-target="#bonus---webscraping">Bonus - Webscraping</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">12.7</span> Summary</a></li>
-  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">13</span> Self-Study Questions</a>
-  <ul class="collapse">
-  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">13.1</span> Crowdsourced Questions</a></li>
-  </ul></li>
+  <li><a href="#self-study-questions" id="toc-self-study-questions" class="nav-link" data-scroll-target="#self-study-questions"><span class="header-section-number">12.8</span> Self-Study Questions</a></li>
+  <li><a href="#crowdsourced-questions" id="toc-crowdsourced-questions" class="nav-link" data-scroll-target="#crowdsourced-questions"><span class="header-section-number">12.9</span> Crowdsourced Questions</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/DB7-CourseNotes/ST231/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -919,8 +917,8 @@ mean of x
 <p>Note that all of the best practices for inference still apply! We can still get smaller intervals by taking better samples with larger sample sizes, and we still have to be careful to <em>never</em> speak of a calculated confidence interval in terms of chance.</p>
 <p>The <span class="math inline">\(t\)</span> confidence interval is actually used in practice. We saw some code that calculates the interval for us in this lecture, and we’ll never have to use <code>qt()</code> again! (Except possibly to demonstrate knowledge on tests.)</p>
 </section>
-<section id="self-study-questions" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Self-Study Questions</h1>
+<section id="self-study-questions" class="level2" data-number="12.8">
+<h2 data-number="12.8" class="anchored" data-anchor-id="self-study-questions"><span class="header-section-number">12.8</span> Self-Study Questions</h2>
 <ol type="1">
 <li>Explain the confidence interval that we found in the basketball player example.
 <ul>
@@ -949,7 +947,7 @@ mean of x
 <ol start="4" type="1">
 <li>In 2014, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4128611/">Dr.&nbsp;S. Hooker published a paper</a> claiming to find a link between vaccines and autism, but only for African American boys. In the paper, Dr.&nbsp;Hooker tested 35 p-values and found 2 were less than the significance level of 0.05.
 <ol type="a">
-<li>Using the binomial distribution, find the probability of at least 2 successes in 35 trials when the probability is 0.05%.</li>
+<li>Using the binomial distribution, find the probability of at least 2 successes in 35 trials when the probability is 0.05.</li>
 <li>Interpret the probability in part (a) in terms of the vaccines study.</li>
 <li>The 35 trials came from not just testing for a link, but splitting up the data by race, gender, and vaccine timing so that there were more hypothesis tests. This is known as “p-hacking”. Explain why this will often lead to statistically significant results, even when the null hypothesis is true.</li>
 </ol></li>
@@ -967,8 +965,9 @@ mean of x
 <p>This calculation assumes that all of the null hypotheses are true (as we should do when calculating p-values). Under this assumption, there’s about a 50% chance of getting 2 or more significant results, even if there’s nothing going on. This is vastly different than the “5% risk of rejecting a true null” that we get when setting our significance level.</p>
 <p>Use <a href="https://projects.fivethirtyeight.com/p-hacking/">this app</a> to play around with p-hacking and see why it’s so dangerous!</p>
 </details>
-<section id="crowdsourced-questions" class="level2" data-number="13.1">
-<h2 data-number="13.1" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">13.1</span> Crowdsourced Questions</h2>
+</section>
+<section id="crowdsourced-questions" class="level2" data-number="12.9">
+<h2 data-number="12.9" class="anchored" data-anchor-id="crowdsourced-questions"><span class="header-section-number">12.9</span> Crowdsourced Questions</h2>
 <p>The following questions are added from the Winter 2024 section of ST231 at Wilfrid Laurier University. The students submitted questions for bonus marks, and I have included them here (with permission, and possibly minor modifications).</p>
 <ol type="1">
 <li>Which of the following statements is false about degrees of freedom (df) for a one-sample t-test?
@@ -1063,7 +1062,6 @@ mean of x
 </details>
 
 
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
