@@ -205,7 +205,7 @@ Let's walk through this output!
 - The `Coefficients` table is where the magic happens.
     - `(Intercept)` is our estimate of $a$. Again, this is a nuisance parameter that we're not super interested in right now.
     - `wt` corresponds to our estimate of $b$. The slope is estimated as $b=-5.3445$, and it provides the standard error and the t test statistic for us!
-        - The p-value is `(Estimate - 0)/Std. Error`, where the "`- 0`" comes from the null hypothesis that $\beta = 0$. 
+        - The test statistics is `(Estimate - 0)/Std. Error`, where the "`- 0`" comes from the null hypothesis that $\beta = 0$. 
         - The three stars at the end of the line show significance level. `***` means significant at the 0.1% level, `**` is significant at the 1% level, `*` is 5%, and `.` is 10%. You should always set your significance level *before* looking at this table, but it gives a nice quick visual check for significance.^[Bad statisticians who violate the issues in the "Inference Cautions" lecture are accused of "chasing stars".]
 - The last block of text shows some important quantities. 
     - The "Multiple R-squared" value is what we learned previously, whereas the "Adjusted R-squared" is something you will need to learn about when moving into multiple linear regression. For practice, try to figure out which (if any) is equal to the square of the correlation between `mpg` and `wt`!
