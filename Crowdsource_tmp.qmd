@@ -1,0 +1,2417 @@
+# To be added
+
+If a plot of y against x is U-shaped, which of the following assumptions are violated?
+    There is some true relationship $y = \alpha + \beta x$
+    The deviations above and below this line are normally distributed. 
+    The individuals are independent of each other.
+    The variance above and below the line doesn't depend on the 𝑥 value.
+
+Solution (with explanation): 1 is the correct answer. The first assumption is violated if a model does not have a straight line relationship with no curves. A U-shaped plot does not represent a linear relationship, therefore, there is no true relationship of $y = \alpha + \beta x$ 
+
+---
+
+In a least squares regression line, which of the following accurately describes the relationship between the slope and correlation?
+    When r < 0, b > 0 
+    When r = -1, b = -1
+    When r = 0, b = 0 
+    When r < 0, b = 0 
+
+Solution (with explanation): 3 is the correct answer. The slope always has the same sign as the correlation, otherwise, the correlation does not provide any extra information about the specific slope value. When r > 0, b > 0, but the slope can still be any value above 0. The correlation only provides information about the slope when there is no correlation, as it implies that the slope is also 0.
+
+---
+
+A 20-year-old study has reported that the average lifespan of a bacterial species found in the coral reef is approximately 10.5 days. A team of researchers suggest that the deterioration of coral reef ecosystems has led the bacteria life span shortening. They conduct a study with using 60 samples of the bacterial species and found an average lifespan of 6.7 days. State the null and alternative hypotheses.
+    H0: μ = 10.5, Ha: μ = 6.7
+    H0: μ = 10.5, Ha: μ ≠ 10.5
+    H0: μ = 10.5, Ha: μ < 10.5
+    H0: x̄ = 6.7, Ha: x̄ ≠ 10.5
+
+Solution (with explanation):
+
+The answer is 3. H0 is the mean of what was originally assumed true–that the mean of the lifespan for the bacterial species was 10.5 days, thus H0: μ = 10.5. 
+
+Ha is a suggestion that deviates from H0. In this case, the researchers suggested that the true population mean is less than 10.5, thus Ha: μ < 10.5.
+
+---
+
+A recent medical journal stated that long-term female smokers saw an average decline in their VO2 max of -8.6 mL/kg/min. The study was conducted measuring V, the difference between the VO2 max of 85 participants over the span of 3 years. Assume V is normally distributed with a population standard deviation of -3.8 mL/kg/min. Calculate a symmetric 90% confidence interval for the true mean for the decline in VO2 max for long-term female smokers.
+
+Solution (with explanation):
+
+Given: x̄ = 8.6 mL/kg/min (absolute value)
+
+Given: σ = 3.8 mL/kg/min (absolute value)
+
+First, find the z-statistic:
+
+za/2 = z0.05 =  abs(qnorm(0.10/2)) = 1.64
+
+Calculate the confidence interval:
+
+x̄ ± z0.05 * (σ / √n) = 8.6 ± 1.64 * (3.8 / √85) = (7.94, 9.26)
+
+At a 90% confidence interval, the decline of VO2 max levels for long-term female smokers fall between -7.94 mL/kg/min to -9.26 mL/kg/min.
+
+---
+
+Which of the following is not true for conducting hypothesis tests for proportions?
+    As a condition, H0 must always be p = p0
+    As a condition, H0 must always be assumed true
+    To check for normality, np0 > 10, and n(1- p0) > 10
+    The population portion, p can be used to find the standard error
+
+Solution (with explanation):
+
+The answer is 4. In a large sample test for a proportion, p will help calculate the standard error, but p is not available. Instead, the standard error for the sampling distribution of the sample proportion uses p0 because we must have assumed that H0 is true.
+
+---
+
+Which of the following statements about confidence intervals is correct?
+
+A) A 95% confidence interval for the mean daily calorie intake includes the values from 2200 to 2500 calories. This means that there is a 95% probability that an individual's calorie intake is between 2200 and 2500 calories.
+
+B) A study generates a 90% confidence interval for the average height of a certain plant species as being between 15 cm and 20 cm. This implies that 90% of all plants of this species will fall within this height range.
+
+C) A confidence interval of 99% for the average monthly rainfall in a region is calculated to be from 10 cm to 15 cm. This indicates that we are 99% confident that the true average monthly rainfall for the entire population falls within this range.
+
+D) A 95% confidence interval for the proportion of people who prefer online shopping over in-store shopping is from 40% to 50%. This suggests that exactly 95% of the sample preferred online shopping.
+
+Correct Answer: C
+
+Solution (with explanation): A confidence interval gives a range of values, estimated from the sample data, that is likely to include the true population parameter with a certain level of confidence. It does not predict individual values (A), percentages of a population falling within a range (B), or the preferences of a sample (D). Instead, it estimates where the true population parameter (e.g., mean, proportion) lies with a certain confidence level. Option C correctly interprets a 99% confidence interval by stating that we can be 99% confident that the true average monthly rainfall is between 10 cm and 15 cm.
+
+---
+
+A manufacturer of light bulbs claims that only 5% of its bulbs are defective. A quality control engineer tests 100 randomly selected bulbs to verify this claim. Using the cumulative binomial probabilities, which of the following outcomes would best challenge the manufacturer's claim?
+
+A) Finding exactly 5 defective bulbs in the sample.
+
+B) Finding 5 or fewer defective bulbs in the sample.
+
+C) Finding more than 5 defective bulbs in the sample.
+
+D) Finding exactly 10 defective bulbs in the sample.
+
+Correct Answer: D
+
+Solution with explanation: The cumulative binomial probability allows for the calculation of the probability of observing a certain number of successes (or failures, in this case, defective bulbs) within a given number of trials. The claim suggests that we would expect 5% of 100 bulbs, or 5 bulbs, to be defective on average. However, finding exactly 10 defective bulbs in the sample (Option D) would significantly deviate from the expected number based on the manufacturer's claim, indicating a higher defect rate than claimed. While finding more than 5 defective bulbs (Option C) also suggests a deviation, the specificity of finding exactly 10 defective bulbs presents a stronger challenge to the claim by indicating a possible systematic issue rather than a random fluctuation. Options A and B are consistent with or more favorable than the claim and thus do not challenge it as effectively as Option D.
+
+---
+
+A Laurier class of 302 students had the option to complete an online survey where a random sample of 213 responses were submitted. A mean of x = 59.8 was produced from a population with a normal distribution and a standard deviation of sigma = 9.62. Find the 99% confidence interval using the above information.
+
+a) CI: (61.497, 58.103)
+
+b) CI: (58.103, 61.497)
+
+c) CI: (59.103, 62.497)
+
+d) CI: (62.497, 59.103)
+
+Solution (with explanation): b is the correct answer. First, we need to gather all the important information: n = 213, x(mean) = 59.8, sigma(sd) = 9.62, Z = 2.575 (for a 99% confidence interval). Next, we need to obtain the correct formula: CI = x
+Z[sigma/sqrt(n)]. After obtaining the correct formula and all the required information, we can substitute:                   CI = 59.8 2.575[9.62/sqrt(213)] = 59.8  1.697315213 From here, we can find the upper and lower bound for the confidence interval: CI: (lower bound, upper bound) where CI:(59.8 - 1.697315213, 59.8 + 1.697315213) = (58.103, 61.497)
+
+---
+
+The length of a scientific research study varies to a normal distribution with a mean of 704 days and a standard deviation of 26. What's the probability that a scientific research study takes longer than 717 days?
+
+a) 31.70%
+
+b) 48.70%
+
+c) 15.85%
+
+d) 32.85%
+
+Solution (with explanation): d is the correct answer. First, we need to gather all the important information with respect to the question: X ~ N(mean, standard deviation) where X ~ N(704,26). Next, we must calculate all the possible values:
+
+With respect to these possible values, we must find where 717 lies which would be in between the mean and one standard deviation above the mean. The 68% probability will be divided into 4 sections: one standard deviation below the mean to 691 (704-13), 691 to 704 (mean), 704 to 717 (704+13), and 717 to one standard deviation above the mean. From here, we divide the 68% probability by 4 to obtain 17% which occupies the possible value of 717 to one standard deviation above the mean. Next, we must subtract 68% from 99.7% and divide by two to obtain the percentage that falls in between one standard deviation to three standard deviations above the mean to the right: (99.7% - 68%)/2 = 15.85%. Now, we add the percentage obtained from one to three standard deviations above the mean and 717 to one standard deviation above the mean: 17% + 15.85% = 32.85%.
+
+---
+
+In a class of 100 students, 70% play basketball, 60% play soccer, and 40% play both basketball and soccer. What is the probability that a randomly chosen student plays either basketball or soccer?
+
+Solution (with explanation):
+
+Let B be the event that a student plays basketball and S be the event that a student plays soccer. Then, the probability of playing either basketball or soccer is given by:
+
+P(B or S) = P(B) + P(S) - P(B and S)
+
+Given:
+
+P(B) = 0.70 (probability of playing basketball)
+
+P(S) = 0.60 (probability of playing soccer)
+
+P(B and S) = 0.40 (probability of playing both basketball and soccer)
+
+P(A or B) = 0.70 + 0.60 - 0.40 = 0.90
+
+Therefore, the probability that a randomly chosen student plays either basketball or soccer is 90%.
+
+---
+
+In a school, 60% of Health Science students study statistics and 40% study physiology. Among those who study statistics, 70% also study physiology. If a student is selected randomly from the school, what is the conditional probability that the student studies statistics given that they study physiology?
+
+Solution (with explanation):
+
+Given:
+P (statistics) = 0.60 (probability of studying statistics)
+P (physiology) = 0.40 (probability of studying physiology)
+P (statistics and physiology) = 0.30  (probability of studying both subjects)
+
+Using the "given"/conditional probabilities formula:
+
+P (statistics | physiology)= P (statistics and physiology)/ P (physiology)
+
+=0.30/0.40=0.75
+
+Therefore, 75% of Health Science students are studying both statistics and physiology.
+
+---
+
+n a study of the weights of adult cats in a certain region, it is found that the weights follow a normal distribution with a mean of 4.5 kg and a standard deviation of 0.8 kg. According to the empirical rule, what percentage of adult cats have weights between 3.7 kg and 5.3 kg?
+
+A. 68%
+
+B. 95%
+
+C. 99.7%
+
+Solution (with explanation): The answer is A 
+
+If the mean weight of the cats is 4.5kg and the standard deviation is 0.8kg, then one standard deviation away would be 3.7kg and 5.3kg. According to the empirical rule, this would mean that the percentage of cats within the given weight range is 68% because the weight range is one standard deviation away from the mean.
+
+---
+
+The population distribution of heights is known to follow a normal distribution with a mean of 70 inches and a standard deviation of 3 inches. You take random samples of 50 adults from this population and calculate the mean height for each sample. Which of the following is true?
+
+a) The sampling distribution describes the probability distribution for all possible sample means, where each sample has a different mean. 
+
+b) The sampling distribution shows the probability distribution for all possible individuals in the population. 
+
+c) The sampling distribution is the same as the population distribution.
+
+d) The sampling distribution is a representation of the distribution of sample sizes and not means.
+
+Solution (with explanation): Option a is correct. Sampling distribution refers to the distribution of sample means obtained from multiple random samples taken from the population. The sampling distribution represents the probability distribution for all possible sample means, where each sample has a different mean. Population distribution shows the probability distribution for all possible individuals in the population. sampling distribution focuses on the distribution of sample means. 
+
+---
+
+A teapot company conducts quality control tests of batches of 300 products, inspecting each product for a defect, hoping to find the rate at which items were not found defective. A defect could be defined as a crack, chip, paint missing, or any breakage. The product is either defective or normal and are packaged and inspected separately. Are any of the 4 assumptions of the binomial distribution violated.
+
+
+1: Fixed number of trials
+
+2: Each outcome is a success or failure
+
+3: Each trial is independent of other trials
+
+4: Constant probability of success
+
+5: None of the above are violated
+
+Solution (with explanation):
+
+Correct answer is 5, each trial can only be marked as defective or normal, and considering each item is packed separately, the presence of a defect in one item will not influence it another. Moreover, the trials are fixed, with 300 per batch, and the probability of having a defect is the same for all products in the batch. Therefore, the correct answer is 5.
+
+---
+
+A company wants to test how efficient their machinery is in producing hard candies that appear the exact same. They decide to test the production of 154 candies, the mean weight of the candies are 2g, with a standard deviation of 0.3. Which of the following displays the correct 95% Confidence Interval Formula.    CI = 2 +- qnorm(0.025)(0.3/sqrt154)
+    CI= 2+- (1-qnorm(0.025)(0.3/sqrt154))
+    CI= 2+- qnorm(0.95)(0.3/sqrt154)
+    CI= 2+- (1-qnorm (0.95)(0.3/sqrt154))
+    None of the choices are correct because you need to know the significance level to determine Confidence Interval. 
+
+Solution: A
+
+The CI formula is CI= X +/- z(s/sqrt n)
+
+X = Sample Mean
+
+Z = Confidence Interval Level ((1-0.95)/2)= 0.025
+
+S = Sample Standard Deviation
+
+N = Sample Size 
+
+---
+
+Which of the following statements describes the least effective paring regarding the display method and data type.    Bar charts would be used to display the number of students votes for their favourite snack. 
+    Histograms would be used to display varying koala heights in a certain region.  
+    Pie Charts would be used to display the number of students votes for their favourite snack.
+    Histograms would be used to display the temperatures in Canada during Spring. 
+
+Solution: C
+
+The Pie Chart is used to display categorical values, such as votes for students favourite snacks. However, it is not as effective as the bar chart display method, especially when categories exceeds 2-3, and would therefore be considered the most ineffective pairing, as it can lead to misrepresentation. 
+
+---
+
+As I was reading my Psychology textbook one day I averaged 10 pages/hour and my standard deviation was 1 The following day I read 2 pages/hour, explain how and why this lower result on the following day would affect my mean and my standard deviation, if at all, and why would this lower result have that affect, if at all. 
+
+Solution:
+
+The mean and standard deviation would be impacted as a new data set is being added. The lower page reading on the second day would lower the mean, this is because we are now dividing a lower mean by the same standard number. The standard deviation however would be increased by a significantly smaller number, an outlier. Standard Deviation increases with a data outlier because the variable itself measures the dispersion of data points. Thus, if we add a data point the differs from the mean significantly the data becomes more spread out and the Standard Deviation measurement will increase. 
+
+---
+
+A team of researchers is studying the impact of daily physical exercise on stress levels in college students. They collected data from 200 students at a university, noting the number of minutes spent on physical exercise each day (ranging from 0 to 120 minutes) and their corresponding stress levels measured on a scale from 1 to 10. A linear regression model was developed based on this data. The researchers then used this model to predict the stress level of a student who exercises for 180 minutes per day.
+
+Explain why the researchers' approach might be problematic.
+
+Solution (with explanation): 
+
+The issue with using the regression model to predict the stress level of a student who exercises for 180 minutes per day is extrapolation. This prediction extends beyond the range of the data (0-120 minutes), which can lead to inaccurate conclusions since the model was not designed for this extended range.
+
+---
+
+A researcher is studying the impact of a new training program on the average time it takes for employees to complete a specific task. The average time for employees who have not undergone the training is 45 minutes. After implementing the training program, the researcher records the completion times for a sample of 30 employees who have undergone the training, finding an average time of 40 minutes with a standard deviation of 8 minutes. Is the training program effective in reducing the average completion time? Test this at a 5% significance level.
+
+Solution (with explanation): 
+
+We are given:
+    x̄ = 40 minutes 
+    μ = 45 minutes
+    s = 8 minutes
+    n = 30
+    α = 0.05
+
+Hypotheses:
+
+H0: μ = 45
+
+Ha: μ < 45
+
+calculate the t-score:
+
+t = (x̄ - μ)/(s/(sqrt(n))
+
+t = (40 - 45)/(8/(sqrt(30))
+
+t = -3.42
+
+Using R Studio, we calculate a one-sided p-value since Ha: μ < 45:
+
+Use code: pt(-3.42, df = 29, lower.tail = TRUE) = 0.0009399245
+
+Since the p < α , we reject the null hypothesis. There is strong evidence to suggest that the training program is effective in reducing the average completion time for the task.
+
+---
+
+The duration of a particular type of battery follows a normal distribution with a mean of 100 hours and a standard deviation of 15 hours. What is the probability that a randomly selected battery lasts less than 85 hours?
+    16.15%
+    22.85%
+    34.15%
+    47.85%
+
+Solution (with explanation): 
+
+The correct answer is a) 16.15%.
+
+To solve this, first identify that the battery life, X, follows a normal distribution: X ~ N(100, 15). We are interested in finding P(X < 85).
+
+Calculate the Z-score for 85 hours:
+
+Z = (85-100)/15 = -1
+
+Using a standard normal table or a calculator, we find the probability associated with a Z-score of -1. This is the area to the left of Z = -1 in the standard normal distribution, which is approximately 0.1587 or 15.87%.
+
+Therefore, the probability that a battery lasts less than 85 hours is approximately 15.87%, which is closest to 16.15% among the given options.
+
+---
+
+A biologist is studying the germination rate of a certain type of seed in response to a specific fertilizer. The hypothesis is that the fertilizer has a consistent effect on the seeds, causing 75% of them to germinate. In a sample of 20 seeds, assuming that each one germinates independently of the others, what is the probability that exactly 15 seeds out of the 20 will germinate?
+
+In the scenario, which of the Binomial Distribution assumptions are not fulfilled?
+    There are a set number of trials.
+    Each trial is either a “success” or a “failure.”
+    Each trial is independent of the other trials
+    The probability of success is the same for all trials.
+    All assumptions are fulfilled and the probability can be calculated.
+
+Solution (with explanation): 
+
+The correct answer would be e) all assumptions are fulfilled and the probability can be calculated. 
+
+Analyze each assumption to ensure that it is fulfilled.
+    The scenario states that there are 20 seeds, which is a set sample size. This fulfills the first assumption that there must be a set number of trials/sample size.
+    Each trial has two possible outcomes: the seed germinates or it does not.
+    The scenario states that each seed germinates independently of the others, fulfilling the assumption of independence.
+    The scenario states that the fertilizer has a consistent effect on the seeds, fulfilling the assumption that the probability of success is the same for all trials.
+
+
+---
+
+A researcher is analyzing the success rate of a new drug in treating arthritis. A clinical trial is conducted with 450 patients, recording whether the patient’s arthritis improves or not with the use of the drug. After completion, they noticed that a few patients received a higher dosage of the drug but disregarded the mistake. Which binomial assumption is violated in the experiment? 
+
+  A. There are n trials, and this number is known ahead of time. 
+
+  B. Each trial is either a "success" or a "failure". 
+
+  C. Each trial is independent of the other trials. 
+
+  D. The probability of success is the same for all trials. 
+
+Solution (with explanation): The answer is D.
+
+Of the 4 binomial assumptions, the probability of success being the same for all trials is violated. Since a few trials are given a different dosage, specifically a higher dosage they could have a higher or lower chance of the drug being a success. Therefore, with this assumption being violated, the success of the drug is not representative of the whole sample since the dosage did not remain constant for all trials. 
+
+---
+
+A nutritionist is conducting a study analyzing the relationship between hours spent doing intense cardio per week and weight loss. She notices that weight loss increases linearly with time spent doing intense cardio workouts. After doing a regression, she uses it to predict weight loss results for her clients who do intense cardio for more than 10 hours per week. What problem does this example display?     Prediction
+    Extrapolation
+    Non-linearity
+
+Solution (with explanation): The answer is B.
+
+The problem in this example is extrapolation since the outcomes for values outside of the range of observed data are being predicted. With the use of extrapolation, it is assumed that the relationship between weight loss and hours spent doing intense cardio will remain the same in data beyond the observed or tested range. The relationship in the data could change with an increased range, therefore extrapolation could lead to inaccurate predictions. 
+
+---
+
+Which of the following statements regarding the correlation coefficient is true?    The correlation coefficient, r, measures only the weak negative correlation between two variables.
+    A correlation coefficient, r of -1 is not possible.
+    The correlation coefficient is robust to outliers.
+    The correlation coefficient, r, measures only linear correlation between two variables.
+
+Solution (with explanation):
+
+The correct answer is D. We have learnt that to interpret correlation using the correlation coefficient, the data in a scatterplot, for example, must be LINEAR! If it’s not linear, we cannot apply the correlation coefficient. 
+
+---
+
+Consider a dataset where the predictor variable x and the response variable y have a correlation coefficient of -0.8. Which of the following propositions is true, given the properties of least squares regression? (Assume that the plot shows a linear relationship.)
+
+a) The slope of the regression line is likely to be positive.
+b) The slope of the regression line is likely to be negative.
+c) The intercept of the regression line is likely to be zero.
+d) The intercept of the regression line is likely to be non-zero.
+
+Solution: b) The slope of the regression line is likely to be negative
+
+According to the properties of least squares regression explained in Chapter 4.2, the slope of the regression line is the same sign as the correlation coefficient. Because the correlation coefficient is negative (-0.8), the slope of the regression line is similarly negative. This shows a gradual decrease in the association between the predictor variable x and the responder variable 
+
+---
+
+Suppose you are conducting a study to estimate the mean score of a standardized test for a population. You collect a sample of 50 students and calculate their mean score as 78. Additionally, the sample standard deviation is found to be 8. Based on this information, answer the following:
+
+Calculate the 95% confidence interval for the population mean score using both the Z-distribution (population standard deviation known) and the t-distribution (sample standard deviation used).
+
+Solution:
+
+For the Z-distribution (population standard deviation known):
+Given: Sample mean (x̄) = 78, Sample size (n) = 50, Population standard deviation (σ) = 8
+
+Using the formula for a 95% confidence interval with the Z-distribution:
+Margin of Error (MoE) = Z * (σ/sqrt(n)), where Z is the critical value for 95% confidence.
+Z = abs(qnorm(0.05/2)) ≈ 1.96
+
+Lower bound = x̄ - MoE = 78 - 1.96 * (8/sqrt(50))
+≈ 78 - 2.77 ≈ 75.23
+Upper bound = x̄ + MoE = 78 + 1.96 * (8/sqrt(50))
+≈ 78 + 2.77 ≈ 80.77
+Therefore, the 95% confidence interval using the Z-distribution is approximately (75.23, 80.77).
+
+For the t-distribution (sample standard deviation used):
+Degrees of freedom (df) = n - 1 = 50 - 1 = 49
+Critical value (t*) for a 95% confidence interval with df = 49 can be found using qt(0.05/2, df)
+t* ≈ abs(qt(0.05/2, 49)) ≈ 2.01
+
+MoE = t* *(s/sqrt(n)), where s is the sample standard deviation.
+MoE ≈ 2.01 * (8/sqrt(50)) ≈ 2.84
+
+Lower bound ≈ 78 - 2.84 ≈ 75.16
+Upper bound ≈ 78 + 2.84 ≈ 80.84
+Therefore, the 95% confidence interval using the t-distribution is approximately (75.16, 80.84).
+
+---
+
+Suppose we know that the heights of Canadian women are normally distributed with a mean of 163 cm and a standard deviation of 7 cm. If we take a sample of 36 Canadian women, what is the probability that the sample mean height is within 2 cm of the population mean?
+
+Solution: According to the Central Limit Theorem, for a sample size of n, the sampling distribution of the sample mean will be approximately normal, regardless of the shape of the population distribution, as long as the sample size is sufficiently large (n≥30 ).
+
+Given that the population mean (μ) is 163 cm and the standard deviation (σ) is 7 cm, and we want to find the probability that the sample mean (x̄) is within 2cm of the population mean we need to find P(μ-2 ≤ x̄ ≤ μ+2) 
+
+(1) Standard mean= (σ/sqrt(n)) = (7/sqrt(36)) ≈ 1.167
+(2) P(μ-2 ≤ x̄ ≤ μ+2) = P(163-2 ≤ x̄ ≤ 163+2) = P(161 ≤ x̄ ≤ 165)
+
+(3)For 161 cm: z1 = 161-163/1.167 ≈ -1.71
+For 165 cm: 165-163/1.167 ≈ 1.71
+
+(4) P(x̄ ≤ 161) ≈ P(z ≤ -1.71) ≈ 0.0436
+P(x̄ ≤ 165) ≈ P(z ≤ 1.71) ≈ 0.9564
+
+(5) P(161 ≤ x̄ ≤ 165) ≈ 0.9564 - 0.0436 ≈ 0.9128 
+
+Therefore, the probability that the sample mean height is within 2cm of the population mean is approximately 0.9128 or 91.28%. 
+
+---
+
+Suppose you have a loaded die that has a 40% chance of rolling a 6. If you roll this die 8 times, what is the probability of getting exactly 3 sixes?
+
+Solution: To solve this problem we can use the binomial probability formula: P(X=k) = (n/k) x p^k x (1-p)^n-k
+
+(1) P(X=3) = (8/3) x (0.40)^3 x (1-0.40)^8-3
+(2) (8/3)= 8!/3!(8−3)!​ = 8×7×6/3×2×1 ​= 336/6 = 56 
+
+(3) 
+P(X=3) = 56 x (0.40)^3 x )0.60)^5
+
+P(X=3) = 56 x (0.064) x (0.07776) 
+
+P(X=3) ≈ 0.2769
+
+Therefore the probability of getting exactly 3 sixes when rolling the loaded die 8 times is approximately 0.2769.
+
+---
+
+For a school project sara is collecting data on the association between two irrelevant associations. There seems to be no clear pattern in the data, however the data shows numerous peaks. To better interpret the data, Sarah puts the information into a box plot. However, her classmate Athena tells her she is wrong to create a box plot. Sarah quickly argues that Athena is wrong. Who is right in the situation and why?
+
+Solution (with explanation): Athena is right, Sarah cannot use a boxplot to represent the data. This is because boxplots can only be created with unimodal data. 
+
+---
+
+Steven is a real estate agent in the Kitchener region. He is working with a client to help them buy their first home. What measure would be best to compare and contrast home prices: mean, median or mode?
+
+Solution (with explanation): Median would be the best option. It will not be heavily affected by extreme numbers and the outliers will be clearly identifiable. 
+
+---
+
+Which of the following best describes the relationship between explanatory and response variables in statistical analysis?
+
+A) The explanatory variable is dependent on the response variable, and this relationship is used to establish causality between two variables.
+
+B) The response variable is also known as the independent variable and is used to explain or predict the behavior of the explanatory variable.
+
+C) The explanatory variable provides information that helps to explain variations in the response variable, but this does not imply a causal relationship.
+
+D) Both the explanatory and response variables are dependent on each other, and knowledge of one directly establishes the behavior of the other.
+
+Solution (with explanation): The correct answer is C) The explanatory variable provides information that helps to explain variations in the response variable, but this does not imply a causal relationship. This choice correctly captures the essence of the relationship between explanatory and response variables. The explanatory (or independent) variable is thought to explain or predict changes in the response (or dependent) variable.
+
+---
+
+Which of the following statements accurately reflects the distinction between parameters and statistics in the context of statistical analysis?
+
+A) Parameters are numerical summaries that describe a sample, and statistics are used to infer the characteristics of the entire population.
+
+B) Both parameters and statistics describe samples, but parameters are used when the sample size is large, while statistics are used for smaller samples.
+
+C) Parameters are the true numerical summaries of a population, while statistics are estimates based on a sample from that population.
+
+D) Statistics describe the entire population, and parameters are estimates made from these statistics to understand sample characteristics better.
+
+Solution (with explanation): The correct answer is C) Parameters are the true numerical summaries of a population, while statistics are estimates based on a sample from that population. This choice correctly differentiates between parameters and statistics based on their respective definitions. Parameters describe the whole population and are considered the "truth" within the context of the population. In contrast, statistics, which are derived from samples, are used to make inferences or estimations about the population parameters. 
+
+---
+
+A six-sided dice is rolled once. What is the probability that the outcome is either an even number greater than 3 or an odd number less than 3?
+
+A) 1/3
+B) 1/2
+C) 2/3
+D) 3/4
+
+Solution (with explanation): 
+
+To solve this question, we need to break it down into parts and use the concepts of disjoint events and the addition rule for probability.    The probability of rolling an even number greater than 3 (which would be 4 or 6): There are 2 favorable outcomes (4, 6) out of 6 possible outcomes, so P(even > 3) = 2/6 = 1/3.    The probability of rolling an odd number less than 3 (which would be 1): There is 1 favorable outcome (1) out of 6 possible outcomes, so P(odd < 3) = 1/6.
+
+Since these two sets of outcomes are disjoint (they cannot both happen at the same time), we can add the probabilities of each event happening:
+
+P(even > 3 or odd < 3) = P(even > 3) + P(odd < 3) = 1/3 + 1/6 = 1/2.
+
+Therefore, the correct answer is B) 1/2. This calculation demonstrates the use of the addition rule for disjoint events, as well as the application of basic probability principles in determining the likelihood of different outcomes.
+
+---
+
+Suppose we have a biased coin that comes up heads with a probability of 0.6. If we flip this coin 10 times, what is the probability that we will get exactly 4 heads?
+
+A) 0.111
+B) 0.205
+C) 0.250
+D) 0.302
+
+Solution (with explanation): To solve this problem, we will use the binomial distribution formula.  Plugging the numbers unto the formula we have: n=10 , k=4 ,  p=0.6. 
+
+The probability of getting exactly 4 heads in 10 flips of a biased coin, where the probability of heads is 0.6, is approximately 0.111. Therefore, the correct answer is A) 0.111.
+
+---
+
+ A soccer player has a shot, a success rate of 70%. If she takes 10 penalty shots in a game, what is the probability that she makes exactly 7 of them?
+
+a) 0.4001
+
+b) 0.2668
+
+c) 0.2978
+
+d) 0.3500
+
+Solution (with explanation): Answer- b) 0.2668
+
+Explanation- Using the formula, P(X=k)= (n k)p^k(1-p)^(n-k)
+
+n=10 (the number of penalty shots)
+
+k=7 (the number of successes)
+
+p=0.70 (the probability of making a single penalty shot)
+
+1-p=0.30 (the probability of missing a penalty shot)
+
+Therefore,
+
+P(X=7)= (10 7)(0.70)^7(1-0.70)^(10-7)
+
+P(X=7)= (10 7)(0.70)^7(0.30)^(3)
+
+P(X=7)= 120 x 0.08235 x 0.027
+
+P(X=7)= 120 x 0.002223
+
+P(X=7)= 02668
+
+--- 
+
+Which of the following statements best describes the standard error of the difference in means for two independent samples?
+
+a) It measures the variability of the difference in sample means from one sample to another.
+
+b) It is calculated by taking the square root of the sum of the squared standard deviations of each sample.
+
+c) It is the standard deviation of the sampling distribution of the difference between two sample means.
+
+d) It calculates the actual difference between the means of two populations.
+
+Solution (with explanation): Answer- c
+
+Option a) is incorrect even though standard error does involve variability, it is for the sampling distribution of the difference between sample means, not variability from one sample to another. Option b) is incorrect because it describes the formula for calculating the standard error of the difference in means wrong. The correct formula involves the standard deviations of each sample and their sample sizes, not the sum of squared standard deviations. Option c) is the correct answer because the standard error of the difference in means is the standard deviation of the sampling distribution of the difference between two sample means. It gives an estimate of the standard deviation of differences between means from different samples drawn from the same populations. Option d) is incorrect because the standard error measures the variability around the estimate of the difference between means, not the actual difference between the means of two populations.
+
+---
+
+A researcher is analyzing data from a survey regarding three brands of hockey gear (Brand A, Brand B, and Brand C) to determine if there is a significant preference among a group of participants. The observed data sets of preference are 28 for Brand A, 40 for Brand B, and 51 for Brand C. What is the appropriate statistical test to test the null hypothesis that there is no preference among the three brands?
+
+a) One-way ANOVA
+
+b) Chi-Square Test for Independence
+
+c) Chi-Square Test for Goodness of Fit
+
+d) Independent samples t-test
+
+Solution (with explanation): Answer- c
+
+To determine if there is a significant preference among the three brands of hockey gear on the observed data sets, the appropriate statistical test is the Chi-Square Test for Goodness of Fit. This test compares observed data with expected data under the null hypothesis. The null hypothesis assumes that there is no preference among the brands, meaning each brand is equally preferred. If the chi-square test when calculated is significantly high, it suggests that the observed data differ from the expected data enough to reject the null hypothesis, indicating a preference among the brands.
+
+Option a) one-way ANOVA test, is wrong because it is used to compare means across three or more groups for a continuous dependent variable and a categorical independent variable. Option b) the Chi-Square Test for Independence, is wrong because it is used to examine if two categorical variables are related or independent.
+
+Option d) independent samples t-test, is wrong because it is used to compare the means of two independent groups on a continuous variable. 
+
+---
+
+A local supermarket conducted a survey to analyze the weekly grocery bills of its customers. The data collected represent the total amount spent by 50 randomly selected customers in a week. The following are the quartiles of the dataset: Q1 = $75, Q2 = $100, and Q3 = $150.
+
+a) Calculate the interquartile range (IQR) for the grocery bills.
+
+b) Interpret the meaning of the calculated IQR in the context of the dataset.
+
+Solution (with explanation):
+a) The interquartile range (IQR) is calculated as the difference between the third quartile (Q3) and the first quartile (Q1):
+IQR = Q3 - Q1 
+       = 150 - 75 = $75 
+b) The interquartile range indicates the middle 50% of the dataset. An IQR of $75 indicates that 50% of the customers spent between $75 and $150 on groceries per week.
+
+---
+
+The National Center for Gambling Addictions is conducting a study to determine if the amount of times roulette is being played has changed in the older adult population. The Centre wants to find a sample size with a 6% margin of error and 99% confidence. The sample proportion is 0.37. 
+
+Solution (with explanation):
+To find the required sample size, we'll use the formula for sample size calculation for estimating a population proportion:
+Margin of Error = Z*
+
+For 99% confidence:  Z is approximately 2.576
+0.6 = 2.576
+=
+
+N = 430 
+
+Thus, the National Center for Gambling Addictions should aim for a sample size of 430 to achieve a 6% margin of error with 99% confidence level. 
+
+---
+
+At UW, a study was conducted which compared the final exams scores of two different groups of students to figure out different teaching methods between two professors. In the first group, the final exam scores of 20 students were assessed, which revealed an average exam score of 82%, with a standard deviation of 2.6. Whereas the other group, which was taught by another professor, a sample of 15 students were evaluated, which revealed an average exam score of 84% with a standard deviation of 1.9. Based on the information given, select the best option for the null and alternative hypothesis. 
+
+A) Null: There is a significant difference in the exam scores between the two groups. Alternative: There is no significant difference in the exam scores between the two groups
+
+B) Null: there is no significant difference in the exam scores between the two groups. Alternative: there is a significant difference in the exam scores between the two groups
+
+C) Null: The teaching methods of the two instructors have an affect on the scores.  Alternative: The teaching methods of the two instructors DO NOT have an affect on the scores.
+
+D) Null: The teaching methods of the two instructors DO NOT have an affect on the scores. Alternative: The teaching methods of the two instructors have an affect on the scores. 
+
+Solution (with explanation): B). B is the correct answer in this case because in this scenario, the researchers are looking to see if the teaching methods between the two professors at UW have an effect on the students scores on the final exam. In that case the Null hypothesis would be that there is no significant difference in the exam scores between the two groups. This indicates that any variation in the final scores is due to pure chance. On the other hand the alternative hypothesis states that there indeed is a significant difference in the exam scores between the two groups. 
+
+---
+
+Assuming a water bottle capacity follows a Normal distribution with mean μ= 550 ml and standard deviation σ= 100 ml. What precent of water bottle capacity exceeds the 500 ml limit?
+
+Solution (with explanation):
+
+So, to begin this question we have to first state the problem. After we have stated the problem we have to standardize it by using the z=x-μ / σ. After standardizing it we will get a decimal number and we have to use the z-table to find the corresponding z value and then solve the equation from there. 
+
+---
+
+A researcher is observing a species of plants where each plant has a 40% chance of exhibiting a rare genetic trait. If the researcher observes 32 plants, what is the probability that exactly 9 of them exhibit the rare genetic trait?
+a) pbinom(x = 9, size = 32, prob = 0.4)
+b) pbinom(x = 23, size = 32, prob = 0.4)
+c) dbinom(x = 9, size = 32, prob = 0.6)
+d) None of the above
+
+Solution (with explanation): The correct solution to the given question is option D, None of the above. Neither of the options were correct because to correctly calculate such probability, the correct code would have been: dbinom(x = 9, size = 32, prob = 0.4). Although option C is an appealing answer, it is still incorrect as the probability is suppose to be 0.4 rather than 0.6. Also option a might appear as an appealing answer choice but it is not because the function pbinom is only used for cumulative binomial probabilties and in this case, that is not what we are calculating therefore, that answer choice is deemed incorrect.
+
+---
+
+In a study investigating the relationship between GPA and hours spent studying per week, researchers plot the data on a scatterplot and calculate the correlation coefficient. If the scatterplot shows a clear linear downward trend and the correlation coefficient is calculated to be -0.85, which of the following interpretations is most appropriate?
+a) GPA and hours spent studying per week have a strong positive linear relationship.
+b) GPA and hours spent studying per week have a weak negative linear relationship.
+c) GPA and hours spent studying per week have no linear relationship.
+d) GPA and hours spent studying per week have a strong negative linear relationship.
+
+Solution (with explanation): The correct solution to the given question is option D, GPA and hours spent studying per week have a strong negative linear relationship. Since the correlation coefficient is -0.85 this indicates a strong negative linear relationship. We know this because the close the correlation coefficient is to 0, the weaker it is, and the closer it is to +/- 1, the stronger the relationship is. In this case, 0.85 is closer to 1, and is therefore a stronger correlation. Additionally, as the correlation coefficient is a negative value (-), we know that this relationship is a negative linear relationship.
+
+---
+
+Considering a population with a mean (μ) and standard deviation (σ), and given a sufficiently large sample size (n), which of the following statements best reflects the implications of the Central Limit Theorem (CLT) for the sampling distribution of the sample mean (x-bar)?
+A. The sampling distribution of (x-bar) will approximate a normal distribution with mean μ and standard deviation σ, regardless of the population's distribution, as long as the sample size is large.
+B. The CLT guarantees that the sample mean x-bar will be equal to the population mean μ for large samples.
+C. The sampling distribution of x-bar will approximate a normal distribution with mean μ and standard deviation σ/sqrt(n)​, regardless of the population's distribution, provided the sample size is large.
+D. The CLT only applies when the population distribution is normal, and it states that the sampling distribution of x-bar will have the same standard deviation as the population (σ) for any sample size.
+
+Solution (with explanation): The correct solution to the given question is option C, The sampling distribution of x-bar will approximate a normal distribution with mean μ and standard deviation σ/sqrt(n)​, regardless of the population's distribution, provided the sample size is large. This option is the correct option because the Central Limit Theorem states that for a large sample size, the sampling distribution of the sample mean will approximate a normal distribution with mean μ and standard deviation σ/sqrt(n). The other options don't follow what the CLT states because option A says regardless of the population's distribution which is wrong, option B is also incorrect because that is not what the CLT states, and lastly option D is incorrect because CLT does not only apply when the population distribution is normal. Therefore, option C is the only logically correct answer.
+
+---
+
+If a coin is flipped 5 times, what is the probability of…
+    At least 4 heads
+    At most 3 heads
+
+Solution (with explanation): 
+
+n (number of trials) = 5
+
+Probability of head: p = 1/2
+
+Probability of tail: p = 1/2
+
+Therefore, the probability of success for the following question is 0.5.
+
+a) x 4, can be found by P(x 4) = P(x = 4) + P(x = 5). So, you use the probability distribution function (nCx px (1-p)n-x):
+
+x (number of successes) = 4
+
+P(x = 4) = 5C4 0.54 (1 - 0.5)5-4
+
+= 5 0.54 0.51
+
+= 5 0.0625 0.5
+
+= 5/32 or 0.15625
+
+x (number of successes) = 5
+
+P(x = 5) = 5C5 0.55 (1 - 0.5)5-5
+
+= 1 0.55 0.50
+
+= 1/32 or 0.03125
+
+Then,  P(x 4) = P(x = 4) + P(x = 5)
+
+ P(x 4) = P(x = 5/32) + P(x = 1/32)    = 6/32 → 3/16 or 0.1875
+
+Therefore, the probability of getting at least 4 heads if the coin is flipped 5 times is 3/16 or 18.75%.
+
+b) Due this being a complement event, we can subtract the probability of getting at least 4 heads from 1 to find the probability of getting at most 3 heads.
+
+P(X 3) = 1 - P(at least 4 heads)
+
+P(X 3) = 1 - P(0.1875)
+
+P(X 3) = 0.8125
+
+Therefore, the probability of getting at most 3 heads if the coin is flipped 5 times is 13/16 or 81.25%.
+
+---
+
+A simple random sample of 50 adults is gathered and each person’s white blood cell count is measured. The sample mean is 4.63. The population standard deviation for white blood cell counts is 0.54. Construct a 95% confidence interval for the mean white blood cell counts of adults. Round to four decimal places.
+
+Solution (with explanation): 
+
+Make sure the conditions are met. Random = SRS, Normal: n = 5030 CLT applies, independent: 10% condition is met.
+
+(4.4803, 4.7797)
+
+Therefore, we are 95% confident that the true mean red blood cell count of all adults is between 4.4803 and 4.7797.
+
+---
+
+Suppose a basketball player is known to make 82% of his free three attempts. He has 20 attempts to make 10 shots. If he gets 10 free throws before 20 attempts he does not need to continue. What is the probability that he makes 10 free throws. Does this model violate the binomial distribution?
+
+Solution (with explanation): 
+
+No, this can not be modeled using binomial as assumption 1 is not met:
+
+Assumption 1: There are n trials, and this number is known ahead of time.
+
+There is not a set number of trials. Although he has 20 attempts, if he makes his shots in before 20 attempts, he does not need to continue. Therefore there is not a fixed number of trials known prior.
+
+Not met.
+
+Assumption 2: each trial is either a “success” or a “failure”
+
+He either makes the free throw or misses it.
+
+Met.
+
+Assumption 3: each trial is independent of the other trials.
+
+Each free throw attempt is independent of every other attempt. Making or missing a free throw does not affect him making or missing another attempt.
+
+Met.
+
+Assumption 4: The probability of success is the same for all trials
+
+The probability that he makes the free throw is the same on each attempt, 82%. This doesn’t change from each attempt.
+
+Met.
+
+---
+
+The following grades (out of 100) were scored by students on a math midterm. 
+
+96, 73, 84, 62, 88, 79, 91, 59, 68, 61, 86, 78, 80, 82, 74
+
+You would like to study the shape of the distributions of these grades. Which graphical representation would be the most appropriate?
+    Bar Graph
+    Histogram
+    Pie Chart
+    Box plot
+
+Correct Answer: B
+
+Solution with explanation: Grades fall under quantitative data. Histograms are used to describe quantitative data and can depict the frequency and distribution of grades as well as what interval the majority of the student’s grades fall within.
+
+---
+
+The following grades (out of 10) were scored by students on a math midterm. 
+
+9, 7, 8, 6, 8, 7, 9, 5, 6, 6, 8, 7, 8, 8, 7
+
+You would like to study the shape of the distributions of these grades. Which graphical representation would be the most appropriate?
+    Bar Graph
+    Histogram
+    Pie Chart
+    Box plot
+
+Correct Answer: A
+
+Solution with explanation: Grades fall under quantitative data, but with only a handful of unique values it makes sense to display them as if they are ordered categories.
+
+---
+
+Which of the following represents a Type 1 error?
+    A study found that caffeine helps reduce the risk of cardiovascular disease however, there is no relationship that exists.
+    A study found that caffeine does not help reduce the risk of cardiovascular disease. However, there is a relationship that exists in the true populations
+     A study found that caffeine helps reduce the risk of cardiovascular disease. Likewise, this relationship exists in the true population.  
+    A study found that daily walks does not help reduce the risk of cardiovascular disease. Likewise, no relationship exists in the true population. 
+
+---
+
+A clinical study is conducted to determine the effectiveness of a new drug for migraines. They bring in participants on a rolling basis until enough data has been gathered about the results and side effects. Each participant receives the same dosage of the drug. The drug’s effects are studied to see if it alleviates the migraine or has no effect on it. Which binomial assumption has been violated?
+    There are n trials, and this number is known ahead of time.
+    Each trial is either a “success” or a “failure”.
+    Each trial is independent of the other trials.
+    The probability of success is the same for all trials.
+
+Correct Answer: A
+
+Solution with explanation: Each participant represents a trial. However, since participants are brought on a rolling basis, we don’t know the number of people participating in the study ahead of time. Therefore, option A is the correct answer.
+
+---
+
+80 bell pepper seeds were planted by a farmer and monitored over 8 weeks and their heights and top leaf sizes were measured at the end of the 8 weeks. The farmer was trying to determine the relationship between height and leaf length. The results were then plotted on a scatter plot and the r-value = 0.96 with a regression line of y=0.3x+5, where leaf length is dependent on height. Using the equation, it can be found that when the height is 0, the leaf length is 5, what is this an example of?
+
+Correct Answer: Extrapolation/prediction
+
+Solution with explanation: Cannot have leaves without a plant, the equation gives us an idea as to the trends in those plants that were used in the sample data, however, using this line to predict values that are not within its range/not already known should only be used to predict, as the trend outside of the linear model can change but there are not enough data points to reflect/visualize extra points.
+
+---
+
+A company's quality control department has determined that 5% of all the products it manufactures are defective. Suppose you randomly select 20 products off the production line to inspect for defects.
+
+What is the probability that you find at most 2 defective products?
+
+A) 0.9246
+
+B) 0.6415
+
+C) 0.3770
+
+D) 0.1157
+
+Solution (with explanation):
+
+To find the cumulative probability P(X ≤ 2), we calculate P(X = 0) + P(X = 1) + P(X = 2).
+
+Given: n = 20, p = 0.05 (probability of a product being defective), we can calculate the probabilities for k = 0, 1, 2.
+
+The correct answer is A) 0.9246. This is the cumulative probability of finding at most 2 defective products in a random sample of 20 from this production process, assuming the probability of finding a defective product in any single inspection is 5%.
+
+---
+
+A company's delivery times are normally distributed with a mean of 50 minutes and a standard deviation of 10 minutes. Using statistical software or a calculator that can compute the cumulative distribution function (CDF) for normal distributions, what is the probability that a randomly selected delivery will take more than 60 minutes?
+
+A) 0.8413
+
+B) 0.1587
+
+C) 0.9772
+
+D) 0.0228
+
+Solution (with explanation):
+
+Given the mean (μ) is 50 minutes and the standard deviation (σ) is 10 minutes, we can use the CDF function to find the probability of a delivery taking 60 minutes or less, and then subtract this value from 1 to find the probability of taking more than 60 minutes.
+
+The CDF value for 60 minutes gives us the probability of a delivery being 60 minutes or less. If P(X≤60) is the CDF value at 60 minutes, then 1−P(X≤60) gives us the probability of a delivery taking more than 60 minutes.
+
+Suppose the software provided P(X≤60)=0.8413, representing the cumulative probability of a delivery being completed in 60 minutes or less. Thus, the probability of a delivery taking more than 60 minutes would be 1−0.8413=0.1587. Therefore, the answer is B).
+
+---
+
+Consider you are conducting a two-sided hypothesis test to compare the mean of a sample to a known population mean, where the null hypothesis (H0) states that there is no difference between the sample mean and the population mean, and the alternative hypothesis (HA) suggests a difference. If the true population mean is actually significantly different from the hypothesized mean under H0, but the sample size is relatively small, which of the following statements is most accurate?
+
+A) The test is likely to have high power, making it easy to reject H0
+
+​B) The test will have a low Type 2 error probability, indicating strong evidence against H0
+
+​C) The test is likely to have low power, making it difficult to reject H0 even though it is false.
+
+D) The standard error of the mean is unaffected by the sample size, so the power of the test remains constant.
+
+Solution (with explanation):
+
+The correct answer is C) The test is likely to have low power, making it difficult to reject H0 even though it is false.
+
+Explanation: In hypothesis testing, the power of a test is defined as 1 minus the probability of making a Type 2 error (failing to reject a false null hypothesis). The power of a test increases with the sample size, as a larger sample size reduces the standard error of the mean. A smaller standard error means the sample mean is estimated more precisely, making it easier to detect a true difference from the hypothesized mean under H0 if one exists. Conversely, a small sample size leads to a larger standard error, which reduces the test's power. Therefore, if the true population mean significantly differs from the hypothesized mean but the sample size is small, it would be difficult to reject H0, indicating low power.
+
+---
+
+A particular hand sanitizer states that it gives users a 95% chance of not contracting the flu. To verify, a study is conducted during the flu season to determine if this is true. However, the study is conducted during an abnormally mild flu season. Explain what type of error could the study potentially be making?
+
+Solution (with explanation): Due to it being an unusually mild flu season, it increases the chance that users will not contract the flu which makes it more likely that the null hypothesis (H0 = 0.95) will be true. Since this would be due to the fact that it is a mild flu season rather than because of the hand sanitizer, this means that there is a higher chance of the study accepting a false null. Therefore this study is prone to type I error.
+
+---
+
+Which chart would be most appropriate for displaying the following data: children assigned to the following groups: <Grade 1, Grades 1-3, Grades 4-7, Grades 8-10, Grades 11-12, >Grade 12
+    Bar chart
+    Stem and leaf plot
+    Histogram
+    Pie Chart
+
+Solution (with explanation): Bar chart. Since this is an ordered categorical variable, a bar chart would be most useful for displaying this type of information. Bar charts are the preferred charts for categorical variables. Stem and leaf plots and histograms are useful for quantitative data. Although pie charts are also used for categorical data, bar charts are a stronger graphical choice.
+
+---
+
+Given a correlation coefficient of r= -0.91, explain what can be deduced about the data:
+    Strong linear correlation
+    Strong correlation
+    Weak linear correlation
+    Weak correlation 
+
+Solution (with explanation): B, strong correlation. The correlation coefficient describes the strength of a correlation, but it doesn’t tell us if two variables have a linear relationship. To deduce linearity, the data would need to be plotted. The closer the r value is to +/-1, the stronger the correlation is.
+
+---
+
+A researcher is investigating a large population looking at the creativity scores. The creativity scores followed a bell-shaped curve with an average score of 150 and a standard deviation of 30. Calculate the creativity score in which 5% of the population falls.
+
+Solution (with explanation):
+
+To determine the z-score, the 95th percentile can be used as it is the same but in the opposite direction.
+
+The z-score that corresponds to the 95th percentile is -1.645.
+
+Use the equation: Q = μ + Z x σ
+
+Plug in values:
+
+Q = 150 + (-1.645 x 30)
+
+Q = 100.65
+
+Therefore, the creativity score that 5% of the population falls in is 100.65.
+
+---
+
+Consider the following dataset:
+
+| Variable | 	Description |
+|---|---|
+| Room Type |	Indicates the type of room each customer booked (can be either "suite", "double", "standard") |
+| Wait Time |	Represents the amount of time (minutes) a customer waited for their room to be ready |
+| Number of People | 	Indicates the number of people staying in the hotel room |
+
+Based on the table, which statement describes the variable type most accurately?
+
+A) Room Type is a binary variable, Wait Time a discrete variable, and Number of People is a categorical variable.
+
+B) Room Type is an unordered categorical variable, Wait Time is a continuous variable, and Number of People is a discrete variable.
+
+C) Room Type is an ordered categorical variable, Wait Time is a continuous variable, and Number of People is a continuous variable.
+
+D) None of the above are correct. 
+
+Solution (with explanation):
+
+B) is the correct answer. Room type is unordered categorical. This is because it has more than two options, so it cannot be binary. It is unordered as the order is not meaningful for summarising the data for room types. Wait time is continuous as it can take any value between a range. For example, people could wait 10 minutes or 10.75 minutes. The Number of People is discrete as it can only be a whole number.
+
+---
+
+The final statistics exam had a class mean of 75 and a standard deviation of 5. The exam scores follow a normal distribution.
+
+What is the probability that a randomly selected student scores between 68 and 81?
+
+---
+
+A researcher is studying whether a new teaching method boosts students' test scores. They divide students into two groups: one taught using the traditional method, the other using the new method. After teaching, both groups take the same test. The researcher believes the new method results in higher scores than the traditional one.
+
+A) What should the alternative and null hypothesis be?
+
+B) Based on the null hypothesis, what would be the Type 1 error?
+
+Solution (with explanation):
+
+A)Null Hypothesis/Ho, new method test scores = traditional method test scores. This states that nothing "interesting" is going on, there is no difference in test scores between the traditional and new teaching methods.
+
+Alternative Hypothesis, Ha, new method test scores > traditional method test scores. This is because the researcher hypothesizes that the new teaching method will lead to higher test scores.
+
+B) "The new teaching method leads to higher test scores than the traditional method".
+
+Type I is when you reject a true null hypothesis. So in this case, a Type 1 error would be made if we incorrectly conclude that the new teaching method leads to higher test scores compared to the traditional method, when in reality there is no difference between the two methods.
+
+---
+
+A study tested the heights of a bear species in Alberta using 45 different bears from the same species. The study found a mean height of X(bar)=141.2 cm and a standard deviation amongst the participants studied of s=7.9 cm. Assuming the heights of the bears are normally distributed, perform a hypothesis test at the 5% significance level to determine whether the study provides evidence that the true population mean height of the bear species is greater than 140 cm. First determine the null and alternative hypotheses, then calculate the test statistic value, and then use the "pt" formula in RStudio to test against the significance level.
+
+Solution (with explanation):
+
+Step 1: Determine hypotheses
+
+H0: mu = 140
+
+HA: mu > 140
+
+Step 2: Calculate test statistic
+
+t obs = [X(bar)-mu / s/sqrt(n)]
+
+t obs = [141.2-140 / 7.9/sqrt(45)]
+
+t obs = 1.018968
+
+Step 3: Calculate p-value using R Studio
+
+p-value = 1 - pt (t obs, degrees of freedom)
+
+p-value = 1 - pt (1.018968, 44)
+
+p-value = 0.1569
+
+Step 4: Interpretation of p-value and Conclusion
+
+Based on the determined p-value in the hypothesis test we confidently do not reject the null hypothesis at the 5% level as the p-value is greater than the significance level.
+
+---
+
+For the following questions, select the best possible response:
+
+3.a) If a scatter plot representative of a data set showed a strong downward linear correlation, which of the following would be the most reasonable r-correlation coefficient value.
+
+A. r = -0.84
+
+B. r = -0.36
+
+C. r = 0
+
+D. r = 0.90
+
+E. r-correlation coefficient is not an effective measure in this scenario.
+
+3.b) If a scatter plot representative of a data set showed no apparent correlation, which of the following would be the most reasonable r-correlation coefficient value.
+
+A. r = -0.84
+
+B. r = -0.36
+
+C. r = 0
+
+D. r = 0.90
+
+E. r-correlation coefficient is not an effective measure in this scenario.
+
+3.c) If a scatter plot representative of a data set showed a very strong non-linear correlation, which of the following would be the most reasonable r-correlation coefficient value.
+
+A. r = -0.84
+
+B. r = -0.36
+
+C. r = 0
+
+D. r = 0.90
+
+E. r-correlation coefficient is not an effective measure in this scenario.
+
+Solution (with explanation): For 3.a), a downward trend in the scatter plot would be fit with a negative r-coefficient value as negative trends are represented by a negative correlation value. This leaves only two options (A and B), however, since the question states a strong relationship within the plot, option A would be the better answer as it is the only negative r-value that represents a strong relationship (indicated roughly by a value of 0.7-1.0 or -0.7--1.0) as the stronger the relationship between variables, the higher/lower the r-value. Thus the correct answer is option A. For 3.b), no trend in a scatter plot would be fit with no correlation and thus an r-coefficient value of -0.1-0.1 would be expected. Therefore, option C would be the most reasonable value as it shows the least correlation value between the options. For 3.c), the correct answer is "r-correlation coefficient is not an effective measure in this scenario" as the r-coefficient measures the strength of a linear relationship between two variables. If the relationship between two variables is non-linear, as stated in 3.c), then the r-coefficient is not an appropriate measure of correlation and would not be able to be effectively determine the level of correlation between the two variables. Thus, the correct answer is option E.
+
+---
+
+For each of the following questions please select the most correct answer.
+
+4. a) A population is normally distributed and can be represented as N~(130, 3.4). What is the normal sample distribution given a sample size of 16 was used?
+
+A. N~(130, 3.4)
+
+B. N~(32.5, 3.4)
+
+C. N~(130, 0.85)
+
+D. N~(32.5, 0.85)
+
+4.b) 83% of Canadian citizens have at least one dose of the COVID-19 vaccine. Which of the following is representative of the normal sample distribution for a sample of 1400 Canadians? (Normal approximation np>10, and n(1-p)>10, has been met in this scenario).
+
+A. N~(1162, 14.05)
+
+B. N~(1162, 197.54)
+
+C. N~(14.05, 1162)
+
+D. N~(197.54, 1162)
+
+Solution (with explanation): In 4.a), the population mean and the sample mean can be approximated to be the same as they are both normal distributions. The sample standard deviation must be determined by using the formula mu / sigma/sqrt(n). Using this formula, 0.85 will be determined as the sample standard deviation, and option C can be selected as the correct answer. In 4.b), the normal approximation assumption is satisfied and so the sample mean must be determined using the formula X(bar) = np (which is 1400 x 0.83). The sample standard deviation must be determined using the formula sigma = sqrt[np*(1-p)]. Using both of these formulas, 1162 will be determined as the sample mean, and 14.05 will be determined as the sample standard deviation, and option A can be selected as the correct answer.
+
+---
+
+The following data set was collected by a university student trying to know the mean, median, standard deviation, and variance of a grade 1 math class test’s average that was marked out of 20. After collecting the data, he identifies that he missed an extremely high outlier that he did not add to his data.
+	
+
+Mean  Median Standard Deviation Variance
+
+Grade 1 Math Test 16.5 15 4.24 18
+
+Which of the following will be least affected by the addition of the outlier?
+
+
+    Standard deviation
+
+
+    Median
+
+
+    Variance
+
+
+    Mean
+
+Solution (with explanation): Median is the correct answer - The median only depends on the middle value of all the data and will not change, this is the reason it is called robust. However, the mean, variance, and standard deviation depend on all the information of the data. Which shows that they are not robust.
+
+---
+
+According to a study, there have been some tests that show the association between osteoporosis and cardiovascular disease. A professor decided to test adults between the ages of 18-35 for cardiovascular disease and osteoporosis. 26% had cardiovascular disease, 15% had osteoporosis, and 12% had both. 
+
+What is the probability that an adult has cardiovascular disease given that the adult also has osteoporosis?
+
+Solution (with explanation): 
+
+The conditional probability states:
+
+In this case, event “A” is cardiovascular disease and event “B” is osteoporosis. 
+
+probability of cardiovascular disease:
+
+P(A) = 0.26
+
+probability of osteoporosis:
+
+P(B) = 0.15
+
+probability of having both:
+
+P(A and B) = 0.12
+
+P(A|B) = 0.120.15
+
+P(A|B) = 0.8
+
+Therefore, the probability that an adult has cardiovascular disease given that they also have osteoporosis is 0.8 or 80% 
+
+---
+
+In a study of certain dog breeds, the average weight is known to be 50 kilograms with a standard deviation of 8 kilograms. Researchers decided to take a random sample of 16 dogs to study the average weight. What is the expected standard deviation of the sampling distribution of the sample mean for these samples?
+
+
+    8 kilograms 
+
+
+    6 kilograms
+
+
+    2 kilograms 
+
+
+    3 kilograms
+
+Solution and explanation: C) is the correct answer. To calculate the standard deviation of the sampling distribution of the sample mean, we can use the formula:
+
+ standard error = population standard deviation/sqrt (sample size)
+
+Standard error = 8/sqrt (16)
+
+Standard error = 8/4
+
+SE = 2 kilograms
+
+Therefore, the variability of the sample means is expected to be 2 kilograms. 
+
+---
+
+A second-year statistics class received normally distributed midterm scores with a mean of 75 and a standard deviation of 12. What is the probability that a randomly chosen student received a score between 60% and 90% on this midterm?
+
+
+    67.7%
+
+
+    52.4%
+
+
+    83.4%
+
+
+    78.9%
+
+Solution and explanation: D) is the correct answer. To determine the probability of a randomly chosen student receiving a score between 60% and 90%, we must calculate the Z-score for 60 and 90
+
+Z=(X-μ)/σ  
+
+Z60=(60-75)/12= -15/12= -1.25
+
+Z90 = (90-75)/12 = 15/12 = 1.25 
+
+Now we must look at the Z table to find the probability for Z = -1.25 and Z= 1.25. The Z-table shows a value of approximately 0.1056 for Z= -1.25 and an approximate value of 0.8944 for Z=1.25.  
+
+The probability of receiving a grade between 60% and 90% is: 
+
+P(60<X<90) = P (Z<1.25) - P(Z< -1.25) = 0.8944 - 0.1056 = 0.7888  
+
+0.7888 x 100% = 78.88% 
+
+Therefore, the probability that a randomly chosen student receives a score between 60% and 90% is 78.88%
+
+---
+
+The hypothesis test of 
+
+H0: μ =17
+
+H1: μ ≠ 17. 
+
+A random sample is then selected of x = 32 and s = 5. The test statistic is 4.544424369880. What is the sample size?
+
+Solution (with explanation): 
+
+For this question, you must use the equation: 
+
+t =  (x̄ -µ) / (s/√n)
+
+4.544424369880 = (32 - 175)/(5/√n) --> Rearrange to solve for n.
+
+Sample Size n = 2.2946 = 3
+
+Therefore the sample size is 3 (rounded up).  
+
+---
+
+Suppose you have performed a linear regression analysis to predict the sales of a product based on the advertising expenditure. The regression equation obtained is y=50+3x where y represents the predicted sales and x represents the advertising expenditure. Which of the following statements is true?
+
+    For every unit increase in advertising expenditure, sales increase by 50 units.
+    The intercept of the regression line is 50.
+    If the advertising expenditure is $10, the predicted sales would be 80 units.
+    Extrapolating the regression line to an advertising expenditure of $15 is appropriate.
+    Lurking variables have no effect on the regression analysis.Solution (with explanation): Option b is correct. The intercept of the regression line is 50. This statement is true because the intercept of the regression line represents the predicted value of the dependent variable (sales) when the independent variable (advertising expenditure) is zero. In this case, when x = 0  and y = 50. 
+
+---
+
+What is the difference between a simple event and a compound event? Provide examples for each using the rolling of a fair six-sided die.Solution (with explanation): 
+
+The difference between a simple event and a compound event:
+
+    A simple event is a single outcome of an experiment that cannot be broken down any further. For example, rolling a 3 on a fair six-sided die is a simple event.
+    A compound event consists of two or more simple events. For instance, the event of rolling an even number (compound) on a fair six-sided die can be composed of the simple events (2, 4, 6).
+
+---
+
+As a researcher, you're planning a study to evaluate a new educational tool that could enhance students' math performance. Implementing this tool requires considerable financial investment and curriculum adjustments. To ensure reliability while considering the practical implications, you're evaluating different significance levels for your hypothesis test. Which approach strikes the best balance between statistical precision and real-world implementation concerns?
+
+A) Establish a significance level of 0.10 for evaluating the results, recognizing that even a small chance of improvement is worth the risk given the potential benefits to student performance.
+
+B) Establish a significance level of 0.01, requiring strong evidence before concluding that the educational tool is effective, given the costs and changes involved.
+
+C) Establish a significance level of 0.05, sticking with convention and ensuring a moderate level of evidence before making a decision.
+
+D)  Establish a significance level of 0.50, prioritizing the potential for any improvement in student performance over the risk of a Type 1 error.
+
+Solution (with explanation):Option B is the best choice. Given the substantial costs and curricular changes involved in implementing the new educational tool, it's wise to demand solid proof of its effectiveness before making a judgment. To minimize the probability of a Type I error (mistakenly accepting the tool's effectiveness when it's not), a significance level of 0.01 is conservative. Using α = 0.01 will continually reject the null hypothesis. This approach aligns with the tenet that "extraordinary claims need extraordinary proof," highlighting prudence in decision-making when the consequences are severe. Option A could lead to an overly cautious decision, erring on the side of rejecting a true hypothesis. Option B, while widely used, may not meet the required level of strictness. Option D greatly increases the likelihood of mistakenly rejecting a true hypothesis, making it an excessively risky choice.
+
+---
+
+You've created a model that uses a straight line to predict house selling prices based on their area (how big they are). The houses in the data used to make the model ranged from 1,000 to 2,500 square feet. The equation for the model is ŷ = 100 + 0.5x, where ŷ is the predicted selling price (in thousands of dollars). Predict the selling price for a house that is 3,000 square feet. Discuss why this prediction may not be reliable. 
+
+Solution (with explanation): For a 3,000 square foot house, 
+
+ŷ =100+0.5(3000)
+
+    =1600 or $1,600,000. 
+
+This prediction is based on extrapolation, meaning it falls outside the limits of the data used to create the model. Extrapolation can be risky because the model hasn't been tested for homes larger than 2,500 square feet. Additionally, the relationship between house size and sale price may change outside the range of data examined
+
+---
+
+A linear regression was conducted to analyse the effect of time studying on test scores for a group of university students. Which of the following situations would suggest that the analysis might violate an assumption of linear regression?
+
+A) The scatterplot of time studying and exam scores forms a clear straight line.
+
+B) The spread of exam scores for each amount of study hours remains consistent across all levels of study hours.
+
+C) As students study more hours, the range of their exam scores tends to vary more widely.
+
+D) The exam scores of one student are found to be independent of another student's exam scores.
+
+---
+
+In a population of adults, the average number of hours spent watching television per week is 25 hours, with a standard deviation of 5 hours. If random samples of 50 adults are taken from this population, approximately what is the standard deviation of the sampling distribution of the sample mean?
+
+
+    7 hours
+
+
+    1 hour
+
+
+    2 hours
+
+
+    5 hours
+
+Solution (with explanation): b) is the correct answer. The standard deviation of the sampling distribution of the sample mean can be calculated using: (standard error = population standard deviation / sqrt(sample size))
+
+SE = 5/sqrt50
+
+SE = 0.707
+
+Rounded to the nearest hour, the standard deviation of the sampling distribution of the sample mean is 1 hour.
+
+---
+
+A bag contains 5 red marbles, 3 blue marbles, and 2 green marbles. If one marble is randomly selected from the bag, what is the probability that it is either red or blue?
+
+
+    5/10 + 3/10
+
+
+    5/10 - 3/10 
+
+
+    5/10 * 3/10
+
+    5/10
+
+Solution (with explanation): a) is the correct answer. To find the probability of selecting a red or blue marble, we sum the probabilities of selecting a red marble and a blue marble separately since these events are mutually exclusive. The probability of selecting a red marble is 5/10, and the probability of selecting a blue marble is 3/10. Therefore, the total probability is 5/10 + 3/10 
+
+---
+
+What is this definition describing?
+
+"Distance from observed point to estimated line"
+
+
+    Robust
+
+
+    Influential
+
+
+    Response
+
+
+    Residual
+
+Solution (with explanation): Residual is the answer. Robust is when a value is not affected by outliers. Influential is a value that has great impact on a calculated value. Response is the dependent variable
+
+---
+
+A nutritional scientist is analyzing female participants' weight (in kilograms) in their diet research study. The data collected in kilograms is as follows: 
+
+56,93,56,88,74,61,53,67,78,60,86,42,76,64,51,58,69,68,92,46.
+
+Construct a stem-and-leaf plot from this data. Determine which bin of 10 kilograms is the mode.
+
+Solution:
+
+First, sort the numbers in ascending order.
+
+42, 46, 51, 53, 56, 56, 58, 60, 61, 64, 67, 68, 69, 74, 76, 78, 86, 88, 92, 93
+
+Stem and leaf plot:
+
+|Stem  | Leaves|
+|---|---|
+| 4        | 2 6 |
+| 5        | 1 3 6 6 8 |
+| 6        | 0 1 4 7 8 9 |
+| 7        | 4 6 8 |
+| 8        | 6 8 |
+| 9        | 2 3 |
+
+The 60’s bin is the mode, which indicates that the highest concentration of participants' weights lie between 60-69 kg
+
+---
+
+Consider two datasets and their respective 5-number summaries.
+
+Dataset A: 21,23,25,27,31
+
+Dataset B: 21,23, 25,50,63
+
+Construct two boxplots to visualize and compare the Datasets. Compare the shape of the two (skewness if any). What does this data tell you about the nature of the median (Q2)?
+
+Solution (with explanation):
+
+The boxplots for the updated Dataset A and Dataset B illustrate the effects of adding larger numbers to the dataset. In this scenario, Dataset B has two significantly higher numbers compared to Dataset A.
+
+Dataset A has a uniform, symmetric distribution. 
+
+Dataset B shows a wider spread (due to the larger values 50 and 63). The box plot reveals that the data is right-skewed.
+
+As the median(Q2) remains unchanged between the two datasets since it is determined by the middle value when the data is sorted, this proves the robust nature of the median. As the median is robust, a small change to the data, such as adding/removing an outlier, does not affect that statistic.
+
+---
+
+Consider the following Two-Way Table regarding selection of different types of beverages by customers at a café during morning and afternoon hours.
+
+| | Beverage | Morning | Afternoon | Total |
+|----|----|----|----|----|
+| Coffee | 80 | 40 | 120 |
+| Tea | 60 | 90 | 150 |
+| Smoothie | 20 | 30 | 50 |
+| Soda | 10 | 20 | 30 |
+| Total | 170 | 180 | 350 |
+
+Given the data on beverage choices by time of day at a café, what is the probability that a customer selects a smoothie or goes to the café in the afternoon?
+
+
+    30/350
+
+
+    50/180 
+
+
+    200/350
+
+
+    210/350
+
+Solution (with explanation): The correct option is 3. 
+
+    P(Smoothie or Afternoon) = P(Smoothie) + P(Afternoon) - P(Smoothie and Afternoon)
+
+    = 50/350 + 180/350 - 30/350
+
+   = 200/350
+
+---
+
+Imagine you're playing a game using a weighted die that lands on an even number with a probability of 0.8. If you roll this die 12 times, what is the probability of obtaining an even number exactly 9 times?
+
+
+     0.236 
+
+
+     0.286 
+
+
+     0.186
+
+
+     0.136
+
+Solution (with explanation): The correct answer is option 1 This problem can be solved using the probability distribution function. 
+
+     P(x success in n trials) = nCx * p^x * (1-p)^(n-x)
+
+    P(X=9)= 12C9 * 0.8^9 * (1-0.8)^(19-9)
+
+                = 12C9 * 0.8^9 * 0.2^3
+
+                            = 0.236
+
+R Code= choose(12, 9) * (0.8)^9 * (1-0.8)^3
+
+---
+
+A biologist collects data on the length (in centimeters) of a particular species of worm found in a soil sample. The data are: [3.2, 3.5, 3.7, 3.8, 150.0] where 150.0 is a data entry error, and the actual length should have been 3.9. Calculate both the mean and the median of the data set with the error and without the error. Which of the following statements is correct?
+
+a) The presence of the outlier does not affect either the mean or the median, so both are reliable measures of central tendency.
+
+b) The outlier affects both the mean and the median equally, making both measures unreliable.
+
+c) The outlier significantly affects the mean, but not the median, making the median a more robust measure of central tendency in this scenario.
+
+d) Removing the outlier affects the median more than the mean, suggesting that the mean is a more robust measure of central tendency.
+
+Solution (with explanation):
+
+The correct answer is c) The outlier significantly affects the mean, but not the median, making the median a more robust measure of central tendency in this scenario.
+
+With the error, the mean is 32.84 cm, and the median is 3.7 cm. Without the error, the mean is 3.62 cm, and the median remains 3.7 cm. The outlier drastically increases the mean, whereas the median is unchanged and accurately reflects the central tendency of the data set.
+
+---
+
+Consider a study that examines the correlation between the amount of daily sunlight (in hours) and the growth rate of a certain plant species (in cm per week). The researcher collects the following data over an 8-week period and plots it on a scatterplot:
+
+Week 1: Sunlight 6 hours, Growth 4 cm
+
+Week 2: Sunlight 7 hours, Growth 5 cm
+
+Week 3: Sunlight 5 hours, Growth 3 cm
+
+Week 4: Sunlight 4 hours, Growth 2.5 cm
+
+Week 5: Sunlight 6.5 hours, Growth 4.5 cm
+
+Week 6: Sunlight 7.5 hours, Growth 5.5 cm
+
+Week 7: Sunlight 4.5 hours, Growth 3 cm
+
+Week 8: Sunlight 3 hours, Growth 1 cm
+
+What does the scatterplot likely indicate about the relationship between daily sunlight and plant growth?
+
+a) There is no discernible relationship between the amount of sunlight and plant growth.
+
+b) There is a strong negative relationship; as the amount of sunlight increases, the plant growth decreases.
+
+c) There is a strong positive relationship; as the amount of sunlight increases, the plant growth increases.
+
+d) The relationship between sunlight and plant growth is nonlinear and cannot be determined from the given data.
+
+Solution (with explanation): The correct answer is c) There is a strong positive relationship; as the amount of sunlight increases, the plant growth increases. The data show that weeks with more sunlight correspond to higher growth measurements, suggesting a positive correlation between sunlight and plant growth. Just for reference, below is the scatterplot that the researcher created. It further proves that answer c) is the correct answer, however, the scatter plot is not necessary for answering the question.
+
+---
+
+Researchers are investigating the relationship between the dosage of a new vitamin supplement (in mg) and the increase in the concentration of a certain protein in the blood (in micrograms per mL). They fit a linear regression model to their data and calculate the coefficient of determination (R²). If the R² value is 0.85, which of the following statements is most accurate?
+
+a) The vitamin supplement dosage has no effect on the concentration of the protein.
+
+b) 85% of the variation in protein concentration is not explained by the dosage of the vitamin supplement.
+
+c) 85% of the variation in protein concentration is explained by the dosage of the vitamin supplement.
+
+d) The linear regression model predicts the exact protein concentration for a given dosage of the vitamin supplement.
+
+Solution (with explanation): The correct answer is c) 85% of the variation in protein concentration is explained by the dosage of the vitamin supplement. The coefficient of determination (R²) indicates the proportion of the variance in the dependent variable that is predictable from the independent variable. An R² value of 0.85 suggests that the regression model explains 85% of the variability in the response data around its mean.
+
+---
+
+In a genetic study, researchers are looking at two independent genetic mutations that occur within a population of fruit flies. Mutation A occurs with a probability of 0.1, and Mutation B occurs with a probability of 0.2. What is the probability that a randomly selected fruit fly from the population will have both mutations, given that the two mutations occur independently?
+
+a) 0.02, because the probability of both independent events occurring is the product of their individual probabilities.
+
+b) 0.3, by adding the individual probabilities of each mutation.
+
+c) 0.1, because Mutation A is the rarer event, and its probability dictates the likelihood of both mutations occurring.
+
+d) 0.2, because Mutation B is more common, and its occurrence is more likely to be observed.
+
+Solution (with explanation): The correct answer is a) 0.02. Since the two mutations are independent, the probability of both mutations occurring in a single fruit fly is the product of their individual probabilities (P(A and B) = P(A) * P(B)). Therefore, P(A and B) = 0.1 * 0.2 = 0.02. This concept is crucial in genetic studies when determining the likelihood of multiple traits being expressed together.
+
+---
+
+According to PetSmart, 63% of households own pets. To test this, you conducted a survey and found that 210 households out of a random sample of 300 own pets. At the 5% level, does the survey agree with what PetSmart claims?
+
+Solution (with explanation):
+
+Check n*p0 > 10 and n*(1-p0) > 10
+
+n*p0 = 300*0.63 >10
+
+n*(1-p0) = 300*(1-0.63) > 10
+
+(We must check if both assumptions are true so that we can use the normal approximation method. Since both assumptions are true in this case, we can proceed.)
+
+Find zobsFind p-value(Since HA is p ¹ 0.63, this is a two-tailed test and therefore we doubled the P(Z < zobs). We did pnorm(-2.511) instead of 1-pnorm(2.511) since it was just more convenient.)
+
+Conclusion
+
+Since our p-value is less than a (0.05), we reject the null hypothesis. There is strong statistical evidence that PetSmart’s claim is invalid. 
+
+---
+
+In which of the following examples would a matched pair test be appropriate? 
+
+
+    A study following mental health of a group of students from grade 9 to grade 12 
+
+
+    A study testing the effects of three different ointments on three control groups and three experiment groups. The efficacy results were recorded for before and after. 
+
+
+    A study testing the arm strength of parents if they hold their babies on their non-dominant side. The amount of weight they could lift on their non-dominant side was recorded before and after. 
+
+
+    A study testing how likely a couple adopts a puppy before they have a baby was conducted. The amount of couples who started with a puppy, and then had a baby less than 3 years after was recorded.
+
+---
+
+Consider the following two-way table representing the distribution of student’s preferred ice cream flavours across different majors: 
+
+	
+
+|           | Math| Computer Science| Biology| Total |
+|-----------|-----|-----------------|--------|-------|
+| Chocolate | 90  | 30              | 40     | 160   |
+| Vanilla   | 10  | 60              | 100    | 170   |
+| Strawberry| 15  | 60              | 15     | 90    |
+| Mint      | 10  | 10              | 1      | 21    |
+| Total     | 125 | 160             | 156    | 431   |
+
+
+    Calculate the conditional probability P(Mint I Biology) 
+
+
+    Determine P(Math or Strawberry)
+
+Solution: 
+
+1. To find the P(Mint | Biology), we look at the conditional probability of students preferring Mint given that they are in the Biology discipline. This is calculated as the number of Biology students who prefer Mint divided by the total number of Biology students. Thus,
+
+P(Mint I Biology) = 1/156 = 0.0064
+
+2. P(Math or Strawberry) represents the probability of students preferring either Mathematics or Strawberry flavour. To calculate this, we add the probabilities of students preferring Mathematics and Strawberry individually, then subtract the probability of students preferring both Mathematics and Strawberry (to avoid double counting).
+
+P(Math or Strawberry) = P(Math) + P(Strawberry) - P(Math and Strawberry)
+
+= 125/431 + 90/431 - 15/431 = 200/431 
+
+= 0.4645
+
+---
+
+A researcher is studying the time it takes for a particular chemical reaction to occur. The time, in seconds, is known to follow a highly skewed right distribution. The researcher takes a random sample of 100 observations and calculates the sample mean time. According to the Central Limit Theorem, which of the following statements is most accurate regarding the distribution of the sample mean if the researcher were to repeat the sampling process an infinite number of times? 
+
+
+    The distribution of the sample mean will be highly skewed to the right, similar to the population distribution
+
+
+    The distribution of the sample mean will approximate a normal distribution, centered around the population mean
+
+
+    The distribution of the sample mean will be uniform across all possible values
+
+
+    The distribution of the sample mean will approximate a normal distribution, but with a mean significantly different from the population mean 
+
+Solution: B
+
+According to the Central Limit Theorem, for a sufficiently large sample size, the sampling distribution of the sample mean will approximate a normal distribution, regardless of the shape of the population distribution. The mean of this sampling distribution will be equal to the population mean, and the standard deviation of the sampling distribution (standard error) will be the population standard deviation divided by the square root of the sample size. This holds true even for populations that are not normally distributed, such as the highly skewed distribution described in the question
+
+---
+
+A researcher randomly selects 50 students in a large school and asks them about their preferences: 60% of students prefer online classes over in-person classes. Assuming the selection of students is independent of one another, which of the following statements is most accurate regarding the use of the normal distribution as an approximation for the sampling distribution of the sample statistic p (the sample proportion of students who prefer virtual classes)
+
+
+    The normal approximation is inappropriate because p ≠ 0.5 
+
+
+    The normal approximation is appropriate because the sample size is large enough, and both np and n(1-p) are above 10
+
+
+    The normal approximation cannot be applied because the sample does not include at least 100 students
+
+
+    The normal approximation is inapplicable due to the data being categorical rather than numerical 
+
+Solution: B
+
+If both np and n(1-p) are above 10, then the normal distribution is a good approximation of the binomial distribution. 
+
+Np = 50 * 0.6 = 30 — satisfies criteria (30>10)
+
+n(1-p) = 50 * 0.4 = 20 — satisfies criteria (20>10)
+
+Despite p ≠ 0.5 and the data being categorical; the criteria for using a normal approximation is met and is therefore appropriate to use here. 
+
+---
+
+A study examines the relationship between the amount of time students spend on an educational app, in hours and their scores on a standardized test. A linear regression model is used to estimate the relationship between these variables. What does the estimated slope (ꞵ) tell us in this study? 
+
+
+    For each additional hour studied, the predicted change in exam score
+
+
+    The predicted exam score when no time is spent studying
+
+
+    The strength and direction of the relationship between study time and exam scores
+
+
+    How much of the exam score variance is explained by studying 
+
+Solution: A
+
+The estimated slope (ꞵ) in a linear regression model represents the expected change in the dependent variable (Y, Exam Scores) per one unit of increase in the independent variable (X, study time). This means that the slope is described to be as the predicted change in exam scores for each additional hour of study. 
+
+---
+
+A health survey categorized 1,000 participants by their daily water consumption and skin health. 
+
+| | Skin Health | Low Water Intake (under 2L) | High Water Intake (2L+) 
+|---|----|---|---|
+| Poor | 120 people | 80 people |
+| Fair  | 200 people | 220 people |
+| Good  | 180 people | 200 people |
+
+To perform a Chi-Square test for independence between daily water intake and skin health, why do you calculate expected counts? 
+
+
+    To check if small groups skew results
+
+
+    To see if water intake really changes skin health
+
+
+    To match observed people to expected if intake didn't matter
+
+
+    To adjust for guessing how much water people drink 
+
+Solution: C
+
+Expected counts are used to figure out how many people we’d expect in each skin health category for each water intake level if drinking more or less water didn’t affect skin health at all. This allows us to compare data from the survey (observed counts) to a world where water intake has no impact on skin health (expected counts). If there’s a big difference between observed and expected counts, it might mean that how much water people drink does affect their skin health. This approach helps us use the Chi-Squared test to analyze the relationship between two categories. 
+
+---
+
+An ecological researcher wants to estimate the average weight of apples in a sample from an independently owned apple farm that does not use pesticides. A random sample of 25 apples different strains of apples are selected, and their weights are recorded. Using the t-Confidence Interval with a confidence level of 95%, if the sample mean weight is 150 grams and the sample standard deviation is 20 grams, what is the margin of error? 
+
+a) 2.064 grams
+
+b) 4.032 grams
+
+c) 6.195 grams
+
+d) 8.256 grams
+
+Solution: d) 8.256 grams
+Explanation: because the margin of error is approximately 8.256 grams, option d) is correct because it is the closest
+
+---
+
+In a clinical trial, researchers are testing three different diets (A, B, and C) to determine their effects on cholesterol levels in patients with high blood pressure (HBP)- a leading cause to heart disease. A sample of 60 patients is randomly divided into three groups, with each group assigned to follow one of the three diets for three months. After the trial period, cholesterol levels are measured for each patient. The researchers want to determine if there is a statistically significant difference in mean cholesterol levels between the three diet groups. Using ANOVA:
+
+ 
+
+a) Define the null and alternative hypotheses for this study.
+
+b) Explain how the F-test is utilized in ANOVA to compare means across multiple groups.
+
+ 
+
+c) Discuss how controlling the Type I error rate is important in interpreting the results of ANOVA.
+
+ 
+
+Solution (with Explanation):
+
+a) The null hypothesis (H0) for this study states that there is no difference in mean cholesterol levels among the three diet groups (A, B, and C). The alternative hypothesis (HA) states that there is at least one statistically significant difference in mean cholesterol levels among the diet groups.
+
+ 
+
+b) The F-test in ANOVA is used to determine whether the variation in cholesterol levels between the diet groups is greater than the variation within each group. This is done by calculating the ratio of the variance between groups to the variance within groups (F=MSG/MSE). If the calculated F-statistic is greater than the critical value at a chosen significance level (e.g., α(sigma) = 0.05), then the null hypothesis is rejected, indicating that at least one of the diet groups has a significantly different mean cholesterol level. Since we are not given any data besides 60 patients, this is why we interpreted the data anecdotally. 
+
+ 
+
+c) Controlling the Type I error rate is crucial in interpreting ANOVA results to avoid false positives. If the Type I error rate is not controlled (e.g., by setting a significance level such as α (sigma) = 0.05), there is a risk of incorrectly rejecting the null hypothesis when it is actually true. This could lead to inaccurate conclusions about the effectiveness of the different diets in influencing cholesterol levels. By controlling the Type I error rate (i.e., by increasing sample size, increasing the significance level (alpha), using a one-tailed test instead of a two-tailed test for t tests and z tests...) researchers can ensure that any observed differences between groups are statistically significant and not simply due to chance (refer to section 11.6 and 20.2 of the course notes)
+
+---
+
+A medical researcher is investigating the effectiveness of three different drug treatments (A, B, and C) in treating cancer. A sample of 200 patients is randomly divided into three groups, with each group receiving one of the three treatments. After a period of treatment, patients are categorized into four outcome groups: "Fully Recovered," "Partial Recovery," "No Improvement," and "Worsened Condition." The researcher wants to determine if there is a significant difference in the proportions of outcomes among the three treatment groups. Using the Chi-square test for multiple proportions:
+
+a) State the null and alternative hypotheses for this study.
+
+b) Explain how the Chi-square test is used to compare proportions across multiple treatment groups.
+
+c) Interpret the results of the Chi-square test in the context of this study.
+
+Solution (with Explanation):
+
+a) The null hypothesis (H0) for this study states that there is no difference in the proportions of outcomes among the three treatment groups (A, B, and C). The alternative hypothesis (HA) states that there is a significant difference in the proportions of outcomes among the treatment groups.
+
+b) The Chi-square test for multiple proportions compares the observed frequencies of outcomes in each category (e.g., "Fully Recovered," "Partial Recovery," "No Improvement," and "Worsened Condition") among the treatment groups with the expected frequencies if there were no differences between the groups. It calculates the Chi-square statistic based on the differences between observed and expected frequencies, normalized by the expected frequencies. If the calculated Chi-square statistic exceeds a critical value at a chosen significance level (e.g., α (sigma) = 0.05), then the null hypothesis is rejected, indicating that there is a significant difference in the proportions of outcomes among the treatment groups.
+
+c) Upon conducting the Chi-square test, if the p-value associated with the test statistic is less than the chosen significance level (e.g., p < 0.05), the null hypothesis is rejected, suggesting that there is a significant difference in the proportions of outcomes among the treatment groups. Post-hoc analysis, such as pairwise comparisons using adjusted p-values, can be performed to identify which specific treatment groups differ significantly in their outcome proportions.
+
+---
+
+Select all of the following that violate the binomial assumptions and state the violations, if any. 
+
+
+    An experiment continues until 15 successes are recorded.
+
+
+    You flip a coin 10 times and record the number of heads and tails.
+
+
+    You pull out a name from a hat and pass the hat around the room, everyone taking a name. 
+
+
+    Taking a multiple choice test.
+
+Solution (with explanation): A and C. A has a violation to the first assumption (i.e. there are n trials, and this number is known ahead of time). Even though the experiment continues to a set number of successes, it does not align with a set number of trials, so this experiment violates the first assumption. Additionally, C has a violation to the third assumption (i.e. each trial is independent of the other trials). In this example, the probability of pulling a specific person’s name from the hat decreases with each time the hat is passed to the next person. In other words,  since the probability is changing with each trial, the trials are not independent from each other. The other two examples, B and D do not violate any assumptions.
+
+---
+
+Which of the following is the correct notation to compute P(X) if P(X>5), n=3, p=0.47
+
+
+    P(X) = 1-pbinom (5, 3, 0.47)
+
+
+    P(X) = pbinom (4, 3, 0.47)
+
+
+    P(X) = 1-pbinom (4, 3, 0.47)
+
+
+    P(X) = pbinom (6, 3, 0.47)
+
+Solution (with explanation): A has the correct notation to compute P(X). If X>5, it is calculating values to the right, this means that we need to use “1-pbinom” instead of “pbinom” which calculates values to the left. We also do not need to use 4 because X is greater than 5. If X < 5, we would compute P(X) using P(X) = pbinom (4, 3, 0.47). 
+
+---
+
+In a clinical trial for a new medication intended to reduce symptoms of a chronic illness, the null hypothesis states that the medication has no effect on symptoms. After analyzing the trial data, the researchers fail to reject the null hypothesis, even though the medication actually does have a beneficial effect. 
+
+Which type of error does this scenario best illustrate?
+
+A) Type 1 Error
+
+B) Type 2 Error
+
+C) No error occurred; the analysis was correct.
+
+D) Both Type 1 and Type 2 errors occurred simultaneously.
+
+Solution (with Explanation): A Type 2 Error occurred, indicating the failure to reject a false null hypothesis. This scenario illustrates a situation where researchers incorrectly concluded that the new dietary supplement had no effect on cognitive performance, despite evidence of a significant positive effect. This is characteristic of a Type 2 error, where a false null hypothesis (that the supplement has no effect) was not rejected when it should have been.
+
+---
+
+You are a teacher and prepare a MyLs pop-quiz for your students. All 20 students must complete the 5 question test before they are allowed to go to recess. The test comes from a test bank which consists of multiple choice and true and false questions. You ensure everyone keeps their eyes on their own paper, and randomize question distribution to prevent straying eyes. What assumption of the binomial distribution are you violating?  
+
+
+    There are a fixed number of trials known ahead of time
+
+
+    Each trial is either a success or failure 
+
+
+    Each trial is independent of other trials
+
+
+    The probability of success is the same for all trials
+
+Solution (with explanation): 
+
+The answer is Option 4. The number of trials is fixed and known. There is either an option of success or failure (get the question right or wrong). Each trial is also independent, as you prevent cheating from occurring. The probability of success is not the same, as the test is randomized. Students will have different proportions of MC:TF, altering the probability of success for each student. 
+
+---
+
+What is true/characteristic of all normal distributions?   
+
+
+    The area under their curve amounts to 1
+
+
+    The distribution is centered at 0 with standard deviation of 1
+
+
+    They can be used to find probability of a specific point - P(X=x)
+
+
+    They are discrete distributions. 
+
+Solution (with explanation): 
+
+The answer is Option 1. Standardized normal distributions are centered at 0 with a standard deviation of 1, but not all Normal distributions have to be. While binomial distributions are discrete distributions, normal distributions are continuous. As a result, they cannot be used to find the probability of specific points, as P(X=x) is equal to 0. Therefore, because normal distributions are continuous, the curve of the distribution must have an area equal to 1 (you cannot have individual points that you add up).
+
+---
+
+Which of the following would be considered an independent event? 
+
+
+    Rolling a dice and it’s a 3 and it's also a 4
+
+
+    Rolling a dice and it’s greater than 3 and an odd number
+
+
+    Rolling a dice and it’s less than 4 and an even number
+
+
+    Rolling two dice, and it’s a 3 on one and a 2 on the other 
+
+Solution (with explanation): Correct Answer = D. After rolling 2 dice, getting a 3 on one dice and a 2 on another dice are independent events. Getting a 3 on the one dice tells you nothing about the other dice, and vice versa. Therefore, answer D is an independent event. 
+
+---
+
+Which of the following statements is incorrect? 
+
+
+    A significance level (𝜶) of 0, means we will never reject the null hypothesis.
+
+
+    A significance level (𝜶) of 1, means we always reject the null hypothesis. 
+
+
+    A significance level (𝜶) is 0.05 and the p-value is 0.01, means we reject the null hypothesis 
+
+
+    A significance level (𝜶) is 0.05 and the p-value is 0.7, means we accept the null hypothesis 
+
+Solution (with explanation): Correct answer = D. The incorrect statement is D. Although the p-value is greater than the significance level, indicating that we should fail to reject the null hypothesis, it is important to note that we NEVER accept the null hypothesis. Therefore, this statement is an incorrect statement. 
+
+---
+
+Given this information answer these three questions:
+1.Estimate the mean and standard deviation of X using the Normal Distribution.
+2.Calculate the probability that a randomly selected value from this distribution is less than 5. 
+3.If a new observation from the distribution is at the 90th percentile, find this value of X.
+
+Solution (with explanation):
+1. We can use the empirical rule (or the 68-95-99.7 rule). Given that 95% of the values fall within 10 to 30, we can infer that this range represents 2 standard deviations from the mean on either side (plus or minus 2σ), based on the empirical rule. The mean (μ) is the midpoint of 10 and 30, which is μ = (30+10)/(2) = 20. The standard deviation (σ) is one quarter of the range, since 2σ = (30 - 10) = 20, then σ =(20/4) = 5.
+Therefore the mean is 20 and standard deviation is 5
+
+.Normal Distribution Curve Drawing
+
+2. To find the probability that a randomly selected value is less than 5, we first standardize this value using z = (X - μ)/(σ) = (5 - 20 / 5) = -3. Using the Z-table, find the row labeled -3.0 and the column labeled 0.00, which represents the probability is approximately 0.0013 or 0.13%.
+
+3. To find the value of X at the 90th percentile, we first find the Z-score corresponding to the 90th percentile, which is approximately 1.29. Then, we convert this z-score back to the original scale using 
+X = μ + Zσ 
+= 20 + 1.29(5) 
+= 20 + 6.4
+= 26.45. 
+
+---
+
+ I have been tracking the time I spend daily on my phone over the past year and have found the distribution of time spent to be approximately normal. If the average time I spend per day is 2 hours with a standard deviation of 30 minutes, which of the following statements is most likely true about my phone screen time based on the properties of normal distributions?
+
+A) I spend more than 3 hours on my phone on most days.
+B) I never spend less than 1 hour on my phone on any given day.
+C) On approximately 68% of the days, I spend between 1.5 and 2.5 hours on my phone.
+D) I spend exactly 2 hours on my phone every day.
+
+Solution (with explanation): 
+The correct answer is C) On approximately 68% of the days, I spend between 1.5 and 2.5 hours on my phone. This option directly applies the empirical rule of normal distributions, which states that about 68% of the data falls within one standard deviation of the mean in a normal distribution. Since the average time is 2 hours with a standard deviation of 30 minutes, adding and subtracting one standard deviation from the mean gives a range of 1.5 to 2.5 hours, reflecting the time I likely spend on my phone on most days.
+
+---
+
+A school board designed a study to understand the relationship between academic performance and extracurricular activities. 150 students were surveyed and asked which types of extracurricular activities they participate in, with the options being Sports, Clubs, and None. The students could select more than one category if they are involved in multiple extracurriculars. The results were as follows: 80 students participated in Sports, 50 students participated in Clubs, 30 students participated in both Sports and Clubs and 20 students did not participate in any extracurricular activities.
+
+Is a chi square test appropriate for this study? Why or why not.
+
+Solution (with explanation):
+
+The answer is no, a chi square test would not be appropriate for this study because a student can fit into more than 1 category which violates the principle of independence among all individuals for a chi square test, as participants can select more than one category. 
+
+---
+
+Which option correctly states when we should use the different p values (p, p^hat, and p0) 
+
+
+    We use p when we assume that the null hypothesis is true, p0 when we are given a population, and p^hat when we are given a sample population. 
+
+
+    It does not matter because all p-values are interpreted the same way 
+
+
+    We use p when we are given the population, p0 when we assume the null hypothesis is true, and p^hat when we are given a sample population. 
+
+
+    We use p when we are given a sample population, p0 when we assume the null hypothesis is true, and p^hat when we are given the population. 
+
+Solution (with explanation): 
+
+The correct answer is We use p when we are given the population, p0 when we assume the null hypothesis is true, and p^hat when we are given a sample population. B is incorrect because even though the p-values are interpreted the same way, we use the different p-values depending on what information we are given. 
+
+---
+
+The NBA average points per game for starting point guards is approximately normal and sits at around 10.3 points per game.  The standard deviation in this season was 7.82.  If Luka Doncic averages 28.4 points per game, what is his Z-score
+
+
+    2.315
+
+
+    1.998
+
+
+    0.0873
+
+
+    Not enough information is provided
+
+Solution: 
+
+Answer a, 2.315.
+
+To solve this question, we need to use the formula z=(X-μ)/𝛿
+
+Given that X is 28.4, μ is 10.3 and 𝛿= 7.82, we can compute the formula to solve for z score.  The X value correlates with what Luka scores per game as it's his value, the average for the entire league is 10.3 which is the μ, and the standard deviation of the league is 7.82.
+
+---
+
+The MLB league average for batting percentage differs from player to player as their age increases and is normal.  The league average is 0.239 with a standard deviation of 0.103. Approximately 95% of all hitters in the league will be between:
+
+
+    0.033 and 0.445
+
+
+    0.136 and 0.342
+
+
+    0.07 and 0.548
+
+
+    0.033 and 0.342
+
+Solution: answer a, 0.033 and 0.445.  To solve this answer, we must first acknowledge that the distribution is normal.  Therefore we can use the empirical rule.  Using the empirical rule, we know that 95% of the distribution is within 2 standard deviations from the mean.  We will use the formula μ - 2𝛿 and μ + 2𝛿 for the lower and upper bounds respectively.  Once we compute this using μ=0.239 and 𝛿=0.103, we will find the answer.
+
+---
+
+Suppose we are examining the relationship between time spent watching television and time spent sleeping. Which variable would likely be the explanatory variable, and which would be the response variable? Why?
+
+Solution (with explanation):
+
+The response is the dependent variable and the explanatory is the independent variable. Knowing this, the time spent sleeping would be the response, and the time spent watching television would be the explanatory variable. Time spent sleeping in this situation is being measured as a factor that depends on the time spent watching television. Without using causality, we can notice that the results we obtain will be dependent on our response variable. In other words, knowing about time spent watching television will tend to tell us about time spent sleeping. 
+
+---
+
+A pharmaceutical company machine is designed to effectively package 120 pills of acetaminophen in each container. A study was conducted to test this null hypothesis   H0 : μ=120 against a two-sided alternative hypothesis. The study reported that the two-sided p-value for μ was significant at the 5% level but not at the 1% level. The sample mean is 1232 and the sample size is 36. Assuming a normal distribution of the packaging process, what values could the standard deviation be?
+
+Solution (with explanation): The standard deviation is between 1.96 and 2.58.
+
+We would solve using the t-stat formula : 
+
+T stat = ((mean) - (μ))/ (σ)/(squareroot of n)
+
+And rearrange it to solve for sigma (σ) = standard deviation
+
+σ* = t-stat x (square root of n) / (mean - μ )
+
+Where,
+
+Mean (sample mean) = 121
+
+N = 36
+
+5% significance for a two-tailed test = 0.025 = Z value of -1.96
+
+1% significance for a two-tailed test = 0.005 = Z value of -2.58
+
+The final answer would be in absolute value (1.96 to 2.58)
+
+---
+
+At WLU, 40% of the student body is enrolled in statistics. A random sample of 25 students are selected. a) Find the probability that exactly 9 students from the 25 are taking statistics. b) Calculate the probability in which fewer than 4 students from the sample are enrolled in statistics. c) Calculate the mean and standard deviation for this binomial distribution. Hint: the cr button on calculator will help.
+
+Solution (with explanation): 
+
+n= 25, x= 9 , p= 0.40, q= 0.60
+
+P(x) = (nCx)*(p^x)*(q^n-x) 
+
+
+A) P(x) = (9C25)*(0.40^9)*(0.60^25-9)
+
+P(x) = 0.151 or 15.1%
+
+B) P(x < 4) = P(1) + P(2) +P(3)
+
+P (1) =(25C1)*(0.40^1)*(0.60^25-1)
+
+P (1) = 0.000044
+
+P (2) =(25C2)*(0.40^2)*(0.60^25-2)
+
+P (2) = 0.000379
+
+P (3) =(25C3)*(0.40^3)*(0.60^25-3)  
+
+P (3) = 0.00193 
+
+P(x < 4) =0.002356 or 0.2356% 
+
+C) mean = (n)(p)
+
+Mean = (25)(0.40) 
+
+Mean = 10
+
+Standard deviation = √npq 
+
+Standard deviation = √(25)(0.40)(0.60) 
+
+Standard deviation = 2.45
+
+---
+
+A confidence interval for a population mean has the length 28m
+
+
+    Determine the Margin of error
+
+
+    If the sample mean is 62.41m, what is the confidence interval?
+
+Solution (with explanation):
+
+
+    E= L/2
+
+  = 14
+
+
+    X̄ ± E
+
+= 62.41 ± 14
+
+= (48.41, 76.41)
+
+---
+
+The WLU dance team uses a scoring system as follows for competitions: 
+
+Fair (1pt) 
+
+Good (2pt)
+
+Excellent (3pt)
+
+Superior (4pt)
+
+Which type of variable is being used for their scoring system?
+
+a) categorical
+
+b) binary
+
+c) quantitative
+
+d) qualitative
+
+Solution (with explanation): The correct answer is a) categorical. This is because the scoring system using mutually exclusive categories as labels. Their scoring system demonstrates ordered categorical variables.
+
+---
+
+Given the following information on cafes frequented by WLU students in different faculties what is the probability of Business given Byte Cafe: P(Business|Byte)
+
+|            | Business| Science| Arts| Total |
+| Byte Cafe  | 20      | 5      | 2   | 27    |
+| Tim Hortons| 2       | 20     | 10  | 32    |
+| Starbucks  | 8       | 10     | 8   | 26    |
+| Total      | 30      | 35     | 20  | 85    |
+
+a)20/27
+
+b)50%
+
+c)30/27
+
+Solution (with explanation): The correct answer is option a)20/27. This is because we are restricting the business sample space to only those who frequent byte cafe (20) out of the total number of students who frequent btye cafe out of all the faculties.
+
+---
+
+During surgical procedures, chances for blood loss are imminent. Kyrie gets a surgery where he experiences severe blood loss causing decreased hemoglobin levels. Hemoglobin is the protein that is encompassed in the red blood cell. Without hemoglobin, red blood cell count would decrease causing less oxygen to reach vital organs causing potential hypovolemic shock. This would result in the immediate need of replenishing blood products in the body to avoid organ failure. A plot of the hemoglobin against the requirement for blood products shows a linear pattern. The relationship between hemoglobin and blood product could be summarized by which statement?
+
+A. A correlation coefficient of -0.8 indicates a strong negative linear correlation between hemoglobin levels and requirement for blood product. 
+
+B. A correlation coefficient of 0.6 suggests a moderate positive linear correlation between hemoglobin levels and requirement for blood products.
+
+C. A correlation coefficient of -0.1 indicates a weak negative linear correlation between hemoglobin levels and requirement for blood product. 
+
+D. A correlation coefficient of 0.3 suggests a weak positive linear correlation between hemoglobin levels and requirement for blood product. 
+
+Solution (with explanation): A. A correlation coefficient of -0.8 indicates a strong negative linear correlation between hemoglobin levels and requirement for blood product.  As Kyries hemoglobin levels decrease due to blood loss from surgery, there is a higher likelihood of needing blood products to replenish this lost blood volume in order to maintain organ function and oxygen delivery. 
+
+---
+
+A local high school was surveyed to understand the amount of students that participated in sports. Specifically basketball and hockey. Here are the results.
+
+31% of students play basketball
+39% of students play hockey
+63% of students play basketball or hockey
+22% of students play hockey and basketball
+
+Are “playing basketball” and “playing hockey” independent events?
+A) Yes, they are independent
+B) No, the are not independent
+
+Solution (with explanation): A is the correct answer. To determine independence, P(A)=P(A|B). In this case, we will set the students that played basketball as P(A) and hockey as P(B). So, P(A)=0.31 and P(B)=0.39. To find P(A|B), you use P(AandB)/P(B). So, P(A|B)=0.22/0.39=0.59. 
+Since, P(A)=0.31 does NOT equal P(A|B), these events are dependent!
+
+---
+
+Which of the following statements is true regarding Inter-Quartile Range?
+
+(a) It represents the median of the full set of data 
+
+(b) Subtracting the first quartile from the third quartile gives the inter-quartile range
+
+(c) Inter-quartile range can only be distributed for normally distributed data
+
+(d) Inter-quartile range is a measure of central tendency
+
+Solution (with explanation):
+
+The correct answer is (b) because that is the equation to calculate inter-quartile range.
+
+    (a) is incorrect because it does not represent the median of the data; it represents the middle 50% of the data
+    (c) is incorrect because it is not limited to normally distributed data; it can be calculated for any data set regardless of its distribution 
+    (d) is incorrect because it measures the spread or dispersion of a data set and not a measure of central tendency
+
+
+---
+
+A study was conducted on North American 18-year-old males based on heights, collected as 4′ 5″-5 ' 0", 5′ 1″-5′ 5″, 5′ 6″-5′ 11″ or 6′ 0″+. Which of the following categories best describes this variable?
+
+
+    Unordered Categorical
+
+
+    Ordered Categorical
+
+
+    Continuous
+
+
+    Discrete
+
+Solution (with explanation):
+
+The correct answer is B.
+
+Ordered categorical variables tend to have hierarchical variables among ranges/groups, starting from a low order and leading to a higher order. In this case, the variable starts from a shorter category to a taller category, following a specific order.
+
+A is incorrect since the variable above follows an order, therefore the answer cannot be unordered categorical.
+
+C and D cannot apply to this variable since they are not whole numbers and are set up as ranges in groups.
+
+---
+
+A gym teacher assesses students' ability to perform a high jump during a PE class. Each student is given a suitable bar based on their height and the bar is moved higher after the first attempt. They are given two attempts each to perform the high jump. Which of the following assumptions of the binomial distribution does this scenario violate? Explain your answer. 
+
+There are n trials, and this number is known ahead of time.
+
+Each trial is either a “success” or a “failure”.
+
+Each trial is independent of the other trials.
+
+The probability of success is the same for all trials.
+
+Solution (with explanation):
+
+This scenario violates the assumption that the probability of success is the same for all trials. In the context of the question, each student has a higher probability of success on their first attempt because the bar is at a lower height. Increasing the bar height on the second attempt decreases the probability of success. Therefore, the probability of success is not the same for all trials in this scenario. 
+
+---
+
+Which of the following study designs meets the necessary conditions for performing inference on proportions?
+
+a) A study design where you sample your siblings.
+
+b) A study design where you look at the difference in mean heights between men and women and your sample is spousal pairs.
+
+c) A study design where you randomly sample. Sample size is 500 cats and you hypothesize that 60% of the cats will be brown.
+
+d) A study design where your randomly sample. Sample size is 50 dogs and you hypothesize that 6% of the dogs will have droopy ears.
+
+Solution (with explanation): 
+
+a) is incorrect because the samples are not independent. Siblings usually have similar characteristics, so knowledge of the characteristics of one family member is informative about the others (thus not independent). Samples need to be independent.
+
+b) is incorrect because the groups are not independent. Spouses tend to be closer in height than the randomly sampled male and female. The groups need to be independent. 
+
+d) is incorrect because np<10 
+
+n=50, p=0.06
+
+50 x 0.06 = 3 (less than 10)
+
+c) is correct because np<10 and n(1-p)>10
+
+n=500, p=0.6
+
+500 x 0.6= 300 (>10)
+
+500 (1-0.6)= 200 (>10)
+
+---
+
+Which of the following studies has made a Type 1 error?
+
+A) A study investigates whether or not a new basketball training regimen significantly improves free throw accuracy compared to the standard training regimen. Results show no significant difference in free throw accuracy between the two regimens, which has led the researchers to conclude that the new regimen does not offer significant improvement over the standard regimen.
+
+B) A study investigates the effects of wearing Lebron James’ basketball shoes on players' vertical jump height. Researchers conclude that the shoes have a significant effect on increasing jump height, although further replication of the study fails to find any significant difference.
+
+C) A study investigates if listening to motivational music before a basketball game enhances shooting percentages. The study finds no significant difference in shooting percentages between those who listened to motivational music and those who did not.
+
+D) A study investigates the impact a high-protein diet has on the endurance of basketball players during games. Results show no significant difference in endurance between players on a high-protein diet and those on a regular diet, concluding that diet composition does not affect endurance.
+
+Solution (with explanation):
+
+B) is the correct answer. A Type I error occurs when the null hypothesis is rejected, when it is actually true. The scenario given in B shows that researchers rejected the null hypothesis, but further replication showed that there are no significant difference in vertical jump height when wearing Lebron James’s shoes (do not reject the null hypothesis).
+
+---
+
+It's known that 30% of the days in April are rainy. If we consider 20 random days in April, what is the probability that exactly 5 of these days will be rainy?
+
+Solution (with explanation): Using the binomial probability formula, P(x successes in n trials) = nCx * px * (1-p)n-k and substituting 20 for n as the number of trials (number of days), 5 for k as the number of successes (number of rainy days), and 0.3 for p as the probability (probability of rainy days). nCx can be substituted for the binomial coefficient which can be expanded into n! / k! (n−k)!
+
+The equation before calculating will be: 
+
+P(X=5) = (20! / 5!(20-5)!)(0.3)5(1-0.3)20-5
+P(X=5) = (15504)(0.00243)(0.00474756)
+P(X=5) = 0.17886
+Therefore, the probability of exactly 5 rainy days out of 20 is approximately 17.86%
+
+---
+
+What distinguishes unordered variables from ordered variables? 
+
+A) Unordered variables can take on any numerical value, whereas ordered variables can only take on a set of specific values.
+
+B) Unordered variables have categories that do not have a specific order or ranking, whereas ordered variables have categories that can be ranked or have a specific order. 
+
+C) Ordered variables are used exclusively for quantitative data analysis, whereas unordered variables are used for qualitative data analysis.
+
+D) Unordered variables are always numeric, whereas ordered variables are always represented by symbols or letters. 
+
+Solution (with explanation): B) Unordered variables have categories that do not have a natural order or ranking among them, whereas ordered variables have categories that can be ranked or have a specific order. Unordered variables represent categories without any order, such as types of cuisine. Ordered variables have categories that can be ranked or sequenced, such as type of educational degree.
+
+---
+
+Which of the following scenarios best exemplifies the difference between discrete and continuous variables?
+
+A) The temperature of a cup of coffee, versus the temperature settings on a coffee machine. 
+
+B) The number of books on a shelf, versus the thickness of a book. 
+
+C) The speed of a car, versus the number of cars in a parking lot. 
+
+D) The age of students in a classroom, versus the number of students in a classroom. 
+
+Solution (with explanation): B) The number of books on a shelf, because it can only be counted in whole numbers, versus the thickness of a book, which can be measured with more precision. Discrete variables are limited to specific, separate values (whole numbers), while continuous variables can assume any value within a range. 
+
+---
+
+Which of the following is false?
+
+    In a random sample from the population, one data point from the sample must be exactly on the least squares regression line for the line to be useful.
+    The slope and correlation of the least squares regression line have the same sign (both positive or both negative).
+    If there is zero correlation between the explanatory and response variables, the slope will be exactly 0.
+    What can be considered as a “large” versus “small” slope depends on the context of the data being interpreted.
+
+Solution (with explanation): Option A is the correct answer since it is false, and all the other statements are true. Option A is false since one data point from the sample does not have to be exactly on the least squares regression line for the line to be useful or valid. Option A is meant to trick the student since the point (x̄, ȳ) is always on the line of best fit, but may not be in the sample data.
+
+---
+
+When evaluating the claim of a new study with a p-value of 0.04, which approach best aligns with responsible statistical interpretation?
+
+A) The result is revolutionary due to the p-value being under 0.05.
+
+B) Despite statistical significance, we must also consider practical significance and the potential for Type 1 and Type 2 errors.
+
+C) The p-value conclusively proves the study's claim.
+
+D) No further scrutiny is needed beyond noting the p-value is less than 0.05.
+
+Solution: B is correct. It highlights the need to look beyond statistical significance at the p-value, emphasizing the importance of evaluating practical significance and the risk of errors, aligning with a thorough and ethical approach to interpreting statistical findings.
+
+---
+
+A research team wants to understand the relationship between amount of time spent on social media and GPA. They gathered data from 300 Wilfrid Laurier University students, recording their weekly social media use ranging from 0 to 10 hours. Based on this, the researchers created a linear regression model. Using this model, they attempt to predict the GPA for someone who would be on social media 20 hours per week. 
+a. Discuss the problem with the researchers’ method.  
+b. Identify the explanatory and response variable in this study. 
+
+
+Solution (with explanation): 
+a. The problem with using the regression model to predict the GPA of an individual that spends 20 hours per week on social media is  extrapolation. This can cause an inaccurate conclusion becuase the regression model was established within a 0-10 hour range. 
+b. In this study, the explanatory variable is the amount of time spent on social media per week and the response variable is GPA. The explanatory variable is used to explain the response variable. 
+
+---
+
+You roll a fair six-sided dice. What is P(Even | >3)? 
+A) ½ 
+B) ⅓ 
+C) ⅔
+D) ¾
+
+Solution (with explanation): 
+C) - ⅔ 
+This is a conditional probability, the question is asking for the probability of rolling an even number, given that the roll is greater than 3. The possibilities that we are interested in now are ones that are greater than 3: {4, 5, 6}. Therefore, there are 3 possibilities now (not 6). Among these possibilities, 2 are even (4 and 6). Therefore, the probability is ⅔. 
+
+---
+
+A research team is investigating the IQ scores among individuals living in Waterloo. To understand the variability of IQ scores, the team collects many random samples of the same size from the population and calculates the mean IQ score for each sample. Upon analyzing the sampling distribution of these sample means, the team observes that it follows a normal distribution. Which statement is accurate?
+
+A) As sample size increases, the standard deviation of the sampling distribution of the sample means decreases. 
+B) As sample size increases, the standard deviation of the sampling distribution of the sample means increases. 
+C) The standard deviation of the sampling distribution of the sample means remains constant regardless of the sample size.
+D) The standard deviation of the sampling distribution of the sample mean is always equal to the population standard deviation
+
+Solution (with explanation): 
+A). 
+The question states the sampling distribution of the sample mean follows a normal distribution X̄ ~ N(μ, σ/√n). This means that the sampling distribution of the sample means has a smaller standard deviation as the population, but the same mean. Mathematically, it is seen that as the sample size increases, the standard deviation will decrease (larger denominator). Intuitively, as the sample size increases, the variation among sample means decreases, making the sampling distribution tighter around the mean. 
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

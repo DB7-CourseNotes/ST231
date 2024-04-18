@@ -59,7 +59,7 @@ The **p-value** for this is the probability of observing a value at least as far
 
 Using `pnorm()`, our p-value is P(Z > 3) = 1 - P(Z < 3) = 0.0013^[We can only use a standard normal distrubution because the mean of the sampling distribution is assumed to be $\mu_0$, our hypothesized mean. If this weren't the case, then we would not get a standard normal distribution and thus we wouldn't be able to use this method. This is why the "assuming the null is true" bit is important.]. Is our sample mean "unlikely" assuming that the null hypothesis is true?
 
-The definition of "unlikely" will generally need to be given in the question. Usually, a **significance level** of $\alpha = 0.05$^[The symbol $\alpha$ refers to the significance level, but also comes up in a $(1-\alpha)$\%CI. Perhaps this is foreshadowing.] is used^[Please read the [APA's
+The definition of "unlikely" will generally need to be given in the question. Usually, a **significance level** of $\alpha = 0.05$^[The symbol $\alpha$ refers to the significance level, but also comes up in a $(1-\alpha)$\%CI. Perhaps this is foreshadowing.] is used^[Please read the [ASA's
   statement on p-values](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5187603/). A previous short answer question exam question was based on this.].
 
 Since our p-value is 0.0013 < 0.05, our observed mean is "too unlikely." So our hypothesis must be wrong!^[Again: if our guess is incompatible with our data, then it's our guess that's wrong, not the data.] We conclude that the average time to complete the trail has increased, i.e. $\mu > 15$^[Notice how this conclusion brings back the context of the question.]. In this case, we say our result is **statistically significant**.
