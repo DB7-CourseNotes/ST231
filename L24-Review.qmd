@@ -135,7 +135,7 @@ t.test(mtcars$mpg, mu = 19,
     alternative = "two.sided")
 ```
 
-Our p-value is 0.31, which is much larger than our significance level of 0.05. We conclude that we cannot reject the EPA's claim.^[This does *not* mean that 19 is the true value, we just don't have evidence against this value. We don't confirm the null; it's set up in a such a way that we seek evidence *against* it, not for it.]
+Our p-value is 0.31, which is much larger than our significance level of 0.01. We conclude that we cannot reject the EPA's claim.^[This does *not* mean that 19 is the true value, we just don't have evidence against this value. We don't confirm the null; it's set up in a such a way that we seek evidence *against* it, not for it.]
 
 
 <details>
@@ -178,7 +178,7 @@ A matched pairs test is actually just a one-sample t-test for the differences. I
 - **Null Hypothesis**: Generally, we have the null hypothesis $H_0:\mu_{diff} = 0$, where $\mu_{diff}$ is the difference in the means (either $\mu-1 - \mu_2$ or $\mu_2 - \mu_1$^[Either is fine, but you must be careful about using right or left-sided p-values]).
 - **Test Statistic**: $t_{obs} = \dfrac{\bar x_1 - \bar x_2}{SE}$
     - $SE$ comes from the square root of the sum of their variances.
-        - $SE = \sqrt{\frac{s_1^2}{n_1} + \frac{2_s^2}{n_2}}$
+        - $SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$
 - **p-value**: Same as 1-sample, where we use a $t$-distirbution.
 - **CI**: $\bar x1 - \bar x_2 \pm t_{n-1}^*SE$
 
@@ -571,7 +571,7 @@ prop.test(sum(famuss$sex == "Female"), nrow(famuss), p = 0.5)
 mean(famuss$drm.ch)
 t.test(famuss$drm.ch, mu = 0, alternative = "greater")
 
-# 3. Are the means of the non-dominant and dominant columns different?7
+# 3. Are the means of the non-dominant and dominant columns different?
 t.test(famuss$drm.ch - famuss$ndrm.ch, mu = 0, alternative = "two.sided")
 
 # 4. Is there a difference between change in non-dominant arm strength for men and women in this study?
