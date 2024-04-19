@@ -572,7 +572,7 @@ mean(famuss$drm.ch)
 t.test(famuss$drm.ch, mu = 0, alternative = "greater")
 
 # 3. Are the means of the non-dominant and dominant columns different?7
-t.test(famuss$drm.ch - famuss$drm.ch, mu = 0, alternative = "two.sided")
+t.test(famuss$drm.ch - famuss$ndrm.ch, mu = 0, alternative = "two.sided")
 
 # 4. Is there a difference between change in non-dominant arm strength for men and women in this study?
 t.test(ndrm.ch ~ sex, data = famuss, alternative = "two.sided")

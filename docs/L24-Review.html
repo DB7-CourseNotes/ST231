@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Dr.&nbsp;Devan Becker">
-<meta name="dcterms.date" content="2024-03-28">
+<meta name="dcterms.date" content="2024-04-19">
 
 <title>Statistics for Life Sciences - 21&nbsp; Post-Midterm Review</title>
 <style>
@@ -361,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-03-28</p>
+      <p class="date">2024-04-19</p>
     </div>
   </div>
   
@@ -1123,7 +1123,7 @@ X-squared = 8.3876, df = 2, p-value = 0.01509</code></pre>
 <section id="output-of-code" class="level3">
 <h3 class="anchored" data-anchor-id="output-of-code">Output of Code</h3>
 <p>Try these youself, changing the alternative hypothesis and hypothesized values!</p>
-<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-28_55cfe93480c3b66de30e4751d4057508">
+<div class="cell" data-hash="L24-Review_cache/html/unnamed-chunk-28_413b5a8975eb7315b4ef283b5f4d5852">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Are 50% of the people in this study female?</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(famuss<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">"Female"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1167,19 +1167,19 @@ mean of x
  10.35025 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Are the means of the non-dominant and dominant columns different?7</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(famuss<span class="sc">$</span>drm.ch <span class="sc">-</span> famuss<span class="sc">$</span>drm.ch, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(famuss<span class="sc">$</span>drm.ch <span class="sc">-</span> famuss<span class="sc">$</span>ndrm.ch, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
 
-data:  famuss$drm.ch - famuss$drm.ch
-t = NaN, df = 594, p-value = NA
+data:  famuss$drm.ch - famuss$ndrm.ch
+t = -33.395, df = 594, p-value &lt; 2.2e-16
 alternative hypothesis: true mean is not equal to 0
 95 percent confidence interval:
- NaN NaN
+ -45.46622 -40.41546
 sample estimates:
 mean of x 
-        0 </code></pre>
+-42.94084 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Is there a difference between change in non-dominant arm strength for men and women in this study?</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(ndrm.ch <span class="sc">~</span> sex, <span class="at">data =</span> famuss, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
